@@ -1,0 +1,477 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{56900468-9E82-45AD-8BF5-68B57CBEE866}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UIEditor</RootNamespace>
+    <AssemblyName>KNXUIEditor</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>ModelEditor_EditModel_48x48.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Aga.Controls, Version=1.7.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AdamsLair.TreeViewAdv.1.7.2.0\lib\net20\Aga.Controls.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ionic.Zip">
+      <HintPath>..\packages\DotNetZip.1.9.3\lib\net20\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.3.2.0.0\lib\net40\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="SourceGrid">
+      <HintPath>..\packages\SourceGrid.4.4.0\lib\net35\SourceGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Actions\Types8BitUnsignedValue\DPTScaling\AbsoluteAdjustment30Node.cs" />
+    <Compile Include="Actions\Types8BitUnsignedValue\DPTScaling\AbsoluteAdjustment60Node.cs" />
+    <Compile Include="Actions\Types8BitUnsignedValue\DPTScaling\AbsoluteAdjustment90Node.cs" />
+    <Compile Include="Actions\Types8BitUnsignedValue\DPTScaling\ActionAbsoluteAdjustmentPercentNode.cs" />
+    <Compile Include="Actions\ActionNode.cs" />
+    <Compile Include="Actions\DefaultActions.cs" />
+    <Compile Include="Actions\TypesB1U3\DPTControlDimming\ActionRelativeDimmingNode.cs" />
+    <Compile Include="Actions\Types8BitUnsignedValue\DPTScaling\DPTScalingNode.cs" />
+    <Compile Include="Actions\Types8BitUnsignedValue\Types8BitUnsignedValueNode.cs" />
+    <Compile Include="Actions\TypesB1U3\DPTControlDimming\DPTControlDimmingNode.cs" />
+    <Compile Include="Actions\TypesB1U3\TypesB1U3Node.cs" />
+    <Compile Include="Actions\TypesB1\DPTSwitch\ActionSwitchNode.cs" />
+    <Compile Include="Actions\TypesB1U3\DPTControlDimming\RelativeDimmingDec25Node.cs" />
+    <Compile Include="Actions\TypesB1U3\DPTControlDimming\RelativeDimmingDec50Node.cs" />
+    <Compile Include="Actions\TypesB1U3\DPTControlDimming\RelativeDimmingDec100Node.cs" />
+    <Compile Include="Actions\TypesB1U3\DPTControlDimming\RelativeDimmingInc25Node.cs" />
+    <Compile Include="Actions\TypesB1U3\DPTControlDimming\RelativeDimmingInc50Node.cs" />
+    <Compile Include="Actions\TypesB1U3\DPTControlDimming\RelativeDimmingInc100Node.cs" />
+    <Compile Include="Actions\TypeSceneControl\DPTSceneControl\ActionSceneNode.cs" />
+    <Compile Include="Actions\TypeSceneControl\DPTSceneControl\DPTSceneControlNode.cs" />
+    <Compile Include="Actions\TypeSceneControl\DPTSceneControl\Scene1Node.cs" />
+    <Compile Include="Actions\TypeSceneControl\DPTSceneControl\Scene2Node.cs" />
+    <Compile Include="Actions\TypeSceneControl\DPTSceneControl\Scene3Node.cs" />
+    <Compile Include="Actions\TypesB1\DPTSwitch\SwitchCloseNode.cs" />
+    <Compile Include="Actions\TypesB1\DPTSwitch\DPTSwitchNode.cs" />
+    <Compile Include="Actions\TypesB1\DPTSwitch\SwitchOpenNode.cs" />
+    <Compile Include="Actions\TypesB1\TypesB1Node.cs" />
+    <Compile Include="Actions\TypeSceneControl\SceneControlNode.cs" />
+    <Compile Include="Component\AppStorage.cs" />
+    <Compile Include="Component\ColorSelectedArg.cs" />
+    <Compile Include="Component\Crypto\CRC32.cs" />
+    <Compile Include="Component\Crypto\AES.cs" />
+    <Compile Include="Component\Crypto\Base64.cs" />
+    <Compile Include="Component\Crypto\Crypto.cs" />
+    <Compile Include="Component\Crypto\CryptoConfig.cs" />
+    <Compile Include="Component\Crypto\CryptographyUtils.cs" />
+    <Compile Include="Component\Crypto\CryptogSym.cs" />
+    <Compile Include="Component\Crypto\CryptoHash.cs" />
+    <Compile Include="Component\Crypto\DES.cs" />
+    <Compile Include="Component\Crypto\FileTools.cs" />
+    <Compile Include="Component\Crypto\HashTools.cs" />
+    <Compile Include="Component\Crypto\ICrypto.cs" />
+    <Compile Include="Component\Crypto\MD5.cs" />
+    <Compile Include="Component\Crypto\SaltMD5.cs" />
+    <Compile Include="Component\DatapointTypesStorage.cs" />
+    <Compile Include="Component\Explorer.cs" />
+    <Compile Include="Component\FileHelper.cs" />
+    <Compile Include="Component\ImageHelper.cs" />
+    <Compile Include="Component\LogHelper.cs" />
+    <Compile Include="Component\SplitButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Component\ThemeColorPicker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Component\ThemeColorPicker.Designer.cs">
+      <DependentUpon>ThemeColorPicker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Component\ThemeColorPickerToolStripSplitButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Component\ThemeColorPickerWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Component\ThemeColorPickerWindow.Designer.cs">
+      <DependentUpon>ThemeColorPickerWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Component\VersionStorage.cs" />
+    <Compile Include="Component\XmlSerializerUtils.cs" />
+    <Compile Include="Entity\ContainerNode.cs" />
+    <Compile Include="Entity\Control\ImageButtonNode.cs" />
+    <Compile Include="Entity\Control\TimerTaskListViewNode.cs" />
+    <Compile Include="Entity\Control\TimerTaskButtonNode.cs" />
+    <Compile Include="Entity\ViewNode.cs" />
+    <Compile Include="ETS\GroupAddress.cs" />
+    <Compile Include="FrmDownloadUrl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmDownloadUrl.Designer.cs">
+      <DependentUpon>FrmDownloadUrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmGroupAddressPick.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmGroupAddressPick.Designer.cs">
+      <DependentUpon>FrmGroupAddressPick.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\ControlBaseNode.cs" />
+    <Compile Include="Entity\Control\BlindsNode.cs" />
+    <Compile Include="Entity\Control\SliderNode.cs" />
+    <Compile Include="Entity\Control\SnapperNode.cs" />
+    <Compile Include="Entity\Control\ColorLightNode.cs" />
+    <Compile Include="Entity\Control\MediaButtonNode.cs" />
+    <Compile Include="Entity\Control\SceneButtonNode.cs" />
+    <Compile Include="Entity\Control\SliderSwitchNode.cs" />
+    <Compile Include="Entity\Control\SnapperSwitchNode.cs" />
+    <Compile Include="Entity\Control\SwitchNode.cs" />
+    <Compile Include="Entity\Control\ValueDisplayNode.cs" />
+    <Compile Include="Entity\Control\WebCamViewerNode.cs" />
+    <Compile Include="Entity\GridNode.cs" />
+    <Compile Include="Entity\Control\LabelNode.cs" />
+    <Compile Include="Entity\Control\SIPCallNode.cs" />
+    <Compile Include="Component\ETSImport.cs" />
+    <Compile Include="FrmGroupAddress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmGroupAddress.Designer.cs">
+      <DependentUpon>FrmGroupAddress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmHelp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmHelp.Designer.cs">
+      <DependentUpon>FrmHelp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMain.2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmGroupAddressMgt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmGroupAddressMgt.Designer.cs">
+      <DependentUpon>FrmGroupAddressMgt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Component\FrmMainHelp.cs" />
+    <Compile Include="FrmPreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPreview.Designer.cs">
+      <DependentUpon>FrmPreview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmAboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAboutBox.Designer.cs">
+      <DependentUpon>FrmAboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmEditCaption.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmEditCaption.Designer.cs">
+      <DependentUpon>FrmEditCaption.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmEditText.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmEditText.Designer.cs">
+      <DependentUpon>FrmEditText.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMain.designer.cs">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Component\GroupAddressStorage.cs" />
+    <Compile Include="Component\MyCache.cs" />
+    <Compile Include="Component\MyConst.cs" />
+    <Compile Include="Entity\AppNode.cs" />
+    <Compile Include="Entity\AreaNode.cs" />
+    <Compile Include="Entity\PageNode.cs" />
+    <Compile Include="Entity\RoomNode.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Component\ZipHelper.cs" />
+    <Compile Include="TreeviewAdvDemo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TreeviewAdvDemo.Designer.cs">
+      <DependentUpon>TreeviewAdvDemo.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Component\ThemeColorPicker.resx">
+      <DependentUpon>ThemeColorPicker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Component\ThemeColorPickerWindow.resx">
+      <DependentUpon>ThemeColorPickerWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmDownloadUrl.resx">
+      <DependentUpon>FrmDownloadUrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmGroupAddressPick.resx">
+      <DependentUpon>FrmGroupAddressPick.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmGroupAddress.resx">
+      <DependentUpon>FrmGroupAddress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmHelp.resx">
+      <DependentUpon>FrmHelp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmGroupAddressMgt.resx">
+      <DependentUpon>FrmGroupAddressMgt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPreview.resx">
+      <DependentUpon>FrmPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmAboutBox.resx">
+      <DependentUpon>FrmAboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmEditCaption.resx">
+      <DependentUpon>FrmEditCaption.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmEditText.resx">
+      <DependentUpon>FrmEditText.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMain.resx">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Content Include="Cassini\CassiniDev.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cassini\System.Drawing.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="default_icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="HelpDoc.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cassini\CassiniDev.exe.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <EmbeddedResource Include="TreeviewAdvDemo.resx">
+      <DependentUpon>TreeviewAdvDemo.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Export_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ModelEditor_EditModel_48x48.ico" />
+    <None Include="Resources\ImportKNX_16x16.png" />
+    <None Include="Resources\controls\blinds.png" />
+    <None Include="Resources\controls\button.png" />
+    <None Include="Resources\controls\label.png" />
+    <None Include="Resources\controls\media_button.png" />
+    <None Include="Resources\controls\rgb.png" />
+    <None Include="Resources\controls\scene_button.png" />
+    <None Include="Resources\controls\sip2.png" />
+    <None Include="Resources\controls\slider.png" />
+    <None Include="Resources\controls\slider_switch.png" />
+    <None Include="Resources\controls\snapper.png" />
+    <None Include="Resources\controls\snapper_switch.png" />
+    <None Include="Resources\controls\switch.png" />
+    <None Include="Resources\controls\value_display.png" />
+    <None Include="Resources\controls\webcam_viewer.png" />
+    <None Include="Resources\controls\imageButton.png" />
+    <None Include="Resources\add.png" />
+    <Content Include="Resources\controls\IconSwitchButton.png" />
+    <Content Include="Resources\controls\timer.png" />
+    <None Include="Resources\controls\timer_task.png" />
+    <None Include="Resources\controls\timer_task_list.png" />
+    <Content Include="Resources\Copy_16x16.png" />
+    <Content Include="Resources\Cut_16x16.png" />
+    <Content Include="Resources\Help_16.ico" />
+    <Content Include="Resources\Help_32.ico" />
+    <Content Include="Resources\connection_32.png" />
+    <Content Include="Resources\connection_16.png" />
+    <None Include="Resources\icon_helper.png" />
+    <Content Include="Resources\Paste_16x16.png" />
+    <Content Include="Resources\Refresh_16.png" />
+    <Content Include="Resources\Refresh_24.png" />
+    <None Include="Resources\remove.png" />
+    <Content Include="Resources\search_32.png" />
+    <Content Include="Resources\search_16.png" />
+    <Content Include="Resources\Publish_16.png" />
+    <Content Include="Resources\Save_16x16.png" />
+    <Content Include="Resources\CloseProj_16.png" />
+    <Content Include="Resources\CloseProj_32.png" />
+    <Content Include="Resources\Close_32.png" />
+    <Content Include="Resources\Close_16.png" />
+    <Content Include="Resources\Delete_Control_32x32.png" />
+    <Content Include="Resources\Delete_Control_16x16.png" />
+    <Content Include="Resources\controls\Slider_16.png" />
+    <Content Include="Resources\ui\delete_32.png" />
+    <Content Include="Resources\ui\delete_16.png" />
+    <Content Include="Resources\ui\add_32.png" />
+    <Content Include="Resources\ui\add_16.png" />
+    <Content Include="Resources\ui\Edit_32.png" />
+    <Content Include="Resources\ui\Edit_16.png" />
+    <None Include="Resources\SortAsc_32x32.png" />
+    <None Include="Resources\SortDesc_32x32.png" />
+    <None Include="Resources\SortDesc_16x16.png" />
+    <None Include="Resources\SortAsc_16x16.png" />
+    <None Include="Resources\Grid_32x32.png" />
+    <None Include="Resources\Grid_16x16.png" />
+    <None Include="Resources\MoveUp_16x16.png" />
+    <None Include="Resources\MoveDown_16x16.png" />
+    <None Include="Resources\Info_16x16.png" />
+    <None Include="Resources\Info_32x32.png" />
+    <None Include="Resources\MoveUp_32x32.png" />
+    <None Include="Resources\MoveDown_32x32.png" />
+    <Content Include="Resources\controls\Label_16x16.png" />
+    <Content Include="Resources\controls\Slider_16x16.png" />
+    <Content Include="Resources\controls\Button_16x16.png" />
+    <Content Include="Resources\App_16x16.png" />
+    <Content Include="Resources\App_32x32.png" />
+    <Content Include="Resources\Area_16x16.png" />
+    <Content Include="Resources\Area_32x32.png" />
+    <Content Include="Resources\Check_32x32.png" />
+    <Content Include="Resources\Collapse_16x16.png" />
+    <Content Include="Resources\Collapse_32x32.png" />
+    <Content Include="Resources\ColorPalette_16x16.png" />
+    <Content Include="Resources\ColorPalette_32x32.png" />
+    <Content Include="Resources\Controls_16x16.png" />
+    <Content Include="Resources\Controls_32x32.png" />
+    <Content Include="Resources\Expand_16x16.png" />
+    <Content Include="Resources\Expand_32x32.png" />
+    <Content Include="Resources\Help_16x16.png" />
+    <Content Include="Resources\Help_32x32.png" />
+    <Content Include="Resources\ImportKNX_32x32.png" />
+    <Content Include="Resources\New_32x32.png" />
+    <Content Include="Resources\Open_32x32.png" />
+    <Content Include="Resources\Page_16x16.png" />
+    <Content Include="Resources\Page_32x32.png" />
+    <Content Include="Resources\Room_16x16.png" />
+    <Content Include="Resources\Save_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\view\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 和 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Structure\Structure.csproj">
+      <Project>{41178f82-3b34-49af-b93e-5dc746e52e19}</Project>
+      <Name>Structure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

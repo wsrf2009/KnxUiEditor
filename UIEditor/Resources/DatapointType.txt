@@ -1,0 +1,76 @@
+﻿[
+	{
+		"mainNumber":1,
+		"format":"B1",
+		"size":"1 bit",
+		"subs":[
+			{
+				"subNumber":1,
+				"type":"Switch",
+				"actions":[
+					{
+						"cname":"开启",
+						"ename":"Open",
+						"defaultValue":1
+					},
+					{
+						"cname":"关闭",
+						"ename":"Close",
+						"defaultValue":0
+					}
+				]
+			}
+		]
+	},
+
+	{
+		"mainNumber":2,
+		"format":"B2",
+		"size":"2 bit",
+		"subs":[
+			{
+				"subNumber":1,
+				"type":"Switch Control",
+				"actions":[
+					{
+						"cname":"不控制",
+						"ename":"No Control",
+						"defaultValue":0
+					},
+					{
+						"cname":"功能0",
+						"ename":"Function Value 0",
+						"defaultValue":2
+					},
+					{
+						"cname":"功能1",
+						"ename":"Function Value 1",
+						"defaultValue":3
+					}
+				]
+			}
+		]
+	},
+
+	{
+		"mainNumber":3,
+		"format":"B1U3",
+		"size":"4 bit",
+		"subs":[
+			{
+				"subNumber":7,
+				"type":"Control Dimming",
+				"actions":[
+					{
+						"cname":"减少",
+						"english name":"Decrease",
+					}
+				]
+			},
+			{
+				"subNumber":8,
+				"type":"Control_Blinds",
+			}
+		]
+	}
+]
