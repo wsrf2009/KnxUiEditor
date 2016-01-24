@@ -28,7 +28,7 @@ namespace UIEditor.ETS
             Priority = KNXPriority.Low;
             IsCommunication = true;
             IsWrite = true;
-            IsRead = false;
+            IsRead = true;
             IsTransmit = true;
             IsUpgrade = true;
             WireNumber = "";

@@ -288,17 +288,17 @@ namespace UIEditor
 
             if (KNXDataType.Bit1 == Address.Type)
             {
-                MessageBox.Show("只能输入0或1", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("只能输入0或1", "错误", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             else if (KNXDataType.Bit4 == Address.Type)
             {
-                MessageBox.Show("输入范围：0~15", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("输入范围：0~15", "错误", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             else if (KNXDataType.Bit8 == Address.Type)
             {
-                MessageBox.Show("输入范围：-127~255", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("输入范围：-127~255", "错误", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             } 
         }
