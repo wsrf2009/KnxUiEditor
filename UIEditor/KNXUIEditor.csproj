@@ -250,9 +250,45 @@
     <Compile Include="Entity\AreaNode.cs" />
     <Compile Include="Entity\PageNode.cs" />
     <Compile Include="Entity\RoomNode.cs" />
+    <Compile Include="FrmSetDataType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSetDataType.Designer.cs">
+      <DependentUpon>FrmSetDataType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSetDefaultValue.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSetDefaultValue.Designer.cs">
+      <DependentUpon>FrmSetDefaultValue.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSetOperationTips.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSetOperationTips.Designer.cs">
+      <DependentUpon>FrmSetOperationTips.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSetWireNumber.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSetWireNumber.Designer.cs">
+      <DependentUpon>FrmSetWireNumber.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Component\ZipHelper.cs" />
+    <Compile Include="FrmSetPriority.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSetPriority.Designer.cs">
+      <DependentUpon>FrmSetPriority.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSetReadTimeSpan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSetReadTimeSpan.Designer.cs">
+      <DependentUpon>FrmSetReadTimeSpan.cs</DependentUpon>
+    </Compile>
     <Compile Include="TreeviewAdvDemo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -297,6 +333,21 @@
       <DependentUpon>FrmMain.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmSetDataType.resx">
+      <DependentUpon>FrmSetDataType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSetDefaultValue.resx">
+      <DependentUpon>FrmSetDefaultValue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSetOperationTips.resx">
+      <DependentUpon>FrmSetOperationTips.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSetPriority.resx">
+      <DependentUpon>FrmSetPriority.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSetWireNumber.resx">
+      <DependentUpon>FrmSetWireNumber.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
@@ -321,6 +372,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <EmbeddedResource Include="FrmSetReadTimeSpan.resx">
+      <DependentUpon>FrmSetReadTimeSpan.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TreeviewAdvDemo.resx">
       <DependentUpon>TreeviewAdvDemo.cs</DependentUpon>
     </EmbeddedResource>

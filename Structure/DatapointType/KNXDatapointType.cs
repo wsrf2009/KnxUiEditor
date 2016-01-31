@@ -47,5 +47,10 @@ namespace Structure.ETS
         public int Value { get; set; }
 
         public bool CanBeDelete { get; set; }
+
+        public override string ToString()
+        {
+            return this.Name;
+        }
     }
 }
