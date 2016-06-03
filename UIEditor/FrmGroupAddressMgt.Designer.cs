@@ -80,7 +80,7 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvGroupAddress.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvGroupAddress.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvGroupAddress.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnF2;
+            this.dgvGroupAddress.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dgvGroupAddress.Location = new System.Drawing.Point(0, 0);
             this.dgvGroupAddress.MultiSelect = false;
             this.dgvGroupAddress.Name = "dgvGroupAddress";

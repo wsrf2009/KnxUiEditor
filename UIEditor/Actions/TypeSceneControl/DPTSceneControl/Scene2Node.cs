@@ -13,7 +13,7 @@ namespace UIEditor.Actions.TypeSceneControl.DPTSceneControl
         public Scene2Node()
         {
             action = new KNXDatapointAction();
-            action.Name = Text = "场面2";
+            action.Name = Text = "场景2";
             action.Value = 1;
         }
     }

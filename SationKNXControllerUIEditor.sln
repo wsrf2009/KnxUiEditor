@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KNXUIEditor", "UIEditor\KNXUIEditor.csproj", "{56900468-9E82-45AD-8BF5-68B57CBEE866}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SationKNXControllerUIEditor", "UIEditor\SationKNXControllerUIEditor.csproj", "{56900468-9E82-45AD-8BF5-68B57CBEE866}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KnxUiEditorKeyTool", "KnxUiEditorKeyTool\KnxUiEditorKeyTool.csproj", "{2DEFA8B7-8229-44DD-8769-E746EF7E5CF2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SationKnxControllerUiEditorKeyTool", "KnxUiEditorKeyTool\SationKnxControllerUiEditorKeyTool.csproj", "{2DEFA8B7-8229-44DD-8769-E746EF7E5CF2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Structure", "Structure\Structure.csproj", "{41178F82-3B34-49AF-B93E-5DC746E52E19}"
 EndProject

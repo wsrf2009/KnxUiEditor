@@ -10,7 +10,7 @@ namespace UIEditor.Actions.TypeSceneControl.DPTSceneControl
     public class ActionSceneNode : DPTSceneControlNode
     {
         public ActionSceneNode() {
-            Text = "场面";
+            Text = "场景";
 
             this.Nodes.Add(new Scene1Node());
             this.Nodes.Add(new Scene2Node());

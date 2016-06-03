@@ -1481,6 +1481,17 @@ namespace UIEditor
                     //}
             //    }
             //}
+
+            //if (4 == e.ColumnIndex)
+            //{
+            //    DataGridViewComboBoxCell cel = new DataGridViewComboBoxCell();
+            //    cel.Style.BackColor = Color.Cornsilk;
+            //    foreach (var elem in Enum.GetNames(typeof(KNXDataType)))
+            //    {
+            //        cel.Items.Add(elem);
+            //    }
+            //    dgvGroupAddress.Rows[e.RowIndex].Cells[e.ColumnIndex] = cel;
+            //}
         }
         
         /// <summary>
