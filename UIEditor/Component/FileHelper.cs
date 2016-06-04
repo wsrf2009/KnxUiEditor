@@ -90,7 +90,7 @@ namespace UIEditor.Component
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show(folderName + "目录正在使用, 请关闭资源管理器后，重启应用程序！");
+                    MessageBox.Show(folderName + ResourceMng.GetString("Message40"));
                 }
             }
         }

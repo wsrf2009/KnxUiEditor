@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using UIEditor.Component;
 
 namespace UIEditor
 {
@@ -32,7 +33,7 @@ namespace UIEditor
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("输入的只能是数字", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ResourceMng.GetString("Message24"), ResourceMng.GetString("Message6"), MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                     Console.Write(ex.Message);
                 }

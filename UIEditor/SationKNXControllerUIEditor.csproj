@@ -56,6 +56,15 @@
   <PropertyGroup>
     <ApplicationIcon>ModelEditor_EditModel_48x48.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>false</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Aga.Controls, Version=1.7.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\AdamsLair.TreeViewAdv.1.7.2.0\lib\net20\Aga.Controls.dll</HintPath>
@@ -75,6 +84,7 @@
       <HintPath>..\packages\SourceGrid.4.4.0\lib\net35\SourceGrid.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
@@ -88,86 +98,390 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actions\Types8BitUnsignedValue\DPTScaling\AbsoluteAdjustment30Node.cs" />
-    <Compile Include="Actions\Types8BitUnsignedValue\DPTScaling\AbsoluteAdjustment60Node.cs" />
-    <Compile Include="Actions\Types8BitUnsignedValue\DPTScaling\AbsoluteAdjustment90Node.cs" />
-    <Compile Include="Actions\Types8BitUnsignedValue\DPTScaling\ActionAbsoluteAdjustmentPercentNode.cs" />
-    <Compile Include="Actions\ActionNode.cs" />
-    <Compile Include="Actions\DefaultActions.cs" />
-    <Compile Include="Actions\TypesB1U3\DPTControlDimming\ActionRelativeDimmingNode.cs" />
-    <Compile Include="Actions\Types8BitUnsignedValue\DPTScaling\DPTScalingNode.cs" />
-    <Compile Include="Actions\Types8BitUnsignedValue\Types8BitUnsignedValueNode.cs" />
-    <Compile Include="Actions\TypesB1U3\DPTControlDimming\DPTControlDimmingNode.cs" />
-    <Compile Include="Actions\TypesB1U3\TypesB1U3Node.cs" />
-    <Compile Include="Actions\TypesB1\DPTSwitch\ActionSwitchNode.cs" />
-    <Compile Include="Actions\TypesB1U3\DPTControlDimming\RelativeDimmingDec25Node.cs" />
-    <Compile Include="Actions\TypesB1U3\DPTControlDimming\RelativeDimmingDec50Node.cs" />
-    <Compile Include="Actions\TypesB1U3\DPTControlDimming\RelativeDimmingDec100Node.cs" />
-    <Compile Include="Actions\TypesB1U3\DPTControlDimming\RelativeDimmingInc25Node.cs" />
-    <Compile Include="Actions\TypesB1U3\DPTControlDimming\RelativeDimmingInc50Node.cs" />
-    <Compile Include="Actions\TypesB1U3\DPTControlDimming\RelativeDimmingInc100Node.cs" />
-    <Compile Include="Actions\TypeSceneControl\DPTSceneControl\ActionSceneNode.cs" />
-    <Compile Include="Actions\TypeSceneControl\DPTSceneControl\DPTSceneControlNode.cs" />
-    <Compile Include="Actions\TypeSceneControl\DPTSceneControl\Scene1Node.cs" />
-    <Compile Include="Actions\TypeSceneControl\DPTSceneControl\Scene2Node.cs" />
-    <Compile Include="Actions\TypeSceneControl\DPTSceneControl\Scene3Node.cs" />
-    <Compile Include="Actions\TypesB1\DPTSwitch\SwitchCloseNode.cs" />
-    <Compile Include="Actions\TypesB1\DPTSwitch\DPTSwitchNode.cs" />
-    <Compile Include="Actions\TypesB1\DPTSwitch\SwitchOpenNode.cs" />
-    <Compile Include="Actions\TypesB1\TypesB1Node.cs" />
-    <Compile Include="Actions\TypeSceneControl\SceneControlNode.cs" />
+    <Compile Include="Component\AppConfigHelper.cs" />
     <Compile Include="Component\AppStorage.cs" />
+    <Compile Include="Component\ColorHelper.cs" />
     <Compile Include="Component\ColorSelectedArg.cs" />
-    <Compile Include="Component\Crypto\CRC32.cs" />
-    <Compile Include="Component\Crypto\AES.cs" />
-    <Compile Include="Component\Crypto\Base64.cs" />
-    <Compile Include="Component\Crypto\Crypto.cs" />
-    <Compile Include="Component\Crypto\CryptoConfig.cs" />
-    <Compile Include="Component\Crypto\CryptographyUtils.cs" />
-    <Compile Include="Component\Crypto\CryptogSym.cs" />
-    <Compile Include="Component\Crypto\CryptoHash.cs" />
-    <Compile Include="Component\Crypto\DES.cs" />
-    <Compile Include="Component\Crypto\FileTools.cs" />
-    <Compile Include="Component\Crypto\HashTools.cs" />
-    <Compile Include="Component\Crypto\ICrypto.cs" />
-    <Compile Include="Component\Crypto\MD5.cs" />
-    <Compile Include="Component\Crypto\SaltMD5.cs" />
-    <Compile Include="Component\DatapointTypesStorage.cs" />
+    <Compile Include="Component\DescriptionAttribute.cs" />
     <Compile Include="Component\Explorer.cs" />
     <Compile Include="Component\FileHelper.cs" />
     <Compile Include="Component\ImageHelper.cs" />
+    <Compile Include="Component\KNXAddressHelper.cs" />
     <Compile Include="Component\LogHelper.cs" />
-    <Compile Include="Component\SplitButton.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Component\ThemeColorPicker.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Component\ThemeColorPicker.Designer.cs">
-      <DependentUpon>ThemeColorPicker.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Component\ThemeColorPickerToolStripSplitButton.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Component\ThemeColorPickerWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Component\ThemeColorPickerWindow.Designer.cs">
-      <DependentUpon>ThemeColorPickerWindow.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Component\ResourceMng.cs" />
+    <Compile Include="Component\TreeViewHelper.cs" />
     <Compile Include="Component\VersionStorage.cs" />
     <Compile Include="Component\XmlSerializerUtils.cs" />
+    <Compile Include="GroupAddress\ImGroupAddr.cs" />
+    <Compile Include="GroupAddress\KNXGroupAddress.cs" />
+    <Compile Include="GroupAddress\MgGroupAddress.cs" />
+    <Compile Include="GroupAddress\PcGroupAddress.cs" />
+    <Compile Include="KNX\DatapointAction\DatapointAction.cs" />
+    <Compile Include="KNX\DatapointType\DatapointType.cs" />
+    <Compile Include="KNX\DatapointType\Type24TimesChannelActivation\ChannelActivation24\ChannelActivation24Node.cs" />
+    <Compile Include="KNX\DatapointType\Type24TimesChannelActivation\Type24TimesChannelActivationNode.cs" />
+    <Compile Include="KNX\DatapointType\Type2NibbleSet\DoubleNibble\DoubleNibbleNode.cs" />
+    <Compile Include="KNX\DatapointType\Type2NibbleSet\Type2NibbleSetNode.cs" />
+    <Compile Include="KNX\DatapointType\Type3ByteColourRGB\ColourRGB\ColourRGBNode.cs" />
+    <Compile Include="KNX\DatapointType\Type3ByteColourRGB\Type3ByteColourRGBNode.cs" />
+    <Compile Include="KNX\DatapointType\Type3x2ByteFloatValue\TempRoomSetpSetF163\TempRoomSetpSetF163Node.cs" />
+    <Compile Include="KNX\DatapointType\Type3x2ByteFloatValue\TempRoomSetpSetShiftF163\TempRoomSetpSetShiftF163Node.cs" />
+    <Compile Include="KNX\DatapointType\Type3x2ByteFloatValue\Type3x2ByteFloatValueNode.cs" />
+    <Compile Include="KNX\DatapointType\Type411ByteCombinedInformation\MeteringValue\MeteringValueNode.cs" />
+    <Compile Include="KNX\DatapointType\Type411ByteCombinedInformation\Type411ByteCombinedInformationNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeB24\BuildingModeNext\BuildingModeNextNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeB24\DHWModeNext\DHWModeNextNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeB24\HVACModeNext\HVACModeNextNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeB24\OccModeNext\OccModeNextNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeB24\TypeB24Node.cs" />
+    <Compile Include="KNX\DatapointType\TypeB32\CombinedInfoOnOff\CombinedInfoOnOffNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeB32\TypeB32Node.cs" />
+    <Compile Include="KNX\DatapointType\TypeB16\ChannelActivation16\ChannelActivation16Node.cs" />
+    <Compile Include="KNX\DatapointType\TypeB16\Media\MediaNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeB16\StatusDHWC\StatusDHWCNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeB16\StatusRHCC\StatusRHCCNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeB16\TypeB16Node.cs" />
+    <Compile Include="KNX\DatapointType\TypeB8ConfigurationDiagnostics\DALIDiagnostics\DALIDiagnosticsNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeB8ConfigurationDiagnostics\TypeB8ConfigurationDiagnosticsNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeB8\ChannelActivation8\ChannelActivation8Node.cs" />
+    <Compile Include="KNX\DatapointType\TypeB8\DeviceControl\DeviceControlNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeB8\ForceSignCool\ForceSignCoolNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeB8\ForceSign\ForceSignNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeB8\FuelTypeSet\FuelTypeSetNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeB8\LightActuatorErrorInfo\LightActuatorErrorInfoNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeB8\RFFilterInfo\RFFilterInfoNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeB8\RFModeInfo\RFModeInfoNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeB8\StatusAHU\StatusAHUNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeB8\StatusGen\StatusGenNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeB8\StatusRCC\StatusRCCNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeB8\StatusRHC\StatusRHCNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeB8\StatusSDHWC\StatusSDHWCNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeB8\TypeB8Node.cs" />
+    <Compile Include="KNX\DatapointType\TypeB16ConfigurationDiagnostics\DALIControlGearDiagnostic\DALIControlGearDiagnosticNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeB16ConfigurationDiagnostics\TypeB16ConfigurationDiagnosticsNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeDatapointTypeVersion\TypeDatapointTypeVersionNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeDatapointTypeVersion\Version\VersionNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeDate\Date\DateNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeDate\TypeDateNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeDPTAccessData\AccessData\AccessDataNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeDPTAccessData\TypeDPTAccessDataNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeDPTAlarmInfo\AlarmInfo\AlarmInfoNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeDPTAlarmInfo\TypeDPTAlarmInfoNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeDPTDateTime\DateTime\DateTimeNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeDPTDateTime\TypeDPTDateTimeNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeDPTSceneControl\SceneControl\SceneControlNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeDPTSceneControl\TypeDPTSceneControlNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeDPTSceneInfo\SceneInfo\SceneInfoNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeDPTSceneInfo\TypeDPTSceneInfoNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeElectricalEnergy\ActiveEnergyV64\ActiveEnergyV64Node.cs" />
+    <Compile Include="KNX\DatapointType\TypeElectricalEnergy\ApparantEnergyV64\ApparantEnergyV64Node.cs" />
+    <Compile Include="KNX\DatapointType\TypeElectricalEnergy\ReactiveEnergyV64\ReactiveEnergyV64Node.cs" />
+    <Compile Include="KNX\DatapointType\TypeElectricalEnergy\TypeElectricalEnergyNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeLanguageCodeISO6391\LanguageCodeAlpha2ASCII\LanguageCodeAlpha2ASCIINode.cs" />
+    <Compile Include="KNX\DatapointType\TypeLanguageCodeISO6391\TypeLanguageCodeISO6391Node.cs" />
+    <Compile Include="KNX\DatapointType\TypeMBusAddress\MBusAddress\MBusAddressNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeMBusAddress\TypeMBusAddressNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetFloatValue\KelvinPerPercent\KelvinPerPercentNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetFloatValue\PowerDensity\PowerDensityNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetFloatValue\Power\PowerNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetFloatValue\RainAmount\RainAmountNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetFloatValue\Types2OctetFloatValueNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetFloatValue\ValueAirFlow\ValueAirFlowNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetFloatValue\ValueAirQuality\ValueAirQualityNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetFloatValue\ValueCurr\ValueCurrNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetFloatValue\ValueHumidity\ValueHumidityNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetFloatValue\ValueLux\ValueLuxNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetFloatValue\ValuePres\ValuePresNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetFloatValue\ValueTempa\ValueTempaNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetFloatValue\ValueTempd\ValueTempdNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetFloatValue\ValueTempF\ValueTempFNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetFloatValue\ValueTemp\ValueTempNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetFloatValue\ValueTime1\ValueTime1Node.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetFloatValue\ValueTime2\ValueTime2Node.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetFloatValue\ValueVolt\ValueVoltNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetFloatValue\ValueVolumeFlow\ValueVolumeFlowNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetFloatValue\ValueWspkmh\ValueWspkmhNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetFloatValue\ValueWsp\ValueWspNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetSignedValue\DeltaTime100Msec\DeltaTime100MsecNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetSignedValue\DeltaTime10Msec\DeltaTime10MsecNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetSignedValue\DeltaTimeHrs\DeltaTimeHrsNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetSignedValue\DeltaTimeMin\DeltaTimeMinNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetSignedValue\DeltaTimeMsec\DeltaTimeMsecNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetSignedValue\DeltaTimeSec\DeltaTimeSecNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetSignedValue\PercentV16\PercentV16Node.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetSignedValue\RotationAngle\RotationAngleNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetSignedValue\Types2OctetSignedValueNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetSignedValue\Value2Count\Value2CountNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetUnsignedValue\Brightness\BrightnessNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetUnsignedValue\Lengthmm\LengthmmNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetUnsignedValue\PropDataType\PropDataTypeNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetUnsignedValue\TimePeriod100Msec\TimePeriod100MsecNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetUnsignedValue\TimePeriodHrs\TimePeriodHrsNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetUnsignedValue\TimePeriodMin\TimePeriodMinNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetUnsignedValue\TimePeriodSec\TimePeriodSecNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetUnsignedValue\TimePeriod10Msec\TimePeriod10MsecNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetUnsignedValue\TimePeriodMsec\TimePeriodMsecNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetUnsignedValue\Types2OctetUnsignedValueNode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetUnsignedValue\UElCurrentmA\UElCurrentmANode.cs" />
+    <Compile Include="KNX\DatapointType\Types2OctetUnsignedValue\Value2Ucount\Value2UcountNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\Types4OctetFloatValueNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueAbsoluteTemperature\ValueAbsoluteTemperatureNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueAccelerationAngular\ValueAccelerationAngularNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueAcceleration\ValueAccelerationNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueActivationEnergy\ValueActivationEnergyNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueActivity\ValueActivityNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueAmplitude\ValueAmplitudeNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueAngleRad\ValueAngleRadNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueAngularFrequency\ValueAngularFrequencyNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueAngularMomentum\ValueAngularMomentumNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueAngularVelocity\ValueAngularVelocityNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueArea\ValueAreaNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueCapacitance\ValueCapacitanceNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueChargeDensitySurface\ValueChargeDensitySurfaceNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueChargeDensityVolume\ValueChargeDensityVolumeNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueCommonTemperature\ValueCommonTemperatureNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueCompressibility\ValueCompressibilityNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueConductance\ValueConductanceNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueDensity\ValueDensityNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueElectricalConductivity\ValueElectricalConductivityNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueElectricCharge\ValueElectricChargeNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueElectricCurrentDensity\ValueElectricCurrentDensityNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueElectricCurrent\ValueElectricCurrentNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueElectricDipoleMoment\ValueElectricDipoleMomentNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueElectricDisplacement\ValueElectricDisplacementNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueElectricFieldStrength\ValueElectricFieldStrengthNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueElectricFluxDensity\ValueElectricFluxDensityNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueElectricFlux\ValueElectricFluxNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueElectricPolarization\ValueElectricPolarizationNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueElectricPotentialDifference\ValueElectricPotentialDifferenceNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueElectricPotential\ValueElectricPotentialNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueElectromagneticMoment\ValueElectromagneticMomentNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueElectromotiveForce\ValueElectromotiveForceNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueEnergy\ValueEnergyNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueForce\ValueForceNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueFrequency\ValueFrequencyNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueHeatCapacity\ValueHeatCapacityNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueHeatFlowRate\ValueHeatFlowRateNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueHeatQuantity\ValueHeatQuantityNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueImpedance\ValueImpedanceNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueLength\ValueLengthNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueLightQuantity\ValueLightQuantityNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueLuminance\ValueLuminanceNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueLuminousFlux\ValueLuminousFluxNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueLuminousIntensity\ValueLuminousIntensityNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueMagneticFieldStrength\ValueMagneticFieldStrengthNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueMagneticFluxDensity\ValueMagneticFluxDensityNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueMagneticFlux\ValueMagneticFluxNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueMagneticMoment\ValueMagneticMomentNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueMagneticPolarization\ValueMagneticPolarizationNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueMagnetization\ValueMagnetizationNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueMagnetomotiveForce\ValueMagnetomotiveForceNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueMassFlux\ValueMassFluxNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueMass\ValueMassNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueMol\ValueMolNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueMomentum\ValueMomentumNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValuePhaseAngleDeg\ValuePhaseAngleDegNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValuePhaseAngleRad\ValuePhaseAngleRadNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValuePowerFactor\ValuePowerFactorNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValuePower\ValuePowerNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValuePressure\ValuePressureNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueReactance\ValueReactanceNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueResistance\ValueResistanceNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueResistivity\ValueResistivityNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueSelfInductance\ValueSelfInductanceNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueSolidAngle\ValueSolidAngleNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueSoundIntensity\ValueSoundIntensityNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueSpeed\ValueSpeedNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueStress\ValueStressNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueSurfaceTension\ValueSurfaceTensionNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueTemperatureDifference\ValueTemperatureDifferenceNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueThermalCapacity\ValueThermalCapacityNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueThermalConductivity\ValueThermalConductivityNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueThermoelectricPower\ValueThermoelectricPowerNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueTime\ValueTimeNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueTorque\ValueTorqueNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueVolumeFlux\ValueVolumeFluxNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueVolume\ValueVolumeNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueWeight\ValueWeightNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueWork\ValueWorkNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetSignedValue\ActiveEnergykWh\ActiveEnergykWhNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetSignedValue\ActiveEnergy\ActiveEnergyNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetSignedValue\ApparantEnergykVAh\ApparantEnergykVAhNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetSignedValue\ApparantEnergy\ApparantEnergyNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetSignedValue\FlowRatem3h\FlowRatem3hNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetSignedValue\LongDeltaTimeSec\LongDeltaTimeSecNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetSignedValue\ReactiveEnergykVARh\ReactiveEnergykVARhNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetSignedValue\ReactiveEnergy\ReactiveEnergyNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetSignedValue\Types4OctetSignedValueNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetSignedValue\Value4Count\Value4CountNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetUnsignedValue\Types4OctetUnsignedValueNode.cs" />
+    <Compile Include="KNX\DatapointType\Types4OctetUnsignedValue\Value4Ucount\Value4UcountNode.cs" />
+    <Compile Include="KNX\DatapointType\Types8BitUnsignedValue\Angle\AngleNode.cs" />
+    <Compile Include="KNX\DatapointType\Types8BitUnsignedValue\DecimalFactor\DecimalFactorNode.cs" />
+    <Compile Include="KNX\DatapointType\Types8BitUnsignedValue\PercentU8\PercentU8Node.cs" />
+    <Compile Include="KNX\DatapointType\Types8BitUnsignedValue\Scaling\ScalingNode.cs" />
+    <Compile Include="KNX\DatapointType\Types8BitUnsignedValue\Tariff\TariffNode.cs" />
+    <Compile Include="KNX\DatapointType\Types8BitUnsignedValue\Types8BitUnsignedValueNode.cs" />
+    <Compile Include="KNX\DatapointType\Types8BitUnsignedValue\Value1Ucount\Value1UcountNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesB1U3\ControlBlinds\ControlBlindsNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesB1U3\ControlDimming\ControlDimmingNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesB1U3\TypesB1U3Node.cs" />
+    <Compile Include="KNX\DatapointType\TypesB1\Ack\AckNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesB1\Alarm\AlarmNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesB1\BinaryValue\BinaryValueNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesB1\Bool\BoolNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesB1\HeatCool\HeatCoolNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesB1\DimSendStyle\DimSendStyleNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesB1\Enable\EnableNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesB1\InputSource\InputSourceNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesB1\Invert\InvertNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesB1\LogicalFunction\LogicalFunctionNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesB1\Occupancy\OccupancyNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesB1\OpenClose\OpenCloseNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesB1\Ramp\RampNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesB1\Reset\ResetNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesB1\SceneAB\SceneABNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesB1\ShutterBlindsMode\ShutterBlindsModeNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesB1\Start\StartNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesB1\State\StateNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesB1\Step\StepNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesB1\Switch\SwitchNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesB1\Trigger\TriggerNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesB1\TypesB1Node.cs" />
+    <Compile Include="KNX\DatapointType\TypesB1\UpDown\UpDownNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesB1\WindowDoor\WindowDoorNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesB2\AlarmControl\AlarmControlNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesB2\BinaryValueControl\BinaryValueControlNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesB2\BoolControl\BoolControlNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesB2\Direction1Control\Direction1ControlNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesB2\Direction2Control\Direction2ControlNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesB2\EnableControl\EnableControlNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesB2\InvertControl\InvertControlNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesB2\RampControl\RampControlNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesB2\StartControl\StartControlNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesB2\StateControl\StateControlNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesB2\StepControl\StepControlNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesB2\SwitchControl\SwitchControlNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesB2\TypesB2Node.cs" />
     <Compile Include="Entity\ContainerNode.cs" />
-    <Compile Include="Entity\Control\ImageButtonNode.cs" />
-    <Compile Include="Entity\Control\TimerTaskListViewNode.cs" />
+    <Compile Include="Entity\Control\DigitalAdjustmentNode.cs" />
     <Compile Include="Entity\Control\TimerTaskButtonNode.cs" />
     <Compile Include="Entity\ViewNode.cs" />
-    <Compile Include="ETS\GroupAddress.cs" />
-    <Compile Include="FrmDownloadUrl.cs">
+    <Compile Include="FrmETSImport.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmDownloadUrl.Designer.cs">
-      <DependentUpon>FrmDownloadUrl.cs</DependentUpon>
+    <Compile Include="FrmETSImport.Designer.cs">
+      <DependentUpon>FrmETSImport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GroupAddress\EdGroupAddress.cs" />
+    <Compile Include="FrmProgress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmProgress.Designer.cs">
+      <DependentUpon>FrmProgress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KNX\DatapointType\TypeSceneNumber\SceneNumber\SceneNumberNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeSceneNumber\TypeSceneNumberNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesCharacterSet\CharASCII\CharASCIINode.cs" />
+    <Compile Include="KNX\DatapointType\TypesCharacterSet\Char88591\Char88591Node.cs" />
+    <Compile Include="KNX\DatapointType\TypesCharacterSet\TypesCharacterSetNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN2\AlarmReaction\AlarmReactionNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN2\HVACPBAction\HVACPBActionNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN2\OnOffAction\OnOffActionNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN2\TypesN2Node.cs" />
+    <Compile Include="KNX\DatapointType\TypesN2\UpDownAction\UpDownActionNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\ActuatorConnectType\ActuatorConnectTypeNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\ADAType\ADATypeNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\AddInfoTypes\AddInfoTypesNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\AlarmClassType\AlarmClassTypeNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\ApplicationArea\ApplicationAreaNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\BackupMode\BackupModeNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\BeaufortWindForceScale\BeaufortWindForceScaleNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\BehaviourBusPowerUpDown\BehaviourBusPowerUpDownNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\BehaviourLockUnlock\BehaviourLockUnlockNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\BlindsControlMode\BlindsControlModeNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\BlinkingMode\BlinkingModeNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\BuildingMode\BuildingModeNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\BurnerType\BurnerTypeNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\ChangeoverMode\ChangeoverModeNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\CommMode\CommModeNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\DALIFadeTime\DALIFadeTimeNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\DamperMode\DamperModeNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\DHWMode\DHWModeNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\DimmPBModel\DimmPBModelNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\ErrorClassHVAC\ErrorClassHVACNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\ErrorClassSystem\ErrorClassSystemNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\FanMode\FanModeNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\FuelType\FuelTypeNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\HeaterMode\HeaterModeNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\HVACContrMode\HVACContrModeNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\HVACEmergMode\HVACEmergModeNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\HVACMode\HVACModeNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\LightApplicationMode\LightApplicationModeNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\LightControlMode\LightControlModeNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\LoadPriority\LoadPriorityNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\LoadTypeDetected\LoadTypeDetectedNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\LoadTypeSet\LoadTypeSetNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\MasterSlaveMode\MasterSlaveModeNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\MeteringDeviceType\MeteringDeviceTypeNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\OccMode\OccModeNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\PBAction\PBActionNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\Priority\PriorityNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\PSUMode\PSUModeNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\RFFilterSelect\RFFilterSelectNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\RFModeSelect\RFModeSelectNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\SABBehaviourLockUnlock\SABBehaviourLockUnlockNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\SABExceptBehaviour\SABExceptBehaviourNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\SCLOMode\SCLOModeNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\SensorSelect\SensorSelectNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\SSSBMode\SSSBModeNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\StartSynchronization\StartSynchronizationNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\StatusRoomSetp\StatusRoomSetpNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\SwitchOnMode\SwitchOnModeNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\SwitchPBModel\SwitchPBModelNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\TimeDelay\TimeDelayNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\TypesN8Node.cs" />
+    <Compile Include="KNX\DatapointType\TypesN8\ValveMode\ValveModeNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesString\String88591\String88591Node.cs" />
+    <Compile Include="KNX\DatapointType\TypesString\StringASCII\StringASCIINode.cs" />
+    <Compile Include="KNX\DatapointType\TypesString\TypesStringNode.cs" />
+    <Compile Include="KNX\DatapointType\TypesV8\PercentV8\PercentV8Node.cs" />
+    <Compile Include="KNX\DatapointType\TypesV8\StatusMode1\StatusMode3Node.cs" />
+    <Compile Include="KNX\DatapointType\TypesV8\TypesV8Node.cs" />
+    <Compile Include="KNX\DatapointType\TypesV8\Value1Count\Value1CountNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeTime\TimeOfDay\TimeOfDayNode.cs" />
+    <Compile Include="KNX\DatapointType\TypeTime\TypeTimeNode.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SationUIControl\STBlinds.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SationUIControl\STContainer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SationUIControl\STControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SationUIControl\STDigitalAdjustment.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SationUIControl\STGroupBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SationUIControl\STLable.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SationUIControl\STPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SationUIControl\STSceneButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SationUIControl\FrameControl.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="FrmGroupAddressPick.cs">
       <SubType>Form</SubType>
@@ -177,19 +491,12 @@
     </Compile>
     <Compile Include="Entity\ControlBaseNode.cs" />
     <Compile Include="Entity\Control\BlindsNode.cs" />
-    <Compile Include="Entity\Control\SliderNode.cs" />
-    <Compile Include="Entity\Control\SnapperNode.cs" />
-    <Compile Include="Entity\Control\ColorLightNode.cs" />
-    <Compile Include="Entity\Control\MediaButtonNode.cs" />
     <Compile Include="Entity\Control\SceneButtonNode.cs" />
     <Compile Include="Entity\Control\SliderSwitchNode.cs" />
-    <Compile Include="Entity\Control\SnapperSwitchNode.cs" />
     <Compile Include="Entity\Control\SwitchNode.cs" />
     <Compile Include="Entity\Control\ValueDisplayNode.cs" />
-    <Compile Include="Entity\Control\WebCamViewerNode.cs" />
-    <Compile Include="Entity\GridNode.cs" />
+    <Compile Include="Entity\Control\GroupBoxNode.cs" />
     <Compile Include="Entity\Control\LabelNode.cs" />
-    <Compile Include="Entity\Control\SIPCallNode.cs" />
     <Compile Include="Component\ETSImport.cs" />
     <Compile Include="FrmGroupAddress.cs">
       <SubType>Form</SubType>
@@ -203,9 +510,6 @@
     <Compile Include="FrmHelp.Designer.cs">
       <DependentUpon>FrmHelp.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmMain.2.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="FrmGroupAddressMgt.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -213,29 +517,11 @@
       <DependentUpon>FrmGroupAddressMgt.cs</DependentUpon>
     </Compile>
     <Compile Include="Component\FrmMainHelp.cs" />
-    <Compile Include="FrmPreview.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmPreview.Designer.cs">
-      <DependentUpon>FrmPreview.cs</DependentUpon>
-    </Compile>
     <Compile Include="FrmAboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmAboutBox.Designer.cs">
       <DependentUpon>FrmAboutBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FrmEditCaption.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmEditCaption.Designer.cs">
-      <DependentUpon>FrmEditCaption.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FrmEditText.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmEditText.Designer.cs">
-      <DependentUpon>FrmEditText.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmMain.cs">
       <SubType>Form</SubType>
@@ -262,18 +548,6 @@
     <Compile Include="FrmSetDefaultValue.Designer.cs">
       <DependentUpon>FrmSetDefaultValue.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmSetOperationTips.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmSetOperationTips.Designer.cs">
-      <DependentUpon>FrmSetOperationTips.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FrmSetWireNumber.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmSetWireNumber.Designer.cs">
-      <DependentUpon>FrmSetWireNumber.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Component\ZipHelper.cs" />
@@ -289,20 +563,66 @@
     <Compile Include="FrmSetReadTimeSpan.Designer.cs">
       <DependentUpon>FrmSetReadTimeSpan.cs</DependentUpon>
     </Compile>
-    <Compile Include="TreeviewAdvDemo.cs">
-      <SubType>Form</SubType>
+    <Compile Include="SationUIControl\STPanel.cs">
+      <SubType>Component</SubType>
     </Compile>
-    <Compile Include="TreeviewAdvDemo.Designer.cs">
-      <DependentUpon>TreeviewAdvDemo.cs</DependentUpon>
+    <Compile Include="SationUIControl\STSliderSwitch.cs">
+      <SubType>Component</SubType>
     </Compile>
-    <EmbeddedResource Include="Component\ThemeColorPicker.resx">
-      <DependentUpon>ThemeColorPicker.cs</DependentUpon>
+    <Compile Include="SationUIControl\STSwitch.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SationUIControl\STTimerButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SationUIControl\STValueDisplay.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <EmbeddedResource Include="FrmETSImport.resx">
+      <DependentUpon>FrmETSImport.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Component\ThemeColorPickerWindow.resx">
-      <DependentUpon>ThemeColorPickerWindow.cs</DependentUpon>
+    <EmbeddedResource Include="FrmETSImport.zh-CN.resx">
+      <DependentUpon>FrmETSImport.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmDownloadUrl.resx">
-      <DependentUpon>FrmDownloadUrl.cs</DependentUpon>
+    <EmbeddedResource Include="FrmAboutBox.zh-CN.resx">
+      <DependentUpon>FrmAboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmGroupAddress.zh-CN.resx">
+      <DependentUpon>FrmGroupAddress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmGroupAddressMgt.zh-CN.resx">
+      <DependentUpon>FrmGroupAddressMgt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmGroupAddressPick.zh-CN.resx">
+      <DependentUpon>FrmGroupAddressPick.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmHelp.zh-CN.resx">
+      <DependentUpon>FrmHelp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMain.zh-CN.resx">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmProgress.resx">
+      <DependentUpon>FrmProgress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSetDataType.zh-CN.resx">
+      <DependentUpon>FrmSetDataType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSetDefaultValue.zh-CN.resx">
+      <DependentUpon>FrmSetDefaultValue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSetPriority.zh-CN.resx">
+      <DependentUpon>FrmSetPriority.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSetReadTimeSpan.zh-CN.resx">
+      <DependentUpon>FrmSetReadTimeSpan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SationUIControl\FrameControl.resx">
+      <DependentUpon>FrameControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmGroupAddressPick.resx">
       <DependentUpon>FrmGroupAddressPick.cs</DependentUpon>
@@ -317,17 +637,8 @@
     <EmbeddedResource Include="FrmGroupAddressMgt.resx">
       <DependentUpon>FrmGroupAddressMgt.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmPreview.resx">
-      <DependentUpon>FrmPreview.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FrmAboutBox.resx">
       <DependentUpon>FrmAboutBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmEditCaption.resx">
-      <DependentUpon>FrmEditCaption.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmEditText.resx">
-      <DependentUpon>FrmEditText.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
@@ -339,57 +650,37 @@
     <EmbeddedResource Include="FrmSetDefaultValue.resx">
       <DependentUpon>FrmSetDefaultValue.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmSetOperationTips.resx">
-      <DependentUpon>FrmSetOperationTips.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FrmSetPriority.resx">
       <DependentUpon>FrmSetPriority.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmSetWireNumber.resx">
-      <DependentUpon>FrmSetWireNumber.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
+    <EmbeddedResource Include="Properties\Resources.zh-CN.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <LastGenOutput>Resources.zh-CN.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Content Include="Cassini\CassiniDev.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Cassini\System.Drawing.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="default_icon.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="HelpDoc.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Cassini\CassiniDev.exe.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Content>
     <EmbeddedResource Include="FrmSetReadTimeSpan.resx">
       <DependentUpon>FrmSetReadTimeSpan.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TreeviewAdvDemo.resx">
-      <DependentUpon>TreeviewAdvDemo.cs</DependentUpon>
-    </EmbeddedResource>
+    <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueAngleDeg\ValueAngleDegNode.cs" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Compile Include="Properties\Resources.Designer.cs">
+    <Compile Include="Properties\Resources.zh-CN.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
+      <DependentUpon>Resources.zh-CN.resx</DependentUpon>
     </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -419,22 +710,155 @@
     <None Include="Resources\controls\slider_switch.png" />
     <None Include="Resources\controls\snapper.png" />
     <None Include="Resources\controls\snapper_switch.png" />
-    <None Include="Resources\controls\switch.png" />
     <None Include="Resources\controls\value_display.png" />
     <None Include="Resources\controls\webcam_viewer.png" />
     <None Include="Resources\controls\imageButton.png" />
     <None Include="Resources\add.png" />
+    <None Include="Resources\controls\icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\America-flag_16x16.png" />
+    <None Include="Resources\Chinese-flag_16x16.png" />
+    <Content Include="Resources\controls\DigitalAdjustment_500x500.png" />
     <Content Include="Resources\controls\IconSwitchButton.png" />
-    <Content Include="Resources\controls\timer.png" />
-    <None Include="Resources\controls\timer_task.png" />
+    <None Include="Resources\controls\switch_16x16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\controls\timer_task_list.png" />
+    <Content Include="Resources\controls\RadioGroup_220x220.png" />
+    <None Include="Resources\controls\timer_512x512.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="Resources\Copy_16x16.png" />
     <Content Include="Resources\Cut_16x16.png" />
+    <None Include="Resources\DigitalAdjustment_500x500.bmp" />
     <Content Include="Resources\Help_16.ico" />
     <Content Include="Resources\Help_32.ico" />
     <Content Include="Resources\connection_32.png" />
     <Content Include="Resources\connection_16.png" />
     <None Include="Resources\icon_helper.png" />
+    <Content Include="Resources\Images\ab.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\arrow_down.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\arrow_up.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\BG1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\bj1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\bj2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\bj3.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\bj4.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\bj5.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\bj_kt.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\cj.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\cj_bg1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\default_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\demo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\dmt.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\hjms.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\hw.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\kt.PNG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\lightOff.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\lightOn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\ljms.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\ltj.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\ltkt.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\nyjl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\NY_bg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\qcms.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\silder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\sl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\sl_left.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\sl_right.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\smms.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\stripOff.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\stripOn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\SW_bg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\tfOff.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\tfOn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\ws.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\WS_bg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\XG_bg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\YS_bg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\New_16x16.png" />
+    <None Include="Resources\Open_16x16.png" />
     <Content Include="Resources\Paste_16x16.png" />
     <Content Include="Resources\Refresh_16.png" />
     <Content Include="Resources\Refresh_24.png" />

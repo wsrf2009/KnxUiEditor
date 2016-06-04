@@ -11,10 +11,12 @@ using System.Windows.Forms.VisualStyles;
 using Structure;
 using Structure.ETS;
 using UIEditor.Entity;
-using GroupAddress = UIEditor.ETS.GroupAddress;
+using GroupAddress = UIEditor.GroupAddress.EdGroupAddress;
 using UIEditor.Component;
-using UIEditor.Actions;
-using UIEditor.Actions.TypesB1.DPTSwitch;
+using UIEditor.KNX.DatapointType;
+using UIEditor.GroupAddress;
+using System.Threading;
+using UIEditor.KNX.DatapointAction;
 
 namespace UIEditor
 {
@@ -22,39 +24,54 @@ namespace UIEditor
 
     public partial class FrmGroupAddress : Form
     {
-        private GroupAddress _address = new GroupAddress();
+        private EdGroupAddress _address = null;
+        private TreeView tvDPTName = new TreeView();
 
         public FrmGroupAddress(DataStatus status)
         {
             InitializeComponent();
-
-            foreach (var it in Enum.GetNames(typeof(KNXDataType)))
-            {
-                this.cmbType.Items.Add(it);
-            }
-
-            AddressStatus = status;
 
             foreach (var it in Enum.GetNames(typeof(KNXPriority)))
             {
                 this.cmbPriority.Items.Add(it);
             }
 
-            foreach (var it in (new DefaultActions()).getDefalutActions()) {
+            foreach (var it in MyCache.NodeActions)
+            {
                 this.treeViewDefaultActions.Nodes.Add(it);
             }
+
+            AddressStatus = status;
+            if (DataStatus.Modify == AddressStatus)
+            {
+                this.txtID.Enabled = false;
+                //this.txtName.Enabled = false;
+                this.txtWriteAddress.Enabled = false;
+                //this.btnDPTName.Enabled = false;
+                //this.tvDPTName.Enabled = false;
+            }
+            //else if (DataStatus.Add == AddressStatus)
+            //{
+                foreach (var it in MyCache.NodeTypes)
+                {
+                    this.tvDPTName.Nodes.Add(it);
+                }
+                this.tvDPTName.Height = 300;
+                this.tvDPTName.Visible = false;
+                this.tvDPTName.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(tvDPTName_NodeMouseDoubleClick);
+                this.Controls.Add(this.tvDPTName);
+            //}
         }
 
-        public GroupAddress Address
+        public EdGroupAddress Address
         {
-            get 
+            get
             {
-                return _address; 
+                return _address;
             }
-            set 
+            set
             {
                 _address = value;
-                
             }
         }
 
@@ -65,39 +82,22 @@ namespace UIEditor
             if (Address != null)
             {
                 this.txtID.Text = Address.Id;
-                this.txtID.ReadOnly = true;
                 this.txtName.Text = Address.Name;
                 this.txtWriteAddress.Text = Address.KnxAddress;
-                this.cmbType.SelectedItem = Address.Type.ToString();
-                //if (Address.KnxDPTName.Length > 0)
-                //{
-                //    if (Address.KnxSize.Length > 0)
-                //    {
-                //        this.comboBoxDatapointType.Items.Add(Address.Type + "(" + Address.KnxSize + ")");
-                //        this.comboBoxDatapointType.SelectedItem = Address.Type + "(" + Address.KnxSize + ")";
-                //    }
-                //    else
-                //    {
-                //        this.comboBoxDatapointType.Items.Add(Address.Type);
-                //        this.comboBoxDatapointType.SelectedItem = Address.Type;
-                //    }
-                //}
-                //else { 
-                
-                //}
-                
-                this.txtDefaultValue.Text = Address.DefaultValue;
+                this.btnDPTName.Text = Address.DPTName;
+                //TreeViewHelper.SelectNode2Level(this.tvDPTName, Address.DPTName);
                 this.cmbPriority.SelectedItem = Address.Priority.ToString();
-                this.txtWireNumber.Text = Address.WireNumber;
+                this.txtDefaultValue.Text = Address.DefaultValue;
                 this.txtReadTimespan.Text = Address.ReadTimeSpan.ToString();
                 this.cbxCommunication.Checked = Address.IsCommunication;
                 this.cbxRead.Checked = Address.IsRead;
                 this.cbxWrite.Checked = Address.IsWrite;
                 this.cbxTransmit.Checked = Address.IsTransmit;
                 this.cbxUpgrade.Checked = Address.IsUpgrade;
-                this.textBoxTip.Text = Address.Tip;
+                //this.textBoxTip.Text = Address.Tip;
 
-                if (_address.Actions != null) { 
+                if (_address.Actions != null)
+                {
                     foreach (var it in _address.Actions)
                     {
                         this.listBoxActios.Items.Add(it.Name);
@@ -107,30 +107,39 @@ namespace UIEditor
                 this.buttonDeleteAction.Enabled = false;
                 this.buttonAddAction.Enabled = false;
 
-                if (5 == Address.KnxMainNumber)
-                {
-                    if (1 == Address.KnxSubNumber)
-                    { 
-                    
-                    }
-                }
+                //new Thread(tvDPTNameSelect).Start();
+                //this.backgroundWorker1.RunWorkerAsync();
             }
         }
 
+        private void FrmGroupAddress_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.tvDPTName.Nodes.Clear();
+            this.treeViewDefaultActions.Nodes.Clear();
+        }
 
         private void btnOK_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(this.btnDPTName.Text))
+            {
+                MessageBox.Show(ResourceMng.GetString("Message46"), ResourceMng.GetString("Message6"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                
+                return;
+            }
+
             Address.Name = this.txtName.Text.Trim();
             Address.KnxAddress = this.txtWriteAddress.Text.Trim();
+
             // 数据类型
-            var selectedText = this.cmbType.SelectedItem;
-            if (selectedText != null)
+            DatapointType dpt = DatapointType.GetTypeNode(this.btnDPTName.Text); //this.tvDPTName.SelectedNode as DatapointType;
+            if (null != dpt)
             {
-                KNXDataType dataType = KNXDataType.Bit1;
-                Enum.TryParse(selectedText.ToString(), out dataType);
-                Address.Type = dataType;
-                //Address.KnxType = selectedText.ToString();
+                Address.KnxMainNumber = dpt.KNXMainNumber;
+                Address.KnxSubNumber = dpt.KNXSubNumber;
+                Address.DPTName = dpt.Text;
+                Address.Type = dpt.Type;
             }
+
             // 默认值
             Address.DefaultValue = this.txtDefaultValue.Text.Trim();
 
@@ -143,14 +152,14 @@ namespace UIEditor
                 Address.Priority = priority;
             }
 
-            Address.WireNumber = this.txtWireNumber.Text.Trim();
+            //Address.WireNumber = this.txtWireNumber.Text.Trim();
             Address.ReadTimeSpan = Convert.ToInt32(txtReadTimespan.Text);
             Address.IsCommunication = this.cbxCommunication.Checked;
             Address.IsRead = this.cbxRead.Checked;
             Address.IsWrite = this.cbxWrite.Checked;
             Address.IsTransmit = this.cbxTransmit.Checked;
             Address.IsUpgrade = this.cbxUpgrade.Checked;
-            Address.Tip = this.textBoxTip.Text;
+            //Address.Tip = this.textBoxTip.Text;
 
             this.DialogResult = DialogResult.OK;
         }
@@ -168,7 +177,7 @@ namespace UIEditor
             this.buttonDeleteAction.Enabled = true;
 
             string actionName = (string)this.listBoxActios.SelectedItem;
-            KNXDatapointAction action = getActionAccrodingToActionName(actionName);
+            DatapointActionNode action = getActionAccrodingToActionName(actionName);
             if (null != action)
             {
                 this.textBoxActionName.Text = action.Name;
@@ -183,7 +192,7 @@ namespace UIEditor
                 //        this.buttonDeleteAction.Enabled = false;
                 //    }
             }
-            else 
+            else
             {
                 this.textBoxActionName.Text = "";
                 this.comboBoxActionValue.Text = "";
@@ -195,7 +204,7 @@ namespace UIEditor
             string name = this.textBoxActionName.Text.Trim();
             if (name.Length <= 0)
             {
-                MessageBox.Show("行为名称为空", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(ResourceMng.GetString("Message22"), ResourceMng.GetString("Message6"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 this.textBoxActionName.Focus();
                 return;
             }
@@ -203,7 +212,7 @@ namespace UIEditor
             string param = this.comboBoxActionValue.Text.Trim();
             if (param.Trim().Length <= 0)
             {
-                MessageBox.Show("行为值为空", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(ResourceMng.GetString("Message23"), ResourceMng.GetString("Message6"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 this.comboBoxActionValue.Focus();
                 return;
             }
@@ -215,21 +224,21 @@ namespace UIEditor
             }
             catch (Exception ex)
             {
-                string errorMsg = "输入的值错误，必须为数字";
-                MessageBox.Show(errorMsg, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                string errorMsg = ResourceMng.GetString("Message24");
+                MessageBox.Show(errorMsg, ResourceMng.GetString("Message6"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.comboBoxActionValue.Focus();
                 Console.Write(errorMsg + LogHelper.Format(ex));
 
                 return;
             }
 
-            addActionToList(new KNXDatapointAction(name, value), true);
+            addActionToList(new DatapointActionNode(name, value), true);
         }
 
         private void buttonDeleteAction_Click(object sender, EventArgs e)
         {
             string actionName = (string)this.listBoxActios.SelectedItem;
-            KNXDatapointAction action = getActionAccrodingToActionName(actionName);
+            DatapointActionNode action = getActionAccrodingToActionName(actionName);
             if (null != action)
             {
                 Address.Actions.Remove(action);
@@ -240,7 +249,8 @@ namespace UIEditor
             }
         }
 
-        private KNXDatapointAction getActionAccrodingToActionName(string name) {
+        private DatapointActionNode getActionAccrodingToActionName(string name)
+        {
             if (null != name)
             {
                 foreach (var action in Address.Actions)
@@ -257,65 +267,74 @@ namespace UIEditor
 
         private void buttonHelper_Click(object sender, EventArgs e)
         {
-            if (1 == Address.KnxMainNumber)
+
+            if (DatapointType.DPT_1 == Address.KnxMainNumber)
             {
-                MessageBox.Show("位操作，输入范围：0或1", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(ResourceMng.GetString("Message25"), ResourceMng.GetString("Message4"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            else if (3 == Address.KnxMainNumber)
+            else if (DatapointType.DPT_3 == Address.KnxMainNumber)
             {
-                if (7 == Address.KnxSubNumber) {
-                    MessageBox.Show("相对调光，输入范围：0~15\n0：无操作；1~7：调暗，数值越大调节幅度越小；8：无操作；9~15调亮：数值越大调节幅度越小", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (DatapointType.DPST_7 == Address.KnxSubNumber)
+                {
+                    MessageBox.Show(ResourceMng.GetString("Message26"), ResourceMng.GetString("Message4"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
             }
-            else if (5 == Address.KnxMainNumber)
+            else if (DatapointType.DPT_5 == Address.KnxMainNumber)
             {
-                if (1 == Address.KnxSubNumber)
+                if (DatapointType.DPST_1 == Address.KnxSubNumber)
                 {
-                    MessageBox.Show("绝对调节，输入范围：0~255\n计算公式 v = 255 * t（调节度，也即百分值）。例如要调节到25%，v=255*0.25=63.75，去掉小数得v=63", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(ResourceMng.GetString("Message27"), ResourceMng.GetString("Message4"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
             }
-            else if (18 == Address.KnxMainNumber)
+            else if (DatapointType.DPT_18 == Address.KnxMainNumber)
             {
-                if (1 == Address.KnxSubNumber)
+                if (DatapointType.DPST_1 == Address.KnxSubNumber)
                 {
-                    MessageBox.Show("场面选择，输入范围：0~63", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(ResourceMng.GetString("Message28"), ResourceMng.GetString("Message4"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
             }
 
             if (KNXDataType.Bit1 == Address.Type)
             {
-                MessageBox.Show("只能输入0或1", "错误", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(ResourceMng.GetString("Message29"), ResourceMng.GetString("Message6"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             else if (KNXDataType.Bit4 == Address.Type)
             {
-                MessageBox.Show("输入范围：0~15", "错误", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(ResourceMng.GetString("Message30"), ResourceMng.GetString("Message6"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             else if (KNXDataType.Bit8 == Address.Type)
             {
-                MessageBox.Show("输入范围：-127~255", "错误", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(ResourceMng.GetString("Message31"), ResourceMng.GetString("Message6"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
-            } 
+            }
         }
 
         private void treeViewDefaultActions_AfterSelect(object sender, TreeViewEventArgs e)
         {
             TreeNode currentNode = e.Node;
 
-            ActionNode actionNode = currentNode as ActionNode;
+            DatapointType actionNode = currentNode as DatapointType;
 
-            if ((Address.KnxMainNumber == actionNode.knxMainNumber) && (Address.KnxSubNumber == actionNode.knxSubNumber))
+            if (null != actionNode)
             {
-                this.buttonAddAction.Enabled = true;
-            }
-            else if (Address.Type == actionNode.type)
-            {
-                this.buttonAddAction.Enabled = true;
+                if ((Address.KnxMainNumber == actionNode.KNXMainNumber) && (Address.KnxSubNumber == actionNode.KNXSubNumber))
+                {
+                    this.buttonAddAction.Enabled = true;
+                }
+                else if (Address.Type == actionNode.Type)
+                {
+                    this.buttonAddAction.Enabled = true;
+                }
+                else
+                {
+                    this.buttonAddAction.Enabled = false;
+                }
             }
             else
             {
@@ -327,21 +346,28 @@ namespace UIEditor
 
         private void buttonAddAction_Click(object sender, EventArgs e)
         {
-            ActionNode actionNode = this.treeViewDefaultActions.SelectedNode as ActionNode;
-            if(null != actionNode)
+            foreach (TreeNode it in this.treeViewDefaultActions.SelectedNode.Nodes)
             {
-                if (null != actionNode.action)
+                DatapointActionNode actionNode = it as DatapointActionNode;
+                if (null != actionNode)
                 {
-                    addActionToList(actionNode.action, true);
+                    bool r = addActionToList(actionNode, true);
+                    if (!r)
+                    {
+                        return;
+                    }
                 }
-                else if (actionNode.Nodes.Count > 0)
+                else
                 {
-
-                    foreach (var node in actionNode.Nodes) {
-                        ActionNode cNode = node as ActionNode;
-                        if (null != cNode) {
-                            if (null != cNode.action) {
-                                addActionToList(cNode.action, false);
+                    foreach (var node in it.Nodes)
+                    {
+                        DatapointActionNode actNode = node as DatapointActionNode;
+                        if (null != actNode)
+                        {
+                            bool r = addActionToList(actNode, true);
+                            if (!r)
+                            {
+                                return;
                             }
                         }
                     }
@@ -349,28 +375,30 @@ namespace UIEditor
             }
         }
 
-        private bool addActionToList(KNXDatapointAction newAction, bool duplicateTip)
+        private bool addActionToList(DatapointActionNode newAction, bool duplicateTip)
         {
-            if (null == Address.Actions) {
-                Address.Actions = new List<KNXDatapointAction>();
+            if (null == Address.Actions)
+            {
+                Address.Actions = new List<DatapointActionNode>();
             }
 
-            KNXDatapointAction action = getActionAccrodingToActionName(newAction.Name);
+            DatapointActionNode action = getActionAccrodingToActionName(newAction.Name);
             if (null != action)
             {
                 if (duplicateTip)
                 {
-                    MessageBox.Show("添加失败，已经存在相同的行为名", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ResourceMng.GetString("Message32"), ResourceMng.GetString("Message6"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                
+
 
                 return false;
             }
 
-            if (KNXDataType.Bit1 == Address.Type) {
+            if (KNXDataType.Bit1 == Address.Type)
+            {
                 if ((0 > newAction.Value) || (1 < newAction.Value))
                 {
-                    MessageBox.Show("只能输入0或1", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ResourceMng.GetString("Message33"), ResourceMng.GetString("Message6"), MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                     return false;
                 }
@@ -379,37 +407,39 @@ namespace UIEditor
             {
                 if ((0 > newAction.Value) || (15 < newAction.Value))
                 {
-                    MessageBox.Show("输入范围：0~15", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ResourceMng.GetString("Message34"), ResourceMng.GetString("Message6"), MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                     return false;
                 }
             }
-            else if (KNXDataType.Bit8 == Address.Type) 
+            else if (KNXDataType.Bit8 == Address.Type)
             {
-                if ((-127 > newAction.Value) || (255 < newAction.Value)) {
-                    MessageBox.Show("输入范围：-127~255", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if ((-127 > newAction.Value) || (255 < newAction.Value))
+                {
+                    MessageBox.Show(ResourceMng.GetString("Message35"), ResourceMng.GetString("Message6"), MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                     return false;
                 }
 
-                if ((5 == Address.KnxMainNumber) && (1 == Address.KnxSubNumber)) {
-                    if ((0 > newAction.Value) || (255 < newAction.Value))
-                    {
-                        MessageBox.Show("输入范围：0~255", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                        return false;
-                    }
-                }
-                else if ((18 == Address.KnxMainNumber) && (1 == Address.KnxSubNumber))
+                if ((DatapointType.DPT_5 == Address.KnxMainNumber) && (DatapointType.DPST_1 == Address.KnxSubNumber))
                 {
                     if ((0 > newAction.Value) || (255 < newAction.Value))
                     {
-                        MessageBox.Show("输入范围：0~255", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(ResourceMng.GetString("Message36"), ResourceMng.GetString("Message6"), MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                         return false;
                     }
                 }
-            } 
+                else if ((DatapointType.DPT_18 == Address.KnxMainNumber) && (DatapointType.DPST_1 == Address.KnxSubNumber))
+                {
+                    if ((0 > newAction.Value) || (255 < newAction.Value))
+                    {
+                        MessageBox.Show(ResourceMng.GetString("Message36"), ResourceMng.GetString("Message6"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        return false;
+                    }
+                }
+            }
 
             Address.Actions.Add(newAction);
             this.listBoxActios.Items.Add(newAction.Name);
@@ -419,5 +449,44 @@ namespace UIEditor
 
             return true;
         }
+
+        private void btnDPTName_Click(object sender, EventArgs e)
+        {
+            if (this.tvDPTName.Visible)
+            {
+                this.tvDPTName.Visible = false;
+            }
+            else
+            {
+                this.tvDPTName.Top = this.btnDPTName.Bottom;
+                this.tvDPTName.Left = this.btnDPTName.Left;
+                this.tvDPTName.Width = this.btnDPTName.Width;
+
+                this.tvDPTName.Visible = true;
+                this.tvDPTName.BringToFront();
+
+                TreeViewHelper.SelectNode2Level(this.tvDPTName, this.btnDPTName.Text);
+            }
+        }
+
+        private void tvDPTName_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            DatapointType selectedNode = e.Node as DatapointType;
+            this.btnDPTName.Text = selectedNode.Text;
+            this.tvDPTName.Visible = false;
+        }
+
+        //private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        //{
+        //    Thread.Sleep(1);
+
+        //    TreeViewHelper.SelectNode2Level(this.tvDPTName, Address.DPTName);
+
+        //    if (DataStatus.Modify == AddressStatus)
+        //    {
+        //        this.tvDPTName.Enabled = false;
+        //        //this.tlpTop.Enabled = false;
+        //    }
+        //}
     }
 }

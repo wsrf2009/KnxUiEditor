@@ -1,5 +1,7 @@
 
 using System;
+using System.ComponentModel;
+using System.Drawing;
 
 namespace Structure
 {
@@ -44,8 +46,22 @@ namespace Structure
      */
     public enum KNXDataType
     {
-        Bit1 = 1, Bit2 = 2, Bit3 = 3, Bit4 = 4, Bit5 = 5, Bit6 = 6, Bit7 = 7, Bit8 = 8,
-        Bit16 = 16, Bit24 = 24, Bit32 = 32, Bit48 = 48, Bit64 = 64, Bit80 = 80, Byte14 = 112
+        Bit1,
+        Bit2,
+        Bit3,
+        Bit4,
+        Bit5, 
+        Bit6,
+        Bit7,
+        Bit8,
+        Bit16,
+        Bit24,
+        Bit32,
+        Bit48, 
+        Bit64,
+        Bit80, 
+        Bit112,
+        None
     }
 
     /*
@@ -109,6 +125,26 @@ namespace Structure
         Japanese
     }
 
+    public enum EMeasurementUnit
+    {
+        [Description("")]
+        None,
+
+        [Description("℃")]
+        Centigrade,
+
+        [Description("℉")]
+        Fahrenheit,
+
+        [Description("A")]
+        Ampere,
+
+        [Description("mA")]
+        Milliampere,
+
+        [Description("KW")]
+        Kilowatt
+    }
 
     /// <summary>
     /// 界面元素的基础类，提供统一的基础属性
@@ -120,11 +156,74 @@ namespace Structure
         /// </summary>
         public int Id { get; set; }
 
-
         /// <summary>
         /// 界面元素需要显示在前端的文字
         /// </summary>
         public string Text { get; set; }
 
+        /// <summary>
+        /// 控件的起始位置x
+        /// </summary>
+        public int Left { get; set; }
+
+        /// <summary>
+        /// 控件的起始位置y
+        /// </summary>
+        public int Top { get; set; }
+
+        /// <summary>
+        /// 控件的宽度
+        /// </summary>
+        public int Width { get; set; }
+
+        /// <summary>
+        /// 控件的宽度
+        /// </summary>
+        public int Height { get; set; }
+
+        /// <summary>
+        /// 边框宽度
+        /// </summary>
+        public bool DisplayBorder { get; set; }
+
+        /// <summary>
+        /// 边框颜色
+        /// </summary>
+        public string BorderColor { get; set; }
+
+        /// <summary>
+        /// 控件的不透明度
+        /// </summary>
+        public double Alpha { get; set; }
+
+        /// <summary>
+        /// 控件的圆角半径
+        /// </summary>
+        public int Radius { get; set; }
+
+        /// <summary>
+        /// 控件的外观
+        /// </summary>
+        public int FlatStyle { get; set; }
+
+        /// <summary>
+        /// 控件的背景色
+        /// </summary>
+        public string BackgroundColor { get; set; }
+
+        /// <summary>
+        /// 控件的背景图片
+        /// </summary>
+        public string BackgroundImage { get; set; }
+
+        /// <summary>
+        /// 控件的字体颜色
+        /// </summary>
+        public string FontColor { get; set; }
+
+        /// <summary>
+        /// 字体大小
+        /// </summary>
+        public int FontSize { get; set; }
     }
 }

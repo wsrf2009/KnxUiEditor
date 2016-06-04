@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmSetReadTimeSpan));
             this.label1 = new System.Windows.Forms.Label();
             this.txtboxTime = new System.Windows.Forms.TextBox();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -36,51 +37,37 @@
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 29);
+            resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(107, 12);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "读间隔时间（s）：";
             // 
             // txtboxTime
             // 
-            this.txtboxTime.Location = new System.Drawing.Point(113, 26);
+            resources.ApplyResources(this.txtboxTime, "txtboxTime");
             this.txtboxTime.Name = "txtboxTime";
-            this.txtboxTime.Size = new System.Drawing.Size(124, 21);
-            this.txtboxTime.TabIndex = 1;
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(14, 61);
+            resources.ApplyResources(this.btnCancel, "btnCancel");
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 2;
-            this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnConfirm
             // 
-            this.btnConfirm.Location = new System.Drawing.Point(162, 61);
+            resources.ApplyResources(this.btnConfirm, "btnConfirm");
             this.btnConfirm.Name = "btnConfirm";
-            this.btnConfirm.Size = new System.Drawing.Size(75, 23);
-            this.btnConfirm.TabIndex = 3;
-            this.btnConfirm.Text = "确定";
             this.btnConfirm.UseVisualStyleBackColor = true;
             this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
             // 
-            // ReadTimeSpan
+            // FrmSetReadTimeSpan
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(248, 93);
             this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.txtboxTime);
             this.Controls.Add(this.label1);
-            this.Name = "ReadTimeSpan";
-            this.Text = "批量设置";
+            this.Name = "FrmSetReadTimeSpan";
             this.ResumeLayout(false);
             this.PerformLayout();
 

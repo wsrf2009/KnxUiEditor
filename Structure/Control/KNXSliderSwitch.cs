@@ -8,31 +8,49 @@ namespace Structure.Control
     /// </summary>
     public class KNXSliderSwitch : KNXControlBase
     {
-        //Slider左边背景图片(SliderSymbol与此属性不能共存)
+        /// <summary>
+        /// Slider左边背景图片(SliderSymbol与此属性不能共存)
+        /// </summary>
         public string LeftImage { get; set; }
+        //public int LeftImageLeft { get; set; }
+        //public int LeftImageTop { get; set; }
+        //public int LeftImageWidth { get; set; }
+        //public int LeftImageHeight { get; set; }
 
 
-        //Slider左边背景图片(SliderSymbol与此属性不能共存)
+
+        /// <summary>
+        /// Slider左边背景图片(SliderSymbol与此属性不能共存)
+        /// </summary>
         public string RightImage { get; set; }
+        //public int RightImageLeft { get; set; }
+        //public int RightImageTop { get; set; }
+        //public int RightImageWidth { get; set; }
+        //public int RightImageHeight { get; set; }
 
-
-        //Slider滑动图片
+        /// <summary>
+        /// Slider滑动图片
+        /// </summary>
         public string SliderImage { get; set; }
 
-        //最小值
-        public int MinValue { get; set; }
+        ///// <summary>
+        ///// 最小值
+        ///// </summary>
+        //public int MinValue { get; set; }
 
-
-        //最大值
-        public int MaxValue { get; set; }
+        ///// <summary>
+        ///// 最大值
+        ///// </summary>
+        //public int MaxValue { get; set; }
 
 
         //要滑块两侧显示的符号。
-        public SliderSymbol ControlSymbol { get; set; }
+        //public SliderSymbol ControlSymbol { get; set; }
 
 
-        //滑动时延迟时间(单位毫秒)
-        public int SendInterval { get; set; }
+        ////滑动时延迟时间(单位毫秒)
+        //public int SendInterval { get; set; }
 
+        public bool IsRelativeControl { get; set; }
     }
 }

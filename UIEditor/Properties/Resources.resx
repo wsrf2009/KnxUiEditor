@@ -319,9 +319,6 @@
   <data name="ColorPalette_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\colorpalette_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="switch_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\controls\switch.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="label" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\controls\label.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -354,12 +351,6 @@
   </data>
   <data name="Controls_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\controls_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="default_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\default_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="timer_task" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\controls\timer_task.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="timer_task_list" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\controls\timer_task_list.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -539,5 +530,275 @@
   </data>
   <data name="remove" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\remove.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="switch_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\controls\switch_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\controls\icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DigitalAdjustment_500x500" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\controls\DigitalAdjustment_500x500.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RadioGroup_220x220" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\controls\RadioGroup_220x220.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="timer_512x512" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\controls\timer_512x512.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PropAlpha" xml:space="preserve">
+    <value>不透明度</value>
+  </data>
+  <data name="PropAppDesc" xml:space="preserve">
+    <value>程序说明</value>
+  </data>
+  <data name="PropBackColor" xml:space="preserve">
+    <value>背景色</value>
+  </data>
+  <data name="PropBackgroundImage" xml:space="preserve">
+    <value>背景图片</value>
+  </data>
+  <data name="PropClickable" xml:space="preserve">
+    <value>控件是否可以点击</value>
+  </data>
+  <data name="PropComLogo" xml:space="preserve">
+    <value>企业Logo</value>
+  </data>
+  <data name="PropDecimalDigits" xml:space="preserve">
+    <value>小数位数</value>
+  </data>
+  <data name="PropDefaultValue" xml:space="preserve">
+    <value>默认值</value>
+  </data>
+  <data name="PropDigitalNumber" xml:space="preserve">
+    <value>数字位数</value>
+  </data>
+  <data name="PropDisplayValue" xml:space="preserve">
+    <value>显示值</value>
+  </data>
+  <data name="PropEtsReadAddressId" xml:space="preserve">
+    <value>ETS读地址</value>
+  </data>
+  <data name="PropEtsWriteAddressIds" xml:space="preserve">
+    <value>ETS写地址表</value>
+  </data>
+  <data name="PropFlatStyle" xml:space="preserve">
+    <value>平面样式</value>
+  </data>
+  <data name="PropFontColor" xml:space="preserve">
+    <value>字体颜色</value>
+  </data>
+  <data name="PropFontSize" xml:space="preserve">
+    <value>字体大小</value>
+  </data>
+  <data name="PropHasTip" xml:space="preserve">
+    <value>是否有提示</value>
+  </data>
+  <data name="PropHeight" xml:space="preserve">
+    <value>高度(像素)</value>
+  </data>
+  <data name="PropIcon" xml:space="preserve">
+    <value>图标</value>
+  </data>
+  <data name="PropIsGroup" xml:space="preserve">
+    <value>是否属于组</value>
+  </data>
+  <data name="PropLeftImage" xml:space="preserve">
+    <value>左侧图片</value>
+  </data>
+  <data name="PropLeftText" xml:space="preserve">
+    <value>左标签</value>
+  </data>
+  <data name="PropMax" xml:space="preserve">
+    <value>最大值</value>
+  </data>
+  <data name="PropMeasurementUnit" xml:space="preserve">
+    <value>计量单位</value>
+  </data>
+  <data name="PropMin" xml:space="preserve">
+    <value>最小值</value>
+  </data>
+  <data name="PropRadius" xml:space="preserve">
+    <value>圆角半径</value>
+  </data>
+  <data name="PropRightImage" xml:space="preserve">
+    <value>右侧图片</value>
+  </data>
+  <data name="PropRightText" xml:space="preserve">
+    <value>右标签</value>
+  </data>
+  <data name="PropSlideImage" xml:space="preserve">
+    <value>滑动图片</value>
+  </data>
+  <data name="PropSwitchColorOff" xml:space="preserve">
+    <value>关闭时控件背景色</value>
+  </data>
+  <data name="PropSwitchColorOn" xml:space="preserve">
+    <value>开启时控件背景色</value>
+  </data>
+  <data name="PropSwitchImageOff" xml:space="preserve">
+    <value>关闭时显示的图片</value>
+  </data>
+  <data name="PropSwitchImageOn" xml:space="preserve">
+    <value>开启时显示的图片</value>
+  </data>
+  <data name="PropTip" xml:space="preserve">
+    <value>提示文字</value>
+  </data>
+  <data name="PropTitle" xml:space="preserve">
+    <value>标题</value>
+  </data>
+  <data name="PropType" xml:space="preserve">
+    <value>对象类型</value>
+  </data>
+  <data name="PropWidth" xml:space="preserve">
+    <value>宽度(像素)</value>
+  </data>
+  <data name="PropX" xml:space="preserve">
+    <value>X(水平起始)</value>
+  </data>
+  <data name="PropY" xml:space="preserve">
+    <value>Y(垂直起始)</value>
+  </data>
+  <data name="SwitchStateOff" xml:space="preserve">
+    <value>关</value>
+  </data>
+  <data name="SwitchStateOn" xml:space="preserve">
+    <value>开</value>
+  </data>
+  <data name="TextApplication" xml:space="preserve">
+    <value>应用程序</value>
+  </data>
+  <data name="TextArea" xml:space="preserve">
+    <value>区域</value>
+  </data>
+  <data name="TextBlinds" xml:space="preserve">
+    <value>窗帘控制</value>
+  </data>
+  <data name="TextDigitalAdjustment" xml:space="preserve">
+    <value>数字调节</value>
+  </data>
+  <data name="TextGroupBox" xml:space="preserve">
+    <value>组框</value>
+  </data>
+  <data name="TextLabel" xml:space="preserve">
+    <value>标签</value>
+  </data>
+  <data name="TextPage" xml:space="preserve">
+    <value>页面</value>
+  </data>
+  <data name="TextRoom" xml:space="preserve">
+    <value>房间</value>
+  </data>
+  <data name="TextSceneButton" xml:space="preserve">
+    <value>场景按钮</value>
+  </data>
+  <data name="TextSliderSwitch" xml:space="preserve">
+    <value>滑动开关</value>
+  </data>
+  <data name="TextSwitch" xml:space="preserve">
+    <value>开关</value>
+  </data>
+  <data name="TextTimer" xml:space="preserve">
+    <value>定时器</value>
+  </data>
+  <data name="TextValueDisplay" xml:space="preserve">
+    <value>数据显示</value>
+  </data>
+  <data name="PropIsDefaultRoom" xml:space="preserve">
+    <value>是否为默认房间</value>
+  </data>
+  <data name="PropPassword" xml:space="preserve">
+    <value>密码</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="Cut" xml:space="preserve">
+    <value>Cut</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Message1" xml:space="preserve">
+    <value>文件已经修改，是否要保存？</value>
+  </data>
+  <data name="Message10" xml:space="preserve">
+    <value>找不到启动程序 :</value>
+  </data>
+  <data name="Message11" xml:space="preserve">
+    <value>项目发布不成功 !</value>
+  </data>
+  <data name="Message12" xml:space="preserve">
+    <value>群组加载错误 !</value>
+  </data>
+  <data name="Message13" xml:space="preserve">
+    <value>类型不兼容，不能粘贴到当前的节点 !</value>
+  </data>
+  <data name="Message14" xml:space="preserve">
+    <value>你是否要删除当前节点 ?</value>
+  </data>
+  <data name="Message15" xml:space="preserve">
+    <value>删除节点提醒</value>
+  </data>
+  <data name="Message2" xml:space="preserve">
+    <value>文件保存提醒</value>
+  </data>
+  <data name="Message3" xml:space="preserve">
+    <value>没有数据!</value>
+  </data>
+  <data name="Message4" xml:space="preserve">
+    <value>提示信息</value>
+  </data>
+  <data name="Message5" xml:space="preserve">
+    <value>系统异常</value>
+  </data>
+  <data name="Message6" xml:space="preserve">
+    <value>错误提示</value>
+  </data>
+  <data name="Message7" xml:space="preserve">
+    <value>当前项目未保存，是否先将当前项目保存 ?</value>
+  </data>
+  <data name="Message8" xml:space="preserve">
+    <value>项目文件不兼容 !</value>
+  </data>
+  <data name="Message9" xml:space="preserve">
+    <value>找不到项目文件 :</value>
+  </data>
+  <data name="Paste" xml:space="preserve">
+    <value>粘贴</value>
+  </data>
+  <data name="AppDescription" xml:space="preserve">
+    <value>KNX UI Editor 是一款用户界面定制工具，本工具定义界面的元素和位置，通过解析引擎动态的生成控制界面</value>
+  </data>
+  <data name="AppName" xml:space="preserve">
+    <value>KNX UI Editor</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>ZHUHAI SATION</value>
+  </data>
+  <data name="Copyright" xml:space="preserve">
+    <value>ZHUHAI SATION 2012-2016</value>
+  </data>
+  <data name="Message16" xml:space="preserve">
+    <value>版本： {0}</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>产品名称</value>
+  </data>
+  <data name="New_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\New_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Open_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Open_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="America_flag_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\America-flag_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Chinese_flag_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Chinese-flag_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="add1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

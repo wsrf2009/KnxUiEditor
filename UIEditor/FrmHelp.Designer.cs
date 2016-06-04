@@ -34,23 +34,16 @@
             // 
             // wbsHelp
             // 
-            this.wbsHelp.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.wbsHelp.Location = new System.Drawing.Point(0, 0);
-            this.wbsHelp.MinimumSize = new System.Drawing.Size(20, 20);
+            resources.ApplyResources(this.wbsHelp, "wbsHelp");
             this.wbsHelp.Name = "wbsHelp";
-            this.wbsHelp.Size = new System.Drawing.Size(784, 562);
-            this.wbsHelp.TabIndex = 0;
             this.wbsHelp.Url = new System.Uri("", System.UriKind.Relative);
             // 
             // FrmHelp
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 562);
             this.Controls.Add(this.wbsHelp);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmHelp";
-            this.Text = "用户帮助";
             this.Load += new System.EventHandler(this.FrmHelp_Load);
             this.ResumeLayout(false);
 

@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using Newtonsoft.Json;
 using Structure;
 using Structure.ETS;
-using UIEditor.ETS;
+using UIEditor.GroupAddress;
 
 namespace UIEditor.Component
 {

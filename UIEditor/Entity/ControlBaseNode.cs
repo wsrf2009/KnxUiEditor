@@ -14,36 +14,32 @@ using SourceGrid.Cells.Controllers;
 using Structure;
 using UIEditor.Controls;
 using Button = SourceGrid.Cells.Button;
+using System.Drawing;
 
 namespace UIEditor.Entity
 {
-
-    /// <summary>
-    /// 
-    /// </summary>
     [Serializable]
     public abstract class ControlBaseNode : ViewNode
     {
         #region 属性
-        public int Row { get; set; }
 
-        public int Column { get; set; }
+        public Dictionary<string, KNXSelectedAddress> ReadAddressId { get; set; }
 
-        public int RowSpan { get; set; }
-
-        public int ColumnSpan { get; set; }
-
-        public string BackgroudColor { get; set; }
-
-        public string FontColor { get; set; }
+        public Dictionary<string, KNXSelectedAddress> WriteAddressIds { get; set; }
 
         public bool HasTip { get; set; }
 
         public string Tip { get; set; }
 
-        public Dictionary<string, KNXSelectedAddress> ReadAddressId { get; set; }
+        /// <summary>
+        /// 控件是否可点击
+        /// </summary>
+        public bool Clickable { get; set; }
 
-        public Dictionary<string, KNXSelectedAddress> WriteAddressIds { get; set; }
+        /// <summary>
+        /// 用户自定义的控件图标图标
+        /// </summary>
+        public string Icon { get; set; }
 
         #endregion
 
@@ -51,57 +47,52 @@ namespace UIEditor.Entity
 
         public ControlBaseNode()
         {
-            Column = 1;
-            Row = 1;
-            ColumnSpan = 1;
-            RowSpan = 1;
-            BackgroudColor = "#FFFFFF";
-            FontColor = "#000000";
-            HasTip = false;
-            Tip = "";
-            ReadAddressId = new Dictionary<string, KNXSelectedAddress>();
-            WriteAddressIds = new Dictionary<string, KNXSelectedAddress>();
+            this.ReadAddressId = new Dictionary<string, KNXSelectedAddress>();
+            this.WriteAddressIds = new Dictionary<string, KNXSelectedAddress>();
+            this.HasTip = false;
+            this.Tip = "";
+            this.Clickable = false;
+            this.Icon = null;
         }
 
+        /// <summary>
+        /// KNXControlBase 转 ControlBaseNode
+        /// </summary>
+        /// <param name="knx"></param>
         public ControlBaseNode(KNXControlBase knx)
             : base(knx)
         {
-            // ViewNode 基类中的字段
-            this.Text = knx.Text;
-            // 字段
-            this.Column = knx.Column + 1;
-            this.Row = knx.Row + 1;
-            this.ColumnSpan = knx.ColumnSpan;
-            this.RowSpan = knx.RowSpan;
-            this.BackgroudColor = knx.BackColor ?? "#FFFFFF";
-            this.FontColor = knx.ForeColor ?? "#000000";
-            this.HasTip = knx.HasTip;
-            this.Tip = knx.Tip;
             this.ReadAddressId = knx.ReadAddressId ?? new Dictionary<string, KNXSelectedAddress>();
             this.WriteAddressIds = knx.WriteAddressIds ?? new Dictionary<string, KNXSelectedAddress>();
+            this.HasTip = knx.HasTip;
+            this.Tip = knx.Tip;
+            this.Clickable = knx.Clickable;
+            this.Icon = knx.Icon;
         }
 
-        protected ControlBaseNode(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        protected ControlBaseNode(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        { 
+        }
+
         #endregion
 
-        #region ToKnx
+        #region KNX
 
+        /// <summary>
+        /// ControlBaseNode 转 KNXControlBase
+        /// </summary>
+        /// <param name="knx"></param>
         public void ToKnx(KNXControlBase knx)
         {
-            // ViewNode 基类中的字段
-            knx.Id = this.Id;
-            knx.Text = this.Text;
-            // 字段
-            knx.Row = this.Row - 1;
-            knx.Column = this.Column - 1;
-            knx.RowSpan = this.RowSpan;
-            knx.ColumnSpan = this.ColumnSpan;
-            knx.BackColor = this.BackgroudColor;
-            knx.ForeColor = this.FontColor;
-            knx.HasTip = this.HasTip;
-            knx.Tip = this.Tip;
+            base.ToKnx(knx);
+
             knx.ReadAddressId = this.ReadAddressId;
             knx.WriteAddressIds = this.WriteAddressIds;
+            knx.HasTip = this.HasTip;
+            knx.Tip = this.Tip;
+            knx.Clickable = this.Clickable;
+            knx.Icon = this.Icon;
         }
 
         /// <summary>
@@ -125,46 +116,38 @@ namespace UIEditor.Entity
             return builder.ToString().TrimEnd(MyConst.SplitSymbol);
         }
 
-        //public static Dictionary<string, KNXSelectedAddress> EtsAddressStringToDict(string etsAddIds)
-        //{
-        //    var etsidDict = new Dictionary<string, KNXSelectedAddress>();
-
-        //    if (!string.IsNullOrEmpty(etsAddIds))
-        //    {
-        //        var ids = etsAddIds.Split(MyConst.SplitSymbol);
-
-        //        if (ids.Length > 0)
-        //        {
-        //            for (int i = 0, count = ids.Length; i < count; i++)
-        //            {
-        //                string key = ids[i];
-        //                var address = MyCache.GroupAddressTable.FirstOrDefault(x => x.Id == key);
-        //                etsidDict[key] = new KNXSelectedAddress { Id = address.Id, Name = address.Name, Type = (int)address.Type, DefaultValue = address.DefaultValue };
-        //            }
-        //        }
-        //    }
-
-        //    return etsidDict;
-        //}
-
         #endregion
 
+        /// <summary>
+        /// 显示ControlBaseNode的属性于GridView中
+        /// </summary>
+        /// <param name="grid"></param>
         public override void DisplayProperties(Grid grid)
         {
-
+            base.DisplayProperties(grid);
         }
 
+        /// <summary>
+        /// GridView中的属性发生改变
+        /// </summary>
+        /// <param name="context"></param>
         public override void ChangePropValues(CellContext context)
         {
         }
 
-        protected void PickMultiAddress(object sender, EventArgs e)
+        /// <summary>
+        /// 选取多个组地址
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void PickMultiWriteAddress(object sender, EventArgs e)
         {
             var context = (CellContext)sender;
             var btnCell = (Button)context.Cell;
 
             var frm = new FrmGroupAddressPick();
             frm.MultiSelect = true;
+            frm.PickType = FrmGroupAddressPick.AddressType.Write;
             var tempValue = btnCell.Grid[btnCell.Row.Index, MyConst.ValueColumn].Value;
             if (tempValue != null)
             {
@@ -180,12 +163,66 @@ namespace UIEditor.Entity
             }
         }
 
-        protected void PickAddress(object sender, EventArgs e)
+        /// <summary>
+        /// 选取一个组地址
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void PickSingleReadAddress(object sender, EventArgs e)
         {
             var context = (CellContext)sender;
             var btnCell = (Button)context.Cell;
 
             var frm = new FrmGroupAddressPick();
+            frm.MultiSelect = false;
+            frm.PickType = FrmGroupAddressPick.AddressType.Read;
+            var tempValue = btnCell.Grid[btnCell.Row.Index, MyConst.ValueColumn].Value;
+            if (tempValue != null)
+            {
+                frm.SelectedAddress = this.ReadAddressId;
+            }
+
+            var result = frm.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                this.ReadAddressId = frm.SelectedAddress;
+                btnCell.Grid[btnCell.Row.Index, MyConst.ValueColumn].Value = EtsAddressDictToString(this.ReadAddressId);
+            }
+        }
+
+        protected void PickTimerMultiWriteAddress(object sender, EventArgs e)
+        {
+            var context = (CellContext)sender;
+            var btnCell = (Button)context.Cell;
+
+            var frm = new FrmGroupAddressPick();
+            frm.MultiSelect = true;
+            frm.PickType = FrmGroupAddressPick.AddressType.Write;
+            frm.NeedActions = true;
+            var tempValue = btnCell.Grid[btnCell.Row.Index, MyConst.ValueColumn].Value;
+            if (tempValue != null)
+            {
+                frm.SelectedAddress = this.WriteAddressIds;
+            }
+
+            var result = frm.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                this.WriteAddressIds = frm.SelectedAddress;
+                btnCell.Grid[btnCell.Row.Index, MyConst.ValueColumn].Value = EtsAddressDictToString(this.WriteAddressIds);
+            }
+        }
+
+        protected void PickTimerMultiReadAddress(object sender, EventArgs e)
+        {
+            var context = (CellContext)sender;
+            var btnCell = (Button)context.Cell;
+
+            var frm = new FrmGroupAddressPick();
+            frm.MultiSelect = true;
+            frm.PickType = FrmGroupAddressPick.AddressType.Read;
             var tempValue = btnCell.Grid[btnCell.Row.Index, MyConst.ValueColumn].Value;
             if (tempValue != null)
             {
@@ -202,8 +239,9 @@ namespace UIEditor.Entity
         }
     }
 
-
-
+    /// <summary>
+    /// GridView中的值发生改变
+    /// </summary>
     public class ValueChangedEvent : ControllerBase
     {
         public override void OnValueChanged(CellContext sender, EventArgs e)

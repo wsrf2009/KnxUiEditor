@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using Newtonsoft.Json;
 using Structure;
-using Structure.ETS;
-using UIEditor.Entity;
-using GroupAddress = UIEditor.ETS.GroupAddress;
+using UIEditor.Component;
+using UIEditor.GroupAddress;
+using System.Drawing;
+using UIEditor.KNX.DatapointAction;
 
 namespace UIEditor.Controls
 {
@@ -18,67 +16,12 @@ namespace UIEditor.Controls
     /// </summary>
     public partial class FrmGroupAddressPick : Form
     {
-        #region 界面显示用的组地址对象
-        class DisplayAddress
-        {
-            public DisplayAddress(GroupAddress row)
-            {
-                Selected = false;
-                this.Id = row.Id;
-                this.Name = row.Name;
-                this.KnxAddress = row.KnxAddress;
-                //this.KnxDPTName = row.KnxDPTName;
-                this.Type = row.Type.ToString();
-                this.DefaultValue = row.DefaultValue;
-                this.WireNumber = WireNumber;
-                this.Tip = row.Tip;
-                this.Actions = "";
-                if (row.Actions != null)
-                {
-                    foreach (KNXDatapointAction action in row.Actions)
-                    {
-                        if (this.Actions.Length > 0)
-                        {
-                            this.Actions += "/"+action.Name;
-                        }
-                        else
-                        {
-                            this.Actions = action.Name;
-                        }
-                    }
-                }
-            }
+        public enum AddressType { Write, Read };
 
-            public bool Selected { get; set; }
-
-            public string Id { get; set; }
-
-            public string Name { get; set; }
-
-            public string KnxAddress { get; set; }
-
-            // 数据点名称
-            //public string KnxDPTName { get; set; }
-
-            public string Type { get; set; }
-
-            // 默认值
-            public string DefaultValue { get; set; }
-
-            //
-            public string WireNumber { get; set; }
-
-            /// <summary>
-            /// 给最终用户控制该组地址时提供一些提示
-            /// </summary>
-            public string Tip { get; set; }
-
-            public string Actions { get; set; }
-        }
-        #endregion
-        #region 属性
+        #region 变量
         public Dictionary<string, KNXSelectedAddress> SelectedAddress { get; set; }
 
+        public AddressType PickType { get; set; }
 
         public bool MultiSelect
         {
@@ -86,9 +29,10 @@ namespace UIEditor.Controls
             set { _multiSelect = value; }
         }
 
-
         private bool _search = false;
         private bool _multiSelect = false;
+
+        public bool NeedActions;
 
         #endregion
 
@@ -109,7 +53,7 @@ namespace UIEditor.Controls
 
             if (SelectedAddress.Count > 1 && MultiSelect == false)
             {
-                MessageBox.Show("读地址只能设置一个地址，请重设置！");
+                MessageBox.Show(ResourceMng.GetString("Message21"));
                 this.SelectedAddress.Clear();
             }
             this.DialogResult = DialogResult.OK;
@@ -126,7 +70,7 @@ namespace UIEditor.Controls
             int count = dgvData.Rows.Count;
             for (int i = 0; i < count; i++)
             {
-                var groupAddress = dgvData.Rows[i].DataBoundItem as DisplayAddress;
+                var groupAddress = dgvData.Rows[i].DataBoundItem as PcGroupAddress;
                 if (groupAddress != null)
                 {
                     if (groupAddress.Selected == true)
@@ -160,100 +104,31 @@ namespace UIEditor.Controls
         {
             _search = false;
 
-            var data = new List<DisplayAddress>();
+            var data = new List<PcGroupAddress>();
 
             foreach (var it in MyCache.GroupAddressTable)
             {
-                var temp = new DisplayAddress(it);
-
-                if (SelectedAddress != null && SelectedAddress.ContainsKey(temp.Id))
+                if (((AddressType.Read == this.PickType) && (it.IsCommunication && it.IsRead)) ||
+                    ((AddressType.Write == this.PickType) && (it.IsCommunication && it.IsWrite)))
                 {
-                    temp.Selected = true;
-                    temp.DefaultValue = SelectedAddress[temp.Id].DefaultValue;
+                    if (this.NeedActions && ((null == it.Actions) || (it.Actions.Count <= 0)))
+                    {
+                        continue;
+                    }
+
+                    var temp = new PcGroupAddress(it);
+
+                    if (SelectedAddress != null && SelectedAddress.ContainsKey(temp.Id))
+                    {
+                        temp.Selected = true;
+                        temp.DefaultValue = SelectedAddress[temp.Id].DefaultValue;
+                    }
+
+                    data.Add(temp);
                 }
-
-                data.Add(temp);
             }
 
-            // 排序
-            var sortData = (from i in data orderby i.Selected descending, i.KnxAddress select i).ToList();
-
-            this.dgvData.DataSource = new BindingList<DisplayAddress>(sortData);
-
-            FormatGrid(dgvData);
-        }
-
-        private void FormatGrid(DataGridView grid)
-        {
-            if (grid.Columns.Count > 1)
-            {
-                int i = 0;
-                var col = grid.Columns["Id"];
-                col.Visible = false;
-                col.DisplayIndex = i++;
-
-                col = grid.Columns["selected"];
-                col.HeaderText = "选择";
-                col.Width = 50;
-                col.DisplayIndex = i++;
-
-                col = grid.Columns["Name"];
-                col.Width = 180;
-                col.HeaderText = "名称";
-                col.ReadOnly = true;
-                col.DisplayIndex = i++;
-
-                col = grid.Columns["KnxAddress"];
-                col.Width = 80;
-                col.HeaderText = "地址";
-                col.ReadOnly = true;
-                col.DisplayIndex = i++;
-
-                col = grid.Columns["Type"];
-                col.Width = 80;
-                col.HeaderText = "数据类型";
-                col.DisplayIndex = i++;
-
-                //col = grid.Columns["KnxDPTName"];
-                //col.Width = 80;
-                //col.HeaderText = "数据点名称";
-                //col.ReadOnly = true;
-                //col.DisplayIndex = i++;
-
-                col = grid.Columns["DefaultValue"];
-                col.Width = 80;
-                col.HeaderText = "默认值";
-                col.DisplayIndex = i++;
-
-                col = grid.Columns["WireNumber"];
-                col.Width = 100;
-                col.HeaderText = "电缆编号";
-                col.ReadOnly = true;
-                col.DisplayIndex = i++;
-
-                col = grid.Columns["Tip"];
-                col.Width = 150;
-                col.HeaderText = "操控提示";
-                col.DisplayIndex = i++;
-
-                col = grid.Columns["Actions"];
-                col.Width = 150;
-                col.HeaderText = "组地址行为";
-                col.DisplayIndex = i++;
-
-            }
-        }
-
-        #endregion
-
-        private void txtSearch_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnFilter_Click(object sender, EventArgs e)
-        {
-            SearchAddress();
+            RefreashTable(data);
         }
 
         private void SearchAddress()
@@ -264,13 +139,13 @@ namespace UIEditor.Controls
 
             if (!string.IsNullOrWhiteSpace(searchText))
             {
-                var data = new List<DisplayAddress>();
+                var data = new List<PcGroupAddress>();
 
                 var filterAddress = from i in MyCache.GroupAddressTable where i.Name.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) != -1 select i;
 
                 foreach (var it in filterAddress)
                 {
-                    var temp = new DisplayAddress(it);
+                    var temp = new PcGroupAddress(it);
 
                     if (SelectedAddress != null && SelectedAddress.ContainsKey(temp.Id))
                     {
@@ -280,18 +155,131 @@ namespace UIEditor.Controls
                     data.Add(temp);
                 }
 
-                // 排序
-                var sortData = (from i in data orderby i.Selected descending, i.KnxAddress select i).ToList();
-
-                this.dgvData.DataSource = new BindingList<DisplayAddress>(sortData);
-
-                FormatGrid(dgvData);
+                RefreashTable(data);
             }
+        }
+
+        private void RefreashTable(List<PcGroupAddress> data)
+        {
+            var sort1 = (from i in data orderby KNXAddressHelper.StringToAddress(i.KnxAddress) ascending, i.KnxAddress select i).ToList();
+            // 排序
+            var sort2 = (from i in sort1 orderby i.Selected descending, i.KnxAddress select i).ToList();
+
+            this.dgvData.DataSource = new BindingList<PcGroupAddress>(sort2);
+
+            FormatGrid(dgvData);
+        }
+
+        private void FormatGrid(DataGridView grid)
+        {
+            if (grid.Columns.Count > 1)
+            {
+                int i = 0;
+                var col = grid.Columns["Selected"];
+                col.HeaderText = ResourceMng.GetString("Selected");
+                col.Width = 50;
+                col.DisplayIndex = i++;
+
+                col = grid.Columns["Id"];
+                col.Visible = false;
+                col.DisplayIndex = i++;
+
+                col = grid.Columns["Name"];
+                col.Width = 260;
+                col.HeaderText = ResourceMng.GetString("Name");
+                col.DisplayIndex = i++;
+                col.ReadOnly = true;
+
+                col = grid.Columns["KnxAddress"];
+                col.Width = 80;
+                col.HeaderText = ResourceMng.GetString("GroupAddress");
+                col.DisplayIndex = i++;
+                col.ReadOnly = true;
+
+                col = grid.Columns["Type"];
+                col.Visible = false;
+                col.DisplayIndex = i++;
+
+                col = grid.Columns["DPTName"];
+                col.Width = 260;
+                col.HeaderText = ResourceMng.GetString("DatapointType");
+                col.DisplayIndex = i++;
+                col.ReadOnly = true;
+
+                col = grid.Columns["IsCommunication"];
+                col.Width = 50;
+                col.HeaderText = ResourceMng.GetString("Communication");
+                col.DisplayIndex = i++;
+                col.ReadOnly = true;
+
+                col = grid.Columns["IsRead"];
+                col.Width = 50;
+                col.HeaderText = ResourceMng.GetString("Read");
+                col.DisplayIndex = i++;
+                col.ReadOnly = true;
+
+                col = grid.Columns["IsWrite"];
+                col.Width = 50;
+                col.HeaderText = ResourceMng.GetString("Write");
+                col.DisplayIndex = i++;
+                col.ReadOnly = true;
+
+                col = grid.Columns["DefaultValue"];
+                col.Width = 80;
+                col.HeaderText = ResourceMng.GetString("DefaultValue");
+                col.DisplayIndex = i++;
+                col.ReadOnly = true;
+
+                col = grid.Columns["ReadTimespan"];
+                col.Width = 80;
+                col.HeaderText = ResourceMng.GetString("IntervalTimeOfRead");
+                col.DisplayIndex = i++;
+                col.ReadOnly = true;
+
+                col = grid.Columns["Actions"];
+                col.Width = 150;
+                col.HeaderText = ResourceMng.GetString("GroupAddressActions");
+                col.DisplayIndex = i++;
+                col.ReadOnly = true;
+
+            }
+        }
+
+        #endregion
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            SearchAddress();
+        }
+
+        private void btnFilter_Click(object sender, EventArgs e)
+        {
+            SearchAddress();
         }
 
         private void btnClear_Click(object sender, EventArgs e)
         {
             LoadAllAddress();
+        }
+
+        private void dgvGroupAddress_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            Rectangle rectangle = new Rectangle(e.RowBounds.Location.X,
+                                                e.RowBounds.Location.Y,
+                                                this.dgvData.RowHeadersWidth - 4,
+                                                e.RowBounds.Height);
+            Color color = ((DataGridView)sender).RowHeadersDefaultCellStyle.ForeColor;
+            if (((DataGridView)sender).Rows[e.RowIndex].Selected)
+                color = ((DataGridView)sender).RowHeadersDefaultCellStyle.SelectionForeColor;
+            else
+                color = ((DataGridView)sender).RowHeadersDefaultCellStyle.ForeColor;
+
+            TextRenderer.DrawText(e.Graphics,
+                                    (e.RowIndex + 1).ToString(),
+                                    this.dgvData.RowHeadersDefaultCellStyle.Font,
+                                    rectangle,
+                                    color,
+                                    TextFormatFlags.VerticalCenter | TextFormatFlags.Right);
         }
 
         private void dgvData_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -308,6 +296,112 @@ namespace UIEditor.Controls
                 //
                 DataGridViewCheckBoxCell selectCell = (DataGridViewCheckBoxCell)dgvData.Rows[e.RowIndex].Cells[0];
                 selectCell.Value = true;
+            }
+        }
+
+        private void dgvData_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            int rowIndex = e.RowIndex;
+            int colIndex = e.ColumnIndex;
+            if (rowIndex >= 0)
+            {
+                if (11 == colIndex)
+                {
+                    string Id = this.dgvData.Rows[rowIndex].Cells["Id"].Value as string;
+                    EdGroupAddress addr = MyCache.GetGroupAddress(Id);
+                    if ((null != addr) && (null != addr.Actions))
+                    {
+                        //画单元格的边界线
+                        Point p1 = new Point(e.CellBounds.Left + e.CellBounds.Width, e.CellBounds.Top);
+                        Point p2 = new Point(e.CellBounds.Left + e.CellBounds.Width, e.CellBounds.Top + e.CellBounds.Height);
+                        Point p3 = new Point(e.CellBounds.Left, e.CellBounds.Top + e.CellBounds.Height);
+                        Point[] ps = new Point[] { p1, p2, p3 };
+                        using (Brush gridBrush = new SolidBrush(this.dgvData.GridColor))
+                        {
+                            using (Pen gridLinePen = new Pen(gridBrush, 2))
+                            {
+                                Font font = new Font("宋体", 9, FontStyle.Regular);//自定义字体
+                                string seperator = ";";
+                                SizeF sizeSeperator = e.Graphics.MeasureString(seperator, font);
+                                float startPos = .0f;
+
+                                //判断当前行是否为选中行，如果为选中行，则要修改图片的背景色和文字的字体颜色
+                                if (this.dgvData.CurrentRow.Index == e.RowIndex)
+                                {
+                                    using (Brush backColorBrush = new SolidBrush(Color.FromArgb(051, 153, 255)))
+                                    {
+                                        //以背景色填充单元格
+                                        e.Graphics.FillRectangle(backColorBrush, e.CellBounds);
+                                        e.Graphics.DrawLines(gridLinePen, ps);
+
+                                        foreach (DatapointActionNode action in addr.Actions)
+                                        {
+                                            if (startPos >= e.CellBounds.Width)
+                                            {
+                                                break;
+                                            }
+
+                                            if (startPos > 0)
+                                            {
+                                                e.Graphics.DrawString(seperator, font, Brushes.White, new RectangleF(e.CellBounds.Left + startPos,
+                                                    e.CellBounds.Top + (e.CellBounds.Height - sizeSeperator.Height) / 2, e.CellBounds.Width - startPos,
+                                                    sizeSeperator.Height), StringFormat.GenericDefault);
+                                                startPos += sizeSeperator.Width;
+                                            }
+
+                                            SizeF sizeText = e.Graphics.MeasureString(action.Name, font);
+                                            e.Graphics.DrawString(action.Name, font, Brushes.White, new RectangleF(e.CellBounds.Left + startPos,
+                                                e.CellBounds.Top + (e.CellBounds.Height - sizeText.Height) / 2, e.CellBounds.Width - startPos,
+                                                sizeText.Height), StringFormat.GenericDefault);
+                                            startPos += sizeText.Width;
+                                        }
+
+                                        e.Handled = true;
+                                    }
+                                }
+                                else
+                                {
+                                    using (Brush backColorBrush = new SolidBrush(e.CellStyle.BackColor))
+                                    {
+                                        e.Graphics.FillRectangle(backColorBrush, e.CellBounds);
+                                        e.Graphics.DrawLines(gridLinePen, ps);
+
+                                        foreach (DatapointActionNode action in addr.Actions)
+                                        {
+                                            if (startPos >= e.CellBounds.Width)
+                                            {
+                                                break;
+                                            }
+
+                                            if (startPos > 0)
+                                            {
+                                                e.Graphics.DrawString(seperator, font, Brushes.Black, new RectangleF(e.CellBounds.Left + startPos,
+                                                    e.CellBounds.Top + (e.CellBounds.Height - sizeSeperator.Height) / 2, e.CellBounds.Width - startPos,
+                                                    sizeSeperator.Height), StringFormat.GenericDefault);
+                                                startPos += sizeSeperator.Width;
+                                            }
+
+                                            if (startPos >= e.CellBounds.Width)
+                                            {
+                                                break;
+                                            }
+
+                                            SizeF sizeText = e.Graphics.MeasureString(action.Name, e.CellStyle.Font);
+                                            e.Graphics.DrawString(action.Name, e.CellStyle.Font, Brushes.Blue, new RectangleF(e.CellBounds.Left + startPos,
+                                                e.CellBounds.Top + (e.CellBounds.Height - sizeText.Height) / 2, e.CellBounds.Width - startPos,
+                                                sizeText.Height), StringFormat.GenericDefault);
+                                            startPos += sizeText.Width;
+                                        }
+
+                                        e.Handled = true;
+                                    }
+                                }
+                            }
+                        }
+
+
+                    }
+                }
             }
         }
     }

@@ -7,10 +7,12 @@ using System.Windows.Forms;
 using NLog;
 using UIEditor.Component;
 using UIEditor.Controls;
-using UIEditor.ETS;
+using UIEditor.GroupAddress;
 using Structure;
 using Structure.ETS;
 using System.Drawing;
+using System.Threading;
+using UIEditor.KNX.DatapointAction;
 
 namespace UIEditor
 {
@@ -18,142 +20,18 @@ namespace UIEditor
     {
         // 日志
         private static readonly Logger Log = LogManager.GetCurrentClassLogger();
-        private List<DisplayAddress> addressList = new List<DisplayAddress>();
+        private List<MgGroupAddress> addressList = new List<MgGroupAddress>();
         //private CheckBox cbSelectAll = new CheckBox(); 
         private bool IsSelectAll = false;
+        //private ComboBox cbbDataType = new ComboBox();
+        private ComboBox cbbPriority = new ComboBox();
 
-        private class DisplayAddress
-        {
-            public DisplayAddress(GroupAddress address) {
-                this.IsSelected = false;
-                this.Id = address.Id;
-                this.Name = address.Name;
-                this.KnxAddress = address.KnxAddress;
-                //this.KnxSize = address.KnxSize;
-                //this.KnxDPTName = address.KnxDPTName;
-                this.Type = address.Type;
-                this.Priority = address.Priority;
-                this.DefaultValue = address.DefaultValue;
-                this.IsCommunication = address.IsCommunication;
-                this.IsRead = address.IsRead;
-                this.IsWrite = address.IsWrite;
-                this.IsTransmit = address.IsTransmit;
-                this.IsUpgrade = address.IsUpgrade;
-                this.WireNumber = address.WireNumber;
-                this.ReadTimeSpan = address.ReadTimeSpan;
-                this.Tip = address.Tip;
-                //this.Actions = address.Actions;
-                this.Actions = "";
-                if (address.Actions != null)
-                {
-                    foreach (KNXDatapointAction action in address.Actions)
-                    {
-                        if (this.Actions.Length > 0)
-                        {
-                            this.Actions += "/" + action;
-                        }
-                        else
-                        {
-                            this.Actions = action.ToString();
-                        }
-                    }
-                }
-            }
-
-            /// <summary>
-            /// 是否选中该地址
-            /// </summary>
-            public bool IsSelected { get; set; }
-
-            /// <summary>
-            /// ETS中设备的ID， ETS自动分配
-            /// </summary>
-            public string Id { get; set; }
-
-            /// <summary>
-            /// ETS中设备用户指定的名称
-            /// </summary>
-            public string Name { get; set; }
-
-            /// <summary>
-            /// ETS 写入地址
-            /// </summary>
-            public string KnxAddress { get; set; }
-
-            public KNXDataType Type { get; set; }
-
-            /// <summary>
-            /// ETS 数据大小
-            /// </summary>
-            //public string KnxSize { get; set; }
-
-            /// <summary>
-            /// ETS数据类型
-            /// </summary>
-            //public string KnxDPTName { get; set; }
-
-            /// <summary>
-            /// 优先级
-            /// </summary>
-            public KNXPriority Priority { get; set; }
-
-            /// <summary>
-            /// 
-            /// </summary>
-            public string DefaultValue { get; set; }
-
-            /// <summary>
-            /// 
-            /// </summary>
-            public bool IsCommunication { get; set; }
-
-            /// <summary>
-            /// 
-            /// </summary>
-            public bool IsRead { get; set; }
-
-            /// <summary>
-            /// 
-            /// </summary>
-            public bool IsWrite { get; set; }
-
-            /// <summary>
-            /// 
-            /// </summary>
-            public bool IsTransmit { get; set; }
-
-            /// <summary>
-            /// 
-            /// </summary>
-            public bool IsUpgrade { get; set; }
-
-            /// <summary>
-            /// 电缆编号
-            /// </summary>
-            public string WireNumber { get; set; }
-
-            /// <summary>
-            /// 读取时间间隔，单位毫秒
-            /// </summary>
-            public int ReadTimeSpan { get; set; }
-
-            /// <summary>
-            /// 给最终用户控制该组地址时提供一些提示
-            /// </summary>
-            public string Tip { get; set; }
-
-            /// <summary>
-            /// ETS中该设备可执行的动作
-            /// </summary>
-            public string Actions { get; set; }
-            //public List<KNXDatapointAction> Actions;
-        }
 
         #region 模块变量
 
         //
-        private const string EtsFilter = "ETS project files (*.knxproj)|*.knxproj|All files (*.*)|*.*";
-        private const string XmlFilter = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
+
+
         // 当前是否保存
         private bool _saved = true;
 
@@ -163,28 +41,6 @@ namespace UIEditor
         public FrmGroupAddressMgt()
         {
             InitializeComponent();
-
-            //cbSelectAll.CheckedChanged += cbSelectAll_CheckedChanged;
-
-            //this.cbSelectAll.Visible = false;
-            //this.cbSelectAll.Text = "选择";
-            //this.dgvGroupAddress.Controls.Add(cbSelectAll); 
-
-            //this.cbbBatchOperation.Items.Add(new ComboBoxItem(0, "批量设置"));
-            //this.cbbBatchOperation.Items.Add(new ComboBoxItem(1, "设置组地址名"));
-            //this.cbbBatchOperation.Items.Add(new ComboBoxItem(2, "设置组地址"));
-            //this.cbbBatchOperation.Items.Add(new ComboBoxItem(3, "设置数据类型"));
-            //this.cbbBatchOperation.Items.Add(new ComboBoxItem(4, "设置默认值"));
-            //this.cbbBatchOperation.Items.Add(new ComboBoxItem(5, "设置优先级"));
-            //this.cbbBatchOperation.Items.Add(new ComboBoxItem(6, "设置读取时间间隔"));
-            //this.cbbBatchOperation.Items.Add(new ComboBoxItem(7, "设置线缆编号"));
-            //this.cbbBatchOperation.Items.Add(new ComboBoxItem(8, "设置是否通讯"));
-            //this.cbbBatchOperation.Items.Add(new ComboBoxItem(9, "设置是否读"));
-            //this.cbbBatchOperation.Items.Add(new ComboBoxItem(10, "设置是否写"));
-            //this.cbbBatchOperation.Items.Add(new ComboBoxItem(11, "设置是否传输"));
-            //this.cbbBatchOperation.Items.Add(new ComboBoxItem(12, "设置是否更新"));
-            //this.cbbBatchOperation.Items.Add(new ComboBoxItem(13, "设置提示"));
-            //this.cbbBatchOperation.Items.Add(new ComboBoxItem(14, "设置行为"));
 
             this.cmsDgvGroupAddress.Items.Add(tsmiSetGroupAddressName());
             this.cmsDgvGroupAddress.Items.Add(tsmiSetGroupAddress());
@@ -200,18 +56,26 @@ namespace UIEditor
             this.cmsDgvGroupAddress.Items.Add(tsmiSetIsUpgrade());
             this.cmsDgvGroupAddress.Items.Add(tsmiSetTip());
             this.cmsDgvGroupAddress.Items.Add(tsmiSetActions());
+
+            foreach (var it in Enum.GetNames(typeof(KNXPriority)))
+            {
+                this.cbbPriority.Items.Add(it);
+            }
+            this.cbbPriority.Visible = false;
+            this.cbbPriority.SelectedIndexChanged += new System.EventHandler(this.cbbDataType_SelectedIndexChanged);
+            this.dgvGroupAddress.Controls.Add(this.cbbPriority);
         }
         #endregion
 
         #region 右键菜单 cmsDgvGroupAddress
 
-        private ToolStripMenuItem tsmiSetGroupAddressName() 
+        private ToolStripMenuItem tsmiSetGroupAddressName()
         {
             ToolStripMenuItem setGroupAddressName = new ToolStripMenuItem();
             //setGroupAddressName.Image = Properties.Resources.Copy_16x16;
             setGroupAddressName.Name = "tsmiSetGroupAddressName";
             //setGroupAddressName.Size = new System.Drawing.Size(152, 22);
-            setGroupAddressName.Text = "设置组地址名";
+            setGroupAddressName.Text = ResourceMng.GetString("SetGroupAddrName");
             setGroupAddressName.Click += SetGroupAddressName_Click;
 
             return setGroupAddressName;
@@ -223,7 +87,7 @@ namespace UIEditor
             //setGroupAddressName.Image = Properties.Resources.Copy_16x16;
             setGroupAddress.Name = "tsmiSetGroupAddress";
             //setGroupAddress.Size = new System.Drawing.Size(152, 22);
-            setGroupAddress.Text = "设置组地址";
+            setGroupAddress.Text = ResourceMng.GetString("SetGroupAddr");
             setGroupAddress.Click += SetGroupAddress_Click;
 
             return setGroupAddress;
@@ -235,7 +99,7 @@ namespace UIEditor
             //setGroupAddressName.Image = Properties.Resources.Copy_16x16;
             seDataType.Name = "tsmiSetDataType";
             //seDataType.Size = new System.Drawing.Size(152, 22);
-            seDataType.Text = "设置数据类型";
+            seDataType.Text = ResourceMng.GetString("SetDataType");
             seDataType.Click += SetDataType_Click;
 
             return seDataType;
@@ -247,7 +111,7 @@ namespace UIEditor
             //setGroupAddressName.Image = Properties.Resources.Copy_16x16;
             setDefaultValue.Name = "tsmiSetDefaultValue";
             //setDefaultValue.Size = new System.Drawing.Size(152, 22);
-            setDefaultValue.Text = "设置默认值";
+            setDefaultValue.Text = ResourceMng.GetString("SetDefaultValue");
             setDefaultValue.Click += SetDefaultValue_Click;
 
             return setDefaultValue;
@@ -259,7 +123,7 @@ namespace UIEditor
             //setGroupAddressName.Image = Properties.Resources.Copy_16x16;
             setPriority.Name = "tsmiSetPriority";
             //setPriority.Size = new System.Drawing.Size(152, 22);
-            setPriority.Text = "设置优先级";
+            setPriority.Text = ResourceMng.GetString("SetPriority");
             setPriority.Click += SetPriority_Click;
 
             return setPriority;
@@ -271,7 +135,7 @@ namespace UIEditor
             //setGroupAddressName.Image = Properties.Resources.Copy_16x16;
             setReadTimeSpan.Name = "tsmiSetReadTimeSpan";
             //setReadTimeSpan.Size = new System.Drawing.Size(152, 22);
-            setReadTimeSpan.Text = "设置读取时间间隔";
+            setReadTimeSpan.Text = ResourceMng.GetString("SetIntervalTimeOfRead");
             setReadTimeSpan.Click += SetReadTimeSpan_Click;
 
             return setReadTimeSpan;
@@ -283,7 +147,7 @@ namespace UIEditor
             //setGroupAddressName.Image = Properties.Resources.Copy_16x16;
             setWireNumber.Name = "tsmiSetWireNumber";
             //setWireNumber.Size = new System.Drawing.Size(152, 22);
-            setWireNumber.Text = "设置线缆编号";
+            setWireNumber.Text = ResourceMng.GetString("SetCableNumber");
             setWireNumber.Click += SetWireNumber_Click;
 
             return setWireNumber;
@@ -295,7 +159,7 @@ namespace UIEditor
             //setGroupAddressName.Image = Properties.Resources.Copy_16x16;
             setIsCommunication.Name = "tsmiSetIsCommunication";
             //setIsCommunication.Size = new System.Drawing.Size(152, 22);
-            setIsCommunication.Text = "设置是否通讯";
+            setIsCommunication.Text = ResourceMng.GetString("SetIsCommunication");
             setIsCommunication.Click += SetIsCommunication_Click;
 
             return setIsCommunication;
@@ -307,7 +171,7 @@ namespace UIEditor
             //setGroupAddressName.Image = Properties.Resources.Copy_16x16;
             setIsRead.Name = "tsmiSetIsRead";
             //setIsRead.Size = new System.Drawing.Size(152, 22);
-            setIsRead.Text = "设置是否读";
+            setIsRead.Text = ResourceMng.GetString("SetIsRead");
             setIsRead.Click += SetIsRead_Click;
 
             return setIsRead;
@@ -319,7 +183,7 @@ namespace UIEditor
             //setGroupAddressName.Image = Properties.Resources.Copy_16x16;
             setIsWrite.Name = "tsmiSetIsWrite";
             //setIsWrite.Size = new System.Drawing.Size(152, 22);
-            setIsWrite.Text = "设置是否写";
+            setIsWrite.Text = ResourceMng.GetString("SetIsWrite");
             setIsWrite.Click += SetIsWrite_Click;
 
             return setIsWrite;
@@ -331,7 +195,7 @@ namespace UIEditor
             //setGroupAddressName.Image = Properties.Resources.Copy_16x16;
             setIsTransmit.Name = "tsmiSetIsTransmit";
             //setIsTransmit.Size = new System.Drawing.Size(152, 22);
-            setIsTransmit.Text = "设置是否传输";
+            setIsTransmit.Text = ResourceMng.GetString("SetIsTransmit");
             setIsTransmit.Click += SetIsTransmit_Click;
 
             return setIsTransmit;
@@ -343,7 +207,7 @@ namespace UIEditor
             //setGroupAddressName.Image = Properties.Resources.Copy_16x16;
             setIsUpgrade.Name = "tsmiSetIsUpgrade";
             //setIsUpgrade.Size = new System.Drawing.Size(152, 22);
-            setIsUpgrade.Text = "设置是否更新";
+            setIsUpgrade.Text = ResourceMng.GetString("SetIsUpgrade");
             setIsUpgrade.Click += SetIsUpgrade_Click;
 
             return setIsUpgrade;
@@ -355,7 +219,7 @@ namespace UIEditor
             //setGroupAddressName.Image = Properties.Resources.Copy_16x16;
             setTip.Name = "tsmiSetTip";
             //setTip.Size = new System.Drawing.Size(152, 22);
-            setTip.Text = "设置提示";
+            setTip.Text = ResourceMng.GetString("SetTips");
             setTip.Click += SettsmiSetTip_Click;
 
             return setTip;
@@ -367,7 +231,7 @@ namespace UIEditor
             //setGroupAddressName.Image = Properties.Resources.Copy_16x16;
             setActions.Name = "tsmiSetActions";
             //setActions.Size = new System.Drawing.Size(152, 22);
-            setActions.Text = "设置行为";
+            setActions.Text = ResourceMng.GetString("SetActions");
             setActions.Click += SetActions_Click;
 
             return setActions;
@@ -446,40 +310,27 @@ namespace UIEditor
         #endregion
 
         #region 用户方法
-        /// <summary>
-        /// 清空临时目录
-        /// </summary>
-        private static void ClearProjTempFolder()
+        private void SearchAddress()
         {
-            if (Directory.Exists(MyCache.ProjTempFolder))
-            {
-                FileHelper.DeleteFolder(MyCache.ProjTempFolder);
-            }
-            Directory.CreateDirectory(MyCache.ProjTempFolder);
-        }
+            //_search = true;
 
-        /// <summary>
-        /// 根据 ReadAddress 合并地址列表
-        /// </summary>
-        /// <param name="orgData"></param>
-        /// <param name="importData"></param>
-        /// <returns></returns>
-        private static void Merge(List<GroupAddress> importData)
-        {
-            if (importData != null && importData.Any())
-            {
-                var dictionary = MyCache.GroupAddressTable.ToDictionary(it => it.Id);
+            string searchText = this.txtSearch.Text.Trim();
 
-                foreach (var it in importData)
+            if (!string.IsNullOrWhiteSpace(searchText))
+            {
+                addressList.Clear();
+
+                var filterAddress = from i in MyCache.GroupAddressTable where i.Name.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) != -1 select i;
+
+                foreach (var it in filterAddress)
                 {
-                    dictionary[it.Id] = it;
+                    var temp = new MgGroupAddress(it);
+
+                    addressList.Add(temp);
                 }
 
-                var list = dictionary.Values.ToList();
-                // 
-                MyCache.GroupAddressTable = new BindingList<GroupAddress>(list);
+                refreshDataTable();
             }
-
         }
 
         private void LoadAllAddress()
@@ -488,7 +339,7 @@ namespace UIEditor
 
             foreach (var it in MyCache.GroupAddressTable)
             {
-                var temp = new DisplayAddress(it);
+                var temp = new MgGroupAddress(it);
 
                 addressList.Add(temp);
             }
@@ -502,102 +353,14 @@ namespace UIEditor
         private void refreshDataTable()
         {
             // 排序
-            var sortData = addressList.ToList();
+            var data = addressList.ToList();
 
-            this.dgvGroupAddress.DataSource = new BindingList<DisplayAddress>(sortData);
+            // 排序
+            var sortData = (from i in data orderby KNXAddressHelper.StringToAddress(i.KnxAddress) ascending, i.KnxAddress select i).ToList();
+
+            this.dgvGroupAddress.DataSource = new BindingList<MgGroupAddress>(sortData);
 
             FormatGrid(dgvGroupAddress);
-        }
-
-        /// <summary>
-        /// 导入ETS项目文件中的 groupaddress
-        /// </summary>
-        private void ImportEtsProject()
-        {
-            try
-            {
-                using (var ofd = new OpenFileDialog())
-                {
-                    // ofd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                    ofd.Filter = EtsFilter;
-                    ofd.FilterIndex = 1;
-                    ofd.DefaultExt = "knxproj";
-                    ofd.RestoreDirectory = true;
-
-                    if (ofd.ShowDialog(this) == DialogResult.OK)
-                    {
-                        ClearProjTempFolder();
-
-                        if (Directory.Exists(MyCache.ProjTempFolder))
-                        {
-                            // 存放ETS文件，解压并解析xml
-                            string etsProjectFile = Path.Combine(MyCache.ProjTempFolder, ofd.SafeFileName);
-                            File.Copy(ofd.FileName, etsProjectFile);
-
-                            // 导入的地址表
-                            var importAddress = ETSImport.ParseEtsProjectFile(etsProjectFile);
-
-                            Merge(importAddress);
-
-                            //this.dgvGroupAddress.DataSource = new BindingList<DisplayAddress>(MyCache.GroupAddressTable.ToList());
-                            LoadAllAddress();
-
-                            _saved = false;
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                string errorMsg = "组地址文件格式不兼容！";
-                MessageBox.Show(errorMsg, "错误提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Log.Error(errorMsg + LogHelper.Format(ex));
-            }
-        }
-
-        /// <summary>
-        /// 导入 ETS 项目导出的地址文件 xml 格式
-        /// </summary>
-        private void ImportEtsAddressXml()
-        {
-            try
-            {
-                using (var ofd = new OpenFileDialog())
-                {
-                    //ofd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                    ofd.Filter = XmlFilter;
-                    ofd.FilterIndex = 1;
-                    ofd.DefaultExt = "xml";
-                    ofd.RestoreDirectory = true;
-
-                    if (ofd.ShowDialog(this) == DialogResult.OK)
-                    {
-                        ClearProjTempFolder();
-
-                        // 存放ETS文件，解压并解析xml
-                        if (ofd.SafeFileName != null)
-                        {
-                            string etsXmlFile = Path.Combine(MyCache.ProjTempFolder, ofd.SafeFileName);
-                            File.Copy(ofd.FileName, etsXmlFile);
-                            // 导入的地址表
-                            var importAddress = ETSImport.ParseGroupAddressXml(etsXmlFile);
-
-                            Merge(importAddress);
-                        }
-
-                        //this.dgvGroupAddress.DataSource = new BindingList<GroupAddress>(MyCache.GroupAddressTable);
-                        LoadAllAddress();
-
-                        _saved = false;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                string errorMsg = "组地址文件格式不兼容！";
-                MessageBox.Show(errorMsg, "错误提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Log.Error(errorMsg + LogHelper.Format(ex));
-            }
         }
 
         /// <summary>
@@ -608,44 +371,44 @@ namespace UIEditor
             if (this.dgvGroupAddress.SelectedRows.Count > 0)
             {
                 int rowIndex = this.dgvGroupAddress.SelectedRows[0].Cells[0].RowIndex;
-                var item = this.dgvGroupAddress.SelectedRows[0].DataBoundItem as DisplayAddress;
-                foreach (GroupAddress address in MyCache.GroupAddressTable)
+                var item = this.dgvGroupAddress.SelectedRows[0].DataBoundItem as MgGroupAddress;
+                EdGroupAddress address = MyCache.GetGroupAddress(item.Id);
+                //foreach (EdGroupAddress address in MyCache.GroupAddressTable)
+                //{
+                //    if (address.Id == item.Id)
+                //    {
+                if (null != address)
                 {
-                    if (address.Id == item.Id)
+                    FrmGroupAddress frm = new FrmGroupAddress(DataStatus.Modify);
+                    frm.Address = address;
+                    var dlgResult = frm.ShowDialog(this);
+
+                    if (dlgResult == DialogResult.OK)
                     {
-                        FrmGroupAddress frm = new FrmGroupAddress(DataStatus.Modify);
-                        frm.Address = address;
-                        var dlgResult = frm.ShowDialog(this);
+                        /* 刷新修改的行 */
+                        MgGroupAddress disAddress = new MgGroupAddress(frm.Address);
+                        this.dgvGroupAddress.Rows[rowIndex].Cells[1].Value = disAddress.Id;
+                        this.dgvGroupAddress.Rows[rowIndex].Cells[2].Value = disAddress.Name;
+                        this.dgvGroupAddress.Rows[rowIndex].Cells[3].Value = disAddress.KnxAddress;
+                        this.dgvGroupAddress.Rows[rowIndex].Cells[4].Value = disAddress.DPTName;
+                        this.dgvGroupAddress.Rows[rowIndex].Cells[5].Value = disAddress.IsCommunication;
+                        this.dgvGroupAddress.Rows[rowIndex].Cells[6].Value = disAddress.IsRead;
+                        this.dgvGroupAddress.Rows[rowIndex].Cells[7].Value = disAddress.IsWrite;
+                        this.dgvGroupAddress.Rows[rowIndex].Cells[8].Value = disAddress.IsTransmit;
+                        this.dgvGroupAddress.Rows[rowIndex].Cells[9].Value = disAddress.IsUpgrade;
+                        this.dgvGroupAddress.Rows[rowIndex].Cells[10].Value = disAddress.Priority;
+                        this.dgvGroupAddress.Rows[rowIndex].Cells[11].Value = disAddress.DefaultValue;
+                        this.dgvGroupAddress.Rows[rowIndex].Cells[12].Value = disAddress.ReadTimeSpan;
 
-                        if (dlgResult == DialogResult.OK)
-                        {
-                            /* 刷新修改的行 */
-                            DisplayAddress disAddress = new DisplayAddress(frm.Address);
-                            //addressList[rowIndex] = disAddress;
-                            this.dgvGroupAddress.Rows[rowIndex].Cells[1].Value = disAddress.Id;
-                            this.dgvGroupAddress.Rows[rowIndex].Cells[2].Value = disAddress.Name;
-                            this.dgvGroupAddress.Rows[rowIndex].Cells[3].Value = disAddress.KnxAddress;
-                            this.dgvGroupAddress.Rows[rowIndex].Cells[4].Value = disAddress.Type;
-                            this.dgvGroupAddress.Rows[rowIndex].Cells[6].Value = disAddress.DefaultValue;
-                            this.dgvGroupAddress.Rows[rowIndex].Cells[5].Value = disAddress.Priority;
-                            this.dgvGroupAddress.Rows[rowIndex].Cells[13].Value = disAddress.ReadTimeSpan;
-                            this.dgvGroupAddress.Rows[rowIndex].Cells[12].Value = disAddress.WireNumber;
-                            this.dgvGroupAddress.Rows[rowIndex].Cells[7].Value = disAddress.IsCommunication;
-                            this.dgvGroupAddress.Rows[rowIndex].Cells[8].Value = disAddress.IsRead;
-                            this.dgvGroupAddress.Rows[rowIndex].Cells[9].Value = disAddress.IsWrite;
-                            this.dgvGroupAddress.Rows[rowIndex].Cells[10].Value = disAddress.IsTransmit;
-                            this.dgvGroupAddress.Rows[rowIndex].Cells[11].Value = disAddress.IsUpgrade;
-                            this.dgvGroupAddress.Rows[rowIndex].Cells[14].Value = disAddress.Tip;
-                            this.dgvGroupAddress.Rows[rowIndex].Cells[15].Value = disAddress.Actions;
 
-                            this.dgvGroupAddress.EndEdit();
+                        this.dgvGroupAddress.EndEdit();
 
-                            _saved = false;
-                        }
-
-                        break;
+                        _saved = false;
                     }
                 }
+                //        break;
+                //    }
+                //}
             }
         }
 
@@ -656,25 +419,21 @@ namespace UIEditor
         {
             Cursor = Cursors.WaitCursor;
 
-            foreach(var item in addressList)
+            foreach (var item in addressList)
             {
-                foreach (GroupAddress address in MyCache.GroupAddressTable)
+                foreach (EdGroupAddress address in MyCache.GroupAddressTable)
                 {
                     if (address.Id == item.Id)
                     {
                         address.Name = item.Name;
-                        address.KnxAddress = item.KnxAddress;
-                        address.Type = item.Type;
-                        address.Priority = item.Priority;
-                        address.DefaultValue = item.DefaultValue;
                         address.IsCommunication = item.IsCommunication;
                         address.IsRead = item.IsRead;
                         address.IsWrite = item.IsWrite;
                         address.IsTransmit = item.IsTransmit;
                         address.IsUpgrade = item.IsUpgrade;
-                        address.WireNumber = item.WireNumber;
+                        address.Priority = item.Priority;
+                        address.DefaultValue = item.DefaultValue;
                         address.ReadTimeSpan = item.ReadTimeSpan;
-                        address.Tip = item.Tip;
 
                         break;
                     }
@@ -701,8 +460,8 @@ namespace UIEditor
             }
             catch (Exception ex)
             {
-                string errorMsg = "组地址保存失败！";
-                MessageBox.Show(errorMsg, "错误提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                string errorMsg = ResourceMng.GetString("Message18");
+                MessageBox.Show(errorMsg, ResourceMng.GetString("Message6"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Log.Error(errorMsg + LogHelper.Format(ex));
             }
             finally
@@ -713,8 +472,10 @@ namespace UIEditor
 
         private void NewAddress()
         {
-            var frm = new FrmGroupAddress(DataStatus.Add) { Address = new GroupAddress() };
+            var frm = new FrmGroupAddress(DataStatus.Add) { Address = new EdGroupAddress() };
+            //frm.Address = new EdGroupAddress();
             var dlgResult = frm.ShowDialog(this);
+
 
             if (dlgResult == DialogResult.OK)
             {
@@ -731,7 +492,7 @@ namespace UIEditor
                     }
                     else
                     {
-                        MessageBox.Show("组地址冲突，地址添加失败！", "错误提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(ResourceMng.GetString("Message19"), ResourceMng.GetString("Message6"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
@@ -743,7 +504,7 @@ namespace UIEditor
         /// <param name="addressList"></param>
         /// <param name="address"></param>
         /// <returns></returns>
-        private bool CheckUnique(BindingList<GroupAddress> addressList, GroupAddress address)
+        private bool CheckUnique(BindingList<EdGroupAddress> addressList, EdGroupAddress address)
         {
             if (addressList != null && addressList.Count > 0)
             {
@@ -767,12 +528,12 @@ namespace UIEditor
         {
             for (int i = this.dgvGroupAddress.Rows.Count - 1; i > -1; i--)
             {
-                DisplayAddress disAddress = this.dgvGroupAddress.Rows[i].DataBoundItem as DisplayAddress;
+                MgGroupAddress disAddress = this.dgvGroupAddress.Rows[i].DataBoundItem as MgGroupAddress;
                 if (disAddress.IsSelected)
                 {
                     addressList.Remove(disAddress);
                     this.dgvGroupAddress.Rows.RemoveAt(i);
-                    foreach (GroupAddress address in MyCache.GroupAddressTable)
+                    foreach (EdGroupAddress address in MyCache.GroupAddressTable)
                     {
                         if (address.Id == disAddress.Id)
                         {
@@ -797,10 +558,9 @@ namespace UIEditor
                 int i = 0;
 
                 var col = grid.Columns["IsSelected"];
-                col.HeaderText = "选择";
+                col.HeaderText = ResourceMng.GetString("Selected");
                 col.Width = 60;
                 col.DisplayIndex = i++;
-                col.ReadOnly = false;
 
                 col = grid.Columns["Id"];
                 col.Width = 5;
@@ -809,87 +569,67 @@ namespace UIEditor
                 col.ReadOnly = true;
 
                 col = grid.Columns["Name"];
-                col.Width = 150;
-                col.HeaderText = "名称";
+                col.Width = 160;
+                col.HeaderText = ResourceMng.GetString("Name");
                 col.DisplayIndex = i++;
                 col.ReadOnly = true;
 
                 col = grid.Columns["KnxAddress"];
-                col.Width = 80;
-                col.HeaderText = "地址";
+                col.Width = 100;
+                col.HeaderText = ResourceMng.GetString("GroupAddress");
                 col.DefaultCellStyle.Format = "y";
                 col.DisplayIndex = i++;
                 col.ReadOnly = true;
 
-                col = grid.Columns["Type"];
-                col.Width = 80;
-                col.HeaderText = "数据类型";
-                col.DisplayIndex = i++;
-                col.ReadOnly = true;
-
-                col = grid.Columns["DefaultValue"];
-                col.Width = 80;
-                col.HeaderText = "默认值";
-                col.DisplayIndex = i++;
-                col.ReadOnly = true;
-
-                col = grid.Columns["Priority"];
-                col.Width = 80;
-                col.HeaderText = "优先级";
-                col.DisplayIndex = i++;
-                col.ReadOnly = true;
-
-                col = grid.Columns["ReadTimespan"];
-                col.Width = 80;
-                col.HeaderText = "读间隔时间";
-                col.DisplayIndex = i++;
-                col.ReadOnly = true;
-
-                col = grid.Columns["WireNumber"];
-                col.Width = 80;
-                col.HeaderText = "电缆编号";
+                col = grid.Columns["DPTName"];
+                col.Width = 160;
+                col.HeaderText = ResourceMng.GetString("DatapointType");
                 col.DisplayIndex = i++;
                 col.ReadOnly = true;
 
                 col = grid.Columns["IsCommunication"];
                 col.Width = 50;
-                col.HeaderText = "通讯";
+                col.HeaderText = ResourceMng.GetString("Communication");
                 col.DisplayIndex = i++;
-                col.ReadOnly = true;
 
                 col = grid.Columns["IsRead"];
                 col.Width = 50;
-                col.HeaderText = "读";
+                col.HeaderText = ResourceMng.GetString("Read");
                 col.DisplayIndex = i++;
-                col.ReadOnly = true;
 
                 col = grid.Columns["IsWrite"];
                 col.Width = 50;
-                col.HeaderText = "写";
+                col.HeaderText = ResourceMng.GetString("Write");
                 col.DisplayIndex = i++;
-                col.ReadOnly = true;
 
                 col = grid.Columns["IsTransmit"];
                 col.Width = 50;
-                col.HeaderText = "传送";
+                col.HeaderText = ResourceMng.GetString("Transmit");
                 col.DisplayIndex = i++;
-                col.ReadOnly = true;
 
                 col = grid.Columns["IsUpgrade"];
                 col.Width = 50;
-                col.HeaderText = "更新";
+                col.HeaderText = ResourceMng.GetString("Upgrade");
                 col.DisplayIndex = i++;
-                col.ReadOnly = true;
 
-                col = grid.Columns["Tip"];
-                col.Width = 150;
-                col.HeaderText = "操控提示";
+                col = grid.Columns["Priority"];
+                col.Width = 80;
+                col.HeaderText = ResourceMng.GetString("Priority");
                 col.DisplayIndex = i++;
-                col.ReadOnly = true;
+
+                col = grid.Columns["DefaultValue"];
+                col.Width = 80;
+                col.HeaderText = ResourceMng.GetString("DefaultValue");
+                col.DisplayIndex = i++;
+
+                col = grid.Columns["ReadTimespan"];
+                col.Width = 80;
+                col.HeaderText = ResourceMng.GetString("IntervalTimeOfRead");
+                col.DisplayIndex = i++;
 
                 col = grid.Columns["Actions"];
                 col.Width = 150;
-                col.HeaderText = "组地址行为";
+                col.HeaderText = ResourceMng.GetString("GroupAddressActions");
                 col.DisplayIndex = i++;
                 col.ReadOnly = true;
             }
@@ -909,7 +649,7 @@ namespace UIEditor
             // 当前数据有没有保存
             if (_saved == false)
             {
-                var result = MessageBox.Show("是否保存当前修改", "KNX 地址保存提示", MessageBoxButtons.YesNoCancel);
+                var result = MessageBox.Show(ResourceMng.GetString("Message20"), ResourceMng.GetString("Message4"), MessageBoxButtons.YesNoCancel);
 
                 if (result == DialogResult.Yes)
                 {
@@ -957,14 +697,18 @@ namespace UIEditor
         /// <param name="e"></param>
         private void btnImportETSProject_Click(object sender, EventArgs e)
         {
-            DatapointTypesStorage.Load();
-            ImportEtsProject();
+            //DatapointTypesStorage.Load();
+            //ImportEtsProject();
+            //FrmETSImport import = new FrmETSImport();
+            (new FrmETSImport()).ShowDialog(this);
+
+            LoadAllAddress();
         }
 
-        private void btnImportETSAddressXML_Click(object sender, EventArgs e)
-        {
-            ImportEtsAddressXml();
-        }
+        //private void btnImportETSAddressXML_Click(object sender, EventArgs e)
+        //{
+        //    ImportEtsAddressXml();
+        //}
 
         private void FrmGroupAddressMgt_Load(object sender, EventArgs e)
         {
@@ -976,21 +720,6 @@ namespace UIEditor
         private void btnFilter_Click(object sender, EventArgs e)
         {
             SearchAddress();
-        }
-
-        private void SearchAddress()
-        {
-            var searchText = this.txtSearch.Text.Trim();
-
-            if (!string.IsNullOrEmpty(searchText))
-            {
-                var data = from x in MyCache.GroupAddressTable
-                           where x.Name.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) != -1
-                           select x;
-                var groupAddresses = data as IList<GroupAddress> ?? data.ToList();
-                //this.dgvGroupAddress.DataSource = new BindingList<GroupAddress>(groupAddresses);
-                LoadAllAddress();
-            }
         }
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -1009,9 +738,7 @@ namespace UIEditor
         }
         #endregion
 
-
-
-        #region DataGridView dgvGroupAddress事件
+        #region DataGridView 事件
 
         private void dgvGroupAddress_KeyDown(object sender, KeyEventArgs e)
         {
@@ -1031,7 +758,7 @@ namespace UIEditor
 
         private void dgvGroupAddress_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            Console.Write("\nrow index:"+e.RowIndex+"\tcolumn index:"+e.ColumnIndex);
+            Console.Write("\nrow index:" + e.RowIndex + "\tcolumn index:" + e.ColumnIndex);
 
             if (e.ColumnIndex == 0)
             {
@@ -1043,7 +770,7 @@ namespace UIEditor
 
                     for (int i = 0; i < this.dgvGroupAddress.RowCount; i++)
                     {
-                        this.dgvGroupAddress.Rows[i].Cells[0].Value = false;
+                        this.dgvGroupAddress.Rows[i].Cells["IsSelected"].Value = false;
 
                     }
                 }
@@ -1055,7 +782,7 @@ namespace UIEditor
 
                     for (int i = 0; i < this.dgvGroupAddress.RowCount; i++)
                     {
-                        this.dgvGroupAddress.Rows[i].Cells[0].Value = true;
+                        this.dgvGroupAddress.Rows[i].Cells["IsSelected"].Value = true;
                     }
                 }
             }
@@ -1071,156 +798,137 @@ namespace UIEditor
                 bool upgradeIsChecked = false;
                 foreach (DataGridViewRow row in this.dgvGroupAddress.Rows)
                 {
-                    anySelected = (bool)row.Cells[0].Value;
-                    communicationIsChecked = (bool)row.Cells[7].Value;
-                    readIsChecked = (bool)row.Cells[8].Value;
-                    writeIsChecked = (bool)row.Cells[9].Value;
-                    transmitIsChecked = (bool)row.Cells[10].Value;
-                    upgradeIsChecked = (bool)row.Cells[11].Value;
+                    anySelected = (bool)row.Cells["IsSelected"].Value;
+                    communicationIsChecked = (bool)row.Cells["IsCommunication"].Value;
+                    readIsChecked = (bool)row.Cells["IsRead"].Value;
+                    writeIsChecked = (bool)row.Cells["IsWrite"].Value;
+                    transmitIsChecked = (bool)row.Cells["IsTransmit"].Value;
+                    upgradeIsChecked = (bool)row.Cells["IsUpgrade"].Value;
                     if (anySelected)
                     {
                         break;
                     }
                 }
 
-                if (anySelected) 
+                if (anySelected)
                 {
                     if (1 == e.ColumnIndex)
                     {
 
                     }
-                    else if(2 == e.ColumnIndex) // 名称
+                    else if (2 == e.ColumnIndex) // 名称
                     {
-                        //var frm = new FrmSetWireNumber();
-                        //frm.typeName = "名称";
-                        //var result = frm.ShowDialog();
-                        //if (DialogResult.OK == frm.DialogResult)
-                        //{
-                        //    string number = frm.value;
-                        //    FrmSetWireNumber.CodingMode mode = frm.mode;
-                        //    if (0 < number.Length)
-                        //    {
-                        //        int res = 0;
-                        //        int count = number.Length;
-                        //        bool isNum = false;
-                        //        while ((!isNum) && (0 < count))
-                        //        {
-                        //            string lastChar = number.Substring(number.Length - count, count);
-                        //            isNum = isNumberic(lastChar, out res);
-                        //            count--;
-                        //        }
 
-                        //        if (isNum)
-                        //        {
-                        //            count++;
-                        //            foreach (DataGridViewRow row in this.dgvGroupAddress.Rows)
-                        //            {
-                        //                bool isSelected = (bool)row.Cells[0].Value;
-                        //                if (isSelected)
-                        //                {
-                        //                    row.Cells[2].Value = string.Format("{0}{1}", number.Substring(0, number.Length - count), res);
-
-                        //                    if (FrmSetWireNumber.CodingMode.Decrease == mode)
-                        //                    {
-                        //                        res--;
-                        //                    }
-                        //                    else if (FrmSetWireNumber.CodingMode.Increment == mode)
-                        //                    {
-                        //                        res++;
-                        //                    }
-                        //                }
-                        //            }
-                        //        }
-                        //        else
-                        //        {
-                        //            foreach (DataGridViewRow row in this.dgvGroupAddress.Rows)
-                        //            {
-                        //                bool isSelected = (bool)row.Cells[0].Value;
-                        //                if (isSelected)
-                        //                {
-                        //                    row.Cells[2].Value = number;
-                        //                }
-                        //            }
-                        //        }
-                        //    }
-
-                        //}
                     }
                     else if (3 == e.ColumnIndex) // 地址
                     {
-                        //var frm = new FrmSetWireNumber();
-                        //frm.typeName = "地址";
-                        //var result = frm.ShowDialog();
-                        //if (DialogResult.OK == frm.DialogResult)
-                        //{
-                        //    string number = frm.value;
-                        //    FrmSetWireNumber.CodingMode mode = frm.mode;
-                        //    if (0 < number.Length)
-                        //    {
-                        //        int res = 0;
-                        //        int count = number.Length;
-                        //        bool isNum = false;
-                        //        while ((!isNum) && (0 < count))
-                        //        {
-                        //            string lastChar = number.Substring(number.Length - count, count);
-                        //            isNum = isNumberic(lastChar, out res);
-                        //            count--;
-                        //        }
 
-                        //        if (isNum)
-                        //        {
-                        //            count++;
-                        //            foreach (DataGridViewRow row in this.dgvGroupAddress.Rows)
-                        //            {
-                        //                bool isSelected = (bool)row.Cells[0].Value;
-                        //                if (isSelected)
-                        //                {
-                        //                    row.Cells[3].Value = string.Format("{0}{1}", number.Substring(0, number.Length - count), res);
-
-                        //                    if (FrmSetWireNumber.CodingMode.Decrease == mode)
-                        //                    {
-                        //                        res--;
-                        //                    }
-                        //                    else if (FrmSetWireNumber.CodingMode.Increment == mode)
-                        //                    {
-                        //                        res++;
-                        //                    }
-                        //                }
-                        //            }
-                        //        }
-                        //        else
-                        //        {
-                        //            foreach (DataGridViewRow row in this.dgvGroupAddress.Rows)
-                        //            {
-                        //                bool isSelected = (bool)row.Cells[0].Value;
-                        //                if (isSelected)
-                        //                {
-                        //                    row.Cells[3].Value = number;
-                        //                }
-                        //            }
-                        //        }
-                        //    }
-
-                        //}
                     }
-                    else if (4 == e.ColumnIndex) 
+                    else if (4 == e.ColumnIndex)
                     {
-                        //var frm = new FrmSetDataType();
-                        //var result = frm.ShowDialog();
-                        //if (DialogResult.OK == result)
-                        //{
-                        //    KNXDataType type = frm.type;
-                        //    foreach (DataGridViewRow row in this.dgvGroupAddress.Rows)
-                        //    {
-                        //        bool isSelected = (bool)row.Cells[0].Value;
-                        //        if (isSelected)
-                        //        {
-                        //            row.Cells[4].Value = type;
-                        //        }
-                        //    }
-                        //}
+
                     }
-                    else if (5 == e.ColumnIndex)
+                    else if (5 == e.ColumnIndex) // 是否通讯
+                    {
+                        foreach (DataGridViewRow row in this.dgvGroupAddress.Rows)
+                        {
+                            bool isSelected = (bool)row.Cells[0].Value;
+                            if (isSelected)
+                            {
+                                if (communicationIsChecked)
+                                {
+                                    row.Cells[e.ColumnIndex].Value = false;
+                                }
+                                else
+                                {
+                                    row.Cells[e.ColumnIndex].Value = true;
+                                }
+                            }
+                        }
+
+                        _saved = false;
+                    }
+                    else if (6 == e.ColumnIndex) // 是否读
+                    {
+                        foreach (DataGridViewRow row in this.dgvGroupAddress.Rows)
+                        {
+                            bool isSelected = (bool)row.Cells[0].Value;
+                            if (isSelected)
+                            {
+                                if (readIsChecked)
+                                {
+                                    row.Cells[e.ColumnIndex].Value = false;
+                                }
+                                else
+                                {
+                                    row.Cells[e.ColumnIndex].Value = true;
+                                }
+                            }
+                        }
+
+                        _saved = false;
+                    }
+                    else if (7 == e.ColumnIndex) // 是否写
+                    {
+                        foreach (DataGridViewRow row in this.dgvGroupAddress.Rows)
+                        {
+                            bool isSelected = (bool)row.Cells[0].Value;
+                            if (isSelected)
+                            {
+                                if (writeIsChecked)
+                                {
+                                    row.Cells[e.ColumnIndex].Value = false;
+                                }
+                                else
+                                {
+                                    row.Cells[e.ColumnIndex].Value = true;
+                                }
+                            }
+                        }
+
+                        _saved = false;
+                    }
+                    else if (8 == e.ColumnIndex) // 是否传输
+                    {
+                        foreach (DataGridViewRow row in this.dgvGroupAddress.Rows)
+                        {
+                            bool isSelected = (bool)row.Cells[0].Value;
+                            if (isSelected)
+                            {
+                                if (transmitIsChecked)
+                                {
+                                    row.Cells[e.ColumnIndex].Value = false;
+                                }
+                                else
+                                {
+                                    row.Cells[e.ColumnIndex].Value = true;
+                                }
+                            }
+                        }
+
+                        _saved = false;
+                    }
+                    else if (9 == e.ColumnIndex) // 是否更新
+                    {
+                        foreach (DataGridViewRow row in this.dgvGroupAddress.Rows)
+                        {
+                            bool isSelected = (bool)row.Cells[0].Value;
+                            if (isSelected)
+                            {
+                                if (upgradeIsChecked)
+                                {
+                                    row.Cells[e.ColumnIndex].Value = false;
+                                }
+                                else
+                                {
+                                    row.Cells[e.ColumnIndex].Value = true;
+                                }
+                            }
+                        }
+
+                        _saved = false;
+                    }
+                    else if (10 == e.ColumnIndex)
                     {
                         var frm = new FrmSetPriority();
                         var result = frm.ShowDialog();
@@ -1232,18 +940,18 @@ namespace UIEditor
                                 bool isSelected = (bool)row.Cells[0].Value;
                                 if (isSelected)
                                 {
-                                    row.Cells[5].Value = priority;
+                                    row.Cells[e.ColumnIndex].Value = priority;
                                 }
                             }
 
                             _saved = false;
                         }
                     }
-                    else if (6 == e.ColumnIndex)
+                    else if (11 == e.ColumnIndex)
                     {
                         var frm = new FrmSetDefaultValue();
                         var result = frm.ShowDialog();
-                        if (DialogResult.OK == result) 
+                        if (DialogResult.OK == result)
                         {
                             int value = frm.value;
                             foreach (DataGridViewRow row in this.dgvGroupAddress.Rows)
@@ -1251,174 +959,14 @@ namespace UIEditor
                                 bool isSelected = (bool)row.Cells[0].Value;
                                 if (isSelected)
                                 {
-                                    row.Cells[6].Value = value;
+                                    row.Cells[e.ColumnIndex].Value = value;
                                 }
                             }
 
                             _saved = false;
                         }
-                    }
-                    else if (7 == e.ColumnIndex) // 是否通讯
-                    {
-                        foreach (DataGridViewRow row in this.dgvGroupAddress.Rows)
-                        {
-                            bool isSelected = (bool)row.Cells[0].Value;
-                            if (isSelected)
-                            {
-                                if(communicationIsChecked) 
-                                {
-                                    row.Cells[7].Value = false;
-                                }
-                                else
-                                {
-                                    row.Cells[7].Value = true;
-                                }
-                            }
-                        }
-
-                        _saved = false;
-                    }
-                    else if (8 == e.ColumnIndex) // 是否读
-                    {
-                        foreach (DataGridViewRow row in this.dgvGroupAddress.Rows)
-                        {
-                            bool isSelected = (bool)row.Cells[0].Value;
-                            if (isSelected)
-                            {
-                                if (readIsChecked)
-                                {
-                                    row.Cells[8].Value = false;
-                                }
-                                else
-                                {
-                                    row.Cells[8].Value = true;
-                                }
-                            }
-                        }
-
-                        _saved = false;
-                    }
-                    else if (9 == e.ColumnIndex) // 是否写
-                    {
-                        foreach (DataGridViewRow row in this.dgvGroupAddress.Rows)
-                        {
-                            bool isSelected = (bool)row.Cells[0].Value;
-                            if (isSelected)
-                            {
-                                if (writeIsChecked)
-                                {
-                                    row.Cells[9].Value = false;
-                                }
-                                else
-                                {
-                                    row.Cells[9].Value = true;
-                                }
-                            }
-                        }
-
-                        _saved = false;
-                    }
-                    else if (10 == e.ColumnIndex) // 是否传输
-                    {
-                        foreach (DataGridViewRow row in this.dgvGroupAddress.Rows)
-                        {
-                            bool isSelected = (bool)row.Cells[0].Value;
-                            if (isSelected)
-                            {
-                                if (transmitIsChecked)
-                                {
-                                    row.Cells[10].Value = false;
-                                }
-                                else
-                                {
-                                    row.Cells[10].Value = true;
-                                }
-                            }
-                        }
-
-                        _saved = false;
-                    }
-                    else if (11 == e.ColumnIndex) // 是否更新
-                    {
-                        foreach (DataGridViewRow row in this.dgvGroupAddress.Rows)
-                        {
-                            bool isSelected = (bool)row.Cells[0].Value;
-                            if (isSelected)
-                            {
-                                if (upgradeIsChecked)
-                                {
-                                    row.Cells[11].Value = false;
-                                }
-                                else
-                                {
-                                    row.Cells[11].Value = true;
-                                }
-                            }
-                        }
-
-                        _saved = false;
                     }
                     else if (12 == e.ColumnIndex)
-                    {
-                        var frm = new FrmSetWireNumber();
-                        frm.typeName = "线缆编号";
-                        var result = frm.ShowDialog();
-                        if (DialogResult.OK == frm.DialogResult)
-                        {
-                            string number = frm.value;
-                            FrmSetWireNumber.CodingMode type = frm.mode;
-                            if (0 < number.Length)
-                            {
-                                int res = 0;
-                                int count = number.Length;
-                                bool isNum  = false;
-                                while ((!isNum) && (0 <count))
-                                {
-                                    string lastChar = number.Substring(number.Length - count, count);
-                                    isNum = isNumberic(lastChar, out res);
-                                    count--;
-                                }
-
-                                if (isNum)
-                                {
-                                    count++;
-                                    foreach (DataGridViewRow row in this.dgvGroupAddress.Rows)
-                                    {
-                                        bool isSelected = (bool)row.Cells[0].Value;
-                                        if (isSelected)
-                                        {
-                                            row.Cells[12].Value = string.Format("{0}{1}", number.Substring(0, number.Length - count), res);
-
-                                            if (FrmSetWireNumber.CodingMode.Decrease == type)
-                                            {
-                                                res--;
-                                            }
-                                            else if(FrmSetWireNumber.CodingMode.Increment == type)
-                                            {
-                                                res++;
-                                            }
-                                        }
-                                    }
-
-                                    
-                                }
-                                else
-                                {
-                                    foreach (DataGridViewRow row in this.dgvGroupAddress.Rows)
-                                    {
-                                        bool isSelected = (bool)row.Cells[0].Value;
-                                        if (isSelected)
-                                        {
-                                            row.Cells[12].Value = number;
-                                        }
-                                    }
-                                }
-                            }
-
-                            _saved = false;
-                        }
-                    }
-                    else if (13 == e.ColumnIndex)
                     {
                         var frm = new FrmSetReadTimeSpan();
                         var result = frm.ShowDialog();
@@ -1430,70 +978,42 @@ namespace UIEditor
                                 bool isSelected = (bool)row.Cells[0].Value;
                                 if (isSelected)
                                 {
-                                    row.Cells[13].Value = value;
+                                    row.Cells[e.ColumnIndex].Value = value;
                                 }
                             }
 
                             _saved = false;
                         }
                     }
-                    else if (14 == e.ColumnIndex) // 操控提示
-                    {
-                        var frm = new FrmSetOperationTips();
-                        var result = frm.ShowDialog();
-                        if (DialogResult.OK == result)
-                        {
-                            string tip = frm.tip;
-                            foreach (DataGridViewRow row in this.dgvGroupAddress.Rows)
-                            {
-                                bool isSelected = (bool)row.Cells[0].Value;
-                                if (isSelected)
-                                {
-                                    row.Cells[14].Value = tip;
-                                }
-                            }
-
-                            _saved = false;
-                        }
-                    }
-
-                    this.dgvGroupAddress.EndEdit();
                 }
             }
         }
 
-        private void dgvGroupAddress_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvGroupAddress_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            //if (e.ColumnIndex == 0 && e.RowIndex != -1)
-            //{
-            //    if (this.dgvGroupAddress.Rows[e.RowIndex].Cells[0].EditedFormattedValue.Equals(true))
-            //    {
-            //        this.dgvGroupAddress.Rows[e.RowIndex].DefaultCellStyle.BackColor = System.Drawing.Color.CadetBlue;
-            //    }
-            //    else
-            //    {
-                    //if (0 == (e.RowIndex % 2)) {
-                    //    this.dgvGroupAddress.Rows[e.RowIndex].DefaultCellStyle.BackColor = System.Drawing.Color.AliceBlue;
-                    //}
-                    //else
-                    //{
-                    //    this.dgvGroupAddress.Rows[e.RowIndex].DefaultCellStyle.BackColor = System.Drawing.Color.Lavender;
-                    //}
-            //    }
-            //}
+            int rowIndex = e.RowIndex;
+            int colIndex = e.ColumnIndex;
 
-            //if (4 == e.ColumnIndex)
-            //{
-            //    DataGridViewComboBoxCell cel = new DataGridViewComboBoxCell();
-            //    cel.Style.BackColor = Color.Cornsilk;
-            //    foreach (var elem in Enum.GetNames(typeof(KNXDataType)))
-            //    {
-            //        cel.Items.Add(elem);
-            //    }
-            //    dgvGroupAddress.Rows[e.RowIndex].Cells[e.ColumnIndex] = cel;
-            //}
+            if (rowIndex >= 0)
+            {
+                if (10 == e.ColumnIndex)
+                {
+                    Rectangle rect = dgvGroupAddress.GetCellDisplayRectangle(dgvGroupAddress.CurrentCell.ColumnIndex, dgvGroupAddress.CurrentCell.RowIndex, false);
+                    this.cbbPriority.Text = dgvGroupAddress.CurrentCell.Value.ToString();
+                    this.cbbPriority.Left = rect.Left;
+                    this.cbbPriority.Top = rect.Top;
+                    this.cbbPriority.Width = rect.Width;
+                    this.cbbPriority.Height = rect.Height;
+
+                    this.cbbPriority.Visible = true;
+                }
+                else
+                {
+                    this.cbbPriority.Visible = false;
+                }
+            }
         }
-        
+
         /// <summary>
         /// 显示行号
         /// </summary>
@@ -1523,7 +1043,7 @@ namespace UIEditor
         {
             if (this.dgvGroupAddress.Rows.Count != 0)
             {
-                for (int i = 0; i < this.dgvGroupAddress.Rows.Count; i++ )
+                for (int i = 0; i < this.dgvGroupAddress.Rows.Count; i++)
                 {
                     if (0 == (i % 2))
                     {
@@ -1560,28 +1080,139 @@ namespace UIEditor
             }
         }
 
-        //private void cbSelectAll_CheckedChanged(object send, System.EventArgs e)
-        //{
-        //    for (int i = 0; i <= this.dgvGroupAddress.RowCount - 1; i++)
-        //    {
-        //        this.dgvGroupAddress.Rows.SharedRow(i).SetValues(cbSelectAll.Checked);
-        //    }
-        //}
+        private void dgvGroupAddress_Scroll(object sender, ScrollEventArgs e)
+        {
+            //this.cbbDataType.Visible = false;
+            this.cbbPriority.Visible = false;
+        }
 
-        //private void dgvGroupAddress_CellPainting(object sender, System.Windows.Forms.DataGridViewCellPaintingEventArgs e)
-        //{
-            //if (e.RowIndex == -1 & e.ColumnIndex == 0)
-            //{
-            //    Point p = this.dgvGroupAddress.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true).Location;
-            //    p.Offset(this.dgvGroupAddress.Left, this.dgvGroupAddress.Top);
+        private void dgvGroupAddress_MouseWheel(object sender, MouseEventArgs e)
+        {
+            //this.cbbDataType.Visible = false;
+            this.cbbPriority.Visible = false;
+        }
 
-            //    //p.Offset(left, top);
-            //    this.cbSelectAll.Location = p;
-            //    this.cbSelectAll.Size = this.dgvGroupAddress.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false).Size;
-            //    this.cbSelectAll.Visible = true;
-            //    this.cbSelectAll.BringToFront();
-            //}
-        //} 
+        private void dgvGroupAddress_MouseEnter(object sender, EventArgs e)
+        {
+            this.dgvGroupAddress.Focus();
+        }
+
+        private void dgvGroupAddress_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
+        {
+            //this.cbbDataType.Visible = false;
+            this.cbbPriority.Visible = false;
+        }
+
+        private void dgvGroupAddress_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            this._saved = false;
+        }
+
+        private void dgvGroupAddress_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            int rowIndex = e.RowIndex;
+            int colIndex = e.ColumnIndex;
+            if (rowIndex >= 0)
+            {
+                if (13 == colIndex)
+                {
+                    string Id = this.dgvGroupAddress.Rows[rowIndex].Cells["Id"].Value as string;
+                    EdGroupAddress addr = MyCache.GetGroupAddress(Id);
+                    if ((null != addr) && (null != addr.Actions))
+                    {
+                        //画单元格的边界线
+                        Point p1 = new Point(e.CellBounds.Left + e.CellBounds.Width, e.CellBounds.Top);
+                        Point p2 = new Point(e.CellBounds.Left + e.CellBounds.Width, e.CellBounds.Top + e.CellBounds.Height);
+                        Point p3 = new Point(e.CellBounds.Left, e.CellBounds.Top + e.CellBounds.Height);
+                        Point[] ps = new Point[] { p1, p2, p3 };
+                        using (Brush gridBrush = new SolidBrush(this.dgvGroupAddress.GridColor))
+                        {
+                            using (Pen gridLinePen = new Pen(gridBrush, 2))
+                            {
+                                Font font = new Font("宋体", 9, FontStyle.Regular);//自定义字体
+                                string seperator = ";";
+                                SizeF sizeSeperator = e.Graphics.MeasureString(seperator, font);
+                                float startPos = .0f;
+
+                                //判断当前行是否为选中行，如果为选中行，则要修改图片的背景色和文字的字体颜色
+                                if ((null != this.dgvGroupAddress.CurrentRow) && (this.dgvGroupAddress.CurrentRow.Index == e.RowIndex))
+                                {
+                                    using (Brush backColorBrush = new SolidBrush(Color.FromArgb(051, 153, 255)))
+                                    {
+                                        //以背景色填充单元格
+                                        e.Graphics.FillRectangle(backColorBrush, e.CellBounds);
+                                        e.Graphics.DrawLines(gridLinePen, ps);
+
+                                        foreach (DatapointActionNode action in addr.Actions)
+                                        {
+                                            if (startPos >= e.CellBounds.Width)
+                                            {
+                                                break;
+                                            }
+
+                                            if (startPos > 0)
+                                            {
+                                                e.Graphics.DrawString(seperator, font, Brushes.White, new RectangleF(e.CellBounds.Left + startPos,
+                                                    e.CellBounds.Top + (e.CellBounds.Height - sizeSeperator.Height) / 2, e.CellBounds.Width - startPos,
+                                                    sizeSeperator.Height), StringFormat.GenericDefault);
+                                                startPos += sizeSeperator.Width;
+                                            }
+
+                                            SizeF sizeText = e.Graphics.MeasureString(action.Name, font);
+                                            e.Graphics.DrawString(action.Name, font, Brushes.White, new RectangleF(e.CellBounds.Left + startPos,
+                                                e.CellBounds.Top + (e.CellBounds.Height - sizeText.Height) / 2, e.CellBounds.Width - startPos,
+                                                sizeText.Height), StringFormat.GenericDefault);
+                                            startPos += sizeText.Width;
+                                        }
+
+                                        e.Handled = true;
+                                    }
+                                }
+                                else
+                                {
+                                    using (Brush backColorBrush = new SolidBrush(e.CellStyle.BackColor))
+                                    {
+                                        e.Graphics.FillRectangle(backColorBrush, e.CellBounds);
+                                        e.Graphics.DrawLines(gridLinePen, ps);
+
+                                        foreach (DatapointActionNode action in addr.Actions)
+                                        {
+                                            if (startPos >= e.CellBounds.Width)
+                                            {
+                                                break;
+                                            }
+
+                                            if (startPos > 0)
+                                            {
+                                                e.Graphics.DrawString(seperator, font, Brushes.Black, new RectangleF(e.CellBounds.Left + startPos, 
+                                                    e.CellBounds.Top + (e.CellBounds.Height - sizeSeperator.Height) / 2, e.CellBounds.Width - startPos,
+                                                    sizeSeperator.Height), StringFormat.GenericDefault);
+                                                startPos += sizeSeperator.Width;
+                                            }
+
+                                            if (startPos >= e.CellBounds.Width)
+                                            {
+                                                break;
+                                            }
+
+                                            SizeF sizeText = e.Graphics.MeasureString(action.Name, e.CellStyle.Font);
+                                            e.Graphics.DrawString(action.Name, e.CellStyle.Font, Brushes.Blue, new RectangleF(e.CellBounds.Left + startPos,
+                                                e.CellBounds.Top + (e.CellBounds.Height - sizeText.Height) / 2, e.CellBounds.Width - startPos,
+                                                sizeText.Height), StringFormat.GenericDefault);
+                                            startPos += sizeText.Width;
+                                        }
+
+                                        e.Handled = true;
+                                    }
+                                }
+                            }
+                        }
+
+
+                    }
+                }
+            }
+        }
 
         #endregion
 
@@ -1599,263 +1230,16 @@ namespace UIEditor
                 return false;
         }
 
-    }
-
-    public class ComboBoxItem
-    {
-        public string Text { get; set; }
-        public int Index { get; set; }
-
-        public ComboBoxItem(int index, string text)
+        private void cbbDataType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Text = text;
-            Index = index;
+            this.dgvGroupAddress.CurrentCell.Value = ((ComboBox)sender).Text;
+
+            this._saved = false;
         }
 
-        public override string ToString()
+        private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            return Text;
+            SearchAddress();
         }
     }
-
-    public class DataGridViewComboEditBoxColumn : DataGridViewComboBoxColumn
-    {
-        public DataGridViewComboEditBoxColumn()
-        {
-            DataGridViewComboEditBoxCell obj = new DataGridViewComboEditBoxCell();
-            CellTemplate = obj;
-        }
-
-        public override sealed DataGridViewCell CellTemplate
-        {
-            get { return base.CellTemplate; }
-            set { base.CellTemplate = value; }
-        }
-    }
-
-    public class DataGridViewComboEditBoxCell : DataGridViewComboBoxCell
-    {
-        public override void InitializeEditingControl(int rowIndex, object initialFormattedValue, DataGridViewCellStyle dataGridViewCellStyle)
-        {
-            base.InitializeEditingControl(rowIndex, initialFormattedValue, dataGridViewCellStyle);
-
-            ComboBox comboBox = (ComboBox)DataGridView.EditingControl;
-
-            if (comboBox != null)
-            {
-                comboBox.DropDownStyle = ComboBoxStyle.DropDown;
-                comboBox.AutoCompleteMode = AutoCompleteMode.Suggest;
-                comboBox.Validating += ComboBoxValidating;
-            }
-        }
-
-        protected override object GetFormattedValue(object value, int rowIndex, ref DataGridViewCellStyle cellStyle, TypeConverter valueTypeConverter, TypeConverter formattedValueTypeConverter, DataGridViewDataErrorContexts context)
-        {
-            if (value != null)
-            {
-                if (value.ToString().Trim() != string.Empty)
-                {
-                    if (Items.IndexOf(value) == -1)
-                    {
-                        Items.Add(value);
-                        DataGridViewComboBoxColumn col = (DataGridViewComboBoxColumn)OwningColumn;
-                        col.Items.Add(value);
-                    }
-                }
-            }
-            return base.GetFormattedValue(value, rowIndex, ref cellStyle, valueTypeConverter, formattedValueTypeConverter, context);
-        }
-
-        protected static void ComboBoxValidating(object sender, CancelEventArgs e)
-        {
-            DataGridViewComboBoxEditingControl cbo = (DataGridViewComboBoxEditingControl)sender;
-            if (cbo.Text.Trim() == string.Empty) return;
-
-            DataGridView grid = cbo.EditingControlDataGridView;
-            object value = cbo.Text;
-
-            // Add value to list if not there
-            if (cbo.Items.IndexOf(value) == -1)
-            {
-                DataGridViewComboBoxColumn cboCol = (DataGridViewComboBoxColumn)grid.Columns[grid.CurrentCell.ColumnIndex];
-                // Must add to both the current combobox as well as the template, to avoid duplicate entries
-                cbo.Items.Add(value);
-                cboCol.Items.Add(value);
-                grid.CurrentCell.Value = value;
-            }
-        }
-    }
-
-    public class DataGridViewMoneyTextBoxColumn : DataGridViewTextBoxColumn
-    {
-        public DataGridViewMoneyTextBoxColumn()
-        {
-            this.CellTemplate = new DataGridViewMoneyCell();
-        }
-        public override DataGridViewCell CellTemplate
-        {
-            get
-            {
-                return base.CellTemplate;
-            }
-            set
-            {
-                DataGridViewMoneyCell cell = value as DataGridViewMoneyCell;
-                if (value != null && cell == null)
-                {
-                    throw new InvalidCastException("Value provided for CellTemplate must be of type TEditNumDataGridViewCell or derive from it.");
-                }
-                base.CellTemplate = value;
-            }
-        }
-    }
-
-    public class DataGridViewMoneyCell : DataGridViewTextBoxCell
-    {
-        public DataGridViewMoneyCell()
-        {
-
-        }
-        int decimalLength;
-
-        private static Type defaultEditType = typeof(MoneyTextBoxDataGridViewEditingControl);
-        private static Type defaultValueType = typeof(System.Decimal);
-
-        public int DecimalLength
-        {
-            get { return decimalLength; }
-            set { decimalLength = value; }
-        }
-
-        public override Type EditType
-        {
-            get { return defaultEditType; }
-        }
-
-        public override Type ValueType
-        {
-            get
-            {
-                Type valueType = base.ValueType;
-                if (valueType != null)
-                {
-                    return valueType;
-                }
-                return defaultValueType;
-            }
-        }
-    }
-    public class MoneyTextBoxDataGridViewEditingControl : TextBox, IDataGridViewEditingControl
-    {
-        private DataGridView dataGridView;  // grid owning this editing control
-        private bool valueChanged;  // editing control's value has changed or not
-        private int rowIndex;  //  row index in which the editing control resides
-
-        #region IDataGridViewEditingControl 成员
-
-        public void ApplyCellStyleToEditingControl(DataGridViewCellStyle dataGridViewCellStyle)
-        {
-            this.Font = dataGridViewCellStyle.Font;
-            if (dataGridViewCellStyle.BackColor.A < 255)
-            {
-                // The NumericUpDown control does not support transparent back colors
-                Color opaqueBackColor = Color.FromArgb(255, dataGridViewCellStyle.BackColor);
-                this.BackColor = opaqueBackColor;
-                this.dataGridView.EditingPanel.BackColor = opaqueBackColor;
-            }
-            else
-            {
-                this.BackColor = dataGridViewCellStyle.BackColor;
-            }
-            this.ForeColor = dataGridViewCellStyle.ForeColor;
-        }
-
-        public DataGridView EditingControlDataGridView
-        {
-            get
-            {
-                return this.dataGridView;
-            }
-            set
-            {
-                this.dataGridView = value;
-            }
-        }
-
-        public object EditingControlFormattedValue
-        {
-            get
-            {
-                return GetEditingControlFormattedValue(DataGridViewDataErrorContexts.Formatting);
-            }
-            set
-            {
-                this.Text = (string)value;
-            }
-        }
-
-        public int EditingControlRowIndex
-        {
-            get
-            {
-                return this.rowIndex;
-            }
-            set
-            {
-                this.rowIndex = value;
-            }
-        }
-
-        public bool EditingControlValueChanged
-        {
-            get { return this.valueChanged; }
-            set { this.valueChanged = value; }
-        }
-
-        public bool EditingControlWantsInputKey(Keys keyData, bool dataGridViewWantsInputKey)
-        {
-            switch (keyData & Keys.KeyCode)
-            {
-                case Keys.Right:
-                case Keys.Left:
-                case Keys.Down:
-                case Keys.Up:
-                case Keys.Home:
-                case Keys.End:
-                case Keys.Delete:
-                    return true;
-            }
-            return !dataGridViewWantsInputKey;
-        }
-
-        public Cursor EditingPanelCursor
-        {
-            get { return Cursors.Default; }
-        }
-
-        public object GetEditingControlFormattedValue(DataGridViewDataErrorContexts context)
-        {
-            return this.Text;
-        }
-
-        public void PrepareEditingControlForEdit(bool selectAll)
-        {
-            if (selectAll)
-            {
-                this.SelectAll();
-            }
-            else
-            {
-                this.SelectionStart = this.Text.Length;
-            }
-        }
-
-        public bool RepositionEditingControlOnValueChange
-        {
-            get { return false; }
-        }
-
-        #endregion
-    }
-
 }

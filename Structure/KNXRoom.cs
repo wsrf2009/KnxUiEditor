@@ -15,6 +15,11 @@ namespace Structure
 
         public string PinCode { get; set; }
 
+        /// <summary>
+        /// 是否将该房间作为默认显示页面
+        /// </summary>
+        public bool DefaultRoom { get; set; }
+
         public List<KNXPage> Pages { get; set; }
 
     }

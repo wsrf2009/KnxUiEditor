@@ -7,13 +7,24 @@ namespace Structure.Control
     public class KNXSwitch : KNXControlBase
     {
 
-        // 开关开启时图片
-        public string OnImage { get; set; }
+        /// <summary>
+        /// 开启时显示的图片
+        /// </summary>
+        public string ImageOn { get; set; }
 
-        // 开关关闭时图片
-        public string OffImage { get; set; }
+        /// <summary>
+        /// 开启时控件的背景色
+        /// </summary>
+        public string ColorOn { get; set; }
 
-        //指令发送延迟时间(单位毫秒)
-        public int SendInterval { get; set; }
+        /// <summary>
+        /// 关闭时显示的图片
+        /// </summary>
+        public string ImageOff { get; set; }
+
+        /// <summary>
+        /// 关闭时控件的背景色
+        /// </summary>
+        public string ColorOff { get; set; }
     }
 }

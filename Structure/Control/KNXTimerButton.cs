@@ -10,6 +10,6 @@ namespace Structure.Control
     /// </summary>
     public class KNXTimerButton : KNXControlBase
     {
-
+        //public string Icon { get; set; }
     }
 }

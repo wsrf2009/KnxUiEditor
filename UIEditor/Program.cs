@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
 using UIEditor.Component;
 using UIEditor.Controls;
@@ -24,8 +26,13 @@ namespace UIEditor
             // 项目临时目录
             BuildKnxCacheFolder();
 
+            BuildStartupPath();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            //Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            //Thread.CurrentThread.CurrentUICulture = /*Thread.CurrentThread.CurrentCulture*/new CultureInfo("en-US");
+            
             Application.Run(new FrmMain());
 
             Application.ApplicationExit += Application_ApplicationExit;
@@ -86,6 +93,14 @@ namespace UIEditor
             folder.Create();
             folder.Attributes = FileAttributes.Hidden;
 
+        }
+
+        private static void BuildStartupPath()
+        {
+            MyCache.ProjectStartupDir = System.Threading.Thread.GetDomain().BaseDirectory;
+            MyCache.ProjectResourceDir = Path.Combine(MyCache.ProjectStartupDir, "Resources");
+            MyCache.ProjectResImgDir = Path.Combine(MyCache.ProjectResourceDir, "Images");
+            MyCache.ProjectResCtrlDir = Path.Combine(MyCache.ProjectResourceDir, "controls");
         }
     }
 }

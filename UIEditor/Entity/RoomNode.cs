@@ -17,11 +17,15 @@ namespace UIEditor.Entity
     public class RoomNode : ViewNode
     {
         private static int index = 0;
-        // 图标
+
         public string Symbol { get; set; }
-        // 
+
         public string PinCode { get; set; }
 
+        /// <summary>
+        /// 是否将该房间作为默认显示页面
+        /// </summary>
+        public bool DefaultRoom { get; set; }
 
         #region 构造函数
 
@@ -29,9 +33,11 @@ namespace UIEditor.Entity
         {
             index++;
 
-            Text = "房间_" + index;
+            Text = ResourceMng.GetString("TextRoom") + "_" + index;
+
             Symbol = MyConst.DefaultIcon;
             PinCode = "";
+            this.DefaultRoom = false;
 
             Name = ImageKey = SelectedImageKey = MyConst.View.KnxRoomType;
         }
@@ -41,6 +47,7 @@ namespace UIEditor.Entity
         {
             Symbol = knx.Symbol;
             PinCode = knx.PinCode;
+            this.DefaultRoom = knx.DefaultRoom;
 
             Name = ImageKey = SelectedImageKey = MyConst.View.KnxRoomType;
         }
@@ -57,6 +64,7 @@ namespace UIEditor.Entity
 
             knx.Symbol = this.Symbol;
             knx.PinCode = this.PinCode;
+            knx.DefaultRoom = this.DefaultRoom;
 
             knx.Pages = new List<KNXPage>();
 
@@ -76,15 +84,15 @@ namespace UIEditor.Entity
 
             var valueChangedController = new ValueChangedEvent();
 
-            var currentRow = 1;
+            var currentRow = 0;
             grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(MyConst.PropType);
+            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropType"));
             grid[currentRow, MyConst.NameColumn].View = nameModel;
             grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Name);
 
             currentRow++;
             grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(MyConst.PropTitle);
+            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropTitle"));
             grid[currentRow, MyConst.NameColumn].View = nameModel;
             grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Text);
             grid[currentRow, MyConst.ValueColumn].Editor = stringEditor;
@@ -92,7 +100,7 @@ namespace UIEditor.Entity
 
             currentRow++;
             grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell("图标");
+            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropIcon"));
             grid[currentRow, MyConst.NameColumn].View = nameModel;
             grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Symbol);
             grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
@@ -108,10 +116,17 @@ namespace UIEditor.Entity
 
             currentRow++;
             grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell("PIN码");
+            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropPassword"));
             grid[currentRow, MyConst.NameColumn].View = nameModel;
             grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.PinCode);
             grid[currentRow, MyConst.ValueColumn].Editor = stringEditor;
+            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
+
+            currentRow++;
+            grid.Rows.Insert(currentRow);
+            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropIsDefaultRoom"));
+            grid[currentRow, MyConst.NameColumn].View = nameModel;
+            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.DefaultRoom, typeof(bool));
             grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
 
             #endregion
@@ -125,14 +140,17 @@ namespace UIEditor.Entity
 
             switch (row)
             {
-                case 2:
+                case 1:
                     this.Text = context.Value.ToString();
                     break;
-                case 3:
+                case 2:
                     this.Symbol = context.Value.ToString();
                     break;
-                case 4:
+                case 3:
                     this.PinCode = context.Value.ToString();
+                    break;
+                case 4:
+                    this.DefaultRoom = Convert.ToBoolean(context.Value);
                     break;
                 default:
                     ShowSaveEntityMsg(MyConst.View.KnxRoomType);

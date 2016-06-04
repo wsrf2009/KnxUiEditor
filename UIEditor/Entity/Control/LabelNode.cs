@@ -6,6 +6,8 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 using SourceGrid;
 using Structure.Control;
+using System.Drawing.Imaging;
+using UIEditor.Component;
 
 
 namespace UIEditor.Entity.Control
@@ -13,65 +15,65 @@ namespace UIEditor.Entity.Control
     [Serializable]
     public class LabelNode : ControlBaseNode
     {
+        #region 变量
         private static int index = 0;
-
-        // 字体大小
-        public int FontSize { get; set; }
-
-        public ContentAlignment TextAlign { get; set; }
+        #endregion
 
         #region 构造函数
+
         public LabelNode()
         {
             index++;
 
-            this.Text = "标签_" + index;
+            this.Text = ResourceMng.GetString("TextLabel") + "_" + index;
 
-            this.FontSize = 10;
-            this.TextAlign = ContentAlignment.MiddleLeft;
+            this.Width = 150;
+            this.Height = 35;
+
+            this.Clickable = false;
+
+
 
             Name = ImageKey = SelectedImageKey = MyConst.Controls.KnxLabelType;
         }
 
+        /// <summary>
+        /// KNXLabel 转 LabelNode
+        /// </summary>
+        /// <param name="knx"></param>
         public LabelNode(KNXLabel knx)
             : base(knx)
         {
-            this.FontSize = knx.FontSize;
-            if (string.IsNullOrEmpty(knx.TextAlign))
-            {
-                this.TextAlign = ContentAlignment.MiddleLeft;
-            }
-            else
-            {
-                this.TextAlign = (ContentAlignment)Enum.Parse(typeof(ContentAlignment), knx.TextAlign);
-            }
-
-
             Name = ImageKey = SelectedImageKey = MyConst.Controls.KnxLabelType;
-
         }
 
-        protected LabelNode(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        protected LabelNode(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
+        }
+
         #endregion
 
-        #region knx
+        /// <summary>
+        /// LabelNode 转 KNXLabel
+        /// </summary>
+        /// <returns></returns>
         public KNXLabel ToKnx()
         {
             var knx = new KNXLabel();
 
             base.ToKnx(knx);
 
-            knx.FontSize = this.FontSize;
-            knx.TextAlign = this.TextAlign.ToString();
             return knx;
         }
-        #endregion
 
+        /// <summary>
+        /// 显示LabelNode的属性于GridView中
+        /// </summary>
+        /// <param name="grid"></param>
         public override void DisplayProperties(Grid grid)
         {
-            #region 基本属性
-
-            grid.Tag = this;
+            base.DisplayProperties(grid);
 
             var nameModel = new SourceGrid.Cells.Views.Cell();
             nameModel.BackColor = grid.BackColor;
@@ -81,187 +83,209 @@ namespace UIEditor.Entity.Control
 
             var valueChangedController = new ValueChangedEvent();
 
-            var currentRow = 1;
+            #region TreeNode属性
+            /* 0 类型 */
+            var currentRow = 0;
             grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(MyConst.PropType);
+            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropType"));
             grid[currentRow, MyConst.NameColumn].View = nameModel;
             grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Name);
 
+            /* 1 名称 */
             currentRow++;
             grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(MyConst.PropTitle);
+            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropTitle"));
             grid[currentRow, MyConst.NameColumn].View = nameModel;
             grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Text);
             grid[currentRow, MyConst.ValueColumn].Editor = stringEditor;
             grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
+            #endregion
 
+            #region ViewNode属性
+            /* 2 左上角顶点位置X */
             currentRow++;
             grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(MyConst.PropBackColor);
+            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropX"));
             grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.BackgroudColor);
+            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Left);
+            grid[currentRow, MyConst.ValueColumn].Editor = intEditor;
+            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
+
+            /* 3 左上角顶点位置Y */
+            currentRow++;
+            grid.Rows.Insert(currentRow);
+            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropY"));
+            grid[currentRow, MyConst.NameColumn].View = nameModel;
+            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Top);
+            grid[currentRow, MyConst.ValueColumn].Editor = intEditor;
+            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
+
+            /* 4 宽度 */
+            currentRow++;
+            grid.Rows.Insert(currentRow);
+            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropWidth"));
+            grid[currentRow, MyConst.NameColumn].View = nameModel;
+            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Width);
+            grid[currentRow, MyConst.ValueColumn].Editor = intEditor;
+            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
+
+            /* 5 高度 */
+            currentRow++;
+            grid.Rows.Insert(currentRow);
+            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropHeight"));
+            grid[currentRow, MyConst.NameColumn].View = nameModel;
+            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Height);
+            grid[currentRow, MyConst.ValueColumn].Editor = intEditor;
+            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
+
+            /* 6 不透明度 */
+            currentRow++;
+            grid.Rows.Insert(currentRow);
+            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropAlpha"));
+            grid[currentRow, MyConst.NameColumn].View = nameModel;
+            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Alpha);
+            grid[currentRow, MyConst.ValueColumn].Editor = new SourceGrid.Cells.Editors.TextBoxNumeric(typeof(Double)); ;
+            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
+
+            /* 7 圆角半径 */
+            currentRow++;
+            grid.Rows.Insert(currentRow);
+            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropRadius"));
+            grid[currentRow, MyConst.NameColumn].View = nameModel;
+            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Radius);
+            grid[currentRow, MyConst.ValueColumn].Editor = intEditor;
+            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
+
+            /* 8 背景色 */
+            currentRow++;
+            grid.Rows.Insert(currentRow);
+            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropBackColor"));
+            grid[currentRow, MyConst.NameColumn].View = nameModel;
+            if (null == this.BackgroundColor)
+            {
+                grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell("");
+            }
+            else
+            {
+                grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.BackgroundColor);
+                grid[currentRow, MyConst.ValueColumn].Editor = stringEditor;
+                grid[currentRow, MyConst.ValueColumn].Image = ImageHelper.CreateImage(this.BackgroundColor);
+            }
             grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
             grid[currentRow, MyConst.ButtonColumn] = new SourceGrid.Cells.Button("...");
-            var backColorButtonController = new SourceGrid.Cells.Controllers.Button();
-            backColorButtonController.Executed += PickColor;
-            grid[currentRow, MyConst.ButtonColumn].Controller.AddController(backColorButtonController);
+            var colorButtonController = new SourceGrid.Cells.Controllers.Button();
+            colorButtonController.Executed += PickColor;
+            grid[currentRow, MyConst.ButtonColumn].Controller.AddController(colorButtonController);
 
+            /* 9 平面样式 */
             currentRow++;
             grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(MyConst.PropForeColor);
+            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropFlatStyle"));
+            grid[currentRow, MyConst.NameColumn].View = nameModel;
+            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.FlatStyle, typeof(EFlatStyle));
+            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
+
+            /* 10 字体颜色 */
+            currentRow++;
+            grid.Rows.Insert(currentRow);
+            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropFontColor"));
             grid[currentRow, MyConst.NameColumn].View = nameModel;
             grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.FontColor);
+            grid[currentRow, MyConst.ValueColumn].Image = ImageHelper.CreateImage(this.FontColor);
+            grid[currentRow, MyConst.ValueColumn].Editor = stringEditor;
             grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
             grid[currentRow, MyConst.ButtonColumn] = new SourceGrid.Cells.Button("...");
             var foreColorButtonController = new SourceGrid.Cells.Controllers.Button();
             foreColorButtonController.Executed += PickColor;
             grid[currentRow, MyConst.ButtonColumn].Controller.AddController(foreColorButtonController);
 
+            /* 11 字体大小 */
             currentRow++;
             grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(MyConst.PropRow);
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Row);
-            grid[currentRow, MyConst.ValueColumn].Editor = intEditor;
-            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
-
-            currentRow++;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(MyConst.PropColumn);
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Column);
-            grid[currentRow, MyConst.ValueColumn].Editor = intEditor;
-            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
-
-
-            currentRow++;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(MyConst.PropRowSpan);
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.RowSpan);
-            grid[currentRow, MyConst.ValueColumn].Editor = intEditor;
-            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
-
-            currentRow++;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(MyConst.PropColumnSpan);
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.ColumnSpan);
-            grid[currentRow, MyConst.ValueColumn].Editor = intEditor;
-            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
-
-
-            currentRow++;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(MyConst.PropEtsWriteAddressIds);
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(EtsAddressDictToString(this.WriteAddressIds));
-            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
-            grid[currentRow, MyConst.ButtonColumn] = new SourceGrid.Cells.Button("...");
-            var writeAddButton = new SourceGrid.Cells.Controllers.Button();
-            writeAddButton.Executed += PickMultiAddress;
-            grid[currentRow, MyConst.ButtonColumn].Controller.AddController(writeAddButton);
-
-            currentRow++;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(MyConst.PropEtsReadAddressId);
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(EtsAddressDictToString(this.ReadAddressId));
-            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
-            grid[currentRow, MyConst.ButtonColumn] = new SourceGrid.Cells.Button("...");
-            var readAddButton = new SourceGrid.Cells.Controllers.Button();
-            readAddButton.Executed += PickAddress;
-            grid[currentRow, MyConst.ButtonColumn].Controller.AddController(readAddButton);
-
-            currentRow++;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(MyConst.PropHasTip);
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.HasTip, typeof(bool));
-            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
-
-            currentRow++;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(MyConst.PropTip);
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Tip, stringEditor);
-            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
-            #endregion
-
-            #region 自定义属性
-            currentRow++;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell("字体大小");
+            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropFontSize"));
             grid[currentRow, MyConst.NameColumn].View = nameModel;
             grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.FontSize);
             grid[currentRow, MyConst.ValueColumn].Editor = intEditor;
             grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
+            #endregion
 
+            #region ControlBaseNode属性
+            #endregion
 
-            currentRow++;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell("文字对齐方式");
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.TextAlign, typeof(ContentAlignment));
-            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
+            #region 自定义属性
+
             #endregion
 
         }
 
+        /// <summary>
+        /// GridView中的属性值有改变
+        /// </summary>
+        /// <param name="context"></param>
         public override void ChangePropValues(CellContext context)
         {
             int row = context.Position.Row;
+            var grid = context.Grid as Grid;
 
             switch (row)
             {
-                #region 基础属性
-                case 2:
-                    this.Text = context.Value.ToString();
+                #region TreeNode属性
+                case 0:    //  类型
                     break;
-                case 3:
-                    this.BackgroudColor = context.Value.ToString();
-                    break;
-                case 4:
-                    this.FontColor = context.Value.ToString();
-                    break;
-                case 5:
-                    this.Row = Convert.ToInt32(context.Value);
-                    break;
-                case 6:
-                    this.Column = Convert.ToInt32(context.Value);
-                    break;
-                case 7:
-                    this.RowSpan = Convert.ToInt32(context.Value);
-                    break;
-                case 8:
-                    this.ColumnSpan = Convert.ToInt32(context.Value);
-                    break;
-                case 9:
-                    //this.WriteAddressIds = null;
-                    break;
-                case 10:
-                    // this.ReadAddressId = context.Value.ToString();
-                    break;
-                case 11:
-                    this.HasTip = Convert.ToBoolean(context.Value);
-                    break;
-                case 12:
-                    this.Tip = context.Value.ToString();
+                case 1:    //  名称
+                    this.Text = (string)context.Value;
                     break;
                 #endregion
 
-                #region 扩展属性
-                case 13:
+                #region ViewNode属性
+                case 2:     //  左上角顶点位置X
+                    this.Left = Convert.ToInt32(context.Value);
+                    break;
+                case 3:     //  左上角顶点位置Y
+                    this.Top = Convert.ToInt32(context.Value);
+                    break;
+                case 4:     //  宽度
+                    this.Width = Convert.ToInt32(context.Value);
+                    break;
+                case 5:     //  高度
+                    this.Height = Convert.ToInt32(context.Value);
+                    break;
+                case 6:     //  不透明度
+                    this.Alpha = Convert.ToDouble(context.Value);
+                    break;
+                case 7:     //  圆角半径
+                    this.Radius = Convert.ToInt32(context.Value);
+                    break;
+                case 8:     //  背景色
+                    this.BackgroundColor = (string)context.Value;
+                    grid[row, MyConst.ValueColumn].Image = ImageHelper.CreateImage(this.BackgroundColor);
+                    break;
+                case 9:     // 平面样式
+                    this.FlatStyle = (EFlatStyle)Convert.ToInt32(context.Value);
+                    break;
+                case 10:     // 字体颜色
+                    this.FontColor = (string)context.Value;
+                    grid[row, MyConst.ValueColumn].Image = ImageHelper.CreateImage(this.FontColor);
+                    break;
+                case 11:    // 字体大小
                     this.FontSize = Convert.ToInt32(context.Value);
                     break;
-                case 14:
-                    this.TextAlign = (ContentAlignment)context.Value;
-                    break;
+                #endregion
+
+                #region ControlBaseNode属性
+                #endregion
+
+                #region 自定义属性
+                #endregion
+
                 default:
                     ShowSaveEntityMsg(MyConst.Controls.KnxLabelType);
                     break;
-                #endregion
+
             }
+
+            this.PropertiesChangedNotify(this, EventArgs.Empty);
+
         }
 
         public override ViewNode Clon2()

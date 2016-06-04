@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Windows.Forms;
+using UIEditor.Component;
 
 namespace UIEditor
 {
     partial class FrmAboutBox : Form
     {
-        static readonly string FormTitle = "KNX UI Editor";
-        static readonly string MyProductName = "产品名称： KNX UI Editor";
-        static readonly string MyVersion = "版本： {0}";
-        static readonly string MyCopyright = "版权： Peter Guo 2014 - 2015";
-        static readonly string MyCompany = "作者： Peter";
-        static readonly string Description = "KNX UI Editor 是一款用户界面定制工具，本工具定义界面的元素和位置，通过解析引擎动态的生成控制界面";
+        static readonly string FormTitle = ResourceMng.GetString("AppName");
+        static readonly string MyProductName = ResourceMng.GetString("ProductName") +": "+ ResourceMng.GetString("AppName");
+        static readonly string MyVersion = ResourceMng.GetString("Message16");
+        static readonly string MyCopyright = ResourceMng.GetString("Copyright");
+        static readonly string MyCompany = ResourceMng.GetString("Company");
+        static readonly string Description = ResourceMng.GetString("AppDescription");
         public FrmAboutBox()
         {
             InitializeComponent();

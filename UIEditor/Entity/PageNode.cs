@@ -8,66 +8,79 @@ using SourceGrid.Cells.Editors;
 using SourceGrid.Cells.Views;
 using Structure;
 using UIEditor.Component;
-using Button = SourceGrid.Cells.Button;
+using System.Drawing;
 
 namespace UIEditor.Entity
 {
     [Serializable]
     public class PageNode : ContainerNode
     {
+        #region 变量
         private static int index = 0;
+        #endregion
 
-        /// <summary>
-        /// 背景图片，如果有图片，则优先显示
-        /// </summary>
-        public string BackgroudImage { get; set; }
-
-        #region
+        #region 构造函数
 
         public PageNode()
         {
             index++;
 
-            Text = "页面_" + index;
-            RowCount = 1;
-            ColumnCount = 1;
-            BackgroudImage = MyConst.DefaultIcon;
+            this.Text = ResourceMng.GetString("TextPage") + "_" + index;
+            this.Width = 1280;
+            this.Height = 800;
+            this.Alpha = 1;
+            this.Radius = 0;
+            this.BackgroundColor = "#F0FFFF";
+            this.BackgroundImage = "bj_kt.png";
+
+            string FileImageOn = Path.Combine(MyCache.ProjImagePath, this.BackgroundImage);
+            if (!File.Exists(FileImageOn))
+            {
+                File.Copy(Path.Combine(MyCache.ProjectResImgDir, this.BackgroundImage), Path.Combine(MyCache.ProjImagePath, this.BackgroundImage));
+            }
 
             Name = ImageKey = SelectedImageKey = MyConst.View.KnxPageType;
         }
 
-
+        /// <summary>
+        /// PageNode 转 KNXPage
+        /// </summary>
+        /// <param name="knx"></param>
         public PageNode(KNXPage knx)
             : base(knx)
         {
-            this.BackgroudImage = knx.BackgroudImage;
-
             Name = ImageKey = SelectedImageKey = MyConst.View.KnxPageType;
         }
 
-        protected PageNode(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        protected PageNode(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
+        }
 
         #endregion
 
+        /// <summary>
+        /// PageNode 转 KNXPage
+        /// </summary>
+        /// <returns></returns>
         public KNXPage ToKnx()
         {
             var knx = new KNXPage();
 
             base.ToKnx(knx);
 
-            knx.BackgroudImage = this.BackgroudImage;
-
-            knx.Controls = new List<KNXControlBase>();
-            knx.Grids = new List<KNXGrid>();
+            //knx.GroupBoxs = new List<KNXGroupBox>();
 
             return knx;
         }
 
+        /// <summary>
+        /// 显示PageNode的属性于GridView中
+        /// </summary>
+        /// <param name="grid"></param>
         public override void DisplayProperties(Grid grid)
         {
-            #region 显示属性
-
-            grid.Tag = this;
+            base.DisplayProperties(grid);
 
             var nameModel = new Cell();
             nameModel.BackColor = grid.BackColor;
@@ -77,85 +90,139 @@ namespace UIEditor.Entity
 
             var valueChangedController = new ValueChangedEvent();
 
-            var currentRow = 1;
+            #region TreeNode 属性
+            /* 0 类型 */
+            var currentRow = 0;
             grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(MyConst.PropType);
+            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropType"));
             grid[currentRow, MyConst.NameColumn].View = nameModel;
             grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Name);
 
+            /* 1 名称 */
             currentRow++;
             grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(MyConst.PropTitle);
+            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropTitle"));
             grid[currentRow, MyConst.NameColumn].View = nameModel;
             grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Text);
             grid[currentRow, MyConst.ValueColumn].Editor = stringEditor;
             grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
+            #endregion
 
+            #region ViewNode属性
+            /* 2 宽度 */
             currentRow++;
             grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(MyConst.PorpRowCount);
+            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropWidth"));
             grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.RowCount);
+            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Width);
             grid[currentRow, MyConst.ValueColumn].Editor = intEditor;
             grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
 
+            /* 3 高度 */
             currentRow++;
             grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(MyConst.PropColumnCount);
+            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropHeight"));
             grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.ColumnCount);
+            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Height);
             grid[currentRow, MyConst.ValueColumn].Editor = intEditor;
             grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
 
+            /* 4 背景色 */
             currentRow++;
             grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell("背景图片");
+            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropBackColor"));
             grid[currentRow, MyConst.NameColumn].View = nameModel;
-            if (this.BackgroudImage == null)
+            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.BackgroundColor);
+            grid[currentRow, MyConst.ValueColumn].Image = ImageHelper.CreateImage(this.BackgroundColor);
+            grid[currentRow, MyConst.ValueColumn].Editor = stringEditor;
+            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
+            grid[currentRow, MyConst.ButtonColumn] = new SourceGrid.Cells.Button("...");
+            var backColorButtonController = new SourceGrid.Cells.Controllers.Button();
+            backColorButtonController.Executed += PickColor;
+            grid[currentRow, MyConst.ButtonColumn].Controller.AddController(backColorButtonController);
+
+            /* 5 背景图片 */
+            currentRow++;
+            grid.Rows.Insert(currentRow);
+            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropBackgroundImage"));
+            grid[currentRow, MyConst.NameColumn].View = nameModel;
+            if (this.BackgroundImage == null)
             {
                 grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell("");
             }
             else
             {
-                grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.BackgroudImage);
+                grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.BackgroundImage);
+                grid[currentRow, MyConst.ValueColumn].Editor = stringEditor;
                 grid[currentRow, MyConst.ValueColumn].Image =
-                    ImageHelper.LoadImage(Path.Combine(MyCache.ProjImagePath, this.BackgroudImage));
+                    ImageHelper.LoadImage(Path.Combine(MyCache.ProjImagePath, this.BackgroundImage));
             }
             grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
-            grid[currentRow, MyConst.ButtonColumn] = new Button("...");
+            grid[currentRow, MyConst.ButtonColumn] = new SourceGrid.Cells.Button("...");
             var imageButtonController = new SourceGrid.Cells.Controllers.Button();
             imageButtonController.Executed += PickImage;
             grid[currentRow, MyConst.ButtonColumn].Controller.AddController(imageButtonController);
-
             #endregion
         }
 
+        /// <summary>
+        /// GridView中的属性已改变
+        /// </summary>
+        /// <param name="context"></param>
         public override void ChangePropValues(CellContext context)
         {
             int row = context.Position.Row;
-
-            #region page
+            var grid = context.Grid as Grid;
 
             switch (row)
             {
-                case 2:
-                    this.Text = context.Value.ToString();
+                #region TreeNode属性
+                case 0:    //  类型
                     break;
-                case 3:
-                    this.RowCount = Convert.ToInt32(context.Value);
+                case 1:    //  名称
+                    this.Text = (string)context.Value;
                     break;
-                case 4:
-                    this.ColumnCount = Convert.ToInt32(context.Value);
+                #endregion
+
+                #region ViewNode属性
+                case 2:     //  宽度
+                    this.Width = Convert.ToInt32(context.Value);
                     break;
-                case 5:
-                    this.BackgroudImage = context.Value.ToString();
+                case 3:     //  高度
+                    this.Height = Convert.ToInt32(context.Value);
                     break;
+                case 4:     //  背景色
+                    this.BackgroundColor = (string)context.Value;
+                    if (null != this.BackgroundColor)
+                    {
+                        grid[row, MyConst.ValueColumn].Image = ImageHelper.CreateImage(this.BackgroundColor);
+                    }
+                    else
+                    {
+                        grid[row, MyConst.ValueColumn].Image = ImageHelper.CreateImage(Color.Black);
+                    }
+                    break;
+                case 5:     //  背景图片
+                    this.BackgroundImage = (string)context.Value;
+                    if (null != this.BackgroundImage)
+                    {
+                        grid[row, MyConst.ValueColumn].Image = ImageHelper.LoadImage(Path.Combine(MyCache.ProjImagePath, this.BackgroundImage));
+                    }
+                    else
+                    {
+                        grid[row, MyConst.ValueColumn].Image = null;
+                    }
+
+                    break;
+                #endregion
+
                 default:
                     ShowSaveEntityMsg(MyConst.View.KnxPageType);
                     break;
             }
 
-            #endregion
+            this.PropertiesChangedNotify(this, EventArgs.Empty);
+
         }
 
         public override ViewNode Clon2()

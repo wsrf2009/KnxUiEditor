@@ -8,6 +8,7 @@ using SourceGrid;
 using SourceGrid.Cells.Editors;
 using SourceGrid.Cells.Views;
 using Structure;
+using UIEditor.Component;
 
 namespace UIEditor.Entity
 {
@@ -22,7 +23,7 @@ namespace UIEditor.Entity
         {
             index++;
 
-            Text = "区域_" + index;
+            Text = ResourceMng.GetString("TextArea") + "_" + index;
 
             Name = ImageKey = SelectedImageKey = MyConst.View.KnxAreaType;
         }
@@ -37,8 +38,6 @@ namespace UIEditor.Entity
 
         #endregion
 
-        #region New region
-
         public KNXArea ToKnx()
         {
             var knx = new KNXArea();
@@ -49,8 +48,6 @@ namespace UIEditor.Entity
 
             return knx;
         }
-
-        #endregion
 
         #region 属性显示
 
@@ -66,15 +63,15 @@ namespace UIEditor.Entity
 
             var valueChangedController = new ValueChangedEvent();
 
-            var currentRow = 1;
+            var currentRow = 0;
             grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(MyConst.PropType);
+            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropType"));
             grid[currentRow, MyConst.NameColumn].View = nameModel;
             grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Name);
 
             currentRow++;
             grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(MyConst.PropTitle);
+            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropTitle"));
             grid[currentRow, MyConst.NameColumn].View = nameModel;
             grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Text);
             grid[currentRow, MyConst.ValueColumn].Editor = stringEditor;
@@ -85,8 +82,6 @@ namespace UIEditor.Entity
 
         #endregion
 
-        #region 属性修改
-
         public override void ChangePropValues(CellContext context)
         {
             int row = context.Position.Row;
@@ -95,7 +90,7 @@ namespace UIEditor.Entity
 
             switch (row)
             {
-                case 2:
+                case 1:
                     this.Text = context.Value.ToString();
                     break;
                 default:
@@ -114,7 +109,5 @@ namespace UIEditor.Entity
             stream.Position = 0;
             return formatter.Deserialize(stream) as AreaNode;
         }
-
-        #endregion
     }
 }

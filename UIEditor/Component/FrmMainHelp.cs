@@ -81,32 +81,34 @@ namespace UIEditor
                                                                         // 添加 grid
                                                                         foreach (TreeNode it4 in it3.Nodes)
                                                                         {
-                                                                            if (MyConst.View.KnxGridType == it4.Name)
-                                                                            {
-                                                                                #region 添加控件
-                                                                                var gridNode = it4 as GridNode;
-                                                                                if (gridNode != null)
-                                                                                {
-                                                                                    var grid = gridNode.ToKnx();
-                                                                                    page.Grids.Add(grid);
+                                                                            ExportControls(page, it4);
 
-                                                                                    if (it4.Nodes.Count > 0)
-                                                                                    {
-                                                                                        // 添加控件
-                                                                                        foreach (TreeNode it5 in it4.Nodes)
-                                                                                        {
-                                                                                            ExportControls(grid, it5);
-                                                                                        }
-                                                                                    }
-                                                                                }
-                                                                                #endregion
-                                                                            }
-                                                                            else
-                                                                            {
-                                                                                #region 添加控件
-                                                                                ExportControls(page, it4);
-                                                                                #endregion
-                                                                            }
+                                                                            //if (MyConst.View.KnxGroupBoxType == it4.Name)
+                                                                            //{
+                                                                            //    #region 添加控件
+                                                                            //    var gridNode = it4 as GroupBoxNode;
+                                                                            //    if (gridNode != null)
+                                                                            //    {
+                                                                            //        var grid = gridNode.ToKnx();
+                                                                            //        page.GroupBoxs.Add(grid);
+
+                                                                            //        if (it4.Nodes.Count > 0)
+                                                                            //        {
+                                                                            //            // 添加控件
+                                                                            //            foreach (TreeNode it5 in it4.Nodes)
+                                                                            //            {
+                                                                            //                ExportControls(grid, it5);
+                                                                            //            }
+                                                                            //        }
+                                                                            //    }
+                                                                            //    #endregion
+                                                                            //}
+                                                                            //else
+                                                                            //{
+                                                                            //    #region 添加控件
+                                                                            //    ExportControls(page, it4);
+                                                                            //    #endregion
+                                                                            //}
                                                                         }
                                                                     }
                                                                     #endregion
@@ -156,30 +158,12 @@ namespace UIEditor
                     }
                     break;
 
-                case MyConst.Controls.KnxColorLightType:
-                    var colorLightNode = node as ColorLightNode;
-                    if (colorLightNode != null)
-                    {
-                        var knxColorLight = colorLightNode.ToKnx();
-                        view.Controls.Add(knxColorLight);
-                    }
-                    break;
-
                 case MyConst.Controls.KnxLabelType:
                     var labelNode = node as LabelNode;
                     if (labelNode != null)
                     {
                         var knxLabel = labelNode.ToKnx();
                         view.Controls.Add(knxLabel);
-                    }
-                    break;
-
-                case MyConst.Controls.KnxMediaButtonType:
-                    var mediaButtonNode = node as MediaButtonNode;
-                    if (mediaButtonNode != null)
-                    {
-                        var knxMediaButton = mediaButtonNode.ToKnx();
-                        view.Controls.Add(knxMediaButton);
                     }
                     break;
 
@@ -192,48 +176,12 @@ namespace UIEditor
                     }
                     break;
 
-                case MyConst.Controls.KnxSipCallType:
-                    var sipCallNode = node as SIPCallNode;
-                    if (sipCallNode != null)
-                    {
-                        var knxSIPCall = sipCallNode.ToKnx();
-                        view.Controls.Add(knxSIPCall);
-                    }
-                    break;
-
-                case MyConst.Controls.KnxSliderType:
-                    var slidNode = node as SliderNode;
-                    if (slidNode != null)
-                    {
-                        var knxSlide = slidNode.ToKnx();
-                        view.Controls.Add(knxSlide);
-                    }
-                    break;
-
                 case MyConst.Controls.KnxSliderSwitchType:
                     var sliderSwitchNode = node as SliderSwitchNode;
                     if (sliderSwitchNode != null)
                     {
                         var knxSliderSwitch = sliderSwitchNode.ToKnx();
                         view.Controls.Add(knxSliderSwitch);
-                    }
-                    break;
-
-                case MyConst.Controls.KnxSnapperType:
-                    var snapperNode = node as SnapperNode;
-                    if (snapperNode != null)
-                    {
-                        var knxSnapper = snapperNode.ToKnx();
-                        view.Controls.Add(knxSnapper);
-                    }
-                    break;
-
-                case MyConst.Controls.KnxSnapperSwitchType:
-                    var snapperSwitchNode = node as SnapperSwitchNode;
-                    if (snapperSwitchNode != null)
-                    {
-                        var knxSnapperSwitch = snapperSwitchNode.ToKnx();
-                        view.Controls.Add(knxSnapperSwitch);
                     }
                     break;
 
@@ -255,24 +203,6 @@ namespace UIEditor
                     }
                     break;
 
-                case MyConst.Controls.KnxWebCamViewerType:
-                    var webCamViewerNode = node as WebcamViewerNode;
-                    if (webCamViewerNode != null)
-                    {
-                        var knxWebCamViewer = webCamViewerNode.ToKnx();
-                        view.Controls.Add(knxWebCamViewer);
-                    }
-                    break;
-
-                case MyConst.Controls.KnxImageButtonType:
-                    var imageButtonNode = node as ImageButtonNode;
-                    if (imageButtonNode != null)
-                    {
-                        var knxImageButton = imageButtonNode.ToKnx();
-                        view.Controls.Add(knxImageButton);
-                    }
-                    break;
-
                 case MyConst.Controls.KnxTimerButtonType:
                     var timerTaskButtonNode = node as TimerButtonNode;
                     if (timerTaskButtonNode != null)
@@ -282,17 +212,36 @@ namespace UIEditor
                     }
                     break;
 
-                case MyConst.Controls.KnxTimerTaskListViewType:
-                    var timerTaskListViewNode = node as TimerTaskListViewNode;
-                    if (timerTaskListViewNode != null)
+                case MyConst.Controls.KnxDigitalAdjustment:
+                    var digitalAdjustment = node as DigitalAdjustmentNode;
+                    if (null != digitalAdjustment)
                     {
-                        var knxTimerTaskListView = timerTaskListViewNode.ToKnx();
-                        view.Controls.Add(knxTimerTaskListView);
+                        var knxDigitalAdjustment = digitalAdjustment.ToKnx();
+                        view.Controls.Add(knxDigitalAdjustment);
+                    }
+                    break;
+
+                case MyConst.Controls.KnxGroupBoxType:
+                    var groupBox = node as GroupBoxNode;
+                    if (null != groupBox)
+                    {
+                        var knxGroupBox = groupBox.ToKnx();
+                        view.Controls.Add(knxGroupBox);
+
+                        if (node.Nodes.Count > 0)
+                        {
+                            // 添加控件
+                            foreach (TreeNode childNode in node.Nodes)
+                            {
+                                ExportControls(knxGroupBox, childNode);
+                            }
+                        }
+
                     }
                     break;
 
                 default:
-                    MessageBox.Show("转换树上的节点为 KNX 对象时出错, 找不到对应的 KNX 类型! 树节点类型： " + node.Name, "错误提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ResourceMng.GetString("Message38") + node.Name, ResourceMng.GetString("Message6"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
             }
         }
@@ -304,7 +253,7 @@ namespace UIEditor
         /// </summary>
         /// <param name="app"></param>
         /// <param name="tvwAppdata"></param>
-        public static void ImportNode(KNXApp app, TreeView tvwAppdata)
+        public static void ImportNode(KNXApp app, TreeView tvwAppdata, UIEditor.Entity.ViewNode.PropertiesChangedDelegate proChangedDelegate)
         {
             if (app != null)
             {
@@ -334,31 +283,35 @@ namespace UIEditor
                                     foreach (KNXPage itemPage in itemRoom.Pages)
                                     {
                                         var pageNode = new PageNode(itemPage);
+                                        pageNode.PropertiesChangedEvent += proChangedDelegate;
                                         roomNode.Nodes.Add(pageNode);
 
-                                        // 给网格添加控件
-                                        if (itemPage.Grids != null && itemPage.Grids.Count > 0)
-                                        {
-                                            foreach (KNXGrid itemGrid in itemPage.Grids)
-                                            {
-                                                var gridNode = new GridNode(itemGrid);
-                                                pageNode.Nodes.Add(gridNode);
+                                        //AddControlNode(pageNode, item, proChangedDelegate);
 
-                                                if (itemGrid.Controls != null && itemGrid.Controls.Count > 0)
-                                                {
-                                                    foreach (var item in itemGrid.Controls)
-                                                    {
-                                                        AddControlNode(gridNode, item);
-                                                    }
-                                                }
-                                            }
-                                        }
+                                        //// 给网格添加控件
+                                        //if (itemPage.GroupBoxs != null && itemPage.GroupBoxs.Count > 0)
+                                        //{
+                                        //    foreach (KNXGroupBox itemGrid in itemPage.GroupBoxs)
+                                        //    {
+                                        //        var gridNode = new GroupBoxNode(itemGrid);
+                                        //        gridNode.PropertiesChangedEvent += proChangedDelegate;
+                                        //        pageNode.Nodes.Add(gridNode);
+
+                                        //        if (itemGrid.Controls != null && itemGrid.Controls.Count > 0)
+                                        //        {
+                                        //            foreach (var item in itemGrid.Controls)
+                                        //            {
+                                        //                AddControlNode(gridNode, item, proChangedDelegate);
+                                        //            }
+                                        //        }
+                                        //    }
+                                        //}
                                         // 给页面添加控件
                                         if (itemPage.Controls != null && itemPage.Controls.Count > 0)
                                         {
                                             foreach (var item in itemPage.Controls)
                                             {
-                                                AddControlNode(pageNode, item);
+                                                AddControlNode(pageNode, item, proChangedDelegate);
                                             }
                                         }
                                     }
@@ -378,92 +331,76 @@ namespace UIEditor
         /// </summary>
         /// <param name="parentNode"></param>
         /// <param name="knxControl"></param>
-        private static void AddControlNode(ContainerNode parentNode, KNXControlBase knxControl)
+        private static void AddControlNode(ContainerNode parentNode, KNXControlBase knxControl, UIEditor.Entity.ViewNode.PropertiesChangedDelegate proChangedDelegate)
         {
             switch (knxControl.GetType().Name)
             {
                 case MyConst.Controls.KnxBlindsType:
                     var blindsNode = new BlindsNode(knxControl as KNXBlinds);
+                    blindsNode.PropertiesChangedEvent += proChangedDelegate;
                     parentNode.Nodes.Add(blindsNode);
-                    break;
-
-                case MyConst.Controls.KnxColorLightType:
-                    var colorLightNode = new ColorLightNode(knxControl as KNXColorLight);
-                    parentNode.Nodes.Add(colorLightNode);
                     break;
 
                 case MyConst.Controls.KnxLabelType:
                     var labelNode = new LabelNode(knxControl as KNXLabel);
+                    labelNode.PropertiesChangedEvent += proChangedDelegate;
                     parentNode.Nodes.Add(labelNode);
-                    break;
-
-                case MyConst.Controls.KnxMediaButtonType:
-                    var mediaButtonNode = new MediaButtonNode(knxControl as KNXMediaButton);
-                    parentNode.Nodes.Add(mediaButtonNode);
                     break;
 
                 case MyConst.Controls.KnxSceneButtonType:
                     var sceneButtonNode = new SceneButtonNode(knxControl as KNXSceneButton);
+                    sceneButtonNode.PropertiesChangedEvent += proChangedDelegate;
                     parentNode.Nodes.Add(sceneButtonNode);
-                    break;
-
-                case MyConst.Controls.KnxSipCallType:
-                    var sipCallNode = new SIPCallNode(knxControl as KNXSIPCall);
-                    parentNode.Nodes.Add(sipCallNode);
-                    break;
-
-                case MyConst.Controls.KnxSliderType:
-                    var sliderNode = new SliderNode(knxControl as KNXSlider);
-                    parentNode.Nodes.Add(sliderNode);
                     break;
 
                 case MyConst.Controls.KnxSliderSwitchType:
                     var sliderSwitchNode = new SliderSwitchNode(knxControl as KNXSliderSwitch);
+                    sliderSwitchNode.PropertiesChangedEvent += proChangedDelegate;
                     parentNode.Nodes.Add(sliderSwitchNode);
-                    break;
-
-                case MyConst.Controls.KnxSnapperType:
-                    var snapperNode = new SnapperNode(knxControl as KNXSnapper);
-                    parentNode.Nodes.Add(snapperNode);
-                    break;
-
-                case MyConst.Controls.KnxSnapperSwitchType:
-                    var snapperSwitchNode = new SnapperSwitchNode(knxControl as KNXSnapperSwitch);
-                    parentNode.Nodes.Add(snapperSwitchNode);
                     break;
 
                 case MyConst.Controls.KnxSwitchType:
                     var switchNode = new SwitchNode(knxControl as KNXSwitch);
+                    switchNode.PropertiesChangedEvent += proChangedDelegate;
                     parentNode.Nodes.Add(switchNode);
                     break;
 
                 case MyConst.Controls.KnxValueDisplayType:
                     var valueDisplayNode = new ValueDisplayNode(knxControl as KNXValueDisplay);
+                    valueDisplayNode.PropertiesChangedEvent += proChangedDelegate;
                     parentNode.Nodes.Add(valueDisplayNode);
-                    break;
-
-                case MyConst.Controls.KnxWebCamViewerType:
-                    var webCamViewerNode = new WebcamViewerNode(knxControl as KNXWebcamViewer);
-                    parentNode.Nodes.Add(webCamViewerNode);
-                    break;
-
-                case MyConst.Controls.KnxImageButtonType:
-                    var imageButton = new ImageButtonNode(knxControl as KNXImageButton);
-                    parentNode.Nodes.Add(imageButton);
                     break;
 
                 case MyConst.Controls.KnxTimerButtonType:
                     var timerButton = new TimerButtonNode(knxControl as KNXTimerButton);
+                    timerButton.PropertiesChangedEvent += proChangedDelegate;
                     parentNode.Nodes.Add(timerButton);
                     break;
 
-                case MyConst.Controls.KnxTimerTaskListViewType:
-                    var timerTaskListView = new TimerTaskListViewNode(knxControl as KNXTimerTaskListView);
-                    parentNode.Nodes.Add(timerTaskListView);
+                case MyConst.Controls.KnxDigitalAdjustment:
+                    var digitalAdjustment = new DigitalAdjustmentNode(knxControl as KNXDigitalAdjustment);
+                    digitalAdjustment.PropertiesChangedEvent += proChangedDelegate;
+                    parentNode.Nodes.Add(digitalAdjustment);
+                    break;
+
+                case MyConst.Controls.KnxGroupBoxType:
+                    var groupBox = new GroupBoxNode(knxControl as KNXGroupBox);
+                    groupBox.PropertiesChangedEvent += proChangedDelegate;
+                    parentNode.Nodes.Add(groupBox);
+
+                    KNXGroupBox knxGroupBox = knxControl as KNXGroupBox;
+                    if (knxGroupBox.Controls != null && knxGroupBox.Controls.Count > 0)
+                    {
+                        foreach (var item in knxGroupBox.Controls)
+                        {
+                            AddControlNode(groupBox, item, proChangedDelegate);
+                        }
+                    }
+
                     break;
 
                 default:
-                    MessageBox.Show("按照 KNX 结构创建树节点时出错， KNX 结构找不到对应的节点类型， KNX结构： " + knxControl.GetType().Name, "错误提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ResourceMng.GetString("Message39") + knxControl.GetType().Name, ResourceMng.GetString("Message6"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
             }
         }

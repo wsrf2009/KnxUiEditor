@@ -45,15 +45,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Control\KNXDigitalAdjustment.cs" />
     <Compile Include="Control\KNXImageButton.cs" />
+    <Compile Include="Control\KNXRadioGroup.cs" />
     <Compile Include="Control\KNXTimerButton.cs" />
     <Compile Include="Control\KNXTimerTaskListView.cs" />
-    <Compile Include="DatapointType\KNXDatapointType.cs" />
     <Compile Include="KNXApp.cs" />
     <Compile Include="Control\KNXBlinds.cs" />
     <Compile Include="Control\KNXColorLight.cs" />
     <Compile Include="KNXConnection.cs" />
     <Compile Include="KNXContainer.cs" />
+    <Compile Include="KNXDatapointAction.cs" />
     <Compile Include="KNXSelectedAddress.cs" />
     <Compile Include="KNXView.cs" />
     <Compile Include="Control\KNXLabel.cs" />
@@ -65,12 +67,11 @@
     <Compile Include="Control\KNXSnapperSwitch.cs" />
     <Compile Include="Control\KNXValueDisplay.cs" />
     <Compile Include="Control\KNXWebCamViewer.cs" />
-    <Compile Include="ETS\KNXGroupAddress.cs" />
     <Compile Include="KNXControlBase.cs" />
     <Compile Include="KNXVersion.cs" />
     <Compile Include="KNXPage.cs" />
     <Compile Include="KNXArea.cs" />
-    <Compile Include="KNXGrid.cs" />
+    <Compile Include="Control\KNXGroupBox.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="KNXRoom.cs" />
     <Compile Include="Control\KNXSlider.cs" />
