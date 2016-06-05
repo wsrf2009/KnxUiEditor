@@ -110,7 +110,7 @@ namespace UIEditor
                 ZipHelper.UnZipDir(etsProjectFile, directoryName);
 
                 //XNamespace xns = @"http://knx.org/xml/project/11";
-                XNamespace xns = @"http://knx.org/xml/project/12";
+                //XNamespace xns = @"http://knx.org/xml/project/13";
 
                 worker.ReportProgress(0, ResourceMng.GetString("TextIsCaluculating"));
 
@@ -125,7 +125,7 @@ namespace UIEditor
                     addressXDoc.Element("KNX");
 
                     // 从导入的ETS项目中获取group address
-                    var groupAddress = from item in addressXDoc.Root.Descendants(xns + attrGroupAddress)
+                    var groupAddress = from item in addressXDoc.Descendants(attrGroupAddress)
                                        select new ImGroupAddr
                                        {
                                            Id = item.Attribute(attrId).Value,
@@ -136,7 +136,7 @@ namespace UIEditor
                     //worker.ReportProgress(10, addressFile);
 
                     // 获取数据类型
-                    var comObjectInstanceRef = (from item in addressXDoc.Root.Descendants(xns + strSend)
+                    var comObjectInstanceRef = (from item in addressXDoc.Descendants(strSend)
                                                 let xElement = item.Parent
                                                 where xElement != null
                                                 select new
@@ -199,12 +199,12 @@ namespace UIEditor
                                     xDocs.Add(manufacturerDataFile, manufacturerDataXDoc);
                                 }
 
-                                var comObject = (from p in manufacturerDataXDoc.Root.Descendants(xns + strComObject)
+                                var comObject = (from p in manufacturerDataXDoc.Descendants(strComObject)
                                                  where p.Attribute(attrId).Value == comObjectInstanceId
                                                  select p).FirstOrDefault();
                                 parseComObject(addr, comObject);
 
-                                var comObjectRef = (from p in manufacturerDataXDoc.Root.Descendants(xns + strComObjectRef)
+                                var comObjectRef = (from p in manufacturerDataXDoc.Descendants(strComObjectRef)
                                                     where p.Attribute(attrId).Value == comObjectInstanceRefId
                                                     select p).FirstOrDefault();
                                 parseComObject(addr, comObjectRef);
