@@ -67,10 +67,6 @@ namespace UIEditor
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.cmsAddControl = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cmsDeleteControl = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.tvwAppdata = new System.Windows.Forms.TreeView();
-            this.palProperty = new System.Windows.Forms.Panel();
-            this.panLayout = new System.Windows.Forms.Panel();
             this.flpMainTools = new System.Windows.Forms.FlowLayoutPanel();
             this.tsrProject = new System.Windows.Forms.ToolStrip();
             this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
@@ -101,17 +97,21 @@ namespace UIEditor
             this.tsrBtnAddTimerButton = new System.Windows.Forms.ToolStripButton();
             this.tsrBtnDigitalAdjustment = new System.Windows.Forms.ToolStripButton();
             this.tlpMain = new System.Windows.Forms.TableLayoutPanel();
+            this.panLayout = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tvwAppdata = new System.Windows.Forms.TreeView();
+            this.palProperty = new System.Windows.Forms.Panel();
             this.cmsAddArea.SuspendLayout();
             this.mnsMain.SuspendLayout();
             this.statusStripMain.SuspendLayout();
             this.cmsAddRoom.SuspendLayout();
             this.cmsAddPage.SuspendLayout();
             this.cmsAddGroupBox.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
             this.flpMainTools.SuspendLayout();
             this.tsrProject.SuspendLayout();
             this.tsrAddControlToolBar.SuspendLayout();
             this.tlpMain.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // imgToolBar
@@ -148,11 +148,11 @@ namespace UIEditor
             // 
             // cmsAddArea
             // 
-            resources.ApplyResources(this.cmsAddArea, "cmsAddArea");
             this.cmsAddArea.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiAddArea,
             this.toolStripSeparator6});
             this.cmsAddArea.Name = "contextMenuStrip1";
+            resources.ApplyResources(this.cmsAddArea, "cmsAddArea");
             // 
             // tsmiAddArea
             // 
@@ -162,21 +162,20 @@ namespace UIEditor
             // 
             // toolStripSeparator6
             // 
-            resources.ApplyResources(this.toolStripSeparator6, "toolStripSeparator6");
             this.toolStripSeparator6.Name = "toolStripSeparator6";
+            resources.ApplyResources(this.toolStripSeparator6, "toolStripSeparator6");
             // 
             // mnsMain
             // 
-            resources.ApplyResources(this.mnsMain, "mnsMain");
             this.mnsMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiFile,
             this.tsmiLanguange,
             this.tsmiHelp});
+            resources.ApplyResources(this.mnsMain, "mnsMain");
             this.mnsMain.Name = "mnsMain";
             // 
             // tsmiFile
             // 
-            resources.ApplyResources(this.tsmiFile, "tsmiFile");
             this.tsmiFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiNew,
             this.tsmiOpen,
@@ -189,6 +188,7 @@ namespace UIEditor
             this.toolStripSeparator8,
             this.tsmiExit});
             this.tsmiFile.Name = "tsmiFile";
+            resources.ApplyResources(this.tsmiFile, "tsmiFile");
             // 
             // tsmiNew
             // 
@@ -204,14 +204,14 @@ namespace UIEditor
             // 
             // tsmiClose
             // 
-            resources.ApplyResources(this.tsmiClose, "tsmiClose");
             this.tsmiClose.Name = "tsmiClose";
+            resources.ApplyResources(this.tsmiClose, "tsmiClose");
             this.tsmiClose.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
             // toolStripSeparator
             // 
-            resources.ApplyResources(this.toolStripSeparator, "toolStripSeparator");
             this.toolStripSeparator.Name = "toolStripSeparator";
+            resources.ApplyResources(this.toolStripSeparator, "toolStripSeparator");
             // 
             // tsmiSave
             // 
@@ -221,62 +221,62 @@ namespace UIEditor
             // 
             // tsmiSaveAs
             // 
-            resources.ApplyResources(this.tsmiSaveAs, "tsmiSaveAs");
             this.tsmiSaveAs.Name = "tsmiSaveAs";
+            resources.ApplyResources(this.tsmiSaveAs, "tsmiSaveAs");
             this.tsmiSaveAs.Click += new System.EventHandler(this.tsmiSaveAs_Click);
             // 
             // toolStripSeparator1
             // 
-            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             this.toolStripSeparator1.Name = "toolStripSeparator1";
+            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             // 
             // tsmiPublish
             // 
-            resources.ApplyResources(this.tsmiPublish, "tsmiPublish");
             this.tsmiPublish.Name = "tsmiPublish";
+            resources.ApplyResources(this.tsmiPublish, "tsmiPublish");
             this.tsmiPublish.Click += new System.EventHandler(this.tsmiPublish_Click);
             // 
             // toolStripSeparator8
             // 
-            resources.ApplyResources(this.toolStripSeparator8, "toolStripSeparator8");
             this.toolStripSeparator8.Name = "toolStripSeparator8";
+            resources.ApplyResources(this.toolStripSeparator8, "toolStripSeparator8");
             // 
             // tsmiExit
             // 
-            resources.ApplyResources(this.tsmiExit, "tsmiExit");
             this.tsmiExit.Name = "tsmiExit";
+            resources.ApplyResources(this.tsmiExit, "tsmiExit");
             this.tsmiExit.Click += new System.EventHandler(this.tsmiExit_Click);
             // 
             // tsmiLanguange
             // 
-            resources.ApplyResources(this.tsmiLanguange, "tsmiLanguange");
             this.tsmiLanguange.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmi_en_US,
             this.tsmi_zh_CN});
             this.tsmiLanguange.Name = "tsmiLanguange";
+            resources.ApplyResources(this.tsmiLanguange, "tsmiLanguange");
             // 
             // tsmi_en_US
             // 
-            resources.ApplyResources(this.tsmi_en_US, "tsmi_en_US");
             this.tsmi_en_US.Image = global::UIEditor.Properties.Resources.America_flag_16x16;
+            resources.ApplyResources(this.tsmi_en_US, "tsmi_en_US");
             this.tsmi_en_US.Name = "tsmi_en_US";
             this.tsmi_en_US.Click += new System.EventHandler(this.tsm_en_US_Click);
             // 
             // tsmi_zh_CN
             // 
-            resources.ApplyResources(this.tsmi_zh_CN, "tsmi_zh_CN");
             this.tsmi_zh_CN.Image = global::UIEditor.Properties.Resources.Chinese_flag_16x16;
+            resources.ApplyResources(this.tsmi_zh_CN, "tsmi_zh_CN");
             this.tsmi_zh_CN.Name = "tsmi_zh_CN";
             this.tsmi_zh_CN.Click += new System.EventHandler(this.tsm_zh_CN_Click);
             // 
             // tsmiHelp
             // 
-            resources.ApplyResources(this.tsmiHelp, "tsmiHelp");
             this.tsmiHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiOpenHelp,
             this.toolStripSeparator5,
             this.tsmiAbout});
             this.tsmiHelp.Name = "tsmiHelp";
+            resources.ApplyResources(this.tsmiHelp, "tsmiHelp");
             // 
             // tsmiOpenHelp
             // 
@@ -286,34 +286,35 @@ namespace UIEditor
             // 
             // toolStripSeparator5
             // 
-            resources.ApplyResources(this.toolStripSeparator5, "toolStripSeparator5");
             this.toolStripSeparator5.Name = "toolStripSeparator5";
+            resources.ApplyResources(this.toolStripSeparator5, "toolStripSeparator5");
             // 
             // tsmiAbout
             // 
-            resources.ApplyResources(this.tsmiAbout, "tsmiAbout");
             this.tsmiAbout.Name = "tsmiAbout";
+            resources.ApplyResources(this.tsmiAbout, "tsmiAbout");
             this.tsmiAbout.Click += new System.EventHandler(this.tsmiAbout_Click);
             // 
             // statusStripMain
             // 
-            resources.ApplyResources(this.statusStripMain, "statusStripMain");
+            this.statusStripMain.GripMargin = new System.Windows.Forms.Padding(2, 0, 2, 2);
             this.statusStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsslblProjectName});
+            resources.ApplyResources(this.statusStripMain, "statusStripMain");
             this.statusStripMain.Name = "statusStripMain";
             // 
             // tsslblProjectName
             // 
-            resources.ApplyResources(this.tsslblProjectName, "tsslblProjectName");
             this.tsslblProjectName.Name = "tsslblProjectName";
+            resources.ApplyResources(this.tsslblProjectName, "tsslblProjectName");
             // 
             // cmsAddRoom
             // 
-            resources.ApplyResources(this.cmsAddRoom, "cmsAddRoom");
             this.cmsAddRoom.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiAddRoom,
             this.toolStripSeparator9});
             this.cmsAddRoom.Name = "contextMenuStrip1";
+            resources.ApplyResources(this.cmsAddRoom, "cmsAddRoom");
             // 
             // tsmiAddRoom
             // 
@@ -323,16 +324,16 @@ namespace UIEditor
             // 
             // toolStripSeparator9
             // 
-            resources.ApplyResources(this.toolStripSeparator9, "toolStripSeparator9");
             this.toolStripSeparator9.Name = "toolStripSeparator9";
+            resources.ApplyResources(this.toolStripSeparator9, "toolStripSeparator9");
             // 
             // cmsAddPage
             // 
-            resources.ApplyResources(this.cmsAddPage, "cmsAddPage");
             this.cmsAddPage.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiAddPage,
             this.toolStripSeparator10});
             this.cmsAddPage.Name = "contextMenuStrip1";
+            resources.ApplyResources(this.cmsAddPage, "cmsAddPage");
             // 
             // tsmiAddPage
             // 
@@ -342,16 +343,16 @@ namespace UIEditor
             // 
             // toolStripSeparator10
             // 
-            resources.ApplyResources(this.toolStripSeparator10, "toolStripSeparator10");
             this.toolStripSeparator10.Name = "toolStripSeparator10";
+            resources.ApplyResources(this.toolStripSeparator10, "toolStripSeparator10");
             // 
             // cmsAddGroupBox
             // 
-            resources.ApplyResources(this.cmsAddGroupBox, "cmsAddGroupBox");
             this.cmsAddGroupBox.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiAddGroupBox,
             this.toolStripSeparator7});
             this.cmsAddGroupBox.Name = "contextMenuStrip1";
+            resources.ApplyResources(this.cmsAddGroupBox, "cmsAddGroupBox");
             // 
             // tsmiAddGroupBox
             // 
@@ -361,49 +362,18 @@ namespace UIEditor
             // 
             // toolStripSeparator7
             // 
-            resources.ApplyResources(this.toolStripSeparator7, "toolStripSeparator7");
             this.toolStripSeparator7.Name = "toolStripSeparator7";
+            resources.ApplyResources(this.toolStripSeparator7, "toolStripSeparator7");
             // 
             // cmsAddControl
             // 
-            resources.ApplyResources(this.cmsAddControl, "cmsAddControl");
             this.cmsAddControl.Name = "contextMenuStrip1";
+            resources.ApplyResources(this.cmsAddControl, "cmsAddControl");
             // 
             // cmsDeleteControl
             // 
-            resources.ApplyResources(this.cmsDeleteControl, "cmsDeleteControl");
             this.cmsDeleteControl.Name = "contextMenuStrip1";
-            // 
-            // tableLayoutPanel1
-            // 
-            resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
-            this.tableLayoutPanel1.BackColor = System.Drawing.SystemColors.Control;
-            this.tableLayoutPanel1.Controls.Add(this.tvwAppdata, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.palProperty, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.panLayout, 1, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            // 
-            // tvwAppdata
-            // 
-            resources.ApplyResources(this.tvwAppdata, "tvwAppdata");
-            this.tvwAppdata.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tvwAppdata.ImageList = this.imgToolBar;
-            this.tvwAppdata.ItemHeight = 18;
-            this.tvwAppdata.Name = "tvwAppdata";
-            this.tvwAppdata.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewApp_AfterSelect);
-            this.tvwAppdata.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tvwAppdata_KeyDown);
-            this.tvwAppdata.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tvwAppdata_MouseDown);
-            // 
-            // palProperty
-            // 
-            resources.ApplyResources(this.palProperty, "palProperty");
-            this.palProperty.BackColor = System.Drawing.SystemColors.Control;
-            this.palProperty.Name = "palProperty";
-            // 
-            // panLayout
-            // 
-            resources.ApplyResources(this.panLayout, "panLayout");
-            this.panLayout.Name = "panLayout";
+            resources.ApplyResources(this.cmsDeleteControl, "cmsDeleteControl");
             // 
             // flpMainTools
             // 
@@ -414,7 +384,6 @@ namespace UIEditor
             // 
             // tsrProject
             // 
-            resources.ApplyResources(this.tsrProject, "tsrProject");
             this.tsrProject.BackColor = System.Drawing.Color.Transparent;
             this.tsrProject.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.tsrProject.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -424,52 +393,53 @@ namespace UIEditor
             this.tsbSaveProj,
             this.toolStripSeparator11,
             this.tsbKNXAddr});
+            resources.ApplyResources(this.tsrProject, "tsrProject");
             this.tsrProject.Name = "tsrProject";
             this.tsrProject.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.tsrProject.Stretch = true;
             // 
             // toolStripSeparator12
             // 
-            resources.ApplyResources(this.toolStripSeparator12, "toolStripSeparator12");
             this.toolStripSeparator12.Name = "toolStripSeparator12";
+            resources.ApplyResources(this.toolStripSeparator12, "toolStripSeparator12");
             // 
             // tsbNewProj
             // 
-            resources.ApplyResources(this.tsbNewProj, "tsbNewProj");
             this.tsbNewProj.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbNewProj.Image = global::UIEditor.Properties.Resources.New_16x16;
+            resources.ApplyResources(this.tsbNewProj, "tsbNewProj");
             this.tsbNewProj.Margin = new System.Windows.Forms.Padding(0, 0, 5, 0);
             this.tsbNewProj.Name = "tsbNewProj";
             this.tsbNewProj.Click += new System.EventHandler(this.buttonNewApp_Click);
             // 
             // tsbOpenProj
             // 
-            resources.ApplyResources(this.tsbOpenProj, "tsbOpenProj");
             this.tsbOpenProj.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbOpenProj.Image = global::UIEditor.Properties.Resources.Open_16x16;
+            resources.ApplyResources(this.tsbOpenProj, "tsbOpenProj");
             this.tsbOpenProj.Margin = new System.Windows.Forms.Padding(0, 0, 5, 0);
             this.tsbOpenProj.Name = "tsbOpenProj";
             this.tsbOpenProj.Click += new System.EventHandler(this.buttonOpenApp_Click);
             // 
             // tsbSaveProj
             // 
-            resources.ApplyResources(this.tsbSaveProj, "tsbSaveProj");
             this.tsbSaveProj.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbSaveProj.Image = global::UIEditor.Properties.Resources.Save_16x16;
+            resources.ApplyResources(this.tsbSaveProj, "tsbSaveProj");
             this.tsbSaveProj.Margin = new System.Windows.Forms.Padding(0, 0, 5, 0);
             this.tsbSaveProj.Name = "tsbSaveProj";
             this.tsbSaveProj.Click += new System.EventHandler(this.buttonSaveApp_Click);
             // 
             // toolStripSeparator11
             // 
-            resources.ApplyResources(this.toolStripSeparator11, "toolStripSeparator11");
             this.toolStripSeparator11.Name = "toolStripSeparator11";
+            resources.ApplyResources(this.toolStripSeparator11, "toolStripSeparator11");
             // 
             // tsbKNXAddr
             // 
-            resources.ApplyResources(this.tsbKNXAddr, "tsbKNXAddr");
             this.tsbKNXAddr.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbKNXAddr.Image = global::UIEditor.Properties.Resources.ImportKNX_16x16;
+            resources.ApplyResources(this.tsbKNXAddr, "tsbKNXAddr");
             this.tsbKNXAddr.Margin = new System.Windows.Forms.Padding(0);
             this.tsbKNXAddr.Name = "tsbKNXAddr";
             this.tsbKNXAddr.Click += new System.EventHandler(this.btnImportKNXFile_Click);
@@ -506,148 +476,148 @@ namespace UIEditor
             // 
             // toolStripSeparator13
             // 
-            resources.ApplyResources(this.toolStripSeparator13, "toolStripSeparator13");
             this.toolStripSeparator13.Name = "toolStripSeparator13";
+            resources.ApplyResources(this.toolStripSeparator13, "toolStripSeparator13");
             // 
             // tsrBtnExpandAll
             // 
-            resources.ApplyResources(this.tsrBtnExpandAll, "tsrBtnExpandAll");
             this.tsrBtnExpandAll.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsrBtnExpandAll, "tsrBtnExpandAll");
             this.tsrBtnExpandAll.Margin = new System.Windows.Forms.Padding(0, 0, 5, 0);
             this.tsrBtnExpandAll.Name = "tsrBtnExpandAll";
             this.tsrBtnExpandAll.Click += new System.EventHandler(this.tsrBtnExpandAll_Click);
             // 
             // tsrBtnCollapseAll
             // 
-            resources.ApplyResources(this.tsrBtnCollapseAll, "tsrBtnCollapseAll");
             this.tsrBtnCollapseAll.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsrBtnCollapseAll, "tsrBtnCollapseAll");
             this.tsrBtnCollapseAll.Margin = new System.Windows.Forms.Padding(0, 0, 5, 0);
             this.tsrBtnCollapseAll.Name = "tsrBtnCollapseAll";
             this.tsrBtnCollapseAll.Click += new System.EventHandler(this.tsrBtnCollapseAll_Click);
             // 
             // toolStripSeparator2
             // 
-            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
             this.toolStripSeparator2.Name = "toolStripSeparator2";
+            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
             // 
             // tsrBtnMoveUp
             // 
-            resources.ApplyResources(this.tsrBtnMoveUp, "tsrBtnMoveUp");
             this.tsrBtnMoveUp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsrBtnMoveUp, "tsrBtnMoveUp");
             this.tsrBtnMoveUp.Margin = new System.Windows.Forms.Padding(0, 0, 5, 0);
             this.tsrBtnMoveUp.Name = "tsrBtnMoveUp";
             this.tsrBtnMoveUp.Click += new System.EventHandler(this.tsrBtnMoveUp_Click);
             // 
             // tsrBtnMoveDown
             // 
-            resources.ApplyResources(this.tsrBtnMoveDown, "tsrBtnMoveDown");
             this.tsrBtnMoveDown.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsrBtnMoveDown, "tsrBtnMoveDown");
             this.tsrBtnMoveDown.Margin = new System.Windows.Forms.Padding(0, 0, 5, 0);
             this.tsrBtnMoveDown.Name = "tsrBtnMoveDown";
             this.tsrBtnMoveDown.Click += new System.EventHandler(this.tsrBtnMoveDown_Click);
             // 
             // toolStripSeparator3
             // 
-            resources.ApplyResources(this.toolStripSeparator3, "toolStripSeparator3");
             this.toolStripSeparator3.Name = "toolStripSeparator3";
+            resources.ApplyResources(this.toolStripSeparator3, "toolStripSeparator3");
             // 
             // tsrBtnAddArea
             // 
-            resources.ApplyResources(this.tsrBtnAddArea, "tsrBtnAddArea");
             this.tsrBtnAddArea.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsrBtnAddArea, "tsrBtnAddArea");
             this.tsrBtnAddArea.Margin = new System.Windows.Forms.Padding(0, 0, 5, 0);
             this.tsrBtnAddArea.Name = "tsrBtnAddArea";
             this.tsrBtnAddArea.Click += new System.EventHandler(this.AddAreaNode_Click);
             // 
             // tsrBtnAddRoom
             // 
-            resources.ApplyResources(this.tsrBtnAddRoom, "tsrBtnAddRoom");
             this.tsrBtnAddRoom.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsrBtnAddRoom, "tsrBtnAddRoom");
             this.tsrBtnAddRoom.Margin = new System.Windows.Forms.Padding(0, 0, 5, 0);
             this.tsrBtnAddRoom.Name = "tsrBtnAddRoom";
             this.tsrBtnAddRoom.Click += new System.EventHandler(this.AddRoomNode_Click);
             // 
             // tsrBtnAddPage
             // 
-            resources.ApplyResources(this.tsrBtnAddPage, "tsrBtnAddPage");
             this.tsrBtnAddPage.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsrBtnAddPage, "tsrBtnAddPage");
             this.tsrBtnAddPage.Margin = new System.Windows.Forms.Padding(0, 0, 5, 0);
             this.tsrBtnAddPage.Name = "tsrBtnAddPage";
             this.tsrBtnAddPage.Click += new System.EventHandler(this.AddPageNode_Click);
             // 
             // toolStripSeparator4
             // 
-            resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
             this.toolStripSeparator4.Name = "toolStripSeparator4";
+            resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
             // 
             // tsrBtnGroupBox
             // 
-            resources.ApplyResources(this.tsrBtnGroupBox, "tsrBtnGroupBox");
             this.tsrBtnGroupBox.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsrBtnGroupBox, "tsrBtnGroupBox");
             this.tsrBtnGroupBox.Margin = new System.Windows.Forms.Padding(0, 0, 5, 0);
             this.tsrBtnGroupBox.Name = "tsrBtnGroupBox";
             this.tsrBtnGroupBox.Click += new System.EventHandler(this.AddGridNode_Click);
             // 
             // tsrBtnAddBlinds
             // 
-            resources.ApplyResources(this.tsrBtnAddBlinds, "tsrBtnAddBlinds");
             this.tsrBtnAddBlinds.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsrBtnAddBlinds, "tsrBtnAddBlinds");
             this.tsrBtnAddBlinds.Margin = new System.Windows.Forms.Padding(0, 0, 5, 0);
             this.tsrBtnAddBlinds.Name = "tsrBtnAddBlinds";
             this.tsrBtnAddBlinds.Click += new System.EventHandler(this.AddBlindsNode_Click);
             // 
             // tsrBtnAddLabel
             // 
-            resources.ApplyResources(this.tsrBtnAddLabel, "tsrBtnAddLabel");
             this.tsrBtnAddLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsrBtnAddLabel, "tsrBtnAddLabel");
             this.tsrBtnAddLabel.Margin = new System.Windows.Forms.Padding(0, 0, 5, 0);
             this.tsrBtnAddLabel.Name = "tsrBtnAddLabel";
             this.tsrBtnAddLabel.Click += new System.EventHandler(this.AddLabelNode_Click);
             // 
             // tsrBtnAddSceneButton
             // 
-            resources.ApplyResources(this.tsrBtnAddSceneButton, "tsrBtnAddSceneButton");
             this.tsrBtnAddSceneButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsrBtnAddSceneButton, "tsrBtnAddSceneButton");
             this.tsrBtnAddSceneButton.Margin = new System.Windows.Forms.Padding(0, 0, 5, 0);
             this.tsrBtnAddSceneButton.Name = "tsrBtnAddSceneButton";
             this.tsrBtnAddSceneButton.Click += new System.EventHandler(this.AddSceneButtonNode_Click);
             // 
             // tsrBtnAddSliderSwitch
             // 
-            resources.ApplyResources(this.tsrBtnAddSliderSwitch, "tsrBtnAddSliderSwitch");
             this.tsrBtnAddSliderSwitch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsrBtnAddSliderSwitch, "tsrBtnAddSliderSwitch");
             this.tsrBtnAddSliderSwitch.Margin = new System.Windows.Forms.Padding(0, 0, 5, 0);
             this.tsrBtnAddSliderSwitch.Name = "tsrBtnAddSliderSwitch";
             this.tsrBtnAddSliderSwitch.Click += new System.EventHandler(this.AddSliderSwitchNode_Click);
             // 
             // tsrBtnAddSwitch
             // 
-            resources.ApplyResources(this.tsrBtnAddSwitch, "tsrBtnAddSwitch");
             this.tsrBtnAddSwitch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsrBtnAddSwitch, "tsrBtnAddSwitch");
             this.tsrBtnAddSwitch.Margin = new System.Windows.Forms.Padding(0, 0, 5, 0);
             this.tsrBtnAddSwitch.Name = "tsrBtnAddSwitch";
             this.tsrBtnAddSwitch.Click += new System.EventHandler(this.AddSwitchNode_Click);
             // 
             // tsrBtnAddValueDisplay
             // 
-            resources.ApplyResources(this.tsrBtnAddValueDisplay, "tsrBtnAddValueDisplay");
             this.tsrBtnAddValueDisplay.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsrBtnAddValueDisplay, "tsrBtnAddValueDisplay");
             this.tsrBtnAddValueDisplay.Margin = new System.Windows.Forms.Padding(0, 0, 5, 0);
             this.tsrBtnAddValueDisplay.Name = "tsrBtnAddValueDisplay";
             this.tsrBtnAddValueDisplay.Click += new System.EventHandler(this.AddValueDisplayNode_Click);
             // 
             // tsrBtnAddTimerButton
             // 
-            resources.ApplyResources(this.tsrBtnAddTimerButton, "tsrBtnAddTimerButton");
             this.tsrBtnAddTimerButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsrBtnAddTimerButton, "tsrBtnAddTimerButton");
             this.tsrBtnAddTimerButton.Margin = new System.Windows.Forms.Padding(0, 0, 5, 0);
             this.tsrBtnAddTimerButton.Name = "tsrBtnAddTimerButton";
             this.tsrBtnAddTimerButton.Click += new System.EventHandler(this.AddTimerButtonNode_Click);
             // 
             // tsrBtnDigitalAdjustment
             // 
-            resources.ApplyResources(this.tsrBtnDigitalAdjustment, "tsrBtnDigitalAdjustment");
             this.tsrBtnDigitalAdjustment.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsrBtnDigitalAdjustment, "tsrBtnDigitalAdjustment");
             this.tsrBtnDigitalAdjustment.Margin = new System.Windows.Forms.Padding(0);
             this.tsrBtnDigitalAdjustment.Name = "tsrBtnDigitalAdjustment";
             this.tsrBtnDigitalAdjustment.Click += new System.EventHandler(this.AddDigitalAdjustmentNode_Click);
@@ -659,6 +629,34 @@ namespace UIEditor
             this.tlpMain.Controls.Add(this.flpMainTools, 0, 0);
             this.tlpMain.Controls.Add(this.tableLayoutPanel1, 0, 1);
             this.tlpMain.Name = "tlpMain";
+            // 
+            // panLayout
+            // 
+            resources.ApplyResources(this.panLayout, "panLayout");
+            this.panLayout.Name = "panLayout";
+            // 
+            // tableLayoutPanel1
+            // 
+            resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
+            this.tableLayoutPanel1.Controls.Add(this.palProperty, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.tvwAppdata, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.panLayout, 1, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            // 
+            // tvwAppdata
+            // 
+            this.tvwAppdata.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            resources.ApplyResources(this.tvwAppdata, "tvwAppdata");
+            this.tvwAppdata.ImageList = this.imgToolBar;
+            this.tvwAppdata.ItemHeight = 18;
+            this.tvwAppdata.Name = "tvwAppdata";
+            this.tvwAppdata.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewApp_AfterSelect);
+            // 
+            // palProperty
+            // 
+            resources.ApplyResources(this.palProperty, "palProperty");
+            this.palProperty.BackColor = System.Drawing.SystemColors.Control;
+            this.palProperty.Name = "palProperty";
             // 
             // FrmMain
             // 
@@ -684,8 +682,6 @@ namespace UIEditor
             this.cmsAddRoom.ResumeLayout(false);
             this.cmsAddPage.ResumeLayout(false);
             this.cmsAddGroupBox.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
             this.flpMainTools.ResumeLayout(false);
             this.flpMainTools.PerformLayout();
             this.tsrProject.ResumeLayout(false);
@@ -694,6 +690,8 @@ namespace UIEditor
             this.tsrAddControlToolBar.PerformLayout();
             this.tlpMain.ResumeLayout(false);
             this.tlpMain.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -745,9 +743,6 @@ namespace UIEditor
         //private System.Windows.Forms.ToolStripButton tsrBtnAddSnapperSwitch;
         //private System.Windows.Forms.ToolStripButton tsrBtnAddWebcam;
         //private System.Windows.Forms.ToolStripButton tsrBtnAddTimerTaskListView;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Panel palProperty;
-        private System.Windows.Forms.Panel panLayout;
         private System.Windows.Forms.FlowLayoutPanel flpMainTools;
         private System.Windows.Forms.TableLayoutPanel tlpMain;
         private System.Windows.Forms.ToolStrip tsrProject;
@@ -778,10 +773,13 @@ namespace UIEditor
         private System.Windows.Forms.ToolStripButton tsrBtnDigitalAdjustment;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator13;
-        private System.Windows.Forms.TreeView tvwAppdata;
         private System.Windows.Forms.ToolStripMenuItem tsmiLanguange;
         private System.Windows.Forms.ToolStripMenuItem tsmi_en_US;
         private System.Windows.Forms.ToolStripMenuItem tsmi_zh_CN;
+        private System.Windows.Forms.Panel panLayout;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Panel palProperty;
+        private System.Windows.Forms.TreeView tvwAppdata;
         //private System.Windows.Forms.ToolStripButton tsrBtnRadioGroup;
 
     }

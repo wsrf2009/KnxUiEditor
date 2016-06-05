@@ -2566,7 +2566,7 @@ namespace UIEditor
         private void ApplyResource(CultureInfo ci)
         {
             int width = this.tlpMain.Width;
-        //    int height = this.tableLayoutPanel1.Height;
+            //    int height = this.tableLayoutPanel1.Height;
             Rectangle rect = this.tlpMain.Bounds;
 
             ComponentResourceManager res = new ComponentResourceManager(typeof(FrmMain));
@@ -2643,6 +2643,35 @@ namespace UIEditor
         private void FrmMain_SizeChanged(object sender, EventArgs e)
         {
             Console.WriteLine("FrmMain_SizeChanged");
+        }
+
+        private void tlpWorkArea_MouseHover(object sender, EventArgs e)
+        {
+            TableLayoutPanel tlp = (TableLayoutPanel)sender;
+
+        }
+
+        private void tlpWorkArea_MouseEnter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tlpWorkArea_MouseDown(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void tlpWorkArea_MouseMove(object sender, MouseEventArgs e)
+        {
+            int x=e.X;
+            TableLayoutPanel tlp = (TableLayoutPanel)sender;
+            float posCol1Border = tlp.ColumnStyles[0].Width;
+            float posCol2Border = tlp.ColumnStyles[1].Width + posCol1Border;
+            if((Math.Abs(x-posCol1Border) < 10) || (Math.Abs(x-posCol2Border)<10)) {
+                tlp.Cursor = Cursors.SizeWE;
+            } else {
+                tlp.Cursor = Cursors.Default;
+            }
         }
     }
 }

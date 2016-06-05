@@ -110,7 +110,7 @@ namespace UIEditor
                 ZipHelper.UnZipDir(etsProjectFile, directoryName);
 
                 //XNamespace xns = @"http://knx.org/xml/project/11";
-                XNamespace xns = @"http://knx.org/xml/project/12";
+                XNamespace xns = @"http://knx.org/xml/project/13";
 
                 worker.ReportProgress(0, ResourceMng.GetString("TextIsCaluculating"));
 
