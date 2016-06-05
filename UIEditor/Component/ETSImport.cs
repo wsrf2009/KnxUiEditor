@@ -109,9 +109,6 @@ namespace UIEditor
                 string directoryName = Path.GetDirectoryName(etsProjectFile);
                 ZipHelper.UnZipDir(etsProjectFile, directoryName);
 
-                //XNamespace xns = @"http://knx.org/xml/project/11";
-                //XNamespace xns = @"http://knx.org/xml/project/13";
-
                 worker.ReportProgress(0, ResourceMng.GetString("TextIsCaluculating"));
 
                 // 查找 0.xml 文件
@@ -123,9 +120,10 @@ namespace UIEditor
                     string addressFile = addressFiles[0];
                     var addressXDoc = XDocument.Load(addressFile);
                     addressXDoc.Element("KNX");
+                    XNamespace xns = addressXDoc.Root.Name.Namespace;
 
                     // 从导入的ETS项目中获取group address
-                    var groupAddress = from item in addressXDoc.Descendants(attrGroupAddress)
+                    var groupAddress = from item in addressXDoc.Root.Descendants(xns + attrGroupAddress)
                                        select new ImGroupAddr
                                        {
                                            Id = item.Attribute(attrId).Value,
@@ -133,10 +131,9 @@ namespace UIEditor
                                            KnxAddress = item.Attribute(attrAddress).Value,
                                            DPTName = (null != item.Attribute(attrDatapointType)) ? item.Attribute(attrDatapointType).Value : "",
                                        };
-                    //worker.ReportProgress(10, addressFile);
 
                     // 获取数据类型
-                    var comObjectInstanceRef = (from item in addressXDoc.Descendants(strSend)
+                    var comObjectInstanceRef = (from item in addressXDoc.Descendants(xns+strSend)
                                                 let xElement = item.Parent
                                                 where xElement != null
                                                 select new
@@ -144,16 +141,6 @@ namespace UIEditor
                                                     GroupAddressRefId = item.Attribute(strGroupAddressRefId).Value,
                                                     ComObjectInstanceRefId = xElement.Parent.Attribute(strRefId).Value,
                                                 }).ToLookup(p => p.GroupAddressRefId, p => p.ComObjectInstanceRefId);
-
-                    string masterFileName = "knx_master.xml";
-                    //XNamespace xns = @"http://knx.org/xml/project/12";
-                    XDocument masterFileXDoc = null;
-                    var masterFiles = Directory.GetFiles(directoryName, masterFileName, SearchOption.TopDirectoryOnly);
-                    if (masterFiles.Length > 0)
-                    {
-                        var masterFile = masterFiles[0];
-                        masterFileXDoc = XDocument.Load(masterFile);
-                    }
 
                     Dictionary<string, XDocument> xDocs = new Dictionary<string, XDocument>();
 
@@ -199,12 +186,12 @@ namespace UIEditor
                                     xDocs.Add(manufacturerDataFile, manufacturerDataXDoc);
                                 }
 
-                                var comObject = (from p in manufacturerDataXDoc.Descendants(strComObject)
+                                var comObject = (from p in manufacturerDataXDoc.Descendants(xns+strComObject)
                                                  where p.Attribute(attrId).Value == comObjectInstanceId
                                                  select p).FirstOrDefault();
                                 parseComObject(addr, comObject);
 
-                                var comObjectRef = (from p in manufacturerDataXDoc.Descendants(strComObjectRef)
+                                var comObjectRef = (from p in manufacturerDataXDoc.Descendants(xns+strComObjectRef)
                                                     where p.Attribute(attrId).Value == comObjectInstanceRefId
                                                     select p).FirstOrDefault();
                                 parseComObject(addr, comObjectRef);
