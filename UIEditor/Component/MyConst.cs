@@ -26,7 +26,7 @@ namespace UIEditor
         public const string ConnectionsFile = "Connections.json";
 
         // 默认的项目名称
-        public const string DefaultKnxUiProjectName = "KnxProject1.knxuie";
+        public const string DefaultKnxUiProjectName = "KnxUiProject.knxuie";
 
         // key
         //public const string MyKey = "guokaile@163.com";
