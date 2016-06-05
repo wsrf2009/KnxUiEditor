@@ -112,6 +112,12 @@
     <Compile Include="Component\TreeViewHelper.cs" />
     <Compile Include="Component\VersionStorage.cs" />
     <Compile Include="Component\XmlSerializerUtils.cs" />
+    <Compile Include="FrmDocumentOutline.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmDocumentOutline.Designer.cs">
+      <DependentUpon>FrmDocumentOutline.cs</DependentUpon>
+    </Compile>
     <Compile Include="GroupAddress\ImGroupAddr.cs" />
     <Compile Include="GroupAddress\KNXGroupAddress.cs" />
     <Compile Include="GroupAddress\MgGroupAddress.cs" />
@@ -578,6 +584,12 @@
     <Compile Include="SationUIControl\STValueDisplay.cs">
       <SubType>Component</SubType>
     </Compile>
+    <EmbeddedResource Include="FrmDocumentOutline.resx">
+      <DependentUpon>FrmDocumentOutline.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmDocumentOutline.zh-CN.resx">
+      <DependentUpon>FrmDocumentOutline.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmETSImport.resx">
       <DependentUpon>FrmETSImport.cs</DependentUpon>
     </EmbeddedResource>
