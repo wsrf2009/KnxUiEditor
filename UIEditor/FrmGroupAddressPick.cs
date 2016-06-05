@@ -228,7 +228,6 @@ namespace UIEditor.Controls
                 col.Width = 80;
                 col.HeaderText = ResourceMng.GetString("DefaultValue");
                 col.DisplayIndex = i++;
-                col.ReadOnly = true;
 
                 col = grid.Columns["ReadTimespan"];
                 col.Width = 80;
