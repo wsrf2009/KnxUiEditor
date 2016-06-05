@@ -109,9 +109,6 @@ namespace UIEditor
                 string directoryName = Path.GetDirectoryName(etsProjectFile);
                 ZipHelper.UnZipDir(etsProjectFile, directoryName);
 
-                //XNamespace xns = @"http://knx.org/xml/project/11";
-                XNamespace xns = @"http://knx.org/xml/project/13";
-
                 worker.ReportProgress(0, ResourceMng.GetString("TextIsCaluculating"));
 
                 // 查找 0.xml 文件
@@ -123,6 +120,7 @@ namespace UIEditor
                     string addressFile = addressFiles[0];
                     var addressXDoc = XDocument.Load(addressFile);
                     addressXDoc.Element("KNX");
+                    XNamespace xns = addressXDoc.Root.Name.Namespace;
 
                     // 从导入的ETS项目中获取group address
                     var groupAddress = from item in addressXDoc.Root.Descendants(xns + attrGroupAddress)
@@ -133,7 +131,6 @@ namespace UIEditor
                                            KnxAddress = item.Attribute(attrAddress).Value,
                                            DPTName = (null != item.Attribute(attrDatapointType)) ? item.Attribute(attrDatapointType).Value : "",
                                        };
-                    //worker.ReportProgress(10, addressFile);
 
                     // 获取数据类型
                     var comObjectInstanceRef = (from item in addressXDoc.Root.Descendants(xns + strSend)
