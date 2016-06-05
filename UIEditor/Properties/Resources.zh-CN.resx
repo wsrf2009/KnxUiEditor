@@ -1,0 +1,907 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Save_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Save_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Page_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\page_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="value_display" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\controls\value_display.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="scene_button" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\controls\scene_button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sip2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\controls\sip2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SortAsc_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sortasc_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Paste_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Paste_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Close_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Close_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Check_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\check_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Copy_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Copy_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Edit_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ui\Edit_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ColorPalette_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\colorpalette_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Grid_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\grid_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Room_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\room_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="slider" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\controls\slider.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Delete_Control_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Delete_Control_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="slider_switch" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\controls\slider_switch.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Publish_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Publish_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="add_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ui\add_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Cut_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Cut_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="webcam_viewer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\controls\webcam_viewer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Collapse_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\collapse_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Collapse_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\collapse_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="connection_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\connection_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ImportKNX_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\importknx_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Slider_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\controls\Slider_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="media_button" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\controls\media_button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Export_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\export_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Button_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\controls\Button_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rgb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\controls\rgb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Controls_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\controls_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="add_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ui\add_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconSwitchButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\controls\iconswitchbutton.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SortDesc_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sortdesc_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Save_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\save_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="imageButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\controls\imageButton.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="button" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\controls\button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Copy_16x161" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Copy_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Expand_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\expand_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MoveDown_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\movedown_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Grid_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\grid_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Page_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\page_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="connection_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\connection_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CloseProj_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CloseProj_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Area_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\area_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="delete_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ui\delete_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CloseProj_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CloseProj_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Label_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\controls\Label_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Expand_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\expand_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="snapper_switch" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\controls\snapper_switch.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="App_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\app_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="App_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\app_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="New_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\new_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Area_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\area_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="search_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\search_16.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Info_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\info_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Help_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\help_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ImportKNX_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ImportKNX_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Info_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\info_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Help_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\help_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MoveDown_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\movedown_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="search_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\search_32.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Edit_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ui\Edit_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Refresh_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Refresh_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Delete_Control_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Delete_Control_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SortDesc_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sortdesc_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ColorPalette_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\colorpalette_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="label" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\controls\label.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Open_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\open_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="blinds" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\controls\blinds.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Close_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Close_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Slider_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\controls\Slider_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MoveUp_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\moveup_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MoveUp_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\moveup_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="snapper" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\controls\snapper.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="delete_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ui\delete_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SortAsc_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sortasc_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Controls_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\controls_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="timer_task_list" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\controls\timer_task_list.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DatapointType" xml:space="preserve">
+    <value>数据点类型</value>
+  </data>
+  <data name="icon_helper" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icon_helper.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="remove" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\remove.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="switch_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\controls\switch_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\controls\icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DigitalAdjustment_500x500" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\controls\DigitalAdjustment_500x500.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RadioGroup_220x220" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\controls\RadioGroup_220x220.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="timer_512x512" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\controls\timer_512x512.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PropAlpha" xml:space="preserve">
+    <value>不透明度</value>
+  </data>
+  <data name="PropAppDesc" xml:space="preserve">
+    <value>程序说明</value>
+  </data>
+  <data name="PropBackColor" xml:space="preserve">
+    <value>背景色</value>
+  </data>
+  <data name="PropBackgroundImage" xml:space="preserve">
+    <value>背景图片</value>
+  </data>
+  <data name="PropClickable" xml:space="preserve">
+    <value>控件是否可以点击</value>
+  </data>
+  <data name="PropComLogo" xml:space="preserve">
+    <value>企业Logo</value>
+  </data>
+  <data name="PropDecimalDigits" xml:space="preserve">
+    <value>小数位数</value>
+  </data>
+  <data name="PropDefaultValue" xml:space="preserve">
+    <value>默认值</value>
+  </data>
+  <data name="PropDigitalNumber" xml:space="preserve">
+    <value>数字位数</value>
+  </data>
+  <data name="PropDisplayValue" xml:space="preserve">
+    <value>显示值</value>
+  </data>
+  <data name="PropEtsReadAddressId" xml:space="preserve">
+    <value>ETS读地址</value>
+  </data>
+  <data name="PropEtsWriteAddressIds" xml:space="preserve">
+    <value>ETS写地址表</value>
+  </data>
+  <data name="PropFlatStyle" xml:space="preserve">
+    <value>平面样式</value>
+  </data>
+  <data name="PropFontColor" xml:space="preserve">
+    <value>字体颜色</value>
+  </data>
+  <data name="PropFontSize" xml:space="preserve">
+    <value>字体大小</value>
+  </data>
+  <data name="PropHasTip" xml:space="preserve">
+    <value>是否有提示</value>
+  </data>
+  <data name="PropHeight" xml:space="preserve">
+    <value>高度(像素)</value>
+  </data>
+  <data name="PropIcon" xml:space="preserve">
+    <value>图标</value>
+  </data>
+  <data name="PropIsGroup" xml:space="preserve">
+    <value>是否属于组</value>
+  </data>
+  <data name="PropLeftImage" xml:space="preserve">
+    <value>左侧图片</value>
+  </data>
+  <data name="PropLeftText" xml:space="preserve">
+    <value>左标签</value>
+  </data>
+  <data name="PropMax" xml:space="preserve">
+    <value>最大值</value>
+  </data>
+  <data name="PropMeasurementUnit" xml:space="preserve">
+    <value>计量单位</value>
+  </data>
+  <data name="PropMin" xml:space="preserve">
+    <value>最小值</value>
+  </data>
+  <data name="PropRadius" xml:space="preserve">
+    <value>圆角半径</value>
+  </data>
+  <data name="PropRightImage" xml:space="preserve">
+    <value>右侧图片</value>
+  </data>
+  <data name="PropRightText" xml:space="preserve">
+    <value>右标签</value>
+  </data>
+  <data name="PropSlideImage" xml:space="preserve">
+    <value>滑动图片</value>
+  </data>
+  <data name="PropSwitchColorOff" xml:space="preserve">
+    <value>关闭时控件背景色</value>
+  </data>
+  <data name="PropSwitchColorOn" xml:space="preserve">
+    <value>开启时控件背景色</value>
+  </data>
+  <data name="PropSwitchImageOff" xml:space="preserve">
+    <value>关闭时显示的图片</value>
+  </data>
+  <data name="PropSwitchImageOn" xml:space="preserve">
+    <value>开启时显示的图片</value>
+  </data>
+  <data name="PropTip" xml:space="preserve">
+    <value>提示文字</value>
+  </data>
+  <data name="PropTitle" xml:space="preserve">
+    <value>标题</value>
+  </data>
+  <data name="PropType" xml:space="preserve">
+    <value>对象类型</value>
+  </data>
+  <data name="PropWidth" xml:space="preserve">
+    <value>宽度(像素)</value>
+  </data>
+  <data name="PropX" xml:space="preserve">
+    <value>X(水平起始)</value>
+  </data>
+  <data name="PropY" xml:space="preserve">
+    <value>Y(垂直起始)</value>
+  </data>
+  <data name="SwitchStateOff" xml:space="preserve">
+    <value>关</value>
+  </data>
+  <data name="SwitchStateOn" xml:space="preserve">
+    <value>开</value>
+  </data>
+  <data name="TextApplication" xml:space="preserve">
+    <value>应用程序</value>
+  </data>
+  <data name="TextArea" xml:space="preserve">
+    <value>区域</value>
+  </data>
+  <data name="TextBlinds" xml:space="preserve">
+    <value>窗帘控制</value>
+  </data>
+  <data name="TextDigitalAdjustment" xml:space="preserve">
+    <value>数字调节</value>
+  </data>
+  <data name="TextGroupBox" xml:space="preserve">
+    <value>组框</value>
+  </data>
+  <data name="TextLabel" xml:space="preserve">
+    <value>标签</value>
+  </data>
+  <data name="TextPage" xml:space="preserve">
+    <value>页面</value>
+  </data>
+  <data name="TextRoom" xml:space="preserve">
+    <value>房间</value>
+  </data>
+  <data name="TextSceneButton" xml:space="preserve">
+    <value>场景按钮</value>
+  </data>
+  <data name="TextSliderSwitch" xml:space="preserve">
+    <value>滑动开关</value>
+  </data>
+  <data name="TextSwitch" xml:space="preserve">
+    <value>开关</value>
+  </data>
+  <data name="TextTimer" xml:space="preserve">
+    <value>定时器</value>
+  </data>
+  <data name="TextValueDisplay" xml:space="preserve">
+    <value>数据显示</value>
+  </data>
+  <data name="PropIsDefaultRoom" xml:space="preserve">
+    <value>是否为默认房间</value>
+  </data>
+  <data name="PropPassword" xml:space="preserve">
+    <value>密码</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>复制</value>
+  </data>
+  <data name="Cut" xml:space="preserve">
+    <value>剪切</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="Message1" xml:space="preserve">
+    <value>文件已经修改，是否要保存？</value>
+  </data>
+  <data name="Message10" xml:space="preserve">
+    <value>找不到启动程序 :</value>
+  </data>
+  <data name="Message11" xml:space="preserve">
+    <value>项目发布不成功 !</value>
+  </data>
+  <data name="Message12" xml:space="preserve">
+    <value>群组加载错误 !</value>
+  </data>
+  <data name="Message13" xml:space="preserve">
+    <value>类型不兼容，不能粘贴到当前的节点 !</value>
+  </data>
+  <data name="Message14" xml:space="preserve">
+    <value>你是否要删除当前节点 ?</value>
+  </data>
+  <data name="Message15" xml:space="preserve">
+    <value>删除节点提醒</value>
+  </data>
+  <data name="Message2" xml:space="preserve">
+    <value>文件保存提醒</value>
+  </data>
+  <data name="Message3" xml:space="preserve">
+    <value>没有数据!</value>
+  </data>
+  <data name="Message4" xml:space="preserve">
+    <value>提示信息</value>
+  </data>
+  <data name="Message5" xml:space="preserve">
+    <value>系统异常</value>
+  </data>
+  <data name="Message6" xml:space="preserve">
+    <value>错误提示</value>
+  </data>
+  <data name="Message7" xml:space="preserve">
+    <value>当前项目未保存，是否先将当前项目保存 ?</value>
+  </data>
+  <data name="Message8" xml:space="preserve">
+    <value>项目文件不兼容 !</value>
+  </data>
+  <data name="Message9" xml:space="preserve">
+    <value>找不到项目文件 :</value>
+  </data>
+  <data name="Paste" xml:space="preserve">
+    <value>粘贴</value>
+  </data>
+  <data name="AppDescription" xml:space="preserve">
+    <value>KNX UI Editor 是一款用户界面定制工具，本工具定义界面的元素和位置，通过解析引擎动态的生成控制界面</value>
+  </data>
+  <data name="AppName" xml:space="preserve">
+    <value>KNX界面编辑器</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>珠海世讯</value>
+  </data>
+  <data name="Copyright" xml:space="preserve">
+    <value>珠海世讯 2012-2016</value>
+  </data>
+  <data name="Message16" xml:space="preserve">
+    <value>版本： {0}</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>产品名称</value>
+  </data>
+  <data name="AbsoluteAdjustment" xml:space="preserve">
+    <value>绝对调节</value>
+  </data>
+  <data name="AdjustTo30per" xml:space="preserve">
+    <value>调节至30%</value>
+  </data>
+  <data name="AdjustTo60per" xml:space="preserve">
+    <value>调节至60%</value>
+  </data>
+  <data name="AdjustTo90per" xml:space="preserve">
+    <value>调节至90%</value>
+  </data>
+  <data name="Brighter100per" xml:space="preserve">
+    <value>调亮100%</value>
+  </data>
+  <data name="Brighter25per" xml:space="preserve">
+    <value>调亮25%</value>
+  </data>
+  <data name="Brighter50per" xml:space="preserve">
+    <value>调亮50%</value>
+  </data>
+  <data name="CableNumber" xml:space="preserve">
+    <value>线缆编号</value>
+  </data>
+  <data name="Communication" xml:space="preserve">
+    <value>通讯</value>
+  </data>
+  <data name="DataType" xml:space="preserve">
+    <value>数据类型</value>
+  </data>
+  <data name="DefaultValue" xml:space="preserve">
+    <value>默认值</value>
+  </data>
+  <data name="Dim100per" xml:space="preserve">
+    <value>调暗100%</value>
+  </data>
+  <data name="Dim25per" xml:space="preserve">
+    <value>调暗25%</value>
+  </data>
+  <data name="Dim50per" xml:space="preserve">
+    <value>调暗50%</value>
+  </data>
+  <data name="GroupAddress" xml:space="preserve">
+    <value>组地址</value>
+  </data>
+  <data name="GroupAddressActions" xml:space="preserve">
+    <value>组地址行为</value>
+  </data>
+  <data name="IntervalTimeOfRead" xml:space="preserve">
+    <value>读取间隔时间</value>
+  </data>
+  <data name="Message17" xml:space="preserve">
+    <value>组地址文件格式不兼容</value>
+  </data>
+  <data name="Message18" xml:space="preserve">
+    <value>组地址保存失败</value>
+  </data>
+  <data name="Message19" xml:space="preserve">
+    <value>添加失败，组地址冲突！</value>
+  </data>
+  <data name="Message20" xml:space="preserve">
+    <value>KNX地址有更改，是否要保存这些更改？</value>
+  </data>
+  <data name="Message21" xml:space="preserve">
+    <value>读地址只能设置1个，请重新设置！！！</value>
+  </data>
+  <data name="Message22" xml:space="preserve">
+    <value>行为名称不能为空！</value>
+  </data>
+  <data name="Message23" xml:space="preserve">
+    <value>行为值不能为空!</value>
+  </data>
+  <data name="Message24" xml:space="preserve">
+    <value>输入的值包含非法字符，必须为数字</value>
+  </data>
+  <data name="Message25" xml:space="preserve">
+    <value>位操作。输入范围：0或1</value>
+  </data>
+  <data name="Message26" xml:space="preserve">
+    <value>相对调光。输入范围：0~15\n0：无操作；1~7：调暗，数值越大调节幅度越小；8：无操作；9~15调亮：数值越大调节幅度越小</value>
+  </data>
+  <data name="Message27" xml:space="preserve">
+    <value>绝对调节，输入范围：0~255\n计算公式 v = 255 * t（调节度，也即百分值）。例如要调节到25%，v=255*0.25=63.75，去掉小数得v=63</value>
+  </data>
+  <data name="Message28" xml:space="preserve">
+    <value>场景选择，输入范围：0~63</value>
+  </data>
+  <data name="Message29" xml:space="preserve">
+    <value>只能输入0或1！</value>
+  </data>
+  <data name="Message30" xml:space="preserve">
+    <value>输入范围：0~15</value>
+  </data>
+  <data name="Message31" xml:space="preserve">
+    <value>输入范围：-127~255</value>
+  </data>
+  <data name="Message32" xml:space="preserve">
+    <value>添加失败，已经存在相同的行为名</value>
+  </data>
+  <data name="Message33" xml:space="preserve">
+    <value>只能输入0或1</value>
+  </data>
+  <data name="Message34" xml:space="preserve">
+    <value>输入范围：0~15</value>
+  </data>
+  <data name="Message35" xml:space="preserve">
+    <value>输入范围：-127~255</value>
+  </data>
+  <data name="Message36" xml:space="preserve">
+    <value>输入范围：0~255</value>
+  </data>
+  <data name="Message37" xml:space="preserve">
+    <value>保存{0}值出错！</value>
+  </data>
+  <data name="Message38" xml:space="preserve">
+    <value>转换树上的节点为 KNX 对象时出错, 找不到对应的 KNX 类型! 树节点类型：</value>
+  </data>
+  <data name="Message39" xml:space="preserve">
+    <value>按照 KNX 结构创建树节点时出错， KNX 结构找不到对应的节点类型， KNX结构：</value>
+  </data>
+  <data name="Message40" xml:space="preserve">
+    <value>目录正在使用, 请关闭资源管理器后，重启应用程序！</value>
+  </data>
+  <data name="Message41" xml:space="preserve">
+    <value>没有匹配的数据类型！</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="NewGroupAddress" xml:space="preserve">
+    <value>新建组地址</value>
+  </data>
+  <data name="Off" xml:space="preserve">
+    <value>关</value>
+  </data>
+  <data name="On" xml:space="preserve">
+    <value>开</value>
+  </data>
+  <data name="OperationTips" xml:space="preserve">
+    <value>操控提示</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>优先级</value>
+  </data>
+  <data name="Read" xml:space="preserve">
+    <value>读</value>
+  </data>
+  <data name="RelativeDimming" xml:space="preserve">
+    <value>相对调光</value>
+  </data>
+  <data name="Scene" xml:space="preserve">
+    <value>场景</value>
+  </data>
+  <data name="Scene1" xml:space="preserve">
+    <value>场景1</value>
+  </data>
+  <data name="Scene2" xml:space="preserve">
+    <value>场景2</value>
+  </data>
+  <data name="Scene3" xml:space="preserve">
+    <value>场景3</value>
+  </data>
+  <data name="Selected" xml:space="preserve">
+    <value>选择</value>
+  </data>
+  <data name="SetActions" xml:space="preserve">
+    <value>设置行为</value>
+  </data>
+  <data name="SetCableNumber" xml:space="preserve">
+    <value>设置线缆编号</value>
+  </data>
+  <data name="SetDataType" xml:space="preserve">
+    <value>设置数据类型</value>
+  </data>
+  <data name="SetDefaultValue" xml:space="preserve">
+    <value>设置默认值</value>
+  </data>
+  <data name="SetGroupAddr" xml:space="preserve">
+    <value>设置组地址</value>
+  </data>
+  <data name="SetGroupAddrName" xml:space="preserve">
+    <value>设置组地址名</value>
+  </data>
+  <data name="SetIntervalTimeOfRead" xml:space="preserve">
+    <value>设置读取时间间隔</value>
+  </data>
+  <data name="SetIsCommunication" xml:space="preserve">
+    <value>设置是否通讯</value>
+  </data>
+  <data name="SetIsRead" xml:space="preserve">
+    <value>设置是否读</value>
+  </data>
+  <data name="SetIsTransmit" xml:space="preserve">
+    <value>设置是否传输</value>
+  </data>
+  <data name="SetIsUpgrade" xml:space="preserve">
+    <value>设置是否更新</value>
+  </data>
+  <data name="SetIsWrite" xml:space="preserve">
+    <value>设置是否写</value>
+  </data>
+  <data name="SetPriority" xml:space="preserve">
+    <value>设置优先级</value>
+  </data>
+  <data name="SetTips" xml:space="preserve">
+    <value>设置提示</value>
+  </data>
+  <data name="Switch" xml:space="preserve">
+    <value>开关</value>
+  </data>
+  <data name="Transmit" xml:space="preserve">
+    <value>传输</value>
+  </data>
+  <data name="Upgrade" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="Write" xml:space="preserve">
+    <value>写</value>
+  </data>
+  <data name="PropIsRelative" xml:space="preserve">
+    <value>是否为相对调节</value>
+  </data>
+  <data name="PropColorOff" xml:space="preserve">
+    <value>关闭时控件颜色</value>
+  </data>
+  <data name="PropColorOn" xml:space="preserve">
+    <value>开启时控件颜色</value>
+  </data>
+  <data name="TextSegment" xml:space="preserve">
+    <value>分段控制</value>
+  </data>
+  <data name="PropBorderColor" xml:space="preserve">
+    <value>边框颜色</value>
+  </data>
+  <data name="PropBorderWidth" xml:space="preserve">
+    <value>边框宽度</value>
+  </data>
+  <data name="PropLeftTextFontColor" xml:space="preserve">
+    <value>左标签字体颜色</value>
+  </data>
+  <data name="PropLeftTextFontSize" xml:space="preserve">
+    <value>左标签字体大小</value>
+  </data>
+  <data name="PropRightTextFontColor" xml:space="preserve">
+    <value>右标签字体颜色</value>
+  </data>
+  <data name="PropRightTextFontSize" xml:space="preserve">
+    <value>右标签字体大小</value>
+  </data>
+  <data name="TextIsCaluculating" xml:space="preserve">
+    <value>正在计算...</value>
+  </data>
+  <data name="TextIsCopying" xml:space="preserve">
+    <value>正在拷贝...</value>
+  </data>
+  <data name="TextIsImporting" xml:space="preserve">
+    <value>正在导入 {0}</value>
+  </data>
+  <data name="TextIsImportingGroupAddress" xml:space="preserve">
+    <value>正在导入组地址</value>
+  </data>
+  <data name="TextIsUnziping" xml:space="preserve">
+    <value>正在解压...</value>
+  </data>
+  <data name="Message42" xml:space="preserve">
+    <value>请给您要导入的地址分配数据类型</value>
+  </data>
+  <data name="Message43" xml:space="preserve">
+    <value>组地址的数据类型不确定，请检查分配的数据类型是否正确</value>
+  </data>
+  <data name="Importing" xml:space="preserve">
+    <value>导入...</value>
+  </data>
+  <data name="Message44" xml:space="preserve">
+    <value>工程中已存在地址 {0}，不能重复添加！</value>
+  </data>
+  <data name="Message45" xml:space="preserve">
+    <value>更改语言设置需要重启程序，您确定要继续吗？</value>
+  </data>
+  <data name="Message46" xml:space="preserve">
+    <value>请给您要添加的地址指定数据类型</value>
+  </data>
+</root>
