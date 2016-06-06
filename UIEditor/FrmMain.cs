@@ -2408,14 +2408,17 @@ namespace UIEditor
                 }
             }
 
-            /* 绘制控件的可变边框 */
-            this.curFrameControl.BackColor = Color.Transparent;
-            this.curFrameControl.baseControl.Location = this.curFrameControl.getControlLocation();
-            this.curFrameControl.CreateBounds();
-            this.curFrameControl.Visible = true;
-            this.curFrameControl.Draw();
+            if (null != this.curFrameControl)
+            {
+                /* 绘制控件的可变边框 */
+                this.curFrameControl.BackColor = Color.Transparent;
+                this.curFrameControl.baseControl.Location = this.curFrameControl.getControlLocation();
+                this.curFrameControl.CreateBounds();
+                this.curFrameControl.Visible = true;
+                this.curFrameControl.Draw();
 
-            Frm_ControlMouseUpEvent(this.curFrameControl, EventArgs.Empty);
+                Frm_ControlMouseUpEvent(this.curFrameControl, EventArgs.Empty);
+            }
         }
 
         private void Page_MouseDown(object sender, MouseEventArgs e)
