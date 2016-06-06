@@ -2408,14 +2408,17 @@ namespace UIEditor
                 }
             }
 
-            /* 绘制控件的可变边框 */
-            this.curFrameControl.BackColor = Color.Transparent;
-            this.curFrameControl.baseControl.Location = this.curFrameControl.getControlLocation();
-            this.curFrameControl.CreateBounds();
-            this.curFrameControl.Visible = true;
-            this.curFrameControl.Draw();
+            if (null != this.curFrameControl)
+            {
+                /* 绘制控件的可变边框 */
+                this.curFrameControl.BackColor = Color.Transparent;
+                this.curFrameControl.baseControl.Location = this.curFrameControl.getControlLocation();
+                this.curFrameControl.CreateBounds();
+                this.curFrameControl.Visible = true;
+                this.curFrameControl.Draw();
 
-            Frm_ControlMouseUpEvent(this.curFrameControl, EventArgs.Empty);
+                Frm_ControlMouseUpEvent(this.curFrameControl, EventArgs.Empty);
+            }
         }
 
         private void Page_MouseDown(object sender, MouseEventArgs e)
@@ -2566,7 +2569,7 @@ namespace UIEditor
         private void ApplyResource(CultureInfo ci)
         {
             int width = this.tlpMain.Width;
-        //    int height = this.tableLayoutPanel1.Height;
+            //    int height = this.tableLayoutPanel1.Height;
             Rectangle rect = this.tlpMain.Bounds;
 
             ComponentResourceManager res = new ComponentResourceManager(typeof(FrmMain));
