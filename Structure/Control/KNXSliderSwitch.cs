@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 namespace Structure.Control
 {
     /// <summary>
@@ -8,6 +9,16 @@ namespace Structure.Control
     /// </summary>
     public class KNXSliderSwitch : KNXControlBase
     {
+        /// <summary>
+        /// 读地址
+        /// </summary>
+        public Dictionary<string, KNXSelectedAddress> ReadAddressId { get; set; }
+
+        /// <summary>
+        /// 写地址列表
+        /// </summary>
+        public Dictionary<string, KNXSelectedAddress> WriteAddressIds { get; set; }
+
         /// <summary>
         /// Slider左边背景图片(SliderSymbol与此属性不能共存)
         /// </summary>
@@ -51,6 +62,6 @@ namespace Structure.Control
         ////滑动时延迟时间(单位毫秒)
         //public int SendInterval { get; set; }
 
-        public bool IsRelativeControl { get; set; }
+        public int IsRelativeControl { get; set; }
     }
 }

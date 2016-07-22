@@ -12,7 +12,6 @@ using UIEditor.Component;
 using System.Threading;
 using System.ComponentModel;
 using UIEditor.KNX.DatapointType;
-using UIEditor.GroupAddress;
 
 namespace UIEditor
 {
@@ -42,9 +41,9 @@ namespace UIEditor
         private static string attrTransmitFlag = "TransmitFlag";
         private static string attrUpdateFlag = "UpdateFlag";
 
-        private static string strDatapointSubtype = "DatapointSubtype";
-        private static string attrNumber = "Number";
-        private static string attrSizeInBit = "SizeInBit";
+        //private static string strDatapointSubtype = "DatapointSubtype";
+        //private static string attrNumber = "Number";
+        //private static string attrSizeInBit = "SizeInBit";
 
         //
         private const string ETS5 = "ETS5";
@@ -133,7 +132,7 @@ namespace UIEditor
                                        };
 
                     // 获取数据类型
-                    var comObjectInstanceRef = (from item in addressXDoc.Root.Descendants(xns + strSend)
+                    var comObjectInstanceRef = (from item in addressXDoc.Descendants(xns+strSend)
                                                 let xElement = item.Parent
                                                 where xElement != null
                                                 select new
@@ -141,16 +140,6 @@ namespace UIEditor
                                                     GroupAddressRefId = item.Attribute(strGroupAddressRefId).Value,
                                                     ComObjectInstanceRefId = xElement.Parent.Attribute(strRefId).Value,
                                                 }).ToLookup(p => p.GroupAddressRefId, p => p.ComObjectInstanceRefId);
-
-                    string masterFileName = "knx_master.xml";
-                    //XNamespace xns = @"http://knx.org/xml/project/12";
-                    XDocument masterFileXDoc = null;
-                    var masterFiles = Directory.GetFiles(directoryName, masterFileName, SearchOption.TopDirectoryOnly);
-                    if (masterFiles.Length > 0)
-                    {
-                        var masterFile = masterFiles[0];
-                        masterFileXDoc = XDocument.Load(masterFile);
-                    }
 
                     Dictionary<string, XDocument> xDocs = new Dictionary<string, XDocument>();
 
@@ -196,12 +185,12 @@ namespace UIEditor
                                     xDocs.Add(manufacturerDataFile, manufacturerDataXDoc);
                                 }
 
-                                var comObject = (from p in manufacturerDataXDoc.Root.Descendants(xns + strComObject)
+                                var comObject = (from p in manufacturerDataXDoc.Descendants(xns+strComObject)
                                                  where p.Attribute(attrId).Value == comObjectInstanceId
                                                  select p).FirstOrDefault();
                                 parseComObject(addr, comObject);
 
-                                var comObjectRef = (from p in manufacturerDataXDoc.Root.Descendants(xns + strComObjectRef)
+                                var comObjectRef = (from p in manufacturerDataXDoc.Descendants(xns+strComObjectRef)
                                                     where p.Attribute(attrId).Value == comObjectInstanceRefId
                                                     select p).FirstOrDefault();
                                 parseComObject(addr, comObjectRef);

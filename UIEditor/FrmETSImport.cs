@@ -9,7 +9,6 @@ using System.Linq;
 using System.Windows.Forms;
 using UIEditor.Component;
 using UIEditor.GroupAddress;
-using UIEditor.GroupAddress;
 using UIEditor.KNX.DatapointType;
 
 namespace UIEditor
@@ -314,6 +313,7 @@ namespace UIEditor
             importInd.ShowDialog(this);
             importInd.Close();
 
+            this.DialogResult = DialogResult.OK;
             this.Close();
         }
 

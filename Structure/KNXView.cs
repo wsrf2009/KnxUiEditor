@@ -147,6 +147,29 @@ namespace Structure
     }
 
     /// <summary>
+    /// 控件的平面样式
+    /// </summary>
+    public enum EFlatStyle
+    {
+        /// <summary>
+        /// 扁平化
+        /// </summary>
+        Flat,
+
+        /// <summary>
+        /// 立体化
+        /// </summary>
+        Stereo,
+    }
+
+    public enum EBool
+    {
+        No,
+
+        Yes
+    }
+
+    /// <summary>
     /// 界面元素的基础类，提供统一的基础属性
     /// </summary>    
     public class KNXView
@@ -182,9 +205,9 @@ namespace Structure
         public int Height { get; set; }
 
         /// <summary>
-        /// 边框宽度
+        /// 是否显示边框
         /// </summary>
-        public bool DisplayBorder { get; set; }
+        public int DisplayBorder { get; set; }
 
         /// <summary>
         /// 边框颜色

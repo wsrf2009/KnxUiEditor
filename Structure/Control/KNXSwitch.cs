@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 namespace Structure.Control
 {
     /// <summary>
@@ -6,7 +7,15 @@ namespace Structure.Control
     /// </summary>
     public class KNXSwitch : KNXControlBase
     {
+        /// <summary>
+        /// 读地址
+        /// </summary>
+        public Dictionary<string, KNXSelectedAddress> ReadAddressId { get; set; }
 
+        /// <summary>
+        /// 写地址列表
+        /// </summary>
+        public Dictionary<string, KNXSelectedAddress> WriteAddressIds { get; set; }
         /// <summary>
         /// 开启时显示的图片
         /// </summary>

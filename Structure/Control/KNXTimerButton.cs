@@ -10,6 +10,15 @@ namespace Structure.Control
     /// </summary>
     public class KNXTimerButton : KNXControlBase
     {
+        /// <summary>
+        /// 读地址
+        /// </summary>
+        public Dictionary<string, KNXSelectedAddress> ReadAddressId { get; set; }
+
+        /// <summary>
+        /// 写地址列表
+        /// </summary>
+        public Dictionary<string, KNXSelectedAddress> WriteAddressIds { get; set; }
         //public string Icon { get; set; }
     }
 }

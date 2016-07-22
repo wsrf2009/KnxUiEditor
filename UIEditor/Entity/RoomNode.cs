@@ -10,14 +10,19 @@ using SourceGrid.Cells.Views;
 using Structure;
 using UIEditor.Component;
 using Button = SourceGrid.Cells.Button;
+using System.Windows.Forms;
+using System.ComponentModel;
+using System.Drawing.Design;
 
 namespace UIEditor.Entity
 {
+    [TypeConverter(typeof(RoomNode.PropertyConverter))]
     [Serializable]
     public class RoomNode : ViewNode
     {
         private static int index = 0;
 
+        [EditorAttribute(typeof(PropertyGridImageEditor), typeof(UITypeEditor))]
         public string Symbol { get; set; }
 
         public string PinCode { get; set; }
@@ -25,7 +30,7 @@ namespace UIEditor.Entity
         /// <summary>
         /// 是否将该房间作为默认显示页面
         /// </summary>
-        public bool DefaultRoom { get; set; }
+        public EBool IsDefaultRoom { get; set; }
 
         #region 构造函数
 
@@ -37,9 +42,19 @@ namespace UIEditor.Entity
 
             Symbol = MyConst.DefaultIcon;
             PinCode = "";
-            this.DefaultRoom = false;
+            this.IsDefaultRoom = EBool.No;
 
             Name = ImageKey = SelectedImageKey = MyConst.View.KnxRoomType;
+        }
+
+        public override object Clone()
+        {
+            RoomNode node = base.Clone() as RoomNode;
+            node.Symbol = this.Symbol;
+            node.PinCode = this.PinCode;
+            node.IsDefaultRoom = this.IsDefaultRoom;
+
+            return node;
         }
 
         public RoomNode(KNXRoom knx)
@@ -47,7 +62,7 @@ namespace UIEditor.Entity
         {
             Symbol = knx.Symbol;
             PinCode = knx.PinCode;
-            this.DefaultRoom = knx.DefaultRoom;
+            this.IsDefaultRoom = (EBool)Enum.ToObject(typeof(EBool), knx.DefaultRoom);
 
             Name = ImageKey = SelectedImageKey = MyConst.View.KnxRoomType;
         }
@@ -64,109 +79,47 @@ namespace UIEditor.Entity
 
             knx.Symbol = this.Symbol;
             knx.PinCode = this.PinCode;
-            knx.DefaultRoom = this.DefaultRoom;
+            knx.DefaultRoom = (int)this.IsDefaultRoom;
 
             knx.Pages = new List<KNXPage>();
 
             return knx;
         }
 
-        public override void DisplayProperties(Grid grid)
+        private class PropertyConverter : ExpandableObjectConverter
         {
-            #region 显示属性
-
-            grid.Tag = this;
-
-            var nameModel = new Cell();
-            nameModel.BackColor = grid.BackColor;
-
-            var stringEditor = new TextBox(typeof(string));
-
-            var valueChangedController = new ValueChangedEvent();
-
-            var currentRow = 0;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropType"));
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Name);
-
-            currentRow++;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropTitle"));
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Text);
-            grid[currentRow, MyConst.ValueColumn].Editor = stringEditor;
-            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
-
-            currentRow++;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropIcon"));
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Symbol);
-            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
-            if (this.Symbol != null)
+            public override PropertyDescriptorCollection GetProperties(ITypeDescriptorContext context, object value, Attribute[] attributes)
             {
-                grid[currentRow, MyConst.ValueColumn].Image =
-                    ImageHelper.LoadImage(Path.Combine(MyCache.ProjImagePath, this.Symbol));
+                PropertyDescriptorCollection collection = TypeDescriptor.GetProperties(value, true);
+
+                List<PropertyDescriptor> list = new List<PropertyDescriptor>();
+
+                STControlPropertyDescriptor propText = new STControlPropertyDescriptor(collection["Text"]);
+                propText.SetCategory(ResourceMng.GetString("CategoryAppearance"));
+                propText.SetDisplayName(ResourceMng.GetString("PropText"));
+                propText.SetDescription(ResourceMng.GetString("DescriptionForPropText"));
+                list.Add(propText);
+
+                STControlPropertyDescriptor PropIcon = new STControlPropertyDescriptor(collection["Symbol"]);
+                PropIcon.SetCategory(ResourceMng.GetString(""));
+                PropIcon.SetDisplayName(ResourceMng.GetString("PropIcon"));
+                PropIcon.SetDescription(ResourceMng.GetString(""));
+                list.Add(PropIcon);
+
+                STControlPropertyDescriptor PropPassword = new STControlPropertyDescriptor(collection["PinCode"]);
+                PropPassword.SetCategory(ResourceMng.GetString(""));
+                PropPassword.SetDisplayName(ResourceMng.GetString("PropPassword"));
+                PropPassword.SetDescription(ResourceMng.GetString(""));
+                list.Add(PropPassword);
+
+                STControlPropertyDescriptor PropIsDefaultRoom = new STControlPropertyDescriptor(collection["IsDefaultRoom"]);
+                PropIsDefaultRoom.SetCategory(ResourceMng.GetString(""));
+                PropIsDefaultRoom.SetDisplayName(ResourceMng.GetString("PropIsDefaultRoom"));
+                PropIsDefaultRoom.SetDescription(ResourceMng.GetString(""));
+                list.Add(PropIsDefaultRoom);
+
+                return new PropertyDescriptorCollection(list.ToArray());
             }
-            grid[currentRow, MyConst.ButtonColumn] = new Button("...");
-            var symbolButtonController = new SourceGrid.Cells.Controllers.Button();
-            symbolButtonController.Executed += PickImage;
-            grid[currentRow, MyConst.ButtonColumn].Controller.AddController(symbolButtonController);
-
-            currentRow++;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropPassword"));
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.PinCode);
-            grid[currentRow, MyConst.ValueColumn].Editor = stringEditor;
-            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
-
-            currentRow++;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropIsDefaultRoom"));
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.DefaultRoom, typeof(bool));
-            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
-
-            #endregion
-        }
-
-        public override void ChangePropValues(CellContext context)
-        {
-            int row = context.Position.Row;
-
-            #region room
-
-            switch (row)
-            {
-                case 1:
-                    this.Text = context.Value.ToString();
-                    break;
-                case 2:
-                    this.Symbol = context.Value.ToString();
-                    break;
-                case 3:
-                    this.PinCode = context.Value.ToString();
-                    break;
-                case 4:
-                    this.DefaultRoom = Convert.ToBoolean(context.Value);
-                    break;
-                default:
-                    ShowSaveEntityMsg(MyConst.View.KnxRoomType);
-                    break;
-            }
-
-            #endregion
-        }
-
-        public override ViewNode Clon2()
-        {
-            MemoryStream stream = new MemoryStream();
-            BinaryFormatter formatter = new BinaryFormatter();
-            formatter.Serialize(stream, this);
-            stream.Position = 0;
-            return formatter.Deserialize(stream) as RoomNode;
         }
     }
 }

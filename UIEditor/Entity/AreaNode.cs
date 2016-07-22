@@ -9,33 +9,40 @@ using SourceGrid.Cells.Editors;
 using SourceGrid.Cells.Views;
 using Structure;
 using UIEditor.Component;
+using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace UIEditor.Entity
 {
+    [TypeConverter(typeof(AreaNode.PropertyConverter))]
     [Serializable]
     public class AreaNode : ViewNode
     {
         private static int index = 0;
 
         #region 构造函数
-
         public AreaNode()
         {
             index++;
 
-            Text = ResourceMng.GetString("TextArea") + "_" + index;
+            this.Text = ResourceMng.GetString("TextArea") + "_" + index;
+            this.Name = ImageKey = SelectedImageKey = MyConst.View.KnxAreaType;
+        }
 
-            Name = ImageKey = SelectedImageKey = MyConst.View.KnxAreaType;
+        public override object Clone()
+        {
+            AreaNode node = base.Clone() as AreaNode;
+
+            return node;
         }
 
         public AreaNode(KNXArea knx)
             : base(knx)
         {
-            Name = ImageKey = SelectedImageKey = MyConst.View.KnxAreaType;
+            this.Name = ImageKey = SelectedImageKey = MyConst.View.KnxAreaType;
         }
 
         protected AreaNode(SerializationInfo info, StreamingContext context) : base(info, context) { }
-
         #endregion
 
         public KNXArea ToKnx()
@@ -49,65 +56,23 @@ namespace UIEditor.Entity
             return knx;
         }
 
-        #region 属性显示
-
-        public override void DisplayProperties(Grid grid)
+        private class PropertyConverter : ExpandableObjectConverter
         {
-            #region 显示属性
-            grid.Tag = this;
-
-            var nameModel = new Cell();
-            nameModel.BackColor = grid.BackColor;
-
-            var stringEditor = new TextBox(typeof(string));
-
-            var valueChangedController = new ValueChangedEvent();
-
-            var currentRow = 0;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropType"));
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Name);
-
-            currentRow++;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropTitle"));
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Text);
-            grid[currentRow, MyConst.ValueColumn].Editor = stringEditor;
-            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
-
-            #endregion
-        }
-
-        #endregion
-
-        public override void ChangePropValues(CellContext context)
-        {
-            int row = context.Position.Row;
-
-            #region area
-
-            switch (row)
+            public override PropertyDescriptorCollection GetProperties(ITypeDescriptorContext context, object value, Attribute[] attributes)
             {
-                case 1:
-                    this.Text = context.Value.ToString();
-                    break;
-                default:
-                    ShowSaveEntityMsg(MyConst.View.KnxAreaType);
-                    break;
+                PropertyDescriptorCollection collection = TypeDescriptor.GetProperties(value, true);
+
+                List<PropertyDescriptor> list = new List<PropertyDescriptor>();
+
+                STControlPropertyDescriptor propText = new STControlPropertyDescriptor(collection["Text"]);
+                propText.SetCategory(ResourceMng.GetString("CategoryAppearance"));
+                propText.SetDisplayName(ResourceMng.GetString("PropText"));
+                propText.SetDescription(ResourceMng.GetString("DescriptionForPropText"));
+                list.Add(propText);
+
+                return new PropertyDescriptorCollection(list.ToArray());
             }
-
-            #endregion
         }
 
-        public override ViewNode Clon2()
-        {
-            MemoryStream stream = new MemoryStream();
-            BinaryFormatter formatter = new BinaryFormatter();
-            formatter.Serialize(stream, this);
-            stream.Position = 0;
-            return formatter.Deserialize(stream) as AreaNode;
-        }
     }
 }

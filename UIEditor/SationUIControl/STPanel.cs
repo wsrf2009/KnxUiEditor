@@ -11,33 +11,22 @@ namespace UIEditor.SationUIControl
 {
     public class STPanel : Panel
     {
+        public enum ControlState
+        {
+            Move,
+            Normal
+        }
 
         #region
-        private ViewNode node { get; set; }
+        public ViewNode node { get; set; }
+        public FrameControl fc { get; set; }
 
-        //public override string Text { get; set; }
+        //[DefaultValueAttribute(false)]
+        public bool IsSelected { get; set; }
 
-        //public int Left { get; set; }
+        //[DefaultValue(ControlState.Normal)]
+        public ControlState State { get; set; }
 
-        //public int Top { get; set; }
-
-        //public int Width { get; set; }
-
-        //public int Height { get; set; }
-
-        //public double Alpha { get; set; }
-
-        //public int Radius { get; set; }
-
-        //public Structure.FlatStyle FlatStyle { get; set; }
-
-        //public Color BackgroundColor { get; set; }
-
-        ////public string BackgroundImage { get; set; }
-
-        //public Color FontColor { get; set; }
-
-        //public int FontSize { get; set; }
         #endregion
 
         public STPanel()
@@ -48,18 +37,7 @@ namespace UIEditor.SationUIControl
         public STPanel(ViewNode node)
         {
             this.node = node;
-            //this.Text = node.Text;
-            //this.Left = node.Left;
-            //this.Top = node.Top;
-            //this.Width = node.Width;
-            //this.Height = node.Height;
-            //this.Alpha = node.Alpha;
-            //this.Radius = node.Radius;
-            //this.FlatStyle = node.FlatStyle;
-            //this.BackgroundColor = Color.FromArgb((int)(node.Alpha * 255), ColorTranslator.FromHtml(node.BackgroundColor));
-            //this.BackgroundImage = node.BackgroundImage;
-            //this.FontColor = ColorTranslator.FromHtml(node.FontColor);
-            //this.FontSize = node.FontSize;
+            //this.State = ControlState.Normal;
 
             this.SetStyle(
                 ControlStyles.UserPaint |  //控件自行绘制，而不使用操作系统的绘制
@@ -70,83 +48,11 @@ namespace UIEditor.SationUIControl
                 ControlStyles.SupportsTransparentBackColor |
                 ControlStyles.DoubleBuffer,
                 true);//支持透明背景颜色
-
-            //this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
-
-            //this.Location = new Point(this.node.Left, this.node.Top);
-            //this.Size = new Size(this.node.Width, this.node.Height);
-
-            //Invalidate();
-            //this.Refresh();
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-
-            //Graphics g = e.Graphics;
-            //g.Clear(this.BackColor);
-
-            Console.WriteLine("text:" + this.node.Text);
-
-            //Rectangle rect = new Rectangle(0, 0, this.Width, this.Height);
-            //Region = new System.Drawing.Region(GetRoundRectangle(rect, this.node.Radius)); // 圆角矩形
-
-            //if ((null == this.node.BackgroundImage) || (string.Empty == this.node.BackgroundImage))
-            //{
-            //    if (Structure.FlatStyle.Stereo == this.node.FlatStyle)
-            //    {
-            //        Color backColor = Color.FromArgb((int)(this.node.Alpha * 255), ColorTranslator.FromHtml(this.node.BackgroundColor));
-
-            //        //    /* 上半部分渐变 */
-            //        //    Rectangle rect1 = new Rectangle(0, 0, this.node.Width, this.node.Height / 2);
-            //        //    LinearGradientBrush bBackground1 =
-            //        //         new LinearGradientBrush(rect1, ColorHelper.changeBrightnessOfColor(backColor, 100), backColor, LinearGradientMode.Vertical);
-            //        //    g.FillRectangle(bBackground1, rect1);
-            //        //    g.DrawRectangle(new Pen(backColor, .0f), rect1);
-            //        //    bBackground1.Dispose();
-
-            //        //    /* 下半部分渐变 */
-            //        //    Rectangle rect2 = new Rectangle(0, this.node.Height / 2, this.node.Width, this.node.Height / 2);
-            //        //    LinearGradientBrush bBackground2 =
-            //        //         new LinearGradientBrush(rect2, backColor, ColorHelper.changeBrightnessOfColor(backColor, -50), LinearGradientMode.Vertical);
-            //        //    g.FillRectangle(bBackground2, rect2);
-            //        //    g.DrawRectangle(new Pen(backColor, .0f), rect2);
-            //        //    bBackground2.Dispose();
-
-            //        //Rectangle rect = new Rectangle(0, 0, this.Width, this.Height);
-
-            //        /* 绘制立体效果，三色渐变 */
-            //        LinearGradientBrush brush = new LinearGradientBrush(rect, Color.Transparent, Color.Transparent, LinearGradientMode.Vertical);
-            //        Color[] colors = new Color[3];
-            //        colors[0] = ColorHelper.changeBrightnessOfColor(backColor, 100);
-            //        colors[1] = backColor;
-            //        colors[2] = ColorHelper.changeBrightnessOfColor(backColor, -50);
-            //        ColorBlend blend = new ColorBlend();
-            //        blend.Positions = new float[] { 0.0f, 0.3f, 1.0f };
-            //        blend.Colors = colors;
-            //        brush.InterpolationColors = blend;
-            //        g.FillRegion(brush, Region);
-            //        brush.Dispose();
-            //    }
-            //    else if (Structure.FlatStyle.Flat == this.node.FlatStyle)
-            //    {
-            //        Color backColor = Color.FromArgb((int)(this.node.Alpha * 255), ColorTranslator.FromHtml(this.node.BackgroundColor));
-            //        SolidBrush brush = new SolidBrush(backColor);
-            //        g.FillRegion(brush, Region);
-            //        //g.FillRectangle(brush, rect);
-            //        //this.BackColor = backColor;
-            //    }
-            //}
-            //else
-            //{
-            //    //Image img = Image.FromFile(Path.Combine(MyCache.ProjImagePath, this.node.BackgroundImage));//建立要绘制的Image图像
-            //    //Rectangle srcRect = new Rectangle(0, 0, img.Width, img.Height);//显示图像的位置
-            //    //Rectangle desRect = new Rectangle(0, 0, this.Width, this.Height);//显示图像那一部分
-            //    //GraphicsUnit units = GraphicsUnit.Pixel;//源矩形的度量单位设置为像素
-            //    //g.DrawImage(img, desRect, srcRect, units);//显示
-
-            //}
         }
 
         internal GraphicsPath GetRoundRectangle(Rectangle rectangle, int r)
@@ -181,19 +87,6 @@ namespace UIEditor.SationUIControl
 
             return gp;
         }
-
-        //protected override void OnPaintBackground(PaintEventArgs e)
-        //{
-        //    base.OnPaintBackground(e);
-
-        //    //Graphics g = e.Graphics;
-        //    //Rectangle rect = new Rectangle(0, 0, this.Width, this.Height);
-
-        //    //Color backColor = Color.FromArgb((int)(this.node.Alpha * 255), ColorTranslator.FromHtml(this.node.BackgroundColor));
-        //    //SolidBrush brush = new SolidBrush(backColor);
-        //    //g.FillRegion(brush, Region);
-
-        //}
 
         public static void DrawRoundRectangle(Graphics g, Pen pen, Rectangle rect, int cornerRadius, float borderWidth)
         {
@@ -236,33 +129,17 @@ namespace UIEditor.SationUIControl
 
         public void RefreshUI()
         {
-            //this.Location = new Point(this.node.Left, this.node.Top);
-            //this.Size = new Size(this.node.Width, this.node.Height);
-            //this.Text = node.Text;
-            //this.Left = node.Left;
-            //this.Top = node.Top;
-            //this.Width = node.Width;
-            //this.Height = node.Height;
-            //this.Alpha = node.Alpha;
-            //this.Radius = node.Radius;
-            //this.FlatStyle = node.FlatStyle;
-            //this.BackgroundColor = Color.FromArgb((int)(node.Alpha * 255), ColorTranslator.FromHtml(node.BackgroundColor));
-            ////this.BackgroundImage = node.BackgroundImage;
-            //this.FontColor = ColorTranslator.FromHtml(node.FontColor);
-            //this.FontSize = node.FontSize;
-
             if ((null != this.node.BackgroundImage) && (string.Empty != this.node.BackgroundImage))
             {
                 this.BackgroundImage = Image.FromFile(Path.Combine(MyCache.ProjImagePath, this.node.BackgroundImage));
             }
             else
             {
-                //this.BackColor = Color.FromArgb((int)(node.Alpha * 255), ColorTranslator.FromHtml(node.BackgroundColor));
                 this.BackColor = Color.Transparent;
             }
 
-            this.Location = new Point(this.node.Left, this.node.Top);
-            this.Size = new Size(this.node.Width, this.node.Height);
+            //this.Location = this.node.Location;
+            //this.Size = this.node.Size;
 
             this.Refresh();
             Console.WriteLine("RefreshUI:" + this.node.Text);

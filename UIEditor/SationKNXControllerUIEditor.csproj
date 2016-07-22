@@ -98,20 +98,56 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandManager\CommandNodeProperty\NodePropertyBound.cs" />
+    <Compile Include="CommandManager\CommandNodeProperty\NodePropertyHeight.cs" />
+    <Compile Include="CommandManager\CommandNodeProperty\NodePropertyInfo.cs" />
+    <Compile Include="CommandManager\CommandNodeProperty\NodePropertyLocation.cs" />
+    <Compile Include="CommandManager\CommandNodeProperty\NodePropertySize.cs" />
+    <Compile Include="CommandManager\CommandNodeProperty\NodePropertyWidth.cs" />
+    <Compile Include="CommandManager\CommandNodeProperty\NodePropertyX.cs" />
+    <Compile Include="CommandManager\CommandNodeProperty\NodePropertyY.cs" />
+    <Compile Include="CommandManager\CommandTreeNode\TreeNodeAdd.cs" />
+    <Compile Include="CommandManager\CommandTreeNode\TreeNodeMoveDown.cs" />
+    <Compile Include="CommandManager\CommandTreeNode\TreeNodeMoveUp.cs" />
+    <Compile Include="CommandManager\CommandTreeNode\TreeNodeRemove.cs" />
+    <Compile Include="CommandManager\CommandTreeNode\TreeViewAddRootNode.cs" />
+    <Compile Include="CommandManager\CommandTreeNode\TreeViewClearNodes.cs" />
+    <Compile Include="CommandManager\CommandTreeNode\TreeViewRemoveRootNode.cs" />
     <Compile Include="Component\AppConfigHelper.cs" />
     <Compile Include="Component\AppStorage.cs" />
+    <Compile Include="Component\KeyboardHook.cs" />
+    <Compile Include="Component\ClipboardHelper.cs" />
     <Compile Include="Component\ColorHelper.cs" />
     <Compile Include="Component\ColorSelectedArg.cs" />
+    <Compile Include="CommandManager\CommandManager.cs" />
     <Compile Include="Component\DescriptionAttribute.cs" />
+    <Compile Include="Component\EnumConverter.cs" />
     <Compile Include="Component\Explorer.cs" />
     <Compile Include="Component\FileHelper.cs" />
+    <Compile Include="Component\Frame.cs" />
+    <Compile Include="Component\ICommandManager.cs" />
     <Compile Include="Component\ImageHelper.cs" />
+    <Compile Include="Component\InstanceHelper.cs" />
     <Compile Include="Component\KNXAddressHelper.cs" />
     <Compile Include="Component\LogHelper.cs" />
+    <Compile Include="Component\SelectedAddressCollection.cs" />
+    <Compile Include="PropertyGridEditor\PropertyGridImageEditor.cs" />
+    <Compile Include="PropertyGridEditor\PropertyGridKNXSelectedAddressEditor.cs" />
+    <Compile Include="PropertyGridEditor\PropertyGridKNXSelectedAddressMultiReadEditor.cs" />
+    <Compile Include="PropertyGridEditor\PropertyGridKNXSelectedAddressMultiWriteActionEditor.cs" />
+    <Compile Include="PropertyGridEditor\PropertyGridKNXSelectedAddressSingleReadEditor.cs" />
+    <Compile Include="PropertyGridEditor\PropertyGridRichTextEditor.cs" />
     <Compile Include="Component\ResourceMng.cs" />
+    <Compile Include="Component\STControlPropertyDescriptor.cs" />
     <Compile Include="Component\TreeViewHelper.cs" />
     <Compile Include="Component\VersionStorage.cs" />
     <Compile Include="Component\XmlSerializerUtils.cs" />
+    <Compile Include="FrmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMain.designer.cs">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+    </Compile>
     <Compile Include="GroupAddress\ImGroupAddr.cs" />
     <Compile Include="GroupAddress\KNXGroupAddress.cs" />
     <Compile Include="GroupAddress\MgGroupAddress.cs" />
@@ -456,32 +492,17 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="SationUIControl\STBlinds.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="SationUIControl\STContainer.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SationUIControl\STControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SationUIControl\STDigitalAdjustment.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SationUIControl\STGroupBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SationUIControl\STLable.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="SationUIControl\STPage.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SationUIControl\STSceneButton.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SationUIControl\FrameControl.cs">
-      <SubType>Component</SubType>
+    <Compile Include="UserUIControl\FrameControl.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="FrmGroupAddressPick.cs">
       <SubType>Form</SubType>
@@ -523,12 +544,6 @@
     <Compile Include="FrmAboutBox.Designer.cs">
       <DependentUpon>FrmAboutBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmMain.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmMain.designer.cs">
-      <DependentUpon>FrmMain.cs</DependentUpon>
-    </Compile>
     <Compile Include="Component\GroupAddressStorage.cs" />
     <Compile Include="Component\MyCache.cs" />
     <Compile Include="Component\MyConst.cs" />
@@ -566,17 +581,23 @@
     <Compile Include="SationUIControl\STPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SationUIControl\STSliderSwitch.cs">
-      <SubType>Component</SubType>
+    <Compile Include="UserUIControl\UCDocumentOutline.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SationUIControl\STSwitch.cs">
-      <SubType>Component</SubType>
+    <Compile Include="UserUIControl\UCDocumentOutline.Designer.cs">
+      <DependentUpon>UCDocumentOutline.cs</DependentUpon>
     </Compile>
-    <Compile Include="SationUIControl\STTimerButton.cs">
-      <SubType>Component</SubType>
+    <Compile Include="UserUIControl\UCProperty.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SationUIControl\STValueDisplay.cs">
-      <SubType>Component</SubType>
+    <Compile Include="UserUIControl\UCProperty.Designer.cs">
+      <DependentUpon>UCProperty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserUIControl\UISelectItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserUIControl\UISelectItem.Designer.cs">
+      <DependentUpon>UISelectItem.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="FrmETSImport.resx">
       <DependentUpon>FrmETSImport.cs</DependentUpon>
@@ -599,6 +620,10 @@
     <EmbeddedResource Include="FrmHelp.zh-CN.resx">
       <DependentUpon>FrmHelp.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmMain.resx">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.zh-CN.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -620,8 +645,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SationUIControl\FrameControl.resx">
+    <EmbeddedResource Include="UserUIControl\FrameControl.resx">
       <DependentUpon>FrameControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmGroupAddressPick.resx">
@@ -639,10 +665,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmAboutBox.resx">
       <DependentUpon>FrmAboutBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmMain.resx">
-      <DependentUpon>FrmMain.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmSetDataType.resx">
       <DependentUpon>FrmSetDataType.cs</DependentUpon>
@@ -668,6 +690,18 @@
       <DependentUpon>FrmSetReadTimeSpan.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="KNX\DatapointType\Types4OctetFloatValue\ValueAngleDeg\ValueAngleDegNode.cs" />
+    <EmbeddedResource Include="UserUIControl\UCDocumentOutline.resx">
+      <DependentUpon>UCDocumentOutline.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserUIControl\UCDocumentOutline.zh-CN.resx">
+      <DependentUpon>UCDocumentOutline.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserUIControl\UCProperty.resx">
+      <DependentUpon>UCProperty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserUIControl\UISelectItem.resx">
+      <DependentUpon>UISelectItem.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -943,6 +977,9 @@
       <Project>{41178f82-3b34-49af-b93e-5dc746e52e19}</Project>
       <Name>Structure</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

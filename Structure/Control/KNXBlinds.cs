@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 namespace Structure.Control
 {
 
@@ -7,6 +8,15 @@ namespace Structure.Control
     /// </summary>
     public class KNXBlinds : KNXControlBase
     {
+        /// <summary>
+        /// 读地址
+        /// </summary>
+        public Dictionary<string, KNXSelectedAddress> ReadAddressId { get; set; }
+
+        /// <summary>
+        /// 写地址列表
+        /// </summary>
+        public Dictionary<string, KNXSelectedAddress> WriteAddressIds { get; set; }
         public string LeftImage { get; set; }
         public string LeftText { get; set; }
         public int LeftTextFontSize { get; set; }

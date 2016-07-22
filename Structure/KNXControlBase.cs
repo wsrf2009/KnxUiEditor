@@ -7,24 +7,24 @@ namespace Structure
     /// </summary>
     public class KNXControlBase : KNXView
     {
-        /// <summary>
-        /// 读地址
-        /// </summary>
-        public Dictionary<string, KNXSelectedAddress> ReadAddressId { get; set; }
+        ///// <summary>
+        ///// 读地址
+        ///// </summary>
+        //public Dictionary<string, KNXSelectedAddress> ReadAddressId { get; set; }
 
-        /// <summary>
-        /// 写地址列表
-        /// </summary>
-        public Dictionary<string, KNXSelectedAddress> WriteAddressIds { get; set; }
+        ///// <summary>
+        ///// 写地址列表
+        ///// </summary>
+        //public Dictionary<string, KNXSelectedAddress> WriteAddressIds { get; set; }
 
-        public bool HasTip { get; set; }
+        public int HasTip { get; set; }
 
         public string Tip { get; set; }
 
         /// <summary>
         /// 控件是否可点击
         /// </summary>
-        public bool Clickable { get; set; }
+        public int Clickable { get; set; }
 
         /// <summary>
         /// 用户自定义的控件图标图标

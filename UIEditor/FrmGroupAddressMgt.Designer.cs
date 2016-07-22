@@ -95,11 +95,11 @@
             this.dgvGroupAddress.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvGroupAddress.StandardTab = true;
             this.dgvGroupAddress.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvGroupAddress_CellClick);
-            //this.dgvGroupAddress.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvGroupAddress_CellContentClick);
+            this.dgvGroupAddress.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvGroupAddress_CellContentClick);
             this.dgvGroupAddress.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvGroupAddress_CellDoubleClick);
             this.dgvGroupAddress.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvGroupAddress_CellMouseDown);
             this.dgvGroupAddress.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvGroupAddress_CellPainting);
-            this.dgvGroupAddress.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvGroupAddress_CellValueChanged);
+            //this.dgvGroupAddress.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvGroupAddress_CellValueChanged);
             this.dgvGroupAddress.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvGroupAddress_ColumnHeaderMouseClick);
             this.dgvGroupAddress.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dgvGroupAddress_ColumnWidthChanged);
             this.dgvGroupAddress.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvGroupAddress_DataBindingComplete);
