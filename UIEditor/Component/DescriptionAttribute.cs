@@ -14,6 +14,7 @@ namespace UIEditor.Component
         {
             this._desc = desc;
         }
+
         /// <summary>
         /// 备注
         /// </summary>
@@ -22,52 +23,13 @@ namespace UIEditor.Component
             get { return _desc; }
             set { _desc = value; }
         }
-
-        /// <summary>
-        /// 获取枚举的备注信息
-        /// </summary>
-        /// <param name="val">枚举值</param>
-        /// <returns></returns>
-        //public static string GetEnumDescription(Enum val)
-        //{
-        //    Type type = val.GetType();
-        //    FieldInfo fd = type.GetField(val.ToString());
-        //    if (fd == null)
-        //        return string.Empty;
-        //    object[] attrs = fd.GetCustomAttributes(typeof(DescriptionAttribute), false);
-        //    string name = string.Empty;
-        //    foreach (DescriptionAttribute attr in attrs)
-        //    {
-        //        name = attr.Description;
-        //    }
-        //    return name;
-        //}
     }
+
     /// <summary>
     /// 枚举扩展类
     /// </summary>
     public static class EnumExtension
     {
-        /// <summary>
-        /// 获取枚举的备注信息
-        /// </summary>
-        /// <param name="em"></param>
-        /// <returns></returns>
-        //public static string GetDescription(this Enum em)
-        //{
-        //    Type type = em.GetType();
-        //    FieldInfo fd = type.GetField(em.ToString());
-        //    if (fd == null)
-        //        return string.Empty;
-        //    object[] attrs = fd.GetCustomAttributes(typeof(DescriptionAttribute), false);
-        //    string name = string.Empty;
-        //    foreach (DescriptionAttribute attr in attrs)
-        //    {
-        //        name = attr.Description;
-        //    }
-        //    return name;
-        //}
-
         public static string GetDescription(this Enum value)
         {
             FieldInfo fi = value.GetType().GetField(value.ToString());

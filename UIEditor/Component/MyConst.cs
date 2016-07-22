@@ -129,21 +129,21 @@ namespace UIEditor
         public static class Controls
         {
             public const string KnxBlindsType = "KNXBlinds";
-            public const string KnxColorLightType = "KNXColorLight";
+            //public const string KnxColorLightType = "KNXColorLight";
             public const string KnxLabelType = "KNXLabel";
-            public const string KnxMediaButtonType = "KNXMediaButton";
+            //public const string KnxMediaButtonType = "KNXMediaButton";
             public const string KnxSceneButtonType = "KNXSceneButton";
-            public const string KnxSipCallType = "KNXSIPCall";
-            public const string KnxSliderType = "KNXSlider";
+            //public const string KnxSipCallType = "KNXSIPCall";
+            //public const string KnxSliderType = "KNXSlider";
             public const string KnxSliderSwitchType = "KNXSliderSwitch";
-            public const string KnxSnapperType = "KNXSnapper";
-            public const string KnxSnapperSwitchType = "KNXSnapperSwitch";
+            //public const string KnxSnapperType = "KNXSnapper";
+            //public const string KnxSnapperSwitchType = "KNXSnapperSwitch";
             public const string KnxSwitchType = "KNXSwitch";
             public const string KnxValueDisplayType = "KNXValueDisplay";
-            public const string KnxWebCamViewerType = "KNXWebcamViewer";
-            public const string KnxImageButtonType = "KNXImageButton";
+            //public const string KnxWebCamViewerType = "KNXWebcamViewer";
+            //public const string KnxImageButtonType = "KNXImageButton";
             public const string KnxTimerButtonType = "KNXTimerButton";
-            public const string KnxTimerTaskListViewType = "KNXTimerTaskListView";
+            //public const string KnxTimerTaskListViewType = "KNXTimerTaskListView";
             public const string KnxDigitalAdjustment = "KNXDigitalAdjustment";
             //public const string KnxRadioGroup = "KNXRadioGroup";
             public const string KnxGroupBoxType = "KNXGroupBox";

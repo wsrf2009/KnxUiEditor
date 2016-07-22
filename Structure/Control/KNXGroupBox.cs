@@ -1,5 +1,6 @@
 ﻿
 
+using System.Collections.Generic;
 namespace Structure.Control
 {
     /// <summary>
@@ -32,5 +33,14 @@ namespace Structure.Control
         ///// </summary>
         //public string BorderStyle { get; set; }
 
+        /// <summary>
+        /// 读地址
+        /// </summary>
+        public Dictionary<string, KNXSelectedAddress> ReadAddressId { get; set; }
+
+        /// <summary>
+        /// 写地址列表
+        /// </summary>
+        public Dictionary<string, KNXSelectedAddress> WriteAddressIds { get; set; }
     }
 }

@@ -20,6 +20,15 @@ namespace Structure.Control
             ThreeDigit
         }
 
+        /// <summary>
+        /// 读地址
+        /// </summary>
+        public Dictionary<string, KNXSelectedAddress> ReadAddressId { get; set; }
+
+        /// <summary>
+        /// 写地址列表
+        /// </summary>
+        public Dictionary<string, KNXSelectedAddress> WriteAddressIds { get; set; }
         public string LeftImage { get; set; }
         public string RightImage { get; set; }
         public int DigitalNumber { get; set; }

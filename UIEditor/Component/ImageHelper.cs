@@ -56,14 +56,24 @@ namespace UIEditor.Component
                 //Console.WriteLine("destWidth:" + destWidth + " destHeight:" + destHeight);
             }
 
-            Bitmap b = new Bitmap(destWidth, destHeight);
-            Graphics g = Graphics.FromImage((Image)b);
-            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+            //Console.WriteLine("destWidth:" + destWidth);
+            //Console.WriteLine("destHeight:" + destHeight);
 
-            g.DrawImage(imgToResize, 0, 0, destWidth, destHeight);
-            g.Dispose();
+            if (destWidth > 0 && destHeight > 0)
+            {
+                Bitmap b = new Bitmap(destWidth, destHeight);
+                Graphics g = Graphics.FromImage((Image)b);
+                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
 
-            return (Image)b;
+                g.DrawImage(imgToResize, 0, 0, destWidth, destHeight);
+                g.Dispose();
+
+                return (Image)b;
+            }
+            else
+            {
+                return null;
+            }
         }
 
 

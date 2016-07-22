@@ -18,6 +18,11 @@ namespace UIEditor.Entity
         public ContainerNode()
         { }
 
+        public override object Clone()
+        {
+            return base.Clone();
+        }
+
         public ContainerNode(KNXContainer knx)
             : base(knx)
         { }

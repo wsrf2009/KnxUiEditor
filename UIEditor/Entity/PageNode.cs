@@ -9,9 +9,12 @@ using SourceGrid.Cells.Views;
 using Structure;
 using UIEditor.Component;
 using System.Drawing;
+using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace UIEditor.Entity
 {
+    [TypeConverter(typeof(PageNode.PropertyConverter))]
     [Serializable]
     public class PageNode : ContainerNode
     {
@@ -28,9 +31,10 @@ namespace UIEditor.Entity
             this.Text = ResourceMng.GetString("TextPage") + "_" + index;
             this.Width = 1280;
             this.Height = 800;
+            //this.Size = new Size(1280, 800);
             this.Alpha = 1;
             this.Radius = 0;
-            this.BackgroundColor = "#F0FFFF";
+            //this.BackgroundColor = "#F0FFFF";
             this.BackgroundImage = "bj_kt.png";
 
             string FileImageOn = Path.Combine(MyCache.ProjImagePath, this.BackgroundImage);
@@ -42,6 +46,12 @@ namespace UIEditor.Entity
             Name = ImageKey = SelectedImageKey = MyConst.View.KnxPageType;
         }
 
+        public override object Clone()
+        {
+            PageNode node = base.Clone() as PageNode;
+            return node;
+        }
+
         /// <summary>
         /// PageNode 转 KNXPage
         /// </summary>
@@ -49,7 +59,7 @@ namespace UIEditor.Entity
         public PageNode(KNXPage knx)
             : base(knx)
         {
-            Name = ImageKey = SelectedImageKey = MyConst.View.KnxPageType;
+            this.Name = ImageKey = SelectedImageKey = MyConst.View.KnxPageType;
         }
 
         protected PageNode(SerializationInfo info, StreamingContext context)
@@ -74,164 +84,52 @@ namespace UIEditor.Entity
             return knx;
         }
 
-        /// <summary>
-        /// 显示PageNode的属性于GridView中
-        /// </summary>
-        /// <param name="grid"></param>
-        public override void DisplayProperties(Grid grid)
+        private class PropertyConverter : ExpandableObjectConverter
         {
-            base.DisplayProperties(grid);
-
-            var nameModel = new Cell();
-            nameModel.BackColor = grid.BackColor;
-
-            var stringEditor = new TextBox(typeof(string));
-            var intEditor = new TextBoxNumeric(typeof(int));
-
-            var valueChangedController = new ValueChangedEvent();
-
-            #region TreeNode 属性
-            /* 0 类型 */
-            var currentRow = 0;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropType"));
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Name);
-
-            /* 1 名称 */
-            currentRow++;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropTitle"));
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Text);
-            grid[currentRow, MyConst.ValueColumn].Editor = stringEditor;
-            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
-            #endregion
-
-            #region ViewNode属性
-            /* 2 宽度 */
-            currentRow++;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropWidth"));
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Width);
-            grid[currentRow, MyConst.ValueColumn].Editor = intEditor;
-            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
-
-            /* 3 高度 */
-            currentRow++;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropHeight"));
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Height);
-            grid[currentRow, MyConst.ValueColumn].Editor = intEditor;
-            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
-
-            /* 4 背景色 */
-            currentRow++;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropBackColor"));
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.BackgroundColor);
-            grid[currentRow, MyConst.ValueColumn].Image = ImageHelper.CreateImage(this.BackgroundColor);
-            grid[currentRow, MyConst.ValueColumn].Editor = stringEditor;
-            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
-            grid[currentRow, MyConst.ButtonColumn] = new SourceGrid.Cells.Button("...");
-            var backColorButtonController = new SourceGrid.Cells.Controllers.Button();
-            backColorButtonController.Executed += PickColor;
-            grid[currentRow, MyConst.ButtonColumn].Controller.AddController(backColorButtonController);
-
-            /* 5 背景图片 */
-            currentRow++;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropBackgroundImage"));
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            if (this.BackgroundImage == null)
+            public override PropertyDescriptorCollection GetProperties(ITypeDescriptorContext context, object value, Attribute[] attributes)
             {
-                grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell("");
+                PropertyDescriptorCollection collection = TypeDescriptor.GetProperties(value, true);
+
+                List<PropertyDescriptor> list = new List<PropertyDescriptor>();
+
+                STControlPropertyDescriptor propText = new STControlPropertyDescriptor(collection["Text"]);
+                propText.SetCategory(ResourceMng.GetString("CategoryAppearance"));
+                propText.SetDisplayName(ResourceMng.GetString("PropText"));
+                propText.SetDescription(ResourceMng.GetString("DescriptionForPropText"));
+                list.Add(propText);
+
+                STControlPropertyDescriptor PropWidth = new STControlPropertyDescriptor(collection["Width"]);
+                PropWidth.SetCategory(ResourceMng.GetString("CategoryLayout"));
+                PropWidth.SetDisplayName(ResourceMng.GetString("PropWidth"));
+                PropWidth.SetDescription(ResourceMng.GetString(""));
+                list.Add(PropWidth);
+
+                STControlPropertyDescriptor PropHeight = new STControlPropertyDescriptor(collection["Height"]);
+                PropHeight.SetCategory(ResourceMng.GetString("CategoryLayout"));
+                PropHeight.SetDisplayName(ResourceMng.GetString("PropHeight"));
+                PropHeight.SetDescription(ResourceMng.GetString(""));
+                list.Add(PropHeight);
+
+                //STControlPropertyDescriptor PropSize = new STControlPropertyDescriptor(collection["Size"]);
+                //PropSize.SetCategory(ResourceMng.GetString("CategoryLayout"));
+                //PropSize.SetDisplayName(ResourceMng.GetString("PropSize"));
+                //PropSize.SetDescription(ResourceMng.GetString(""));
+                //list.Add(PropSize);
+
+                STControlPropertyDescriptor PropBackColor = new STControlPropertyDescriptor(collection["BackgroundColor"]);
+                PropBackColor.SetCategory(ResourceMng.GetString(""));
+                PropBackColor.SetDisplayName(ResourceMng.GetString("PropBackColor"));
+                PropBackColor.SetDescription(ResourceMng.GetString(""));
+                list.Add(PropBackColor);
+
+                STControlPropertyDescriptor PropBackgroundImage = new STControlPropertyDescriptor(collection["BackgroundImage"]);
+                PropBackgroundImage.SetCategory(ResourceMng.GetString(""));
+                PropBackgroundImage.SetDisplayName(ResourceMng.GetString("PropBackgroundImage"));
+                PropBackgroundImage.SetDescription(ResourceMng.GetString(""));
+                list.Add(PropBackgroundImage);
+
+                return new PropertyDescriptorCollection(list.ToArray());
             }
-            else
-            {
-                grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.BackgroundImage);
-                grid[currentRow, MyConst.ValueColumn].Editor = stringEditor;
-                grid[currentRow, MyConst.ValueColumn].Image =
-                    ImageHelper.LoadImage(Path.Combine(MyCache.ProjImagePath, this.BackgroundImage));
-            }
-            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
-            grid[currentRow, MyConst.ButtonColumn] = new SourceGrid.Cells.Button("...");
-            var imageButtonController = new SourceGrid.Cells.Controllers.Button();
-            imageButtonController.Executed += PickImage;
-            grid[currentRow, MyConst.ButtonColumn].Controller.AddController(imageButtonController);
-            #endregion
-        }
-
-        /// <summary>
-        /// GridView中的属性已改变
-        /// </summary>
-        /// <param name="context"></param>
-        public override void ChangePropValues(CellContext context)
-        {
-            int row = context.Position.Row;
-            var grid = context.Grid as Grid;
-
-            switch (row)
-            {
-                #region TreeNode属性
-                case 0:    //  类型
-                    break;
-                case 1:    //  名称
-                    this.Text = (string)context.Value;
-                    break;
-                #endregion
-
-                #region ViewNode属性
-                case 2:     //  宽度
-                    this.Width = Convert.ToInt32(context.Value);
-                    break;
-                case 3:     //  高度
-                    this.Height = Convert.ToInt32(context.Value);
-                    break;
-                case 4:     //  背景色
-                    this.BackgroundColor = (string)context.Value;
-                    if (null != this.BackgroundColor)
-                    {
-                        grid[row, MyConst.ValueColumn].Image = ImageHelper.CreateImage(this.BackgroundColor);
-                    }
-                    else
-                    {
-                        grid[row, MyConst.ValueColumn].Image = ImageHelper.CreateImage(Color.Black);
-                    }
-                    break;
-                case 5:     //  背景图片
-                    this.BackgroundImage = (string)context.Value;
-                    if (null != this.BackgroundImage)
-                    {
-                        grid[row, MyConst.ValueColumn].Image = ImageHelper.LoadImage(Path.Combine(MyCache.ProjImagePath, this.BackgroundImage));
-                    }
-                    else
-                    {
-                        grid[row, MyConst.ValueColumn].Image = null;
-                    }
-
-                    break;
-                #endregion
-
-                default:
-                    ShowSaveEntityMsg(MyConst.View.KnxPageType);
-                    break;
-            }
-
-            this.PropertiesChangedNotify(this, EventArgs.Empty);
-
-        }
-
-        public override ViewNode Clon2()
-        {
-            MemoryStream stream = new MemoryStream();
-            BinaryFormatter formatter = new BinaryFormatter();
-            formatter.Serialize(stream, this);
-            stream.Position = 0;
-            return formatter.Deserialize(stream) as PageNode;
         }
     }
 }

@@ -1,52 +1,50 @@
-﻿using System;
+﻿using DevAge.Windows.Forms;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using UIEditor.Entity;
 using UIEditor.SationUIControl;
 
 namespace UIEditor
 {
-    class FrameControl : Panel
+    public class FrameControl : UserControl
     {
+        public ViewNode node { get; set; }
+        public STPanel Panel { get; set; }
+
         #region Constructors
         /// <summary>
         /// 构造函数
         /// </summary>
         public FrameControl(STPanel panel)
         {
-            //this.SetStyle(
-            //    ControlStyles.UserPaint |  //控件自行绘制，而不使用操作系统的绘制
-            //    ControlStyles.AllPaintingInWmPaint| //忽略擦出的消息，减少闪烁。
-            //    ControlStyles.OptimizedDoubleBuffer//在缓冲区上绘制，不直接绘制到屏幕上，减少闪烁。
-                 //ControlStyles.ResizeRedraw //控件大小发生变化时，重绘。                  
-                 //ControlStyles.SupportsTransparentBackColor
-            //     | ControlStyles.DoubleBuffer
-                //, true);//支持透明背景颜色
-
-            baseControl = panel;
+            Panel = panel;
             AddEvents();
         }
         #endregion
 
         #region Fields
         //private int lineWidth = 2;
-        const int Band = 4; //调整大小的响应边框
+        const int Band = 6; //调整大小的响应边框
         private int MinWidth = 20; //最小宽度
         private int MinHeight = 20;//最小高度
         Size square = new Size(Band, Band);//小矩形大小
-        public STPanel baseControl; //基础控件，即被包围的控件
+
         Rectangle[] smallRects = new Rectangle[8];//边框中的八个小圆圈
-        Rectangle[] sideRects = new Rectangle[4];//四条边框，用来做响应区域
-        Point[] linePoints = new Point[5];//四条边，用于画虚线
+        Point[] linePoints = new Point[16];//四条边，用于画虚线
         Graphics g; //画图板
         Rectangle ControlRect; //控件包含边框的区域  
         private Point pPoint; //上个鼠标坐标
         private Point cPoint; //当前鼠标坐标
         private MousePosOnCtrl mpoc;
         private bool FixAspectRatio = false;
+
+        public delegate void ControlMouseUpEventDelegate(object sender, EventArgs e);
+        public event ControlMouseUpEventDelegate ControlMouseUpEvent;
         #endregion
 
         #region Properties
@@ -86,10 +84,10 @@ namespace UIEditor
         public void CreateBounds()
         {
             //创建边界
-            int X = baseControl.Bounds.X - square.Width - 1;
-            int Y = baseControl.Bounds.Y - square.Height - 1;
-            int Height = baseControl.Bounds.Height + (square.Height * 2) + 2;
-            int Width = baseControl.Bounds.Width + (square.Width * 2) + 2;
+            int X = Panel.Bounds.X - square.Width - 1;
+            int Y = Panel.Bounds.Y - square.Height - 1;
+            int Height = Panel.Bounds.Height + (square.Height * 2) + 2;
+            int Width = Panel.Bounds.Width + (square.Width * 2) + 2;
             this.Bounds = new Rectangle(X, Y, Width, Height);
 
             SetRectangles();
@@ -104,20 +102,31 @@ namespace UIEditor
         {
             /* 八个小圆圈 */
             smallRects[0] = new Rectangle(new Point(0, 0), square); //左上
-            smallRects[1] = new Rectangle(new Point(this.Width - square.Width - 1, 0), square); //右上
-            smallRects[2] = new Rectangle(new Point(0, this.Height - square.Height - 1), square); //左下
-            smallRects[3] = new Rectangle(new Point(this.Width - square.Width - 1, this.Height - square.Height - 1), square); //右下
-            smallRects[4] = new Rectangle(new Point(this.Width / 2 - 1, 0), square); //上中
-            smallRects[5] = new Rectangle(new Point(this.Width / 2 - 1, this.Height - square.Height - 1), square); //下中
-            smallRects[6] = new Rectangle(new Point(0, this.Height / 2 - 1), square); //左中
-            smallRects[7] = new Rectangle(new Point(square.Width + baseControl.Width + 1, this.Height / 2 - 1), square); //右中
+            smallRects[1] = new Rectangle(new Point((this.Width - square.Width) / 2 - 1, 0), square); //上中
+            smallRects[2] = new Rectangle(new Point(this.Width - square.Width, 0), square); //右上
+            smallRects[3] = new Rectangle(new Point(this.Width - square.Width, (this.Height - square.Height) / 2 - 1), square); //右中
+            smallRects[4] = new Rectangle(new Point(this.Width - square.Width, this.Height - square.Height - 1), square); //右下
+            smallRects[5] = new Rectangle(new Point((this.Width - square.Width) / 2 - 1, this.Height - square.Height - 1), square); //下中
+            smallRects[6] = new Rectangle(new Point(0, this.Height - square.Height - 1), square); //左下
+            smallRects[7] = new Rectangle(new Point(0, (this.Height - square.Height) / 2 - 1), square); //左中
 
-            /* 四条边线 */
-            linePoints[0] = new Point(square.Width / 2, square.Height / 2); //左上
-            linePoints[1] = new Point(this.Width - square.Width / 2 - 1, square.Height / 2); //右上
-            linePoints[2] = new Point(this.Width - square.Width / 2 - 1, this.Height - square.Height / 2-1); //右下
-            linePoints[3] = new Point(square.Width / 2, this.Height - square.Height / 2 - 1); //左下
-            linePoints[4] = new Point(square.Width / 2, square.Height / 2); //左上
+            /* 八条边线 */
+            linePoints[0] = new Point(smallRects[0].Right, smallRects[0].Height / 2);
+            linePoints[1] = new Point(smallRects[1].Left, smallRects[1].Height / 2);
+            linePoints[2] = new Point(smallRects[1].Right, smallRects[1].Height / 2);
+            linePoints[3] = new Point(smallRects[2].Left, smallRects[2].Height / 2);
+            linePoints[4] = new Point(smallRects[2].Left + smallRects[2].Width / 2-1, smallRects[2].Bottom);
+            linePoints[5] = new Point(smallRects[3].Left + smallRects[3].Width / 2-1, smallRects[3].Top);
+            linePoints[6] = new Point(smallRects[3].Left + smallRects[3].Width / 2-1, smallRects[3].Bottom);
+            linePoints[7] = new Point(smallRects[4].Left + smallRects[4].Width / 2-1, smallRects[4].Top);
+            linePoints[8] = new Point(smallRects[4].Left, smallRects[4].Top + smallRects[4].Height / 2);
+            linePoints[9] = new Point(smallRects[5].Right, smallRects[5].Top + smallRects[5].Height / 2);
+            linePoints[10] = new Point(smallRects[5].Left, smallRects[5].Top + smallRects[5].Height / 2);
+            linePoints[11] = new Point(smallRects[6].Right, smallRects[6].Top + smallRects[6].Height / 2);
+            linePoints[12] = new Point(smallRects[6].Width / 2, smallRects[6].Top);
+            linePoints[13] = new Point(smallRects[7].Width / 2, smallRects[7].Bottom);
+            linePoints[14] = new Point(smallRects[7].Width / 2, smallRects[7].Top);
+            linePoints[15] = new Point(smallRects[0].Width / 2, smallRects[0].Bottom);
 
             /* 整个包括周围边框的范围 */
             ControlRect = new Rectangle(new Point(0, 0), this.Bounds.Size);
@@ -131,19 +140,37 @@ namespace UIEditor
         {
             GraphicsPath path = new GraphicsPath();
 
-            sideRects[0] = new Rectangle(0, 0, this.Width - square.Width - 1, square.Height + 1); //上边框
-            sideRects[1] = new Rectangle(0, square.Height + 1, square.Width + 1, this.Height - square.Height - 1); //左边框
-            sideRects[2] = new Rectangle(square.Width + 1, this.Height - square.Height - 1, this.Width - square.Width - 1, square.Height + 1); //下边框
-            sideRects[3] = new Rectangle(this.Width - square.Width - 1, 0, square.Width + 1, this.Height - square.Height - 1); //右边框
+            path.AddRectangles(smallRects);
 
-            path.AddRectangle(sideRects[0]);
-            path.AddRectangle(sideRects[1]);
-            path.AddRectangle(sideRects[2]);
-            path.AddRectangle(sideRects[3]);
+            Rectangle[] rects1 = new Rectangle[8];
+            rects1[0] = new Rectangle(linePoints[0], new Size(linePoints[1].X - linePoints[0].X, 1));
+            rects1[1] = new Rectangle(linePoints[2], new Size(linePoints[3].X - linePoints[2].X, 1));
+            rects1[2] = new Rectangle(linePoints[4], new Size(1, linePoints[5].Y - linePoints[4].Y));
+            rects1[3] = new Rectangle(linePoints[6], new Size(1, linePoints[7].Y - linePoints[6].Y));
+            rects1[4] = new Rectangle(linePoints[9], new Size(linePoints[8].X - linePoints[9].X, 1));
+            rects1[5] = new Rectangle(linePoints[11], new Size(linePoints[10].X - linePoints[11].X, 1));
+            rects1[6] = new Rectangle(linePoints[13], new Size(1, linePoints[12].Y - linePoints[13].Y));
+            rects1[7] = new Rectangle(linePoints[15], new Size(1, linePoints[14].Y - linePoints[15].Y));
+
+            path.AddRectangles(rects1);
 
             return path;
         }
         #endregion
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+
+            Draw();
+        }
+
+        public override void Refresh()
+        {
+            this.CreateBounds();
+
+            base.Refresh();
+        }
 
         /// <summary>
         /// 绘图
@@ -154,14 +181,29 @@ namespace UIEditor
 
             g = this.CreateGraphics();
 
+            SolidBrush brush = new SolidBrush(Color.Black);
+            g.FillRegion(brush, Region);
+
             this.BringToFront();
 
-            Pen pen = new Pen(Color.Black);
+            Pen pen = new Pen(Color.LightGray, 0.8f);
             pen.DashStyle = DashStyle.Dot;//设置为虚线,用虚线画四边，模拟微软效果
-            g.DrawLines(pen, linePoints);//绘制四条边线
+            g.DrawLine(pen, linePoints[0], linePoints[1]);
+            g.DrawLine(pen, linePoints[2], linePoints[3]);
+            g.DrawLine(pen, linePoints[4], linePoints[5]);
+            g.DrawLine(pen, linePoints[6], linePoints[7]);
+            g.DrawLine(pen, linePoints[8], linePoints[9]);
+            g.DrawLine(pen, linePoints[10], linePoints[11]);
+            g.DrawLine(pen, linePoints[12], linePoints[13]);
+            g.DrawLine(pen, linePoints[14], linePoints[15]);
+
+
             g.FillRectangles(Brushes.White, smallRects); //填充8个小矩形的内部
 
-            g.DrawRectangles(Pens.Black, smallRects);  //绘制8个小矩形的黑色边线
+            pen.Width = 2.0f;
+            pen.DashStyle = DashStyle.Solid;
+            pen.Color = Color.Black;
+            g.DrawRectangles(pen, smallRects);  //绘制8个小矩形的黑色边线
         }
 
         public void DrawBoundsLine()
@@ -177,8 +219,8 @@ namespace UIEditor
 
         public Point getControlLocation()
         {
-            int x = this.Left + square.Width+1;
-            int y = this.Top + square.Height+1;
+            int x = this.Left + square.Width + 1;
+            int y = this.Top + square.Height + 1;
 
             return new Point(x, y);
         }
@@ -201,38 +243,38 @@ namespace UIEditor
             }
             else if (smallRects[1].Contains(point))
             {
-                Cursor.Current = Cursors.SizeNESW;
-                mpoc = MousePosOnCtrl.TOPRIGHT;
+                Cursor.Current = Cursors.SizeNS;
+                mpoc = MousePosOnCtrl.TOP;
             }
             else if (smallRects[2].Contains(point))
             {
                 Cursor.Current = Cursors.SizeNESW;
-                mpoc = MousePosOnCtrl.BOTTOMLEFT;
+                mpoc = MousePosOnCtrl.TOPRIGHT;
             }
             else if (smallRects[3].Contains(point))
+            {
+                Cursor.Current = Cursors.SizeWE;
+                mpoc = MousePosOnCtrl.RIGHT;
+            }
+            else if (smallRects[4].Contains(point))
             {
                 Cursor.Current = Cursors.SizeNWSE;
                 mpoc = MousePosOnCtrl.BOTTOMRIGHT;
             }
-            else if (sideRects[0].Contains(point))
-            {
-                Cursor.Current = Cursors.SizeNS;
-                mpoc = MousePosOnCtrl.TOP;
-            }
-            else if (sideRects[1].Contains(point))
-            {
-                Cursor.Current = Cursors.SizeWE;
-                mpoc = MousePosOnCtrl.LEFT;
-            }
-            else if (sideRects[2].Contains(point))
+            else if (smallRects[5].Contains(point))
             {
                 Cursor.Current = Cursors.SizeNS;
                 mpoc = MousePosOnCtrl.BOTTOM;
             }
-            else if (sideRects[3].Contains(point))
+            else if (smallRects[6].Contains(point))
+            {
+                Cursor.Current = Cursors.SizeNESW;
+                mpoc = MousePosOnCtrl.BOTTOMLEFT;
+            }
+            else if (smallRects[7].Contains(point))
             {
                 Cursor.Current = Cursors.SizeWE;
-                mpoc = MousePosOnCtrl.RIGHT;
+                mpoc = MousePosOnCtrl.LEFT;
             }
             else
             {
@@ -250,10 +292,10 @@ namespace UIEditor
             int x = cPoint.X - pPoint.X;
             int y = cPoint.Y - pPoint.Y;
             //Rectangle rect = baseControl.Bounds;
-            int baseControlTop = baseControl.Top;
-            int baseControlLeft = baseControl.Left;
-            int baseControlWidth = baseControl.Width;
-            int baseControlHeight = baseControl.Height;
+            int baseControlTop = Panel.Top;
+            int baseControlLeft = Panel.Left;
+            int baseControlWidth = Panel.Width;
+            int baseControlHeight = Panel.Height;
             double oldAspectRatio = (double)baseControlWidth / baseControlHeight;
             switch (this.mpoc)
             {
@@ -399,14 +441,7 @@ namespace UIEditor
                 }
             }
 
-            //ControlMouseUpNotify(this, EventArgs.Empty);
-
-            baseControl.Bounds = new Rectangle(baseControlLeft, baseControlTop, baseControlWidth, baseControlHeight);
-            //baseControl.Left = left;
-            //baseControl.Top = top;
-            //baseControl.Width = width;
-            //baseControl.Height = height;
-            //baseControl.Refresh();
+            Panel.Bounds = new Rectangle(baseControlLeft, baseControlTop, baseControlWidth, baseControlHeight);
         }
 
         #endregion
@@ -442,29 +477,14 @@ namespace UIEditor
         /// </summary>
         void FrameControl_MouseUp(object sender, MouseEventArgs e)
         {
-            CreateBounds();
+            this.Refresh();
             this.Visible = true;
-            Draw();
 
             ControlMouseUpNotify(this, EventArgs.Empty);
         }
         #endregion
 
-        private void InitializeComponent()
-        {
-            this.SuspendLayout();
-            // 
-            // FrameControl
-            // 
-            this.Name = "FrameControl";
-            this.Size = new System.Drawing.Size(129, 170);
-            this.ResumeLayout(false);
 
-            //Console.WriteLine("FrameControl:" + "InitializeComponent:");
-        }
-
-        public delegate void ControlMouseUpEventDelegate(object sender, EventArgs e);
-        public event ControlMouseUpEventDelegate ControlMouseUpEvent;
 
         public void ControlMouseUpNotify(object sender, EventArgs e)
         {

@@ -8,39 +8,37 @@ using Structure.Control;
 using UIEditor.Component;
 using System.Reflection;
 using Structure;
+using System.ComponentModel;
+using UIEditor.PropertyGridEditor;
+using System.Drawing.Design;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace UIEditor.Entity.Control
 {
+    [TypeConverter(typeof(ValueDisplayNode.PropertyConverter))]
     [Serializable]
     public class ValueDisplayNode : ControlBaseNode
     {
+        #region 常量
+        private const int PADDING = 5;
+        #endregion
+
+        #region 变量
         private static int _index = 0;
+        #endregion
 
         #region 属性
-        //// 标签
-        //public string Lable { get; set; }
-
+        [EditorAttribute(typeof(PropertyGridKNXSelectedAddressSingleReadEditor), typeof(UITypeEditor))]
+        public Dictionary<string, KNXSelectedAddress> ReadAddressId { get; set; }
 
         /// <summary>
         /// 用于添加单元标识符显示的值，例如一个可选字段：用于显示当前温度，”°C”可以插入。
         /// </summary>
-        public /*Structure.Control.KNXValueDisplay.CMeasurementUnit*/ EMeasurementUnit Unit { get; set; }
+        [TypeConverter(typeof(UIEditor.Component.EnumConverter))]
+        public EMeasurementUnit Unit { get; set; }
 
-
-        ///// <summary>
-        ///// 显示的值
-        ///// </summary>
-        //public string Value { get; set; }
-
-
-        //// 可选的姓名或名称的显示值。这是类似的标签，但直接显示的实际值。
-        //public string ValueDescription { get; set; }
-
-
-        /// <summary>
-        /// 定义小数位数
-        /// </summary>
-        //public Structure.Control.KNXValueDisplay.EDisplayAccurancy DecimalPlaces { get; set; }
         #endregion
 
         #region 构造函数
@@ -49,26 +47,37 @@ namespace UIEditor.Entity.Control
             _index++;
 
             this.Text = ResourceMng.GetString("TextValueDisplay") + "_" + _index;
-            this.Width = 200;
+            this.Name = ImageKey = SelectedImageKey = MyConst.Controls.KnxValueDisplayType;
 
-            this.Unit = EMeasurementUnit.None;
-            //this.Value = "";
-            //this.DecimalPlaces = Structure.Control.KNXValueDisplay.EDisplayAccurancy.None;
+            this.Width = 140;
+            this.Height = 40;
+            //this.Size = new Size(200, 60);
 
-            Name = ImageKey = SelectedImageKey = MyConst.Controls.KnxValueDisplayType;
+            this.ReadAddressId = new Dictionary<string, KNXSelectedAddress>();
+            this.Unit = EMeasurementUnit.Centigrade;
+        }
+
+        public override object Clone()
+        {
+            ValueDisplayNode node = base.Clone() as ValueDisplayNode;
+            node.ReadAddressId = new Dictionary<string, KNXSelectedAddress>();
+            foreach (var item in this.ReadAddressId)
+            {
+                node.ReadAddressId.Add(item.Key, item.Value);
+            }
+
+            node.Unit = this.Unit;
+
+            return node;
         }
 
         public ValueDisplayNode(KNXValueDisplay knx)
             : base(knx)
         {
-            //this.Lable = knx.Lable;
             this.Unit = (EMeasurementUnit)Enum.ToObject(typeof(EMeasurementUnit), knx.Unit);
-            //this.Value = knx.Value;
-            //this.ValueDescription = knx.Description;
-            //this.DecimalPlaces = (Structure.Control.KNXValueDisplay.EDisplayAccurancy)Enum.ToObject(typeof(Structure.Control.KNXValueDisplay.EDisplayAccurancy), knx.DecimalPlaces);
+            this.Name = ImageKey = SelectedImageKey = MyConst.Controls.KnxValueDisplayType;
 
-            Name = ImageKey = SelectedImageKey = MyConst.Controls.KnxValueDisplayType;
-
+            this.ReadAddressId = knx.ReadAddressId ?? new Dictionary<string, KNXSelectedAddress>();
         }
 
         protected ValueDisplayNode(SerializationInfo info, StreamingContext context) : base(info, context) { }
@@ -80,314 +89,233 @@ namespace UIEditor.Entity.Control
 
             base.ToKnx(knx);
 
-            //knx.Lable = this.Lable;
+            knx.ReadAddressId = this.ReadAddressId;
             knx.Unit = (int)this.Unit;
-            //knx.Value = this.Value;
-            //knx.Description = this.ValueDescription;
-            //knx.DecimalPlaces = (int)this.DecimalPlaces;
 
             return knx;
         }
 
-        public override void DisplayProperties(Grid grid)
+        private class PropertyConverter : ExpandableObjectConverter
         {
-            base.DisplayProperties(grid);
-
-            var nameModel = new SourceGrid.Cells.Views.Cell();
-            nameModel.BackColor = grid.BackColor;
-
-            var stringEditor = new SourceGrid.Cells.Editors.TextBox(typeof(string));
-            var intEditor = new SourceGrid.Cells.Editors.TextBoxNumeric(typeof(int));
-
-            var valueChangedController = new ValueChangedEvent();
-
-            //this.CalculateChildViewBound();
-
-            #region TreeNode属性
-            /* 0 类型 */
-            var currentRow = 0;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropType"));
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Name);
-
-            /* 1 名称 */
-            currentRow++;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropTitle"));
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Text);
-            grid[currentRow, MyConst.ValueColumn].Editor = stringEditor;
-            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
-            #endregion
-
-            #region ViewNode属性
-            /* 2 左上角顶点位置X */
-            currentRow++;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropX"));
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Left);
-            grid[currentRow, MyConst.ValueColumn].Editor = intEditor;
-            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
-
-            /* 3 左上角顶点位置Y */
-            currentRow++;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropY"));
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Top);
-            grid[currentRow, MyConst.ValueColumn].Editor = intEditor;
-            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
-
-            /* 4 宽度 */
-            currentRow++;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropWidth"));
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Width);
-            grid[currentRow, MyConst.ValueColumn].Editor = intEditor;
-            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
-
-            /* 5 高度 */
-            currentRow++;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropHeight"));
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Height);
-            grid[currentRow, MyConst.ValueColumn].Editor = intEditor;
-            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
-
-            /* 6 不透明度 */
-            currentRow++;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropAlpha"));
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Alpha);
-            grid[currentRow, MyConst.ValueColumn].Editor = new SourceGrid.Cells.Editors.TextBoxNumeric(typeof(Double)); ;
-            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
-
-            /* 7 圆角半径 */
-            currentRow++;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropRadius"));
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Radius);
-            grid[currentRow, MyConst.ValueColumn].Editor = intEditor;
-            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
-
-            /* 8 背景色 */
-            currentRow++;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropBackColor"));
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            if (null == this.BackgroundColor)
+            public override PropertyDescriptorCollection GetProperties(ITypeDescriptorContext context, object value, Attribute[] attributes)
             {
-                grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell("");
+                PropertyDescriptorCollection collection = TypeDescriptor.GetProperties(value, true);
+
+                List<PropertyDescriptor> list = new List<PropertyDescriptor>();
+
+                STControlPropertyDescriptor propText = new STControlPropertyDescriptor(collection["Text"]);
+                propText.SetCategory(ResourceMng.GetString("CategoryAppearance"));
+                propText.SetDisplayName(ResourceMng.GetString("PropText"));
+                propText.SetDescription(ResourceMng.GetString("DescriptionForPropText"));
+                list.Add(propText);
+
+                STControlPropertyDescriptor PropX = new STControlPropertyDescriptor(collection["X"]);
+                PropX.SetCategory(ResourceMng.GetString("CategoryLayout"));
+                PropX.SetDisplayName(ResourceMng.GetString("PropX"));
+                PropX.SetDescription(ResourceMng.GetString(""));
+                list.Add(PropX);
+
+                STControlPropertyDescriptor PropY = new STControlPropertyDescriptor(collection["Y"]);
+                PropY.SetCategory(ResourceMng.GetString("CategoryLayout"));
+                PropY.SetDisplayName(ResourceMng.GetString("PropY"));
+                PropY.SetDescription(ResourceMng.GetString(""));
+                list.Add(PropY);
+
+                STControlPropertyDescriptor PropWidth = new STControlPropertyDescriptor(collection["Width"]);
+                PropWidth.SetCategory(ResourceMng.GetString("CategoryLayout"));
+                PropWidth.SetDisplayName(ResourceMng.GetString("PropWidth"));
+                PropWidth.SetDescription(ResourceMng.GetString(""));
+                list.Add(PropWidth);
+
+                STControlPropertyDescriptor PropHeight = new STControlPropertyDescriptor(collection["Height"]);
+                PropHeight.SetCategory(ResourceMng.GetString("CategoryLayout"));
+                PropHeight.SetDisplayName(ResourceMng.GetString("PropHeight"));
+                PropHeight.SetDescription(ResourceMng.GetString(""));
+                list.Add(PropHeight);
+
+                //STControlPropertyDescriptor PropLocation = new STControlPropertyDescriptor(collection["Location"]);
+                //PropLocation.SetCategory(ResourceMng.GetString("CategoryLayout"));
+                //PropLocation.SetDisplayName(ResourceMng.GetString("PropLocation"));
+                //PropLocation.SetDescription(ResourceMng.GetString(""));
+                //list.Add(PropLocation);
+
+                //STControlPropertyDescriptor PropSize = new STControlPropertyDescriptor(collection["Size"]);
+                //PropSize.SetCategory(ResourceMng.GetString("CategoryLayout"));
+                //PropSize.SetDisplayName(ResourceMng.GetString("PropSize"));
+                //PropSize.SetDescription(ResourceMng.GetString(""));
+                //list.Add(PropSize);
+
+                STControlPropertyDescriptor PropBorderWidth = new STControlPropertyDescriptor(collection["DisplayBorder"]);
+                PropBorderWidth.SetCategory(ResourceMng.GetString("CategoryBorder"));
+                PropBorderWidth.SetDisplayName(ResourceMng.GetString("PropDisplayBorder"));
+                PropBorderWidth.SetDescription(ResourceMng.GetString(""));
+                list.Add(PropBorderWidth);
+
+                STControlPropertyDescriptor PropBorderColor = new STControlPropertyDescriptor(collection["BorderColor"]);
+                PropBorderColor.SetCategory(ResourceMng.GetString("CategoryBorder"));
+                PropBorderColor.SetDisplayName(ResourceMng.GetString("PropBorderColor"));
+                PropBorderColor.SetDescription(ResourceMng.GetString(""));
+                list.Add(PropBorderColor);
+
+                STControlPropertyDescriptor PropAlpha = new STControlPropertyDescriptor(collection["Alpha"]);
+                PropAlpha.SetCategory(ResourceMng.GetString("CategoryStyle"));
+                PropAlpha.SetDisplayName(ResourceMng.GetString("PropAlpha"));
+                PropAlpha.SetDescription(ResourceMng.GetString("DescriptionForPropAlpha"));
+                list.Add(PropAlpha);
+
+                STControlPropertyDescriptor PropRadius = new STControlPropertyDescriptor(collection["Radius"]);
+                PropRadius.SetCategory(ResourceMng.GetString("CategoryStyle"));
+                PropRadius.SetDisplayName(ResourceMng.GetString("PropRadius"));
+                PropRadius.SetDescription(ResourceMng.GetString("DescriptionForPropRadius"));
+                list.Add(PropRadius);
+
+                STControlPropertyDescriptor PropBackColor = new STControlPropertyDescriptor(collection["BackgroundColor"]);
+                PropBackColor.SetCategory(ResourceMng.GetString("CategoryAppearance"));
+                PropBackColor.SetDisplayName(ResourceMng.GetString("PropBackColor"));
+                PropBackColor.SetDescription(ResourceMng.GetString("DescriptionForPropBackgroundColor"));
+                list.Add(PropBackColor);
+
+                STControlPropertyDescriptor PropFlatStyle = new STControlPropertyDescriptor(collection["FlatStyle"]);
+                PropFlatStyle.SetCategory(ResourceMng.GetString("CategoryStyle"));
+                PropFlatStyle.SetDisplayName(ResourceMng.GetString("PropFlatStyle"));
+                PropFlatStyle.SetDescription(ResourceMng.GetString("DescriptionForPropFlatStyle"));
+                list.Add(PropFlatStyle);
+
+                STControlPropertyDescriptor PropFontColor = new STControlPropertyDescriptor(collection["FontColor"]);
+                PropFontColor.SetCategory(ResourceMng.GetString("CategoryAppearance"));
+                PropFontColor.SetDisplayName(ResourceMng.GetString("PropFontColor"));
+                PropFontColor.SetDescription(ResourceMng.GetString("DescriptionForPropFontColor"));
+                list.Add(PropFontColor);
+
+                STControlPropertyDescriptor PropFontSize = new STControlPropertyDescriptor(collection["FontSize"]);
+                PropFontSize.SetCategory(ResourceMng.GetString("CategoryAppearance"));
+                PropFontSize.SetDisplayName(ResourceMng.GetString("PropFontSize"));
+                PropFontSize.SetDescription(ResourceMng.GetString("DescriptionForPropFontSize"));
+                list.Add(PropFontSize);
+
+                STControlPropertyDescriptor PropEtsReadAddressId = new STControlPropertyDescriptor(collection["ReadAddressId"]);
+                PropEtsReadAddressId.SetCategory("KNX");
+                PropEtsReadAddressId.SetDisplayName(ResourceMng.GetString("PropEtsReadAddressId"));
+                PropEtsReadAddressId.SetDescription(ResourceMng.GetString(""));
+                list.Add(PropEtsReadAddressId);
+
+                //STControlPropertyDescriptor PropHasTip = new STControlPropertyDescriptor(collection["HasTip"]);
+                //PropHasTip.SetCategory(ResourceMng.GetString("CategoryOperation"));
+                //PropHasTip.SetDisplayName(ResourceMng.GetString("PropHasTip"));
+                //PropHasTip.SetDescription(ResourceMng.GetString(""));
+                //list.Add(PropHasTip);
+
+                //STControlPropertyDescriptor PropTip = new STControlPropertyDescriptor(collection["Tip"]);
+                //PropTip.SetCategory(ResourceMng.GetString("CategoryOperation"));
+                //PropTip.SetDisplayName(ResourceMng.GetString("PropTip"));
+                //PropTip.SetDescription(ResourceMng.GetString(""));
+                //list.Add(PropTip);
+
+                //STControlPropertyDescriptor PropClickable = new STControlPropertyDescriptor(collection["Clickable"]);
+                //PropClickable.SetCategory(ResourceMng.GetString("CategoryOperation"));
+                //PropClickable.SetDisplayName(ResourceMng.GetString("PropClickable"));
+                //PropClickable.SetDescription(ResourceMng.GetString(""));
+                //list.Add(PropClickable);
+
+                STControlPropertyDescriptor PropMeasurementUnit = new STControlPropertyDescriptor(collection["Unit"]);
+                PropMeasurementUnit.SetCategory(ResourceMng.GetString(""));
+                PropMeasurementUnit.SetDisplayName(ResourceMng.GetString("PropMeasurementUnit"));
+                PropMeasurementUnit.SetDescription(ResourceMng.GetString(""));
+                list.Add(PropMeasurementUnit);
+
+                return new PropertyDescriptorCollection(list.ToArray());
             }
-            else
-            {
-                grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.BackgroundColor);
-                grid[currentRow, MyConst.ValueColumn].Editor = stringEditor;
-                grid[currentRow, MyConst.ValueColumn].Image = ImageHelper.CreateImage(this.BackgroundColor);
-            }
-            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
-            grid[currentRow, MyConst.ButtonColumn] = new SourceGrid.Cells.Button("...");
-            var colorButtonController = new SourceGrid.Cells.Controllers.Button();
-            colorButtonController.Executed += PickColor;
-            grid[currentRow, MyConst.ButtonColumn].Controller.AddController(colorButtonController);
-
-            /* 9 平面样式 */
-            currentRow++;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropFlatStyle"));
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.FlatStyle, typeof(EFlatStyle));
-            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
-
-            /* 10 字体颜色 */
-            currentRow++;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropFontColor"));
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.FontColor);
-            grid[currentRow, MyConst.ValueColumn].Image = ImageHelper.CreateImage(this.FontColor);
-            grid[currentRow, MyConst.ValueColumn].Editor = stringEditor;
-            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
-            grid[currentRow, MyConst.ButtonColumn] = new SourceGrid.Cells.Button("...");
-            var foreColorButtonController = new SourceGrid.Cells.Controllers.Button();
-            foreColorButtonController.Executed += PickColor;
-            grid[currentRow, MyConst.ButtonColumn].Controller.AddController(foreColorButtonController);
-
-            /* 11 字体大小 */
-            currentRow++;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropFontSize"));
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.FontSize);
-            grid[currentRow, MyConst.ValueColumn].Editor = intEditor;
-            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
-            #endregion
-
-            #region ControlBaseNode
-            /* 12 ETS读地址 */
-            currentRow++;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropEtsReadAddressId"));
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(EtsAddressDictToString(this.ReadAddressId));
-            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
-            grid[currentRow, MyConst.ButtonColumn] = new SourceGrid.Cells.Button("...");
-            var readAddButton = new SourceGrid.Cells.Controllers.Button();
-            readAddButton.Executed += PickSingleReadAddress;
-            grid[currentRow, MyConst.ButtonColumn].Controller.AddController(readAddButton);
-
-            /* 13 有没有提示 */
-            currentRow++;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropHasTip"));
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.HasTip, typeof(bool));
-            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
-
-            /* 14 提示 */
-            currentRow++;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropTip"));
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Tip, stringEditor);
-            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
-
-            /* 15 是否可以点击 */
-            currentRow++;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropClickable"));
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Clickable, typeof(bool));
-            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
-            #endregion
-
-            #region 自定义属性
-            /* 16 计量单位 */
-            currentRow++;
-            grid.Rows.Insert(currentRow);
-            grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropMeasurementUnit"));
-            grid[currentRow, MyConst.NameColumn].View = nameModel;
-            grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Unit, typeof(EMeasurementUnit)/*, stringEditor*/);
-            grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
-
-            ///* 18 显示值 */
-            //currentRow++;
-            //grid.Rows.Insert(currentRow);
-            //grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(MyConst.PropDisplayValue);
-            //grid[currentRow, MyConst.NameColumn].View = nameModel;
-            //grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.Value);
-            //grid[currentRow, MyConst.ValueColumn].Editor = stringEditor;
-            //grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
-
-            ///* 17 显示精度（小数位数） */
-            //currentRow++;
-            //grid.Rows.Insert(currentRow);
-            //grid[currentRow, MyConst.NameColumn] = new SourceGrid.Cells.Cell(ResourceMng.GetString("PropDecimalDigits"));
-            //grid[currentRow, MyConst.NameColumn].View = nameModel;
-            //grid[currentRow, MyConst.ValueColumn] = new SourceGrid.Cells.Cell(this.DecimalPlaces, typeof(Structure.Control.KNXValueDisplay.EDisplayAccurancy));
-            //grid[currentRow, MyConst.ValueColumn].AddController(valueChangedController);
-
-            #endregion
         }
 
-        public override void ChangePropValues(CellContext context)
+        public override void DrawAt(Point basePoint, Graphics g)
         {
-            int row = context.Position.Row;
-            var grid = context.Grid as Grid;
+            base.DrawAt(basePoint, g);
 
-            switch (row)
+            Rectangle rect = new Rectangle(Point.Empty, this.RectInPage.Size);
+            Bitmap bm = new Bitmap(this.RectInPage.Width, this.RectInPage.Height);
+            Graphics gp = Graphics.FromImage(bm);
+
+            Color backColor = Color.FromArgb((int)(this.Alpha * 255), this.BackgroundColor);
+
+            if ((null == this.BackgroundImage) || (string.Empty == this.BackgroundImage))
             {
-                #region TreeNode属性
-                case 0:    // 类型
-                    break;
-                case 1:    // 名称
-                    this.Text = (string)context.Value;
-                    break;
-                #endregion
-
-                #region ViewNode属性
-                case 2:     // 左上角顶点位置X
-                    this.Left = Convert.ToInt32(context.Value);
-                    break;
-                case 3:     // 左上角顶点位置Y
-                    this.Top = Convert.ToInt32(context.Value);
-                    break;
-                case 4:     // 宽度
-                    this.Width = Convert.ToInt32(context.Value);
-                    //this.CalculateChildViewBound();
-                    break;
-                case 5:     // 高度
-                    this.Height = Convert.ToInt32(context.Value);
-                    //this.CalculateChildViewBound();
-                    break;
-                case 6:     // 不透明度
-                    this.Alpha = Convert.ToDouble(context.Value);
-                    break;
-                case 7:     // 圆角半径
-                    this.Radius = Convert.ToInt32(context.Value);
-                    break;
-                case 8:     // 背景色
-                    this.BackgroundColor = (string)context.Value;
-                    break;
-                case 9:     // 平面样式
-                    this.FlatStyle = (EFlatStyle)Convert.ToInt32(context.Value);
-                    break;
-                case 10:     // 字体颜色
-                    this.FontColor = (string)context.Value;
-                    grid[row, MyConst.ValueColumn].Image = ImageHelper.CreateImage(this.FontColor);
-                    break;
-                case 11:    // 字体大小
-                    this.FontSize = Convert.ToInt32(context.Value);
-                    break;
-                #endregion
-
-                #region ControlBaseNode属性
-                case 12:    // ETS读地址
-                    break;
-                case 13:    // 有没有提示
-                    this.HasTip = Convert.ToBoolean(context.Value);
-                    break;
-                case 14:    // 提示
-                    this.Tip = (string)context.Value;
-                    break;
-                case 15:    // 是否可以点击
-                    this.Clickable = Convert.ToBoolean(context.Value);
-                    break;
-                #endregion
-
-                #region 自定义属性
-                case 16:    // 计量单位
-                    this.Unit = /*(Structure.Control.KNXValueDisplay.CMeasurementUnit)Convert.ToInt32(context.Value)*/(EMeasurementUnit)context.Value;
-                    break;
-                //case 18:    // 显示值
-                //    this.Value = context.Value.ToString();
-                //    break;
-                //case 17:    // 显示精度(小数位数)
-                //    this.DecimalPlaces = (Structure.Control.KNXValueDisplay.EDisplayAccurancy)Convert.ToInt32(context.Value);
-                //    break;
-                default:
-                    ShowSaveEntityMsg(MyConst.Controls.KnxValueDisplayType);
-                    break;
-                #endregion
+                if (EFlatStyle.Stereo == this.FlatStyle)
+                {
+                    /* 绘制立体效果，三色渐变 */
+                    LinearGradientBrush brush = new LinearGradientBrush(rect, Color.Transparent, Color.Transparent, LinearGradientMode.Vertical);
+                    Color[] colors = new Color[3];
+                    colors[0] = ColorHelper.changeBrightnessOfColor(backColor, 100);
+                    colors[1] = backColor;
+                    colors[2] = ColorHelper.changeBrightnessOfColor(backColor, -50);
+                    ColorBlend blend = new ColorBlend();
+                    blend.Positions = new float[] { 0.0f, 0.3f, 1.0f };
+                    blend.Colors = colors;
+                    brush.InterpolationColors = blend;
+                    FillRoundRectangle(gp, brush, rect, this.Radius, 1.0f);
+                    brush.Dispose();
+                }
+                else if (EFlatStyle.Flat == this.FlatStyle)
+                {
+                    SolidBrush brush = new SolidBrush(backColor);
+                    FillRoundRectangle(gp, brush, rect, this.Radius, 1.0f);
+                    brush.Dispose();
+                }
             }
 
-            this.PropertiesChangedNotify(this, EventArgs.Empty);
+            Color fontColor = this.FontColor;
+            Font font = new Font("宋体", this.FontSize);
+            StringFormat format = new StringFormat();
 
-        }
+            int x = PADDING;
+            int y = PADDING;
+            int width = rect.Width - 2 * x;
+            int height = rect.Height - 2 * y;
 
-        public override ViewNode Clon2()
-        {
-            MemoryStream stream = new MemoryStream();
-            BinaryFormatter formatter = new BinaryFormatter();
-            formatter.Serialize(stream, this);
-            stream.Position = 0;
-            return formatter.Deserialize(stream) as ValueDisplayNode;
+            /* 文本 */
+            string valueString = "88";
+            valueString += " " + this.Unit.GetDescription();
+
+            format.Alignment = StringAlignment.Center;
+            format.LineAlignment = StringAlignment.Center;
+            Rectangle rectText = new Rectangle(x, y, width, height);
+            gp.DrawString(valueString, font, new SolidBrush(fontColor), rectText, format);
+
+            if (EBool.Yes == this.DisplayBorder)
+            {
+                Color borderColor = this.BorderColor;
+                DrawRoundRectangle(gp, new Pen(borderColor, 1), rect, this.Radius, 1.0f);
+            }
+
+            g.DrawImage(bm,
+                this.VisibleRectInPage,
+                new Rectangle(new Point(this.VisibleRectInPage.X - this.RectInPage.X, this.VisibleRectInPage.Y - this.RectInPage.Y), this.VisibleRectInPage.Size),
+                GraphicsUnit.Pixel);
+
+            this.FrameIsVisible = false;
+            if (ControlState.Move == this.State)
+            {
+                Pen pen = new Pen(Color.Navy, 2.0f);
+                DrawRoundRectangle(g, pen, this.RectInPage, this.Radius, 1.0f);
+            }
+            else if (this.IsSelected)
+            {
+                this.SetFrame();
+                Pen pen = new Pen(Color.LightGray, 1.0f);
+                pen.DashStyle = DashStyle.Dot;//设置为虚线,用虚线画四边，模拟微软效果
+                g.DrawLine(pen, this.LinePoints[0], this.LinePoints[1]);
+                g.DrawLine(pen, this.LinePoints[2], this.LinePoints[3]);
+                g.DrawLine(pen, this.LinePoints[4], this.LinePoints[5]);
+                g.DrawLine(pen, this.LinePoints[6], this.LinePoints[7]);
+                g.DrawLine(pen, this.LinePoints[8], this.LinePoints[9]);
+                g.DrawLine(pen, this.LinePoints[10], this.LinePoints[11]);
+                g.DrawLine(pen, this.LinePoints[12], this.LinePoints[13]);
+                g.DrawLine(pen, this.LinePoints[14], this.LinePoints[15]);
+
+                g.FillRectangles(Brushes.White, this.SmallRects); //填充8个小矩形的内部
+                g.DrawRectangles(Pens.Black, this.SmallRects);  //绘制8个小矩形的黑色边线
+
+                this.FrameIsVisible = true;
+            }
         }
     }
 }

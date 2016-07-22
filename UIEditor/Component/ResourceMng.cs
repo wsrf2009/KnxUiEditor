@@ -17,7 +17,7 @@ namespace UIEditor.Component
             ResourceManager rm = new ResourceManager("UIEditor.Properties.Resources", Assembly.GetExecutingAssembly());
             CultureInfo ci = Thread.CurrentThread.CurrentCulture;
 
-            Console.WriteLine("ci"+ci);
+            //Console.WriteLine("ci"+ci);
 
             return rm.GetString(strId, ci);
         }

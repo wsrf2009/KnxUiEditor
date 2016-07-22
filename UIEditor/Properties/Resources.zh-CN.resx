@@ -395,7 +395,7 @@
     <value>背景图片</value>
   </data>
   <data name="PropClickable" xml:space="preserve">
-    <value>控件是否可以点击</value>
+    <value>是否可点击</value>
   </data>
   <data name="PropComLogo" xml:space="preserve">
     <value>企业Logo</value>
@@ -480,9 +480,6 @@
   </data>
   <data name="PropTip" xml:space="preserve">
     <value>提示文字</value>
-  </data>
-  <data name="PropTitle" xml:space="preserve">
-    <value>标题</value>
   </data>
   <data name="PropType" xml:space="preserve">
     <value>对象类型</value>
@@ -845,10 +842,10 @@
     <value>是否为相对调节</value>
   </data>
   <data name="PropColorOff" xml:space="preserve">
-    <value>关闭时控件颜色</value>
+    <value>关闭时控件背景色</value>
   </data>
   <data name="PropColorOn" xml:space="preserve">
-    <value>开启时控件颜色</value>
+    <value>开启时控件背景色</value>
   </data>
   <data name="TextSegment" xml:space="preserve">
     <value>分段控制</value>
@@ -903,5 +900,173 @@
   </data>
   <data name="Message46" xml:space="preserve">
     <value>请给您要添加的地址指定数据类型</value>
+  </data>
+  <data name="DocumentOutline" xml:space="preserve">
+    <value>文档大纲</value>
+  </data>
+  <data name="Insert" xml:space="preserve">
+    <value>插入</value>
+  </data>
+  <data name="Message47" xml:space="preserve">
+    <value>类型 {0} 不能添加到类型为 {1} 的容器中</value>
+  </data>
+  <data name="CategoryAppearance" xml:space="preserve">
+    <value>外观</value>
+  </data>
+  <data name="DescriptionForPropAbout" xml:space="preserve">
+    <value>该工程的文字说明</value>
+  </data>
+  <data name="DescriptionForPropText" xml:space="preserve">
+    <value>控件的名称</value>
+  </data>
+  <data name="PropAbout" xml:space="preserve">
+    <value>工程说明</value>
+  </data>
+  <data name="PropText" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="CategoryLayout" xml:space="preserve">
+    <value>布局</value>
+  </data>
+  <data name="CategoryOperation" xml:space="preserve">
+    <value>操作</value>
+  </data>
+  <data name="CategoryStyle" xml:space="preserve">
+    <value>样式</value>
+  </data>
+  <data name="DescriptionForPropAlpha" xml:space="preserve">
+    <value>控件的不透明度。取值范围(0.0~1.0)，0：全透明；1：不透明</value>
+  </data>
+  <data name="DescriptionForPropBackgroundColor" xml:space="preserve">
+    <value>控件的背景色</value>
+  </data>
+  <data name="DescriptionForPropFlatStyle" xml:space="preserve">
+    <value>控件的平面样式，有立体样式(Stereo)和平面样式(Flat)</value>
+  </data>
+  <data name="DescriptionForPropFontColor" xml:space="preserve">
+    <value>控件文本的字体颜色</value>
+  </data>
+  <data name="DescriptionForPropFontSize" xml:space="preserve">
+    <value>控件文本的字体大小</value>
+  </data>
+  <data name="DescriptionForPropHeight" xml:space="preserve">
+    <value>控件的高度(单位：像素)</value>
+  </data>
+  <data name="DescriptionForPropLeft" xml:space="preserve">
+    <value>控件左上角的坐标X(单位：像素)</value>
+  </data>
+  <data name="DescriptionForPropRadius" xml:space="preserve">
+    <value>控件四个角的圆角半径，为0时无圆角</value>
+  </data>
+  <data name="DescriptionForPropTop" xml:space="preserve">
+    <value>控件左上角的坐标Y(单位：像素)</value>
+  </data>
+  <data name="DescriptionForPropWidth" xml:space="preserve">
+    <value>控件的宽度(单位：像素)</value>
+  </data>
+  <data name="CategoryGroupBox" xml:space="preserve">
+    <value>组框</value>
+  </data>
+  <data name="DescriptionForPropDefaultValue" xml:space="preserve">
+    <value>要选中 是否属于组 时，该项才有效。同一组框下的不同场景按钮的默认值不相同才能产生互斥的效果</value>
+  </data>
+  <data name="DescriptionForPropIsGroup" xml:space="preserve">
+    <value>选中此项时，处于同一组框下的场景按钮将产生联动，根据各自的默认值产生互斥的效果。选中该项后，默认值才有效</value>
+  </data>
+  <data name="PropDisplayBorder" xml:space="preserve">
+    <value>是否显示边框</value>
+  </data>
+  <data name="AddArea" xml:space="preserve">
+    <value>添加区域</value>
+  </data>
+  <data name="AddPage" xml:space="preserve">
+    <value>添加页面</value>
+  </data>
+  <data name="AddRoom" xml:space="preserve">
+    <value>添加房间</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="CloseAll" xml:space="preserve">
+    <value>关闭所有</value>
+  </data>
+  <data name="CloseOthers" xml:space="preserve">
+    <value>关闭其他</value>
+  </data>
+  <data name="PropLocation" xml:space="preserve">
+    <value>位置</value>
+  </data>
+  <data name="PropSize" xml:space="preserve">
+    <value>大小</value>
+  </data>
+  <data name="NCopy" xml:space="preserve">
+    <value>副本</value>
+  </data>
+  <data name="Flat" xml:space="preserve">
+    <value>平面</value>
+  </data>
+  <data name="Stereo" xml:space="preserve">
+    <value>立体</value>
+  </data>
+  <data name="CategoryBorder" xml:space="preserve">
+    <value>边框</value>
+  </data>
+  <data name="CategoryDisplay" xml:space="preserve">
+    <value>显示</value>
+  </data>
+  <data name="CategoryLeft" xml:space="preserve">
+    <value>左侧按钮</value>
+  </data>
+  <data name="CategoryRight" xml:space="preserve">
+    <value>右侧按钮</value>
+  </data>
+  <data name="DescriptionForPropClickable" xml:space="preserve">
+    <value>Yes：可以点击，给相应的KNX设备发出指令；No：不可点击，只作为读设备，显示相应KNX设备的状态</value>
+  </data>
+  <data name="DescriptionForPropColorOff" xml:space="preserve">
+    <value>关闭时，控件的背景色</value>
+  </data>
+  <data name="DescriptionForPropColorOn" xml:space="preserve">
+    <value>开启时，控件的背景色</value>
+  </data>
+  <data name="DescriptionForPropHasTip" xml:space="preserve">
+    <value>在“是否可点击”选为Yes后，此项才有效。Yes：在点击控件后，给出弹窗显示提示文字；No：不显示弹窗</value>
+  </data>
+  <data name="DescriptionForPropImageOff" xml:space="preserve">
+    <value>关闭时，控件左侧显示的图片</value>
+  </data>
+  <data name="DescriptionForPropImageOn" xml:space="preserve">
+    <value>开启时，控件左侧显示的图片</value>
+  </data>
+  <data name="DescriptionForPropIsRelativeControl" xml:space="preserve">
+    <value>Yes：相对调节控件；No：绝对调节</value>
+  </data>
+  <data name="DescriptionForPropLeftImage" xml:space="preserve">
+    <value>左侧按钮的背景图片</value>
+  </data>
+  <data name="DescriptionForPropLeftText" xml:space="preserve">
+    <value>左侧按钮显示的文本</value>
+  </data>
+  <data name="DescriptionForPropLeftTextFontColor" xml:space="preserve">
+    <value>左侧按钮文本的字体颜色</value>
+  </data>
+  <data name="DescriptionForPropLeftTextFontSize" xml:space="preserve">
+    <value>左侧按钮文本的字体大小</value>
+  </data>
+  <data name="DescriptionForPropRightImage" xml:space="preserve">
+    <value>右侧按钮的背景图片</value>
+  </data>
+  <data name="DescriptionForPropRightText" xml:space="preserve">
+    <value>右侧按钮显示的文本</value>
+  </data>
+  <data name="DescriptionForPropRightTextFontColor" xml:space="preserve">
+    <value>右侧按钮文本的字体颜色</value>
+  </data>
+  <data name="DescriptionForPropRightTextFontSize" xml:space="preserve">
+    <value>右侧按钮文本的字体大小</value>
+  </data>
+  <data name="DescriptionForPropTip" xml:space="preserve">
+    <value>在“是否有提示”选为Yes后，此项才有效。此项中的文本会在给出的弹窗中显示</value>
   </data>
 </root>

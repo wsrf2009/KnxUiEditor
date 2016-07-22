@@ -253,16 +253,18 @@ namespace UIEditor
         /// </summary>
         /// <param name="app"></param>
         /// <param name="tvwAppdata"></param>
-        public static void ImportNode(KNXApp app, TreeView tvwAppdata, UIEditor.Entity.ViewNode.PropertiesChangedDelegate proChangedDelegate)
+        public static AppNode ImportNode(KNXApp app/*, TreeView tv, UIEditor.Entity.ViewNode.PropertiesChangedDelegate proChangedDelegate*/)
         {
+            AppNode appNode = null;
+
             if (app != null)
             {
-                tvwAppdata.BeginUpdate();
-                tvwAppdata.Nodes.Clear();
+                //tvwAppdata.BeginUpdate();
+                //tvwAppdata.Nodes.Clear();
 
-                var appNode = new AppNode(app);
+                appNode = new AppNode(app);
 
-                tvwAppdata.Nodes.Add(appNode);
+                //tvwAppdata.Nodes.Add(appNode);
 
                 if (app.Areas != null && app.Areas.Count > 0)
                 {
@@ -283,35 +285,15 @@ namespace UIEditor
                                     foreach (KNXPage itemPage in itemRoom.Pages)
                                     {
                                         var pageNode = new PageNode(itemPage);
-                                        pageNode.PropertiesChangedEvent += proChangedDelegate;
+                                        //pageNode.PropertiesChangedEvent += proChangedDelegate;
                                         roomNode.Nodes.Add(pageNode);
 
-                                        //AddControlNode(pageNode, item, proChangedDelegate);
-
-                                        //// 给网格添加控件
-                                        //if (itemPage.GroupBoxs != null && itemPage.GroupBoxs.Count > 0)
-                                        //{
-                                        //    foreach (KNXGroupBox itemGrid in itemPage.GroupBoxs)
-                                        //    {
-                                        //        var gridNode = new GroupBoxNode(itemGrid);
-                                        //        gridNode.PropertiesChangedEvent += proChangedDelegate;
-                                        //        pageNode.Nodes.Add(gridNode);
-
-                                        //        if (itemGrid.Controls != null && itemGrid.Controls.Count > 0)
-                                        //        {
-                                        //            foreach (var item in itemGrid.Controls)
-                                        //            {
-                                        //                AddControlNode(gridNode, item, proChangedDelegate);
-                                        //            }
-                                        //        }
-                                        //    }
-                                        //}
                                         // 给页面添加控件
                                         if (itemPage.Controls != null && itemPage.Controls.Count > 0)
                                         {
                                             foreach (var item in itemPage.Controls)
                                             {
-                                                AddControlNode(pageNode, item, proChangedDelegate);
+                                                AddControlNode(pageNode, item/*, proChangedDelegate*/);
                                             }
                                         }
                                     }
@@ -322,8 +304,10 @@ namespace UIEditor
 
                 }
 
-                tvwAppdata.EndUpdate();
+                //tvwAppdata.EndUpdate();
             }
+
+            return appNode;
         }
 
         /// <summary>
@@ -331,61 +315,61 @@ namespace UIEditor
         /// </summary>
         /// <param name="parentNode"></param>
         /// <param name="knxControl"></param>
-        private static void AddControlNode(ContainerNode parentNode, KNXControlBase knxControl, UIEditor.Entity.ViewNode.PropertiesChangedDelegate proChangedDelegate)
+        private static void AddControlNode(ContainerNode parentNode, KNXControlBase knxControl/*, UIEditor.Entity.ViewNode.PropertiesChangedDelegate proChangedDelegate*/)
         {
             switch (knxControl.GetType().Name)
             {
                 case MyConst.Controls.KnxBlindsType:
                     var blindsNode = new BlindsNode(knxControl as KNXBlinds);
-                    blindsNode.PropertiesChangedEvent += proChangedDelegate;
+                    //blindsNode.PropertiesChangedEvent += proChangedDelegate;
                     parentNode.Nodes.Add(blindsNode);
                     break;
 
                 case MyConst.Controls.KnxLabelType:
                     var labelNode = new LabelNode(knxControl as KNXLabel);
-                    labelNode.PropertiesChangedEvent += proChangedDelegate;
+                    //labelNode.PropertiesChangedEvent += proChangedDelegate;
                     parentNode.Nodes.Add(labelNode);
                     break;
 
                 case MyConst.Controls.KnxSceneButtonType:
                     var sceneButtonNode = new SceneButtonNode(knxControl as KNXSceneButton);
-                    sceneButtonNode.PropertiesChangedEvent += proChangedDelegate;
+                    //sceneButtonNode.PropertiesChangedEvent += proChangedDelegate;
                     parentNode.Nodes.Add(sceneButtonNode);
                     break;
 
                 case MyConst.Controls.KnxSliderSwitchType:
                     var sliderSwitchNode = new SliderSwitchNode(knxControl as KNXSliderSwitch);
-                    sliderSwitchNode.PropertiesChangedEvent += proChangedDelegate;
+                    //sliderSwitchNode.PropertiesChangedEvent += proChangedDelegate;
                     parentNode.Nodes.Add(sliderSwitchNode);
                     break;
 
                 case MyConst.Controls.KnxSwitchType:
                     var switchNode = new SwitchNode(knxControl as KNXSwitch);
-                    switchNode.PropertiesChangedEvent += proChangedDelegate;
+                    //switchNode.PropertiesChangedEvent += proChangedDelegate;
                     parentNode.Nodes.Add(switchNode);
                     break;
 
                 case MyConst.Controls.KnxValueDisplayType:
                     var valueDisplayNode = new ValueDisplayNode(knxControl as KNXValueDisplay);
-                    valueDisplayNode.PropertiesChangedEvent += proChangedDelegate;
+                    //valueDisplayNode.PropertiesChangedEvent += proChangedDelegate;
                     parentNode.Nodes.Add(valueDisplayNode);
                     break;
 
                 case MyConst.Controls.KnxTimerButtonType:
                     var timerButton = new TimerButtonNode(knxControl as KNXTimerButton);
-                    timerButton.PropertiesChangedEvent += proChangedDelegate;
+                    //timerButton.PropertiesChangedEvent += proChangedDelegate;
                     parentNode.Nodes.Add(timerButton);
                     break;
 
                 case MyConst.Controls.KnxDigitalAdjustment:
                     var digitalAdjustment = new DigitalAdjustmentNode(knxControl as KNXDigitalAdjustment);
-                    digitalAdjustment.PropertiesChangedEvent += proChangedDelegate;
+                    //digitalAdjustment.PropertiesChangedEvent += proChangedDelegate;
                     parentNode.Nodes.Add(digitalAdjustment);
                     break;
 
                 case MyConst.Controls.KnxGroupBoxType:
                     var groupBox = new GroupBoxNode(knxControl as KNXGroupBox);
-                    groupBox.PropertiesChangedEvent += proChangedDelegate;
+                    //groupBox.PropertiesChangedEvent += proChangedDelegate;
                     parentNode.Nodes.Add(groupBox);
 
                     KNXGroupBox knxGroupBox = knxControl as KNXGroupBox;
@@ -393,7 +377,7 @@ namespace UIEditor
                     {
                         foreach (var item in knxGroupBox.Controls)
                         {
-                            AddControlNode(groupBox, item, proChangedDelegate);
+                            AddControlNode(groupBox, item/*, proChangedDelegate*/);
                         }
                     }
 

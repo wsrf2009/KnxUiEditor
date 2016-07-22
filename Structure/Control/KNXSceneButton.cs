@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 namespace Structure.Control
 {
     /// <summary>
@@ -6,6 +7,16 @@ namespace Structure.Control
     /// </summary>
     public class KNXSceneButton : KNXControlBase
     {
+        /// <summary>
+        /// 读地址
+        /// </summary>
+        public Dictionary<string, KNXSelectedAddress> ReadAddressId { get; set; }
+
+        /// <summary>
+        /// 写地址列表
+        /// </summary>
+        public Dictionary<string, KNXSelectedAddress> WriteAddressIds { get; set; }
+
         public string ImageOn { get; set; }
 
         /// <summary>
@@ -20,7 +31,7 @@ namespace Structure.Control
         /// </summary>
         public string ColorOff { get; set; }
 
-        public bool IsGroup { get; set; }
+        public int IsGroup { get; set; }
 
         public int DefaultValue { get; set; }
 

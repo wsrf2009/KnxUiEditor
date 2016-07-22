@@ -12,7 +12,6 @@ using UIEditor.Component;
 using System.Threading;
 using System.ComponentModel;
 using UIEditor.KNX.DatapointType;
-using UIEditor.GroupAddress;
 
 namespace UIEditor
 {
@@ -42,9 +41,9 @@ namespace UIEditor
         private static string attrTransmitFlag = "TransmitFlag";
         private static string attrUpdateFlag = "UpdateFlag";
 
-        private static string strDatapointSubtype = "DatapointSubtype";
-        private static string attrNumber = "Number";
-        private static string attrSizeInBit = "SizeInBit";
+        //private static string strDatapointSubtype = "DatapointSubtype";
+        //private static string attrNumber = "Number";
+        //private static string attrSizeInBit = "SizeInBit";
 
         //
         private const string ETS5 = "ETS5";

@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using System.ComponentModel;
 namespace Structure.Control
 {
@@ -22,7 +23,10 @@ namespace Structure.Control
             Bit1,
         }
 
-        
+        /// <summary>
+        /// 读地址
+        /// </summary>
+        public Dictionary<string, KNXSelectedAddress> ReadAddressId { get; set; }
 
         //public string CMeasurementUnit[] = {
         //    ""
