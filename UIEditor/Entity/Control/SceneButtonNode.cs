@@ -21,7 +21,7 @@ namespace UIEditor.Entity.Control
     public class SceneButtonNode : ControlBaseNode
     {
         #region 常量
-        private const int PADDING = 5;
+        private const int PADDING = 2;
         #endregion
 
         #region 变量
@@ -83,13 +83,13 @@ namespace UIEditor.Entity.Control
             string FileImageOn = Path.Combine(MyCache.ProjImagePath, this.ImageOn);
             if (!File.Exists(FileImageOn))
             {
-                File.Copy(Path.Combine(MyCache.ProjectResImgDir, this.ImageOn), Path.Combine(MyCache.ProjImagePath, this.ImageOn));
+                File.Copy(Path.Combine(MyCache.ProjectResImgDir, this.ImageOn), FileImageOn);
             }
 
             string FileImageOff = Path.Combine(MyCache.ProjImagePath, this.ImageOff);
             if (!File.Exists(FileImageOff))
             {
-                File.Copy(Path.Combine(MyCache.ProjectResImgDir, this.ImageOff), Path.Combine(MyCache.ProjImagePath, this.ImageOff));
+                File.Copy(Path.Combine(MyCache.ProjectResImgDir, this.ImageOff), FileImageOff);
             }
         }
 

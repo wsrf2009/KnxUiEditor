@@ -23,7 +23,7 @@ namespace UIEditor.Entity.Control
     public class TimerButtonNode : ControlBaseNode
     {
         #region 常量
-        private const int PADDING = 5;
+        private const int PADDING = 2;
         #endregion
 
         #region 变量
@@ -55,10 +55,10 @@ namespace UIEditor.Entity.Control
             this.ReadAddressId = new Dictionary<string, KNXSelectedAddress>();
             this.WriteAddressIds = new Dictionary<string, KNXSelectedAddress>();
 
-            string FileImageOn = Path.Combine(MyCache.ProjImagePath, this.Icon);
-            if (!File.Exists(FileImageOn))
+            string FileImageIcon = Path.Combine(MyCache.ProjImagePath, this.Icon);
+            if (!File.Exists(FileImageIcon))
             {
-                File.Copy(Path.Combine(MyCache.ProjectResCtrlDir, this.Icon), Path.Combine(MyCache.ProjImagePath, this.Icon));
+                File.Copy(Path.Combine(MyCache.ProjectResCtrlDir, this.Icon), FileImageIcon);
             }
         }
 

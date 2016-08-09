@@ -108,9 +108,9 @@ namespace UIEditor.Controls
 
             foreach (var it in MyCache.GroupAddressTable)
             {
-                if (((AddressType.Read == this.PickType) && (it.IsCommunication && it.IsRead)) ||
-                    ((AddressType.Write == this.PickType) && (it.IsCommunication && it.IsWrite)))
-                {
+                //if (((AddressType.Read == this.PickType) && (it.IsCommunication && it.IsRead)) ||
+                //    ((AddressType.Write == this.PickType) && (it.IsCommunication && it.IsWrite)))
+                //{
                     if (this.NeedActions && ((null == it.Actions) || (it.Actions.Count <= 0)))
                     {
                         continue;
@@ -125,7 +125,7 @@ namespace UIEditor.Controls
                     }
 
                     data.Add(temp);
-                }
+                //}
             }
 
             RefreashTable(data);
@@ -206,22 +206,22 @@ namespace UIEditor.Controls
                 col.DisplayIndex = i++;
                 col.ReadOnly = true;
 
-                col = grid.Columns["IsCommunication"];
-                col.Width = 50;
-                col.HeaderText = ResourceMng.GetString("Communication");
-                col.DisplayIndex = i++;
-                col.ReadOnly = true;
+                //col = grid.Columns["IsCommunication"];
+                //col.Width = 50;
+                //col.HeaderText = ResourceMng.GetString("Communication");
+                //col.DisplayIndex = i++;
+                //col.ReadOnly = true;
 
-                col = grid.Columns["IsRead"];
-                col.Width = 50;
-                col.HeaderText = ResourceMng.GetString("Read");
-                col.DisplayIndex = i++;
-                col.ReadOnly = true;
+                //col = grid.Columns["IsRead"];
+                //col.Width = 50;
+                //col.HeaderText = ResourceMng.GetString("Read");
+                //col.DisplayIndex = i++;
+                //col.ReadOnly = true;
 
-                col = grid.Columns["IsWrite"];
-                col.Width = 50;
-                col.HeaderText = ResourceMng.GetString("Write");
-                col.DisplayIndex = i++;
+                //col = grid.Columns["IsWrite"];
+                //col.Width = 50;
+                //col.HeaderText = ResourceMng.GetString("Write");
+                //col.DisplayIndex = i++;
                 col.ReadOnly = true;
 
                 col = grid.Columns["DefaultValue"];

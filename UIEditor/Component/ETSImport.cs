@@ -26,6 +26,7 @@ namespace UIEditor
         private static string strGroupAddressRefId = "GroupAddressRefId";
         private static string strSend = "Send";
         private static string strRefId = "RefId";
+        private static string strDescription = "Description";
 
         private static string strComObject = "ComObject";
         private static string strComObjectRef = "ComObjectRef";
@@ -160,8 +161,6 @@ namespace UIEditor
 
                         if (comObjectInstanceRef.Contains(address.Id))
                         {
-
-
                             var comObjectInstanceRefId = comObjectInstanceRef[address.Id].First<string>();
 
                             var index1 = comObjectInstanceRefId.IndexOf('_');
@@ -232,10 +231,10 @@ namespace UIEditor
             var datapointType = comObject.Attribute(attrDatapointType);
 
             //
-            if (null != text)
-            {
-                address.Name = text.Value;
-            }
+            //if (null != text)
+            //{
+                //address.Name = text.Value;
+            //}
 
             if (null != priority)
             {

@@ -22,7 +22,7 @@ namespace UIEditor.Entity.Control
     public class ValueDisplayNode : ControlBaseNode
     {
         #region 常量
-        private const int PADDING = 5;
+        private const int PADDING = 2;
         #endregion
 
         #region 变量

@@ -22,11 +22,11 @@ namespace UIEditor.GroupAddress
 
         public string DPTName { get; set; }
 
-        public bool IsCommunication { get; set; }
+        //public bool IsCommunication { get; set; }
 
-        public bool IsRead { get; set; }
+        //public bool IsRead { get; set; }
 
-        public bool IsWrite { get; set; }
+        //public bool IsWrite { get; set; }
 
         public string DefaultValue { get; set; }
 
@@ -43,9 +43,9 @@ namespace UIEditor.GroupAddress
             this.KnxAddress = row.KnxAddress;
             this.Type = row.Type.ToString();
             this.DPTName = row.DPTName;
-            this.IsCommunication = row.IsCommunication;
-            this.IsRead = row.IsRead;
-            this.IsWrite = row.IsWrite;
+            //this.IsCommunication = row.IsCommunication;
+            //this.IsRead = row.IsRead;
+            //this.IsWrite = row.IsWrite;
             this.DefaultValue = row.DefaultValue;
             this.ReadTimeSpan = row.ReadTimeSpan;
             this.Actions = "";

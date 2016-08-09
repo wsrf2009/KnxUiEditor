@@ -23,7 +23,7 @@ namespace UIEditor.Entity.Control
     class DigitalAdjustmentNode : ControlBaseNode
     {
         #region 常量
-        private const int PADDING = 5;
+        private const int PADDING = 2;
         private const int SUBVIEW_WIDTH = 40;
         #endregion
 
@@ -78,13 +78,13 @@ namespace UIEditor.Entity.Control
             string FileLeftImage = Path.Combine(MyCache.ProjImagePath, this.LeftImage);
             if (!File.Exists(FileLeftImage))
             {
-                File.Copy(Path.Combine(MyCache.ProjectResImgDir, this.LeftImage), Path.Combine(MyCache.ProjImagePath, this.LeftImage));
+                File.Copy(Path.Combine(MyCache.ProjectResImgDir, this.LeftImage), FileLeftImage);
             }
 
             string FileRightImage = Path.Combine(MyCache.ProjImagePath, this.RightImage);
             if (!File.Exists(FileRightImage))
             {
-                File.Copy(Path.Combine(MyCache.ProjectResImgDir, this.RightImage), Path.Combine(MyCache.ProjImagePath, this.RightImage));
+                File.Copy(Path.Combine(MyCache.ProjectResImgDir, this.RightImage), FileRightImage);
             }
 
             Name = ImageKey = SelectedImageKey = MyConst.Controls.KnxDigitalAdjustment;

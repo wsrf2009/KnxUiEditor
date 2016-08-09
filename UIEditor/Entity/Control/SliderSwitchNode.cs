@@ -22,7 +22,7 @@ namespace UIEditor.Entity.Control
     public class SliderSwitchNode : ControlBaseNode
     {
         #region 常量
-        private const int PADDING = 5;
+        private const int PADDING = 2;
         private const int SLIDER_EDGE_WIDTH = 3;
         private const int SLIDER_WIDTH = 50;
         #endregion
@@ -83,19 +83,19 @@ namespace UIEditor.Entity.Control
             string FileLeftImage = Path.Combine(MyCache.ProjImagePath, this.LeftImage);
             if (!File.Exists(FileLeftImage))
             {
-                File.Copy(Path.Combine(MyCache.ProjectResImgDir, this.LeftImage), Path.Combine(MyCache.ProjImagePath, this.LeftImage));
+                File.Copy(Path.Combine(MyCache.ProjectResImgDir, this.LeftImage), FileLeftImage);
             }
 
             string FileRightImage = Path.Combine(MyCache.ProjImagePath, this.RightImage);
             if (!File.Exists(FileRightImage))
             {
-                File.Copy(Path.Combine(MyCache.ProjectResImgDir, this.RightImage), Path.Combine(MyCache.ProjImagePath, this.RightImage));
+                File.Copy(Path.Combine(MyCache.ProjectResImgDir, this.RightImage), FileRightImage);
             }
 
             string FileSliderImage = Path.Combine(MyCache.ProjImagePath, this.SliderImage);
             if (!File.Exists(FileSliderImage))
             {
-                File.Copy(Path.Combine(MyCache.ProjectResImgDir, this.SliderImage), Path.Combine(MyCache.ProjImagePath, this.SliderImage));
+                File.Copy(Path.Combine(MyCache.ProjectResImgDir, this.SliderImage), FileSliderImage);
             }
         }
 

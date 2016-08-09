@@ -21,7 +21,7 @@ namespace UIEditor.Entity.Control
     public class SwitchNode : ControlBaseNode
     {
         #region 常量
-        private const int PADDING = 5;
+        private const int PADDING = 2;
         #endregion
 
         #region 变量
@@ -85,13 +85,13 @@ namespace UIEditor.Entity.Control
             string FileImageOn = Path.Combine(MyCache.ProjImagePath, this.ImageOn);
             if (!File.Exists(FileImageOn))
             {
-                File.Copy(Path.Combine(MyCache.ProjectResImgDir, this.ImageOn), Path.Combine(MyCache.ProjImagePath, this.ImageOn));
+                File.Copy(Path.Combine(MyCache.ProjectResImgDir, this.ImageOn), FileImageOn);
             }
 
             string FileImageOff = Path.Combine(MyCache.ProjImagePath, this.ImageOff);
             if (!File.Exists(FileImageOff))
             {
-                File.Copy(Path.Combine(MyCache.ProjectResImgDir, this.ImageOff), Path.Combine(MyCache.ProjImagePath, this.ImageOff));
+                File.Copy(Path.Combine(MyCache.ProjectResImgDir, this.ImageOff), FileImageOff);
             }
         }
 
@@ -366,10 +366,10 @@ namespace UIEditor.Entity.Control
             }
 
             /* 图标 */
-            int height = rect.Height * 3 / 5;
-            int y = (rect.Height - height) / 2;
-            int x = y;
-            int width = height;
+            int x = PADDING;
+            int y = PADDING;  // 到父视图顶部的距离
+            int width = 0;
+            int height = 0;
             Image img = null;
             if (!string.IsNullOrEmpty(this.ImageOn))
             {
@@ -383,7 +383,7 @@ namespace UIEditor.Entity.Control
             {
                 height = rect.Height - 2 * y;
                 width = height;
-                gp.DrawImage(ImageHelper.Resize(img, new Size(width, height), false), x, y);
+                gp.DrawImage(ImageHelper.Resize(img, new Size(width, height), false), rect.X + x, rect.Y + y);
             }
 
             /* 文本 */

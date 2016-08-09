@@ -124,7 +124,6 @@
     <Compile Include="Component\EnumConverter.cs" />
     <Compile Include="Component\Explorer.cs" />
     <Compile Include="Component\FileHelper.cs" />
-    <Compile Include="Component\Frame.cs" />
     <Compile Include="Component\ICommandManager.cs" />
     <Compile Include="Component\ImageHelper.cs" />
     <Compile Include="Component\InstanceHelper.cs" />

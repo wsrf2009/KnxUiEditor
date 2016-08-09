@@ -32,8 +32,14 @@ namespace UIEditor
             Application.SetCompatibleTextRenderingDefault(false);
             //Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
             //Thread.CurrentThread.CurrentUICulture = /*Thread.CurrentThread.CurrentCulture*/new CultureInfo("en-US");
-            
+            try
+            {
             Application.Run(new FrmMain());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
 
             Application.ApplicationExit += Application_ApplicationExit;
         }

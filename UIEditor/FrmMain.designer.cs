@@ -33,6 +33,8 @@ namespace UIEditor
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.ucdo = new UIEditor.UserUIControl.UCDocumentOutline();
+            this.ucProperty = new UIEditor.UserUIControl.UCProperty();
             this.mnsMain = new System.Windows.Forms.MenuStrip();
             this.tsmiFile = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiNew = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,8 +44,6 @@ namespace UIEditor
             this.tsmiSave = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSaveAs = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsmiPublish = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiExit = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiLanguange = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmi_en_US = new System.Windows.Forms.ToolStripMenuItem();
@@ -78,8 +78,6 @@ namespace UIEditor
             this.tsrBtnAddTimerButton = new System.Windows.Forms.ToolStripButton();
             this.tsrBtnDigitalAdjustment = new System.Windows.Forms.ToolStripButton();
             this.tlpMain = new System.Windows.Forms.TableLayoutPanel();
-            this.ucdo = new UIEditor.UserUIControl.UCDocumentOutline();
-            this.ucProperty = new UIEditor.UserUIControl.UCProperty();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -138,6 +136,19 @@ namespace UIEditor
             // 
             this.splitContainer2.Panel2.Controls.Add(this.ucProperty);
             // 
+            // ucdo
+            // 
+            this.ucdo.cqdo = null;
+            resources.ApplyResources(this.ucdo, "ucdo");
+            this.ucdo.Name = "ucdo";
+            this.ucdo.Title = "";
+            // 
+            // ucProperty
+            // 
+            this.ucProperty.cqp = null;
+            resources.ApplyResources(this.ucProperty, "ucProperty");
+            this.ucProperty.Name = "ucProperty";
+            // 
             // mnsMain
             // 
             this.mnsMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -157,8 +168,6 @@ namespace UIEditor
             this.tsmiSave,
             this.tsmiSaveAs,
             this.toolStripSeparator1,
-            this.tsmiPublish,
-            this.toolStripSeparator8,
             this.tsmiExit});
             this.tsmiFile.Name = "tsmiFile";
             resources.ApplyResources(this.tsmiFile, "tsmiFile");
@@ -167,16 +176,19 @@ namespace UIEditor
             // 
             resources.ApplyResources(this.tsmiNew, "tsmiNew");
             this.tsmiNew.Name = "tsmiNew";
+            this.tsmiNew.Click += new System.EventHandler(this.tsmiNew_Click);
             // 
             // tsmiOpen
             // 
             resources.ApplyResources(this.tsmiOpen, "tsmiOpen");
             this.tsmiOpen.Name = "tsmiOpen";
+            this.tsmiOpen.Click += new System.EventHandler(this.tsmiOpen_Click);
             // 
             // tsmiClose
             // 
             this.tsmiClose.Name = "tsmiClose";
             resources.ApplyResources(this.tsmiClose, "tsmiClose");
+            this.tsmiClose.Click += new System.EventHandler(this.tsmiClose_Click);
             // 
             // toolStripSeparator
             // 
@@ -187,31 +199,24 @@ namespace UIEditor
             // 
             resources.ApplyResources(this.tsmiSave, "tsmiSave");
             this.tsmiSave.Name = "tsmiSave";
+            this.tsmiSave.Click += new System.EventHandler(this.tsmiSave_Click);
             // 
             // tsmiSaveAs
             // 
             this.tsmiSaveAs.Name = "tsmiSaveAs";
             resources.ApplyResources(this.tsmiSaveAs, "tsmiSaveAs");
+            this.tsmiSaveAs.Click += new System.EventHandler(this.tsmiSaveAs_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             // 
-            // tsmiPublish
-            // 
-            this.tsmiPublish.Name = "tsmiPublish";
-            resources.ApplyResources(this.tsmiPublish, "tsmiPublish");
-            // 
-            // toolStripSeparator8
-            // 
-            this.toolStripSeparator8.Name = "toolStripSeparator8";
-            resources.ApplyResources(this.toolStripSeparator8, "toolStripSeparator8");
-            // 
             // tsmiExit
             // 
             this.tsmiExit.Name = "tsmiExit";
             resources.ApplyResources(this.tsmiExit, "tsmiExit");
+            this.tsmiExit.Click += new System.EventHandler(this.tsmiExit_Click);
             // 
             // tsmiLanguange
             // 
@@ -226,12 +231,14 @@ namespace UIEditor
             this.tsmi_en_US.Image = global::UIEditor.Properties.Resources.America_flag_16x16;
             resources.ApplyResources(this.tsmi_en_US, "tsmi_en_US");
             this.tsmi_en_US.Name = "tsmi_en_US";
+            this.tsmi_en_US.Click += new System.EventHandler(this.tsmi_en_US_Click);
             // 
             // tsmi_zh_CN
             // 
             this.tsmi_zh_CN.Image = global::UIEditor.Properties.Resources.Chinese_flag_16x16;
             resources.ApplyResources(this.tsmi_zh_CN, "tsmi_zh_CN");
             this.tsmi_zh_CN.Name = "tsmi_zh_CN";
+            this.tsmi_zh_CN.Click += new System.EventHandler(this.tsmi_zh_CN_Click);
             // 
             // tsmiHelp
             // 
@@ -246,6 +253,7 @@ namespace UIEditor
             // 
             resources.ApplyResources(this.tsmiOpenHelp, "tsmiOpenHelp");
             this.tsmiOpenHelp.Name = "tsmiOpenHelp";
+            this.tsmiOpenHelp.Click += new System.EventHandler(this.tsmiOpenHelp_Click);
             // 
             // toolStripSeparator5
             // 
@@ -256,6 +264,7 @@ namespace UIEditor
             // 
             this.tsmiAbout.Name = "tsmiAbout";
             resources.ApplyResources(this.tsmiAbout, "tsmiAbout");
+            this.tsmiAbout.Click += new System.EventHandler(this.tsmiAbout_Click);
             // 
             // statusStripMain
             // 
@@ -476,19 +485,6 @@ namespace UIEditor
             this.tlpMain.Controls.Add(this.splitContainer1, 0, 1);
             this.tlpMain.Name = "tlpMain";
             // 
-            // ucdo
-            // 
-            this.ucdo.cqdo = null;
-            resources.ApplyResources(this.ucdo, "ucdo");
-            this.ucdo.Name = "ucdo";
-            this.ucdo.Title = "";
-            // 
-            // ucProperty
-            // 
-            this.ucProperty.cqp = null;
-            resources.ApplyResources(this.ucProperty, "ucProperty");
-            this.ucProperty.Name = "ucProperty";
-            // 
             // FrmMain
             // 
             resources.ApplyResources(this, "$this");
@@ -546,9 +542,7 @@ namespace UIEditor
         private System.Windows.Forms.ToolStripMenuItem tsmiAbout;
         private System.Windows.Forms.StatusStrip statusStripMain;
         private System.Windows.Forms.ToolStripMenuItem tsmiClose;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPublish;
         private System.Windows.Forms.ToolStripStatusLabel tsslblProjectName;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
         //private System.Windows.Forms.ToolStripButton tsrBtnAddImageButton;
         //private System.Windows.Forms.ToolStripButton tsrBtnAddMediaButton;
         //private System.Windows.Forms.ToolStripButton tsrBtnAddColorLight;

@@ -1069,4 +1069,7 @@
   <data name="DescriptionForPropTip" xml:space="preserve">
     <value>在“是否有提示”选为Yes后，此项才有效。此项中的文本会在给出的弹窗中显示</value>
   </data>
+  <data name="Message48" xml:space="preserve">
+    <value>工程中已存在同名图片 {0}，是否需要覆盖？</value>
+  </data>
 </root>

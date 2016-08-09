@@ -528,10 +528,6 @@ namespace UIEditor
 
             try
             {
-                // 当前的项目不为空
-                //if (this.tvwAppdata.Nodes.Count > 0)
-                //{
-
                 VersionStorage.Save(); // 保存项目文件的版本信息。
                 this.ucdo.SaveNode(); // 保存界面到JSON文件
                 GroupAddressStorage.Save(); // 保存组地址到JSON文件
@@ -553,22 +549,16 @@ namespace UIEditor
                     if (DialogResult.OK == myResult)
                     {
                         ProjectFile = myDialog.FileName;
-                        ZipProject();
+                        ZipProject(this.ProjectFile);
                         result = true;
                     }
                 }
                 else
                 {
-                    ZipProject();
+                    ZipProject(this.ProjectFile);
                     result = true;
                 }
             }
-            //    else
-            //    {
-            //        string errorMsg = ResourceMng.GetString("Message3");
-            //        MessageBox.Show(errorMsg, ResourceMng.GetString("Message4"), MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    }
-            //}
             catch (Exception ex)
             {
                 string errorMsg = ResourceMng.GetString("Message5") + " " + "exception message: " + ex.Message;
@@ -588,14 +578,13 @@ namespace UIEditor
             return result;
         }
 
-        private void ZipProject()
+        private void ZipProject(string desFileName)
         {
             // 删除临时目录
             FileHelper.DeleteFolder(MyCache.ProjTempFolder);
 
             //保存项目文件为 knxuie 类型
-            // ZipHelper.ZipDir(MyCache.ProjectFolder, ProjectFile.Replace(MyConst.KnxUiEditorFileExt, "v" + MyCache.ProjectVersion.Version + "." + MyConst.KnxUiEditorFileExt), MyConst.MyKey);
-            ZipHelper.ZipDir(MyCache.ProjectFolder, ProjectFile, MyConst.MyKey);
+            ZipHelper.ZipDir(MyCache.ProjectFolder, desFileName, MyConst.MyKey);
 
             //保存状态
             Saved = true;
@@ -998,11 +987,6 @@ namespace UIEditor
 
         private void SetSelectedNode(ViewNode node)
         {
-            //if (MyConst.View.KnxPageType == node.Name)
-            //{
-            //    SetToolStripButtonStatus(true);
-            //}
-
             this.curSelectedNode = node;
             this.ucdo.SetSelectedNode(node);
             this.ucProperty.DisplayNode(node);
@@ -1032,5 +1016,102 @@ namespace UIEditor
 
             this.Saved = true;
         }
+
+        #region 下拉菜单点击事件
+        private void tsmiNew_Click(object sender, EventArgs e)
+        {
+            NewKnxUiProject();
+        }
+
+        private void tsmiOpen_Click(object sender, EventArgs e)
+        {
+            OpenKnxUiPrject();
+        }
+
+        private void tsmiClose_Click(object sender, EventArgs e)
+        {
+            SetToolStripButtonStatus(false);
+            SetToolStripButtonKNXAddrStatus(false);
+            SetToolStripButtonSaveStatus(false);
+            ResetParameter();
+            this.ucdo.RemoveAllAppNode();
+            CloseAllTabPages();
+            this.ucProperty.NotDisplay();
+            tsslblProjectName.Text = "";
+        }
+
+        private void tsmiSave_Click(object sender, EventArgs e)
+        {
+            SaveKnxUiProject(ProjectFile);
+        }
+
+        private void tsmiSaveAs_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+
+            saveFileDialog.Filter = KnxFilter;
+            saveFileDialog.FilterIndex = 0;
+            saveFileDialog.RestoreDirectory = true;
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                if (!string.IsNullOrEmpty(saveFileDialog.FileName))
+                {
+                    Cursor = Cursors.WaitCursor;
+
+                    try
+                    {
+                        VersionStorage.Save(); // 保存项目文件的版本信息。
+                        this.ucdo.SaveNode(); // 保存界面到JSON文件
+                        GroupAddressStorage.Save(); // 保存组地址到JSON文件
+
+                        ZipProject(saveFileDialog.FileName);
+
+                        ProjectSaved();
+                    }
+                    catch (Exception ex)
+                    {
+                        string errorMsg = ResourceMng.GetString("Message5") + " " + "exception message: " + ex.Message;
+                        MessageBox.Show(errorMsg, ResourceMng.GetString("Message6"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Log.Error(errorMsg + LogHelper.Format(ex));
+                    }
+
+                    finally
+                    {
+                        Cursor = Cursors.Default;
+                    }
+                }
+            }
+        }
+
+        private void tsmiExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void tsmi_en_US_Click(object sender, EventArgs e)
+        {
+            AppConfigHelper.UpdateAppConfig(MyConst.XmlTagAppLanguange, "en-US");
+
+            Application.Restart();
+        }
+
+        private void tsmi_zh_CN_Click(object sender, EventArgs e)
+        {
+            AppConfigHelper.UpdateAppConfig(MyConst.XmlTagAppLanguange, "zh-CN");
+
+            Application.Restart();
+        }
+
+        private void tsmiOpenHelp_Click(object sender, EventArgs e)
+        {
+            new FrmHelp().ShowDialog(this);
+        }
+
+        private void tsmiAbout_Click(object sender, EventArgs e)
+        {
+            new FrmAboutBox().ShowDialog(this);
+        }
+        #endregion
     }
 }

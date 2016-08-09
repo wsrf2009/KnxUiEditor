@@ -26,7 +26,7 @@ namespace UIEditor.Entity.Control
     public class BlindsNode : ControlBaseNode
     {
         #region 常量
-        private const int PADDING = 5;
+        private const int PADDING = 2;
         private const int SUBVIEW_WIDTH = 40;
         #endregion
 
@@ -90,13 +90,13 @@ namespace UIEditor.Entity.Control
             string FileImageLeft = Path.Combine(MyCache.ProjImagePath, this.LeftImage);
             if (!File.Exists(FileImageLeft))
             {
-                File.Copy(Path.Combine(MyCache.ProjectResImgDir, this.LeftImage), Path.Combine(MyCache.ProjImagePath, this.LeftImage));
+                File.Copy(Path.Combine(MyCache.ProjectResImgDir, this.LeftImage), FileImageLeft);
             }
 
             string FileImageRight = Path.Combine(MyCache.ProjImagePath, this.RightImage);
             if (!File.Exists(FileImageRight))
             {
-                File.Copy(Path.Combine(MyCache.ProjectResImgDir, this.RightImage), Path.Combine(MyCache.ProjImagePath, this.RightImage));
+                File.Copy(Path.Combine(MyCache.ProjectResImgDir, this.RightImage), FileImageRight);
             }
         }
 
