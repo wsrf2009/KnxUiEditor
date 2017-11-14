@@ -1,0 +1,749 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{56900468-9E82-45AD-8BF5-68B57CBEE866}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UIEditor</RootNamespace>
+    <AssemblyName>SVE2</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <PublishUrl>Z:\html\SVE\</PublishUrl>
+    <Install>false</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>true</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <InstallUrl>http://192.168.1.114/SVE/</InstallUrl>
+    <SupportUrl>http://www.sation.com.cn</SupportUrl>
+    <ErrorReportUrl>http://www.sation.com.cn</ErrorReportUrl>
+    <ProductName>SVE</ProductName>
+    <PublisherName>Sation</PublisherName>
+    <SuiteName>UIEditor</SuiteName>
+    <MinimumRequiredVersion>2.7.1.0</MinimumRequiredVersion>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>publish.htm</WebPage>
+    <ApplicationRevision>6</ApplicationRevision>
+    <ApplicationVersion>2.7.1.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>
+    </ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>false</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup />
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>497CEED6B3F1BD66B8710B3801BA7515CE9D9ED2</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>UIEditor_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Aga.Controls, Version=1.7.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AdamsLair.TreeViewAdv.1.7.2.0\lib\net20\Aga.Controls.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ionic.Zip">
+      <HintPath>..\packages\DotNetZip.1.9.3\lib\net20\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.3.2.0.0\lib\net40\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="SourceGrid">
+      <HintPath>..\packages\SourceGrid.4.4.0\lib\net35\SourceGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CommandManager\CommandNodeProperty\NodePropertyBound.cs" />
+    <Compile Include="CommandManager\CommandNodeProperty\NodePropertyHeight.cs" />
+    <Compile Include="CommandManager\CommandNodeProperty\NodePropertyInfo.cs" />
+    <Compile Include="CommandManager\CommandNodeProperty\NodePropertyLocation.cs" />
+    <Compile Include="CommandManager\CommandNodeProperty\NodePropertySize.cs" />
+    <Compile Include="CommandManager\CommandNodeProperty\NodePropertyWidth.cs" />
+    <Compile Include="CommandManager\CommandNodeProperty\NodePropertyX.cs" />
+    <Compile Include="CommandManager\CommandNodeProperty\NodePropertyY.cs" />
+    <Compile Include="CommandManager\CommandTreeNode\TreeNodeAdd.cs" />
+    <Compile Include="CommandManager\CommandTreeNode\TreeNodeMoveDown.cs" />
+    <Compile Include="CommandManager\CommandTreeNode\TreeNodeMoveUp.cs" />
+    <Compile Include="CommandManager\CommandTreeNode\TreeNodeRemove.cs" />
+    <Compile Include="CommandManager\CommandTreeNode\TreeViewAddRootNode.cs" />
+    <Compile Include="CommandManager\CommandTreeNode\TreeViewClearNodes.cs" />
+    <Compile Include="CommandManager\CommandTreeNode\TreeViewRemoveRootNode.cs" />
+    <Compile Include="Component\AppConfigHelper.cs" />
+    <Compile Include="Component\AppStorage.cs" />
+    <Compile Include="Component\CollectionHelper.cs" />
+    <Compile Include="Component\DLLHelp.cs" />
+    <Compile Include="Component\DPTHelper.cs" />
+    <Compile Include="Component\DrawLineHelper.cs" />
+    <Compile Include="Component\KeyboardHook.cs" />
+    <Compile Include="Component\ClipboardHelper.cs" />
+    <Compile Include="Component\ColorSelectedArg.cs" />
+    <Compile Include="CommandManager\CommandManager.cs" />
+    <Compile Include="Component\DescriptionAttribute.cs" />
+    <Compile Include="Component\Explorer.cs" />
+    <Compile Include="Component\FileHelper.cs" />
+    <Compile Include="Component\ICommandManager.cs" />
+    <Compile Include="Component\InstanceHelper.cs" />
+    <Compile Include="Component\KNXAddressHelper.cs" />
+    <Compile Include="Component\MyCache.cs" />
+    <Compile Include="Component\ImportedHelper.cs" />
+    <Compile Include="Component\ProjResManager.cs" />
+    <Compile Include="Component\Template.cs" />
+    <Compile Include="Component\TemplateMeta.cs" />
+    <Compile Include="Component\UIResMang.cs" />
+    <Compile Include="Component\SelectedAddressCollection.cs" />
+    <Compile Include="Drawing\LayerMoving.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Drawing\Ruler.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Drawing\STTabPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Drawing\STTreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Entity\Control\AirConditionNode.cs" />
+    <Compile Include="Entity\Control\DimmerNode.cs" />
+    <Compile Include="Entity\Control\HVACNode.cs" />
+    <Compile Include="Entity\Control\MediaButtonNode.cs" />
+    <Compile Include="Entity\Control\ShutterNode.cs" />
+    <Compile Include="Entity\Control\ImageButtonNode.cs" />
+    <Compile Include="Entity\Control\WebCamerNode.cs" />
+    <Compile Include="Entity\EntityHelper.cs" />
+    <Compile Include="FrmDimmer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmDimmer.Designer.cs">
+      <DependentUpon>FrmDimmer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmKNXConfiguration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmKNXConfiguration.Designer.cs">
+      <DependentUpon>FrmKNXConfiguration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmShutter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmShutter.Designer.cs">
+      <DependentUpon>FrmShutter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmCollections.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCollections.Designer.cs">
+      <DependentUpon>FrmCollections.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmGroupAddress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmGroupAddress.Designer.cs">
+      <DependentUpon>FrmGroupAddress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmGroupAddressMgt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmGroupAddressMgt.Designer.cs">
+      <DependentUpon>FrmGroupAddressMgt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmGroupAddressPick.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmGroupAddressPick.Designer.cs">
+      <DependentUpon>FrmGroupAddressPick.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GroupAddress\EdGroupAddress.cs" />
+    <Compile Include="GroupAddress\GroupAddressActions.cs" />
+    <Compile Include="GroupAddress\ImGroupAddr.cs" />
+    <Compile Include="GroupAddress\KNXGroupAddress.cs" />
+    <Compile Include="GroupAddress\MgGroupAddress.cs" />
+    <Compile Include="GroupAddress\PcGroupAddress.cs" />
+    <Compile Include="Drawing\LayerLines.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Drawing\Line.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyGridEditor\PropertyGridAlphaEditor.cs" />
+    <Compile Include="PropertyGridEditor\PropertyGridImageEditor.cs" />
+    <Compile Include="PropertyGridEditor\PropertyGridSTFontEditor.cs" />
+    <Compile Include="PropertyGridEditor\PropertyGridStringImageEditor.cs" />
+    <Compile Include="PropertyGridEditor\PropertyGridKNXSelectedAddressMultiWriteEditor.cs" />
+    <Compile Include="PropertyGridEditor\PropertyGridKNXSelectedAddressMultiReadEditor.cs" />
+    <Compile Include="PropertyGridEditor\PropertyGridKNXSelectedAddressMultiWriteActionEditor.cs" />
+    <Compile Include="PropertyGridEditor\PropertyGridKNXSelectedAddressSingleReadEditor.cs" />
+    <Compile Include="PropertyGridEditor\PropertyGridMultiLineTextEditor.cs" />
+    <Compile Include="Component\STControlPropertyDescriptor.cs" />
+    <Compile Include="Component\TreeViewHelper.cs" />
+    <Compile Include="Component\VersionStorage.cs" />
+    <Compile Include="FrmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMain.designer.cs">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\ContainerNode.cs" />
+    <Compile Include="Entity\Control\DigitalAdjustmentNode.cs" />
+    <Compile Include="Entity\Control\TimerTaskButtonNode.cs" />
+    <Compile Include="Entity\ViewNode.cs" />
+    <Compile Include="FrmETSImport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmETSImport.Designer.cs">
+      <DependentUpon>FrmETSImport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmProgress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmProgress.Designer.cs">
+      <DependentUpon>FrmProgress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Drawing\STContainer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Drawing\STControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Drawing\LayerControls.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Drawing\STPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Entity\ControlBaseNode.cs" />
+    <Compile Include="Entity\Control\BlindsNode.cs" />
+    <Compile Include="Entity\Control\SceneButtonNode.cs" />
+    <Compile Include="Entity\Control\SliderSwitchNode.cs" />
+    <Compile Include="Entity\Control\SwitchNode.cs" />
+    <Compile Include="Entity\Control\ValueDisplayNode.cs" />
+    <Compile Include="Entity\Control\GroupBoxNode.cs" />
+    <Compile Include="Entity\Control\LabelNode.cs" />
+    <Compile Include="Component\ETSImport.cs" />
+    <Compile Include="FrmHelp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmHelp.Designer.cs">
+      <DependentUpon>FrmHelp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmAboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAboutBox.Designer.cs">
+      <DependentUpon>FrmAboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Component\GroupAddressStorage.cs" />
+    <Compile Include="Component\MyConst.cs" />
+    <Compile Include="Entity\AppNode.cs" />
+    <Compile Include="Entity\AreaNode.cs" />
+    <Compile Include="Entity\PageNode.cs" />
+    <Compile Include="Entity\RoomNode.cs" />
+    <Compile Include="FrmSetDataType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSetDataType.Designer.cs">
+      <DependentUpon>FrmSetDataType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSetDefaultValue.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSetDefaultValue.Designer.cs">
+      <DependentUpon>FrmSetDefaultValue.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="FrmSetPriority.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSetPriority.Designer.cs">
+      <DependentUpon>FrmSetPriority.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSetReadTimeSpan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSetReadTimeSpan.Designer.cs">
+      <DependentUpon>FrmSetReadTimeSpan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Drawing\STPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PropertyGridTypeConverter\AlphaConverter.cs" />
+    <Compile Include="PropertyGridTypeConverter\EnumConverter.cs" />
+    <Compile Include="PropertyGridTypeConverter\STImageConverter.cs" />
+    <Compile Include="PropertyGridTypeConverter\MultiSelectedAddressConverter.cs" />
+    <Compile Include="PropertyGridTypeConverter\STFontConverter.cs" />
+    <Compile Include="UserClass\STFont.cs" />
+    <Compile Include="UserClass\STString.cs" />
+    <Compile Include="PropertyGridTypeConverter\STStringConverter.cs" />
+    <Compile Include="UserUIControl\UCProjectManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserUIControl\UCProjectManager.Designer.cs">
+      <DependentUpon>UCProjectManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserUIControl\UCPageOutline.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserUIControl\UCPageOutline.Designer.cs">
+      <DependentUpon>UCPageOutline.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserUIControl\UCProperty.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserUIControl\UCProperty.Designer.cs">
+      <DependentUpon>UCProperty.cs</DependentUpon>
+    </Compile>
+    <None Include="Properties\app.manifest" />
+    <None Include="Resources\controls\Dimmer_16x16.png" />
+    <Content Include="Resources\controls\Dimmer_Off.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\controls\Dimmer_On.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\controls\ImageButton_Off.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\controls\ImageButton_On.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\controls\Shutter.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\controls\Shutter_Off.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\controls\Shutter_On.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\controls\WebCamer.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\ab.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\arrow_down.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\arrow_up.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\bj1.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\bj10.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\bj2.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\bj3.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\bj4.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\bj5.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\bj6.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\bj7.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\bj8.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\bj9.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\cj.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\demo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\dmt.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\hjms.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\hw.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\increase.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\kt.PNG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\ljms.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\ltj.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\ltkt.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\nyjl.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\off1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\off2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\off3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\off4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\off5.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\on1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\on2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\on3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\on4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\on5.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\qcms.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\reduce.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\room.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\room1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\smms.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\symbol.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\symbol1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\symbol2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\timer.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\timer1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\timer2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\ws.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="Drawing\STTabPage.resx">
+      <DependentUpon>STTabPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmDimmer.resx">
+      <DependentUpon>FrmDimmer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmDimmer.zh-CN.resx">
+      <DependentUpon>FrmDimmer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmKNXConfiguration.resx">
+      <DependentUpon>FrmKNXConfiguration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmShutter.resx">
+      <DependentUpon>FrmShutter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmCollections.resx">
+      <DependentUpon>FrmCollections.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmCollections.zh-CN.resx">
+      <DependentUpon>FrmCollections.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmShutter.zh-CN.resx">
+      <DependentUpon>FrmShutter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserUIControl\UCProperty.zh-CN.resx">
+      <DependentUpon>UCProperty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmETSImport.resx">
+      <DependentUpon>FrmETSImport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmETSImport.zh-CN.resx">
+      <DependentUpon>FrmETSImport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmAboutBox.zh-CN.resx">
+      <DependentUpon>FrmAboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmGroupAddress.resx">
+      <DependentUpon>FrmGroupAddress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmGroupAddress.zh-CN.resx">
+      <DependentUpon>FrmGroupAddress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmGroupAddressMgt.resx">
+      <DependentUpon>FrmGroupAddressMgt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmGroupAddressMgt.zh-CN.resx">
+      <DependentUpon>FrmGroupAddressMgt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmGroupAddressPick.resx">
+      <DependentUpon>FrmGroupAddressPick.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmGroupAddressPick.zh-CN.resx">
+      <DependentUpon>FrmGroupAddressPick.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmHelp.zh-CN.resx">
+      <DependentUpon>FrmHelp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMain.resx">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMain.zh-CN.resx">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmProgress.resx">
+      <DependentUpon>FrmProgress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSetDataType.zh-CN.resx">
+      <DependentUpon>FrmSetDataType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSetDefaultValue.zh-CN.resx">
+      <DependentUpon>FrmSetDefaultValue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSetPriority.zh-CN.resx">
+      <DependentUpon>FrmSetPriority.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSetReadTimeSpan.zh-CN.resx">
+      <DependentUpon>FrmSetReadTimeSpan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Drawing\LayerControls.resx">
+      <DependentUpon>LayerControls.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmHelp.resx">
+      <DependentUpon>FrmHelp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmAboutBox.resx">
+      <DependentUpon>FrmAboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSetDataType.resx">
+      <DependentUpon>FrmSetDataType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSetDefaultValue.resx">
+      <DependentUpon>FrmSetDefaultValue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSetPriority.resx">
+      <DependentUpon>FrmSetPriority.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.zh-CN.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.zh-CN.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Content Include="BuildingDesignSuite_128.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BuildingEdit_128x128.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="HelpDoc.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="FrmSetReadTimeSpan.resx">
+      <DependentUpon>FrmSetReadTimeSpan.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserUIControl\UCProjectManager.resx">
+      <DependentUpon>UCProjectManager.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserUIControl\UCProjectManager.zh-CN.resx">
+      <DependentUpon>UCProjectManager.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserUIControl\UCPageOutline.resx">
+      <DependentUpon>UCPageOutline.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserUIControl\UCPageOutline.zh-CN.resx">
+      <DependentUpon>UCPageOutline.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserUIControl\UCProperty.resx">
+      <DependentUpon>UCProperty.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Resources.zh-CN.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 和 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KNX\KNX.csproj">
+      <Project>{8041336d-a839-4876-b2bd-6fd0964588eb}</Project>
+      <Name>KNX</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Structure\Structure.csproj">
+      <Project>{41178f82-3b34-49af-b93e-5dc746e52e19}</Project>
+      <Name>Structure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Upgrade\Upgrade.csproj">
+      <Project>{10784168-8b77-4189-b91c-d38d901fbbf3}</Project>
+      <Name>Upgrade</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utils\Utils.csproj">
+      <Project>{99047ccd-8cd3-4389-bb8c-9e6627371f67}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

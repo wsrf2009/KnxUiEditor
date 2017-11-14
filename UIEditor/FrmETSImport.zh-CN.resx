@@ -117,11 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="buttonImportETSAddressXML.Text" xml:space="preserve">
-    <value>导入ETS地址文件(XML)</value>
+  <data name="btnFilter.Text" xml:space="preserve">
+    <value>过滤</value>
+  </data>
+  <data name="buttonImportOPC.Text" xml:space="preserve">
+    <value>从OPC文件</value>
   </data>
   <data name="buttonImportETSProject.Text" xml:space="preserve">
-    <value>导入ETS工程</value>
+    <value>从ETS工程</value>
   </data>
   <data name="buttonCancel.Text" xml:space="preserve">
     <value>取消</value>
@@ -132,10 +135,7 @@
   <data name="buttonBack.Text" xml:space="preserve">
     <value>上一步</value>
   </data>
-  <data name="buttonNext.Text" xml:space="preserve">
-    <value>下一步</value>
-  </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>导入ETS工程</value>
+    <value>导入组地址</value>
   </data>
 </root>

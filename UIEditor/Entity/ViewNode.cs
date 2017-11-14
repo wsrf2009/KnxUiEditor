@@ -1,18 +1,18 @@
-﻿
-using System;
+﻿using System;
 using System.Drawing;
 using System.IO;
 using System.Runtime.Serialization;
-using SourceGrid;
-using Structure;
-using UIEditor.Component;
-using Button = SourceGrid.Cells.Button;
-using System.Windows.Forms;
 using System.ComponentModel;
-using System.Drawing.Design;
-using UIEditor.SationUIControl;
-using System.Drawing.Drawing2D;
 using System.Collections.Generic;
+using System.Windows.Forms;
+using UIEditor.Drawing;
+using UIEditor.Component;
+using Structure;
+using System.Drawing.Design;
+using System.Drawing.Drawing2D;
+using UIEditor.PropertyGridEditor;
+using UIEditor.UserClass;
+using Utils;
 
 namespace UIEditor.Entity
 {
@@ -22,55 +22,61 @@ namespace UIEditor.Entity
     [Serializable]
     public abstract class ViewNode : TreeNode, ISerializable
     {
-        private static int InitId = Convert.ToInt32((DateTime.Now - new DateTime(1970, 1, 1)).TotalSeconds);
-
-        #region
-        public FrameControl fc { get; set; }
-        public STPanel panel { get; set; }
+        #region 常量
+        private const int ControlMinWidth = 20;
+        private const int ControlMinHeight = 20;
         #endregion
 
         #region 属性
-
         /// <summary>
         /// 控件的唯一标识
         /// </summary>
-        [BrowsableAttribute(false),
+        [BrowsableAttribute(true),
         ReadOnlyAttribute(true)]
         public int Id { get; set; }
 
-        public int X { get; set; }
+        public string Title { get; set; }
 
-        public int Y { get; set; }
+        [EditorAttribute(typeof(PropertyGridSTFontEditor), typeof(UITypeEditor)),
+        TypeConverterAttribute(typeof(STFontConverter))]
+        public STFont TitleFont { get; set; }
 
-        //private Point _Location;
-        //public Point Location
-        //{
-        //    get
-        //    {
-        //        return _Location;
-        //    }
-        //    set
-        //    {
-        //        _Location = value;
-        //    }
-        //}
+        /// <summary>
+        /// 新增于2.7.1
+        /// </summary>
+        public Point Location { get; set; }
 
-        public int Width { get; set; }
+        /// <summary>
+        /// 新增于2.7.1
+        /// </summary>
+        private Size _Size;
+        public Size Size
+        {
+            get
+            {
+                return _Size;
+            }
+            set
+            {
+                int w = value.Width;
+                int h = value.Height;
+                if (w < ControlMinWidth)
+                {
+                    w = ControlMinWidth;
+                }
+                if (h < ControlMinHeight)
+                {
+                    h = ControlMinHeight;
+                }
 
-        public int Height { get; set; }
+                _Size = new Size(w, h);
+            }
+        }
 
-        //private Size _Size;
-        //public Size Size
-        //{
-        //    get
-        //    {
-        //        return _Size;
-        //    }
-        //    set
-        //    {
-        //        _Size = value;
-        //    }
-        //}
+        /// <summary>
+        /// 新增于2.7.1
+        /// </summary>
+        public Padding Padding { get; set; }
 
         /// <summary>
         /// 是否显示边框
@@ -82,15 +88,58 @@ namespace UIEditor.Entity
         /// </summary>
         public Color BorderColor { get; set; }
 
+        private float _Alpha;
         /// <summary>
         /// 控件的不透明度
         /// </summary>
-        public double Alpha { get; set; }
+        [EditorAttribute(typeof(PropertyGridAlphaEditor), typeof(UITypeEditor)),
+        TypeConverterAttribute(typeof(AlphaConverter))]
+        public float Alpha
+        {
+            get
+            {
+                return _Alpha;
+            }
+            set
+            {
+                if ((value >= .0f) && (value <= 1.0f))
+                {
+                    _Alpha = value;
+                }
+                else
+                {
+                    _Alpha = 1.0f;
 
+                    //MessageBox.Show(UIResMang.GetString("Message53"), UIResMang.GetString("Message6"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    throw new Exception(UIResMang.GetString("Message53"));
+                }
+            }
+        }
+
+        private int _Radius;
         /// <summary>
         /// 控件的圆角半径
         /// </summary>
-        public int Radius { get; set; }
+        public int Radius
+        {
+            get
+            {
+                return _Radius;
+            }
+            set
+            {
+                if (value >= 0)
+                {
+                    _Radius = value;
+                }
+                else
+                {
+                    _Radius = 0;
+
+                    MessageBox.Show(UIResMang.GetString("Message54"), UIResMang.GetString("Message6"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
 
         /// <summary>
         /// 控件的外观
@@ -103,36 +152,69 @@ namespace UIEditor.Entity
         public Color BackgroundColor { get; set; }
 
         /// <summary>
-        /// 控件的背景图片
+        /// 控件背景图片
         /// </summary>
-        [EditorAttribute(typeof(PropertyGridImageEditor), typeof(UITypeEditor))]
+        [EditorAttribute(typeof(PropertyGridStringImageEditor), typeof(UITypeEditor))]
         public string BackgroundImage { get; set; }
-
-        /// <summary>
-        /// 控件的字体颜色
-        /// </summary>
-        public Color FontColor { get; set; }
-
-        /// <summary>
-        /// 字体大小
-        /// </summary>
-        public int FontSize { get; set; }
         #endregion
 
         #region 变量
-        private const int Band = 6; //调整大小的响应边框
+        private static int InitId = Convert.ToInt32((DateTime.Now - new DateTime(1970, 1, 1)).TotalSeconds);
+
+        private const int Band = 8; //调整大小的响应边框
         private const int SideMobile = 15;
         private Size square = new Size(Band, Band);//小矩形大小
         private int MinWidth = 20; //最小宽度
         private int MinHeight = 20;//最小高度
+        internal float Ratio;
+
+        private string _ImagePath;
+        /// <summary>
+        /// 在工程中控件图片所在路径
+        /// </summary>
+        public string ImagePath
+        {
+            get
+            {
+                _ImagePath = GetImageName(this.Id);
+
+                _ImagePath = Path.Combine(MyCache.ProjImgPath, _ImagePath);
+
+                return _ImagePath;
+            }
+
+            set
+            {
+                _ImagePath = value;
+            }
+        }
 
         internal enum ControlState
         {
-            Down,
+            /// <summary>
+            /// 控件被鼠标按下
+            /// </summary>
+            Selected,
+            /// <summary>
+            /// 控件处于移动状态
+            /// </summary>
             Move,
+            /// <summary>
+            /// 控件被鼠标释放
+            /// </summary>
             Up,
+            /// <summary>
+            /// 普通状态
+            /// </summary>
             Normal,
-            ChangeSize
+            /// <summary>
+            /// 正在对控件进行大小调整
+            /// </summary>
+            ChangeSize,
+            /// <summary>
+            /// 需要从已选控件列表移除的控件
+            /// </summary>
+            SelectedAgain
         }
 
         internal enum MousePosOnCtrl
@@ -152,9 +234,80 @@ namespace UIEditor.Entity
         /// <summary>
         /// 当前控件是否已被选中
         /// </summary>
-        internal bool IsSelected { get; set; }
+        internal bool IsThisSelected { get; set; }
 
         internal ControlState State { get; set; }
+
+        #region 在界面绘制视图时用到的方法
+        private Size _DrawSquare;
+        internal Size DrawSquare
+        {
+            get { return _DrawSquare; }
+            set { _DrawSquare = value; }
+        }
+
+        /// <summary>
+        /// 绘制时视图的水平位置
+        /// </summary>
+        internal int DrawX
+        {
+            get
+            {
+                return ConvertToDraw(/*this.X*/this.Location.X, this.Ratio);
+            }
+        }
+
+        /// <summary>
+        /// 绘制时视图的垂直位置
+        /// </summary>
+        internal int DrawY
+        {
+            get
+            {
+                return ConvertToDraw(/*this.Y*/this.Location.Y, this.Ratio);
+            }
+        }
+
+        internal Point DrawLocation
+        {
+            get
+            {
+                return new Point(this.DrawX, this.DrawY);
+            }
+        }
+
+        /// <summary>
+        /// 绘制时视图的宽度
+        /// </summary>
+        internal int DrawWidth
+        {
+            get
+            {
+                return ConvertToDraw(/*this.Width*/this.Size.Width, this.Ratio);
+            }
+        }
+
+        /// <summary>
+        /// 绘制时视图的高度
+        /// </summary>
+        internal int DrawHeight
+        {
+            get
+            {
+                return ConvertToDraw(/*this.Height*/this.Size.Height, this.Ratio);
+            }
+        }
+
+        /// <summary>
+        /// 绘制时视图的大小
+        /// </summary>
+        internal Size DrawSize
+        {
+            get
+            {
+                return new Size(this.DrawWidth, this.DrawHeight); ;
+            }
+        }
 
         /// <summary>
         /// 相对于父视图的矩形
@@ -163,7 +316,7 @@ namespace UIEditor.Entity
         {
             get
             {
-                return new Rectangle(new Point(this.X, this.Y), new Size(this.Width, this.Height));
+                return new Rectangle(/*new Point(this.X, this.Y)*/this.Location, /*new Size(this.Width, this.Height)*/this.Size);
             }
         }
 
@@ -177,11 +330,11 @@ namespace UIEditor.Entity
                 ViewNode pNode = this.Parent as ViewNode;
                 if ((null != pNode) && (MyConst.Controls.KnxGroupBoxType == pNode.Name))
                 {
-                    return new Point(this.X + pNode.LocationInPage.X, this.Y + pNode.LocationInPage.Y);
+                    return new Point(this.DrawX + pNode.LocationInPage.X, this.DrawY + pNode.LocationInPage.Y);
                 }
                 else
                 {
-                    return new Point(this.X, this.Y);
+                    return this.DrawLocation;
                 }
             }
         }
@@ -193,7 +346,37 @@ namespace UIEditor.Entity
         {
             get
             {
-                return new Rectangle(this.LocationInPage, new Size(this.Width, this.Height));
+                return new Rectangle(this.LocationInPage, this.DrawSize);
+            }
+        }
+
+        /// <summary>
+        /// 相对于页面的控件位置，没有缩放
+        /// </summary>
+        internal Point LocationInPageFact
+        {
+            get
+            {
+                ViewNode pNode = this.Parent as ViewNode;
+                if ((null != pNode) && (MyConst.Controls.KnxGroupBoxType == pNode.Name))
+                {
+                    return new Point(/*this.X*/this.Location.X + pNode.LocationInPageFact.X, /*this.Y*/this.Location.Y + pNode.LocationInPageFact.Y);
+                }
+                else
+                {
+                    return /*new Point(this.X, this.Y)*/this.Location;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 相对于页面的控件矩形框，没有缩放
+        /// </summary>
+        internal Rectangle RectInPageFact
+        {
+            get
+            {
+                return new Rectangle(this.LocationInPageFact, /*new Size(this.Width, this.Height)*/this.Size);
             }
         }
 
@@ -225,13 +408,13 @@ namespace UIEditor.Entity
         {
             get
             {
-                int X = this.RectInPage.X - square.Width - 1;
-                int Y = this.RectInPage.Y - square.Height - 1;
-                int Height = this.RectInPage.Height + (square.Height * 2) + 2;
-                int Width = this.RectInPage.Width + (square.Width * 2) + 2;
-                return new Rectangle(X, Y, Width, Height);
+                return new Rectangle(this.RectInPage.X - this.DrawSquare.Width - 1,
+                    this.RectInPage.Y - this.DrawSquare.Height - 1,
+                    this.RectInPage.Width + (this.DrawSquare.Width * 2) + 2,
+                    this.RectInPage.Height + (this.DrawSquare.Height * 2) + 2);
             }
         }
+        #endregion
 
         internal Point PPoint { get; set; }
 
@@ -246,13 +429,14 @@ namespace UIEditor.Entity
 
         internal Point[] LinePoints { get; set; }
 
+        /// <summary>
+        /// 控件的可变大小边框是否已经显示
+        /// </summary>
         internal bool FrameIsVisible { get; set; }
 
         internal MousePosOnCtrl MPOC { get; set; }
 
         public Point PreLocation { get; set; }
-
-        public Point PrePoint { get; set; }
 
         public Rectangle PreBound { get; set; }
 
@@ -264,7 +448,6 @@ namespace UIEditor.Entity
         /// 与父控件比对时因吸附效应产生的Y轴方向补偿
         /// </summary>
         public int ParCompY { get; set; }
-        public ViewNode ParNode { get; set; }
 
         /// <summary>
         /// 与同一父控件下的兄弟控件比对时因吸附效应产生的X轴方向补偿
@@ -274,7 +457,6 @@ namespace UIEditor.Entity
         /// 与同一父控件下的兄弟控件比对时因吸附效应产生的X轴方向补偿
         /// </summary>
         public int GapCompY { get; set; }
-        public ViewNode GapNode { get; set; }
 
         /// <summary>
         /// 与同一页面下的兄弟控件比对时因吸附效应产生的X轴方向补偿
@@ -284,52 +466,89 @@ namespace UIEditor.Entity
         /// 与同一页面下的兄弟控件比对时因吸附效应产生的X轴方向补偿
         /// </summary>
         public int AliCompY { get; set; }
-        public ViewNode AliNode { get; set; }
         #endregion
 
-        public static int GenId()
-        {
-            return InitId++;
-        }
-
         #region 构造函数
-
         public ViewNode()
         {
             this.Id = GenId();
-            this.X = 0;
-            this.Y = 0;
-            this.Width = 0;
-            this.Height = 0;
-            //this.Location = Point.Empty;
-            //this.Size = Size.Empty;
+            this.Location = Point.Empty;
+            this.Size = new Size(ControlMinWidth, ControlMinHeight);
+            this.Padding = new Padding(0);
             this.DisplayBorder = EBool.No;
             this.BorderColor = Color.Black;
-            this.Alpha = 0.7;
+            this.Alpha = 0.7f;
             this.Radius = 0;
             this.FlatStyle = EFlatStyle.Flat;
             this.BackgroundColor = Color.BlanchedAlmond;
-            this.BackgroundImage = null;
-            this.FontColor = Color.Black;
-            this.FontSize = 16;
+            this.TitleFont = new STFont(Color.Black, 16);
             this.Text = "ViewNode";
+            this.Title = "ViewNode";
 
             this.State = ControlState.Normal;
-            //this.LocationInPage = Point.Empty;
         }
 
+        /// <summary>
+        /// KNXView 转 ViewNode
+        /// </summary>
+        /// <param name="knx"></param>
+        public ViewNode(KNXView knx, BackgroundWorker worker)
+        {
+            this.Id = knx.Id;
+            this.Text = knx.Text;
+
+            if (ImportedHelper.IsLessThan2_0_3())
+            {
+                this.Title = knx.Text;
+            }
+            else
+            {
+                this.Title = knx.Title;
+            }
+
+            if (null != worker)
+            {
+                worker.ReportProgress(0, string.Format(UIResMang.GetString("TextIsImporting"), this.Title));
+            }
+
+            this.Location = new Point(knx.Left, knx.Top);
+            this.Size = new Size(knx.Width, knx.Height);
+            if (null != knx.Padding)
+            {
+                this.Padding = knx.Padding.ToPadding();
+            }
+            else
+            {
+                this.Padding = new Padding(0);
+            }
+            this.DisplayBorder = (EBool)Enum.ToObject(typeof(EBool), knx.DisplayBorder);
+            this.BorderColor = ColorHelper.HexStrToColor(knx.BorderColor);
+            this.Alpha = knx.Alpha;
+            this.Radius = knx.Radius;
+            this.FlatStyle = (EFlatStyle)Enum.ToObject(typeof(EFlatStyle), knx.FlatStyle);
+            this.BackgroundColor = ColorHelper.HexStrToColor(knx.BackgroundColor ?? "#FFFFFF");
+            this.BackgroundImage = knx.BackgroundImage;
+            if (ImportedHelper.IsLessThan2_5_2())
+            {
+                this.TitleFont = new STFont(knx.FontColor, knx.FontSize);
+            }
+            else
+            {
+                this.TitleFont = new STFont(knx.TitleFont);
+            }
+
+            this.State = ControlState.Normal;
+        }
+        #endregion
+
+        #region 克隆、复制
         public override object Clone()
         {
             ViewNode node = base.Clone() as ViewNode;
-            node.Text = this.Text + " " + ResourceMng.GetString("NCopy");
-
-            node.Id = GenId();
-            node.X = this.X;
-            node.Y = this.Y;
-            node.Width = this.Width;
-            node.Height = this.Height;
-            //node.Location = this.Location;
-            //node.Size = this.Size;
+            node.Title = this.Title;
+            node.Location = this.Location;
+            node.Size = this.Size;
+            node.Padding = this.Padding;
             node.DisplayBorder = this.DisplayBorder;
             node.BorderColor = this.BorderColor;
             node.Alpha = this.Alpha;
@@ -337,166 +556,133 @@ namespace UIEditor.Entity
             node.FlatStyle = this.FlatStyle;
             node.BackgroundColor = this.BackgroundColor;
             node.BackgroundImage = this.BackgroundImage;
-            node.FontColor = this.FontColor;
-            node.FontSize = this.FontSize;
+            node.TitleFont = this.TitleFont.Clone();
 
             node.State = ControlState.Normal;
 
             return node;
         }
 
-        /// <summary>
-        /// KNXView 转 ViewNode
-        /// </summary>
-        /// <param name="knx"></param>
-        public ViewNode(KNXView knx)
+        public virtual object Copy()
         {
-            this.Id = knx.Id;
-            this.Text = knx.Text;
-            this.X = knx.Left;
-            this.Y = knx.Top;
-            this.Width = knx.Width;
-            this.Height = knx.Height;
-            //this.Location = new Point(knx.Left, knx.Top);
-            //this.Size = new Size(knx.Width, knx.Height);
-            this.DisplayBorder = (EBool)Enum.ToObject(typeof(EBool), knx.DisplayBorder);
-            this.BorderColor = FrmMainHelp.HexStrToColor(knx.BorderColor);
-            this.Alpha = knx.Alpha;
-            this.Radius = knx.Radius;
-            this.FlatStyle = (EFlatStyle)Enum.ToObject(typeof(EFlatStyle), knx.FlatStyle);
-            this.BackgroundColor = FrmMainHelp.HexStrToColor(knx.BackgroundColor ?? "#FFFFFF");
-            this.BackgroundImage = knx.BackgroundImage;
-            this.FontColor = FrmMainHelp.HexStrToColor(knx.FontColor ?? "#000000");
-            this.FontSize = knx.FontSize;
+            ViewNode node = this.Clone() as ViewNode;
 
-            this.State = ControlState.Normal;
+            node.Title = this.Title + UIResMang.GetString("NCopy");
+
+            return node;
         }
-
-        protected ViewNode(SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        {
-        }
-
         #endregion
 
+        #region 抽象函数
+        public virtual void SetText(string title)
+        {
+            this.Text = this.Name + " " + title + "   " + this.Title;
+        }
+
+        public virtual string GetText(string text)
+        {
+            return this.Name + " " + text + "   " + this.Title;
+        }
+        #endregion
+
+        #region 导出到KNX
         /// <summary>
         /// ViewNode 转 KNXView
         /// </summary>
         /// <param name="knx"></param>
-        protected void ToKnx(KNXView knx)
+        public void ToKnx(KNXView knx, BackgroundWorker worker)
         {
+            if (null != worker)
+            {
+                worker.ReportProgress(0, string.Format(UIResMang.GetString("TextIsExporting"), this.Title));
+            }
+
             knx.Id = this.Id;
             knx.Text = this.Text;
-            knx.Left = this.X;
-            knx.Top = this.Y;
-            knx.Width = this.Width;
-            knx.Height = this.Height;
-            //knx.Left = this.Location.X;
-            //knx.Top = this.Location.Y;
-            //knx.Width = this.Size.Width;
-            //knx.Height = this.Size.Height;
+            knx.Title = this.Title;
+            knx.Left = this.Location.X;
+            knx.Top = this.Location.Y;
+            knx.Width = this.Size.Width;
+            knx.Height = this.Size.Height;
+            knx.Padding = new KNXPadding(this.Padding);
             knx.DisplayBorder = (int)this.DisplayBorder;
-            knx.BorderColor = FrmMainHelp.ColorToHexStr(this.BorderColor);
+            knx.BorderColor = ColorHelper.ColorToHexStr(this.BorderColor);
             knx.Alpha = this.Alpha;
             knx.Radius = this.Radius;
             knx.FlatStyle = (int)this.FlatStyle;
-            knx.BackgroundColor = FrmMainHelp.ColorToHexStr(this.BackgroundColor);
+            knx.BackgroundColor = ColorHelper.ColorToHexStr(this.BackgroundColor);
             knx.BackgroundImage = this.BackgroundImage;
-            knx.FontColor = FrmMainHelp.ColorToHexStr(this.FontColor);
-            knx.FontSize = this.FontSize;
+            knx.TitleFont = this.TitleFont.ToKnx();
+
+            MyCache.ValidResImgNames.Add(knx.BackgroundImage);
         }
-
-        #region
-        //private void UpdateLocationInPage()
-        //{
-        //    ViewNode pNode = this.Parent as ViewNode;
-        //    if ((null != pNode) && (MyConst.Controls.KnxGroupBoxType == pNode.Name))
-        //    {
-        //        this.LocationInPage = new Point(this.Location.X + pNode.LocationInPage.X, this.Location.Y + pNode.LocationInPage.Y);
-        //    }
-        //    else
-        //    {
-        //        this.LocationInPage = new Point(this.Location.X, this.Location.Y);
-        //    }
-        //}
-
-        //private void UpdateRectInPage()
-        //{
-        //    this.RectInPage = new Rectangle(this.LocationInPage, this.Size);
-        //}
-
-        //private void UpdateVisibleRectInPage()
-        //{
-        //    ViewNode pNode = this.Parent as ViewNode;
-        //    if ((null != pNode) && (MyConst.Controls.KnxGroupBoxType == pNode.Name))
-        //    {
-        //        Rectangle pRect = pNode.VisibleRectInPage;
-        //        int x = this.VisibleRect.X + pNode.LocationInPage.X;
-        //        int y = this.VisibleRect.Y + pNode.LocationInPage.Y;
-        //        int width = this.VisibleRect.Width;
-        //        int height = this.VisibleRect.Height;
-        //        int right = x + width;
-        //        int bottom = y + height;
-
-        //        x = x >= pRect.X ? x : pRect.X;
-        //        y = y >= pRect.Y ? y : pRect.Y;
-
-        //        width = right - x;
-        //        height = bottom - y;
-
-        //        width = right > pRect.Right ? pRect.Right - x : width;
-        //        height = bottom > pRect.Bottom ? pRect.Bottom - y : height;
-        //        width = width > 0 ? width : 0;
-        //        height = height > 0 ? height : 0;
-
-        //        this.VisibleRectInPage = new Rectangle(x, y, width, height);
-        //    }
-        //    else
-        //    {
-        //        this.VisibleRectInPage = this.VisibleRect;
-        //    }
-        //}
-
-        //private void UpdateFrameBound()
-        //{
-        //    int X = this.RectInPage.X - square.Width - 1;
-        //    int Y = this.RectInPage.Y - square.Height - 1;
-        //    int Height = this.RectInPage.Height + (square.Height * 2) + 2;
-        //    int Width = this.RectInPage.Width + (square.Width * 2) + 2;
-        //    this.FrameBound = new Rectangle(X, Y, Width, Height);
-        //}
-
-        //private void UpdateFactRect()
-        //{
-        //    this.FactRect = new Rectangle(this.Location, this.Size);
-        //}
-
-        //private void UpdateVisibleRect()
-        //{
-        //    if (MyConst.View.KnxPageType == this.Name)
-        //    {
-        //        this.VisibleRect = this.FactRect;
-        //    }
-        //    else
-        //    {
-        //        ViewNode pNode = this.Parent as ViewNode;
-        //        if (null != pNode)
-        //        {
-        //            int x = this.Left > 0 ? this.Left : 0;
-        //            int y = this.Top > 0 ? this.Top : 0;
-        //            int right = this.Right >= pNode.Size.Width ? pNode.Size.Width : this.Right;
-        //            int bottom = this.Bottom >= pNode.Size.Height ? pNode.Size.Height : this.Bottom;
-
-        //            this.VisibleRect = new Rectangle(new Point(x, y), new Size(right - x, bottom - y));
-        //        }
-        //        else
-        //        {
-        //            this.VisibleRect = this.FactRect;
-        //        }
-        //    }
-        //}
         #endregion
 
+        public static int GenId()
+        {
+            return InitId++;
+        }
+
+        public string GetImageName(int id)
+        {
+            return "id_" + id;
+        }
+
+        public int GetAppNodeWidth()
+        {
+            if (MyConst.View.KnxAppType == this.Name)
+            {
+                //return this.Width;
+                return this.Size.Width;
+            }
+
+            if (null == this.Parent)
+            {
+                return -1;
+            }
+
+            AppNode parentNode = this.Parent as AppNode;
+            if (null != parentNode)
+            {
+                return GetAppNodeWidth();
+            }
+            else
+            {
+                //return parentNode.Width;
+                return parentNode.Size.Width;
+            }
+        }
+
+        public int GetAppNodeHeight()
+        {
+            if (MyConst.View.KnxAppType == this.Name)
+            {
+                //return this.Height;
+                return this.Size.Height;
+            }
+
+            if (null == this.Parent)
+            {
+                return -1;
+            }
+
+            AppNode parentNode = this.Parent as AppNode;
+            if (null != parentNode)
+            {
+                return GetAppNodeHeight();
+            }
+            else
+            {
+                //return parentNode.Height;
+                return parentNode.Size.Height;
+            }
+        }
+
+        /// <summary>
+        /// 坐标p是否包含于控件可变大小框范围内
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
         public bool FrameBoundContainsPoint(Point p)
         {
             bool contains = false;
@@ -515,58 +701,81 @@ namespace UIEditor.Entity
             return contains;
         }
 
+        public void CompensateReset()
+        {
+            this.ParCompX = 0;
+            this.ParCompY = 0;
+            this.GapCompX = 0;
+            this.GapCompY = 0;
+            this.AliCompX = 0;
+            this.AliCompY = 0;
+        }
+
         public virtual void Selected()
         {
-            this.IsSelected = true;
-            this.State = ControlState.Move;
+            this.IsThisSelected = true;
         }
 
         public virtual void Deselected()
         {
-            this.IsSelected = false;
+            this.IsThisSelected = false;
             this.State = ControlState.Normal;
         }
 
+        /// <summary>
+        /// 给定控件的水平绝对位置（相对于页面），求得水平相对位置（相对于父控件）
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
         public int GetLocationXFromLocationXInPage(int x)
         {
             ViewNode pNode = this.Parent as ViewNode;
             if ((null != pNode) && (MyConst.Controls.KnxGroupBoxType == pNode.Name))
             {
                 return x - pNode.LocationInPage.X;
-                //this.Location = new Point(x - pNode.LocationInPage.X, this.Location.Y);
             }
             else
             {
                 return x;
-                //this.Location = new Point(x, this.Location.Y);
             }
         }
 
+        /// <summary>
+        /// 给定控件的Right，求得控件的Left
+        /// </summary>
+        /// <param name="right"></param>
+        /// <returns></returns>
         public int GetLocationXFromLocationRightInPage(int right)
         {
-            //SetLocationXFromLocationXInPage(right - this.Size.Width);
-            return GetLocationXFromLocationXInPage(right - this.Width);
+            return GetLocationXFromLocationXInPage(right - this.DrawWidth);
         }
 
+        /// <summary>
+        /// 给定控件的绝对垂直位置（相对于页面），求得控件的相对垂直位置（相对于父控件）
+        /// </summary>
+        /// <param name="y"></param>
+        /// <returns></returns>
         public int GetLocationYFromLocationYInPage(int y)
         {
             ViewNode pNode = this.Parent as ViewNode;
             if ((null != pNode) && (MyConst.Controls.KnxGroupBoxType == pNode.Name))
             {
-                //this.Location = new Point(this.Location.X, y - pNode.LocationInPage.Y);
                 return y - pNode.LocationInPage.Y;
             }
             else
             {
-                //this.Location = new Point(this.Location.X, y);
                 return y;
             }
         }
 
+        /// <summary>
+        /// 给定控件的Bottom，求得控件的Top
+        /// </summary>
+        /// <param name="bottom"></param>
+        /// <returns></returns>
         public int GetLocationYFromLocationBottomInPage(int bottom)
         {
-            //SetLocationYFromLocationYInPage(bottom - this.Size.Height);
-            return GetLocationYFromLocationYInPage(bottom - this.Height);
+            return GetLocationYFromLocationYInPage(bottom - this.DrawHeight);
         }
 
         #region 控件绘制
@@ -576,13 +785,41 @@ namespace UIEditor.Entity
             {
                 nodes.Add(this);
             }
-            else if (this.FrameIsVisible && FrameBoundContainsPoint(p)/*this.FrameBound.Contains(p)*/) // 调节大小
+            else if (this.FrameIsVisible && FrameBoundContainsPoint(p)) // 调节大小
             {
                 nodes.Add(this);
             }
         }
-        public virtual void DrawAt(Point basePoint, Graphics g)
+
+        public static int ConvertToDraw(int v, float ratio)
         {
+            return (int)Math.Round((float)v * ratio, 0);
+        }
+
+        public static int ConvertToFact(int v, float ratio)
+        {
+            return (int)Math.Round((float)v / ratio, 0);
+        }
+
+        public void SetRatio(float ratio)
+        {
+            this.Ratio = ratio;
+        }
+
+        /// <summary>
+        /// 绘制控件
+        /// </summary>
+        /// <param name="g">绘图图画</param>
+        /// <param name="ratio">绘制时缩放比例</param>
+        /// <param name="preview">是否为预览</param>
+        public virtual void DrawAt(Graphics g, float ratio, bool preview)
+        {
+            if (ratio != this.Ratio)
+            {
+                this.Ratio = ratio;
+
+                this.DrawSquare = new Size(ConvertToDraw(this.square.Width, ratio), ConvertToDraw(this.square.Height, ratio));
+            }
         }
 
         public virtual void MouseDown(MouseEventArgs e)
@@ -599,7 +836,7 @@ namespace UIEditor.Entity
                 return;
             }
 
-            if (this.IsSelected && this.FrameIsVisible)
+            if (this.IsThisSelected && this.FrameIsVisible)
             {
                 if (this.SmallRects[0].Contains(e.Location))
                 {
@@ -650,71 +887,39 @@ namespace UIEditor.Entity
             //Cursor.Current = Cursors.Default;
         }
 
-        internal GraphicsPath GetRoundRectangle(Rectangle rectangle, int r)
+        public static void DrawRoundRectangle(Graphics g, Pen pen, Rectangle rect, int cornerRadius, float borderWidth, float ratio)
         {
-            int l = 2 * r;
-            // 把圆角矩形分成八段直线、弧的组合，依次加到路径中 
-            GraphicsPath gp = new GraphicsPath();
-
-            if (r > 0)
-            {
-                gp.AddLine(new Point(rectangle.X + r, rectangle.Y), new Point(rectangle.Right - r, rectangle.Y)); // 顶端横线
-                gp.AddArc(new Rectangle(rectangle.Right - l, rectangle.Y, l, l), 270, 90); // 右上圆角
-
-                gp.AddLine(new Point(rectangle.Right, rectangle.Y + r), new Point(rectangle.Right, rectangle.Bottom - r)); // 右端竖线
-                gp.AddArc(new Rectangle(rectangle.Right - l, rectangle.Bottom - l, l, l), 0, 90); // 右下圆角
-
-                gp.AddLine(new Point(rectangle.Right - r, rectangle.Bottom), new Point(rectangle.X + r, rectangle.Bottom)); // 底端横线
-                gp.AddArc(new Rectangle(rectangle.X, rectangle.Bottom - l, l, l), 90, 90); // 左下圆角
-
-                gp.AddLine(new Point(rectangle.X, rectangle.Bottom - r), new Point(rectangle.X, rectangle.Y + r)); // 左端竖线
-                gp.AddArc(new Rectangle(rectangle.X, rectangle.Y, l, l), 180, 90); // 左上圆角
-            }
-            else
-            {
-                gp.AddLine(new Point(rectangle.X, rectangle.Y), new Point(rectangle.Right, rectangle.Y)); // 顶端横线
-                gp.AddLine(new Point(rectangle.Right, rectangle.Y), new Point(rectangle.Right, rectangle.Bottom)); // 右端竖线
-                gp.AddLine(new Point(rectangle.Right, rectangle.Bottom), new Point(rectangle.X, rectangle.Bottom)); // 底端横线
-                gp.AddLine(new Point(rectangle.X, rectangle.Bottom), new Point(rectangle.X, rectangle.Y)); // 左端竖线
-            }
-
-            gp.CloseFigure();
-
-            return gp;
-        }
-
-        public static void DrawRoundRectangle(Graphics g, Pen pen, Rectangle rect, int cornerRadius, float borderWidth)
-        {
-            using (GraphicsPath path = CreateRoundedRectanglePath(rect, cornerRadius, borderWidth))
+            using (GraphicsPath path = CreateRoundedRectanglePath(rect, cornerRadius, borderWidth, ratio))
             {
                 g.DrawPath(pen, path);
             }
         }
 
-        public static void FillRoundRectangle(Graphics g, Brush brush, Rectangle rect, int cornerRadius, float borderWidth)
+        public static void FillRoundRectangle(Graphics g, Brush brush, Rectangle rect, int cornerRadius, float borderWidth, float ratio)
         {
-            using (GraphicsPath path = CreateRoundedRectanglePath(rect, cornerRadius, borderWidth))
+            using (GraphicsPath path = CreateRoundedRectanglePath(rect, cornerRadius, borderWidth, ratio))
             {
                 g.FillPath(brush, path);
             }
         }
 
-        internal static GraphicsPath CreateRoundedRectanglePath(Rectangle rect, int cornerRadius, float borderWidth)
+        internal static GraphicsPath CreateRoundedRectanglePath(Rectangle rect, int cornerRadius, float borderWidth, float ratio)
         {
             GraphicsPath roundedRect = new GraphicsPath();
             if (cornerRadius > 0)
             {
                 int min = Math.Min(rect.Width, rect.Height);
                 cornerRadius = Math.Min(min / 2, cornerRadius);
+                cornerRadius = (int)Math.Round(cornerRadius * ratio, 0);
 
                 roundedRect.AddArc(rect.X, rect.Y, cornerRadius * 2, cornerRadius * 2, 180, 90); // 左上角弧线
                 roundedRect.AddLine(rect.X + cornerRadius, rect.Y, rect.Right - cornerRadius, rect.Y); // 顶部线段
                 roundedRect.AddArc(rect.Right - cornerRadius * 2 - borderWidth, rect.Y, cornerRadius * 2, cornerRadius * 2, 270, 90); // 右上角弧线
                 roundedRect.AddLine(rect.Right - borderWidth, rect.Y + cornerRadius, rect.Right - borderWidth, rect.Bottom - cornerRadius); // 右侧线段
                 roundedRect.AddArc(rect.Right - cornerRadius * 2 - borderWidth, rect.Bottom - cornerRadius * 2 - borderWidth, cornerRadius * 2, cornerRadius * 2, 0, 90); // 右下角弧线
-                roundedRect.AddLine(rect.Right - cornerRadius , rect.Bottom - borderWidth, rect.X + cornerRadius, rect.Bottom - borderWidth); // 底部线段
+                roundedRect.AddLine(rect.Right - cornerRadius, rect.Bottom - borderWidth, rect.X + cornerRadius, rect.Bottom - borderWidth); // 底部线段
                 roundedRect.AddArc(rect.X, rect.Bottom - cornerRadius * 2 - borderWidth, cornerRadius * 2, cornerRadius * 2, 90, 90); // 左下角弧线
-                roundedRect.AddLine(rect.X, rect.Bottom - cornerRadius , rect.X, rect.Y + cornerRadius); // 左侧线段
+                roundedRect.AddLine(rect.X, rect.Bottom - cornerRadius, rect.X, rect.Y + cornerRadius); // 左侧线段
             }
             else
             {
@@ -731,14 +936,14 @@ namespace UIEditor.Entity
         {
             /* 八个小矩形 */
             Rectangle[] rects = new Rectangle[8];
-            rects[0] = new Rectangle(this.FrameBound.Location, square); //左上
-            rects[1] = new Rectangle(new Point(this.FrameBound.Location.X + (this.FrameBound.Width - square.Width) / 2 - 1, this.FrameBound.Location.Y), square); //上中
-            rects[2] = new Rectangle(new Point(this.FrameBound.Location.X + this.FrameBound.Width - square.Width, this.FrameBound.Location.Y), square); //右上
-            rects[3] = new Rectangle(new Point(this.FrameBound.Location.X + this.FrameBound.Width - square.Width, this.FrameBound.Location.Y + (this.FrameBound.Height - square.Height) / 2 - 1), square); //右中
-            rects[4] = new Rectangle(new Point(this.FrameBound.Location.X + this.FrameBound.Width - square.Width, this.FrameBound.Location.Y + this.FrameBound.Height - square.Height - 1), square); //右下
-            rects[5] = new Rectangle(new Point(this.FrameBound.Location.X + (this.FrameBound.Width - square.Width) / 2 - 1, this.FrameBound.Location.Y + this.FrameBound.Height - square.Height - 1), square); //下中
-            rects[6] = new Rectangle(new Point(this.FrameBound.Location.X, this.FrameBound.Location.Y + this.FrameBound.Height - square.Height - 1), square); //左下
-            rects[7] = new Rectangle(new Point(this.FrameBound.Location.X, this.FrameBound.Location.Y + (this.FrameBound.Height - square.Height) / 2 - 1), square); //左中
+            rects[0] = new Rectangle(this.FrameBound.Location, this.DrawSquare); //左上
+            rects[1] = new Rectangle(new Point(this.FrameBound.Location.X + (this.FrameBound.Width - this.DrawSquare.Width) / 2 - 1, this.FrameBound.Location.Y), this.DrawSquare); //上中
+            rects[2] = new Rectangle(new Point(this.FrameBound.Location.X + this.FrameBound.Width - this.DrawSquare.Width - 1, this.FrameBound.Location.Y), this.DrawSquare); //右上
+            rects[3] = new Rectangle(new Point(this.FrameBound.Location.X + this.FrameBound.Width - this.DrawSquare.Width - 1, this.FrameBound.Location.Y + (this.FrameBound.Height - this.DrawSquare.Height) / 2 - 1), this.DrawSquare); //右中
+            rects[4] = new Rectangle(new Point(this.FrameBound.Location.X + this.FrameBound.Width - this.DrawSquare.Width - 1, this.FrameBound.Location.Y + this.FrameBound.Height - this.DrawSquare.Height - 1), this.DrawSquare); //右下
+            rects[5] = new Rectangle(new Point(this.FrameBound.Location.X + (this.FrameBound.Width - this.DrawSquare.Width) / 2 - 1, this.FrameBound.Location.Y + this.FrameBound.Height - this.DrawSquare.Height - 1), this.DrawSquare); //下中
+            rects[6] = new Rectangle(new Point(this.FrameBound.Location.X, this.FrameBound.Location.Y + this.FrameBound.Height - this.DrawSquare.Height - 1), this.DrawSquare); //左下
+            rects[7] = new Rectangle(new Point(this.FrameBound.Location.X, this.FrameBound.Location.Y + (this.FrameBound.Height - this.DrawSquare.Height) / 2 - 1), this.DrawSquare); //左中
             this.SmallRects = rects;
 
             /* 八条边线 */
@@ -764,12 +969,23 @@ namespace UIEditor.Entity
             this.LinePoints = points;
         }
 
-        public Rectangle FrameChanged(int dx, int dy)
+        public Rectangle FrameChanged(int dx, int dy, bool respectRatio)
         {
-            int newX = this.Y;
-            int newY = this.X;
-            int newWidth = this.Width;
-            int newHeight = this.Height;
+            if (respectRatio)
+            {
+                //float r = (float)this.Width / (float)this.Height;
+                float r = (float)this.Size.Width / (float)this.Size.Height;
+                dx = (int)Math.Round((float)dy * Ratio, 0);
+            }
+
+            //int newX = this.Y;
+            //int newY = this.X;
+            //int newWidth = this.Width;
+            //int newHeight = this.Height;
+            int newX = this.Location.Y;
+            int newY = this.Location.X;
+            int newWidth = this.Size.Width;
+            int newHeight = this.Size.Height;
             switch (this.MPOC)
             {
                 case MousePosOnCtrl.TOP:
@@ -901,7 +1117,6 @@ namespace UIEditor.Entity
             }
             return new Rectangle(newY, newX, newWidth, newHeight);
         }
-
         #endregion
 
         #region 静态方法
@@ -911,8 +1126,99 @@ namespace UIEditor.Entity
             int y = pageLocation.Y - parentLocation.Y;
             return new Point(x, y);
         }
-        #endregion
 
+        /// <summary>
+        /// 获取node的PageNode
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        public static PageNode GetPageNodeFromParent(ViewNode node)
+        {
+            if (null != node)
+            {
+                if (MyConst.View.KnxPageType == node.Name)
+                {
+                    return node as PageNode;
+                }
+                else
+                {
+                    ViewNode parentNode = node.Parent as ViewNode;
+                    return GetPageNodeFromParent(parentNode);
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 取得包含所有控件的最小矩形
+        /// </summary>
+        /// <param name="nodes"></param>
+        /// <returns></returns>
+        public static Rectangle GetMinimumCommonRectangleInPage(List<ViewNode> nodes)
+        {
+            if ((null == nodes) || (nodes.Count <= 0))
+            {
+                return Rectangle.Empty;
+            }
+
+            int x = nodes[0].RectInPageFact.X;
+            int y = nodes[0].RectInPageFact.Y;
+            int right = nodes[0].RectInPageFact.Right;
+            int bottom = nodes[0].RectInPageFact.Bottom;
+
+            foreach (ViewNode node in nodes)
+            {
+                /* 取得能包含两个控件的最小矩形框 */
+                x = x > node.RectInPageFact.X ? node.RectInPageFact.X : x;
+                y = y > node.RectInPageFact.Y ? node.RectInPageFact.Y : y;
+                right = right > node.RectInPageFact.Right ? right : node.RectInPageFact.Right;
+                bottom = bottom > node.RectInPageFact.Bottom ? bottom : node.RectInPageFact.Bottom;
+            }
+
+            int width = right - x;
+            int height = bottom - y;
+
+            return new Rectangle(x, y, width, height);
+        }
+
+        public static Rectangle GetMinimumCommonRectangleInParent(List<ViewNode> nodes)
+        {
+            if ((null == nodes) || (nodes.Count <= 0))
+            {
+                return Rectangle.Empty;
+            }
+
+            //int x = nodes[0].X;
+            //int y = nodes[0].Y;
+            //int right = nodes[0].X + nodes[0].Width;
+            //int bottom = nodes[0].Y + nodes[0].Height;
+            int x = nodes[0].Location.X;
+            int y = nodes[0].Location.Y;
+            int right = nodes[0].Location.X + nodes[0].Size.Width;
+            int bottom = nodes[0].Location.Y + nodes[0].Size.Height;
+
+            foreach (ViewNode node in nodes)
+            {
+                /* 取得能包含两个控件的最小矩形框 */
+                //x = x > node.X ? node.X : x;
+                //y = y > node.Y ? node.Y : y;
+                //right = right > node.X + node.Width ? right : node.X + node.Width;
+                //bottom = bottom > node.Y + node.Height ? bottom : node.Y + node.Height;
+                x = x > node.Location.X ? node.Location.X : x;
+                y = y > node.Location.Y ? node.Location.Y : y;
+                right = right > node.Location.X + node.Size.Width ? right : node.Location.X + node.Size.Width;
+                bottom = bottom > node.Location.Y + node.Size.Height ? bottom : node.Location.Y + node.Size.Height;
+            }
+
+            int width = right - x;
+            int height = bottom - y;
+
+            return new Rectangle(x, y, width, height);
+        }
+        #endregion
     }
 
 

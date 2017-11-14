@@ -1,5 +1,4 @@
-﻿
-using System.Drawing;
+﻿using System.Drawing;
 using System.Security.Policy;
 
 namespace Structure.Control
@@ -9,10 +8,5 @@ namespace Structure.Control
     /// </summary>
     public class KNXLabel : KNXControlBase
     {
-        //public int FontSize { get; set; }
-        //public string TextAlign { get; set; }
-
-        //public string Font { get; set; }
-
     }
 }

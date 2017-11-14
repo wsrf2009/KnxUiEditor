@@ -1,5 +1,5 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+
 namespace Structure.Control
 {
     /// <summary>
@@ -17,7 +17,8 @@ namespace Structure.Control
         /// </summary>
         public Dictionary<string, KNXSelectedAddress> WriteAddressIds { get; set; }
         /// <summary>
-        /// 开启时显示的图片
+        /// 开启时显示的图片。
+        /// 已被弃用，2.1.1。
         /// </summary>
         public string ImageOn { get; set; }
 
@@ -27,7 +28,8 @@ namespace Structure.Control
         public string ColorOn { get; set; }
 
         /// <summary>
-        /// 关闭时显示的图片
+        /// 关闭时显示的图片。
+        /// 已被弃用，2.1.1。
         /// </summary>
         public string ImageOff { get; set; }
 

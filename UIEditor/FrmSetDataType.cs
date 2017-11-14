@@ -1,4 +1,4 @@
-﻿using Structure;
+﻿using KNX;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

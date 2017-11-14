@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Windows.Forms;
 using UIEditor.Component;
 
@@ -6,20 +7,28 @@ namespace UIEditor
 {
     partial class FrmAboutBox : Form
     {
-        static readonly string FormTitle = ResourceMng.GetString("AppName");
-        static readonly string MyProductName = ResourceMng.GetString("ProductName") +": "+ ResourceMng.GetString("AppName");
-        static readonly string MyVersion = ResourceMng.GetString("Message16");
-        static readonly string MyCopyright = ResourceMng.GetString("Copyright");
-        static readonly string MyCompany = ResourceMng.GetString("Company");
-        static readonly string Description = ResourceMng.GetString("AppDescription");
+        static readonly string About = UIResMang.GetString("About");
+        static readonly string FormTitle = UIResMang.GetString("AppName");
+        static readonly string MyProductName = UIResMang.GetString("ProductName") +": "+ UIResMang.GetString("AppName");
+        static readonly string MyVersion = UIResMang.GetString("Message16");
+        static readonly string MyCopyright = UIResMang.GetString("Copyright");
+        static readonly string MyCompany = UIResMang.GetString("Company");
+        static readonly string Description = UIResMang.GetString("AppDescription");
         public FrmAboutBox()
         {
             InitializeComponent();
-            this.Text = String.Format("About {0}", FormTitle);
-            this.labelProductName.Text = MyProductName;
-            this.labelVersion.Text = string.Format(MyVersion, Application.ProductVersion);
-            this.labelCopyright.Text = MyCopyright;
-            this.labelCompanyName.Text = MyCompany;
+
+            Assembly asm = Assembly.GetExecutingAssembly();
+
+            this.Text = String.Format("{0} {1}", About, FormTitle);
+
+            this.labelProductName.Text = Application.ProductName;
+
+            this.labelVersion.Text = Application.ProductVersion;
+
+            AssemblyCopyrightAttribute asmcpr = (AssemblyCopyrightAttribute)Attribute.GetCustomAttribute(asm, typeof(AssemblyCopyrightAttribute));
+            this.labelCopyright.Text = asmcpr.Copyright;  //MyCopyright;
+
             this.textBoxDescription.Text = Description;
         }
 

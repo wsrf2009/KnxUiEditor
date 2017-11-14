@@ -33,7 +33,7 @@ namespace UIEditor
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ResourceMng.GetString("Message24"), ResourceMng.GetString("Message6"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(UIResMang.GetString("Message24"), UIResMang.GetString("Message6"), MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                     Console.Write(ex.Message);
                 }

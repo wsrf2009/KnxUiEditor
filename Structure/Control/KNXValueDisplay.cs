@@ -1,6 +1,6 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
+
 namespace Structure.Control
 {
     /// <summary>
@@ -28,39 +28,21 @@ namespace Structure.Control
         /// </summary>
         public Dictionary<string, KNXSelectedAddress> ReadAddressId { get; set; }
 
-        //public string CMeasurementUnit[] = {
-        //    ""
-        //    public const string Centigrade = "℃";
-        //    public const string Fahrenheit = "℉";
-        //    public const string Ampere = "A";
-        //    public const string Milliampere = "mA";
-        //    public const string Kilowatt = "KW";
-        //}
-
-        //// 标签
-        //public string Lable { get; set; }
-
-
         /// <summary>
         /// 用于添加单元标识符显示的值，例如一个可选字段：用于显示当前温度，”°C”可以插入。
         /// </summary>
         public int Unit { get; set; }
 
+        /// <summary>
+        /// 小数位数
+        /// 新增于2.5.2
+        /// </summary>
+        public int DecimalDigit { get; set; }
 
-        ///// <summary>
-        ///// 显示的值
-        ///// </summary>
-        //public string Value { get; set; }
-
-
-        //// 可选的姓名或名称的显示值。这是类似的标签，但直接显示的实际值。
-        //public string Description { get; set; }
-
-
-        ///// <summary>
-        ///// 定义小数位数
-        ///// </summary>
-        //public int DecimalPlaces { get; set; }
-
+        /// <summary>
+        /// 数值字体
+        /// 新增于2.5.7
+        /// </summary>
+        public KNXFont ValueFont { get; set; }
     }
 }

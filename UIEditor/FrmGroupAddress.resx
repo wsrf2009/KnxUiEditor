@@ -205,7 +205,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;flpCommands.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>2</value>
   </data>
   <data name="buttonAddAction.Location" type="System.Drawing.Point, System.Drawing">
     <value>169, 20</value>
@@ -232,7 +232,7 @@
     <value>6, 17</value>
   </data>
   <data name="treeViewDefaultActions.Size" type="System.Drawing.Size, System.Drawing">
-    <value>162, 149</value>
+    <value>162, 176</value>
   </data>
   <data name="treeViewDefaultActions.TabIndex" type="System.Int32, mscorlib">
     <value>70</value>
@@ -251,12 +251,11 @@
   </data>
   <data name="buttonDeleteAction.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADrwAAA68AZW8ckkAAADHSURBVDhP3ZRLCsJAEERnyCV0rTvvIuoF/KAewAOoEMUf
-        eGZfdTIw2/TMyoKi6TQ8qpPMhL9QxFs8syZaX6QdmDe1BTbtHvl1APbCF9zSP/DYJg6xZnxSBcPhgxch
-        NK6VBUvJrvRKtrSJQxsgd2qebKXBUGmV/p0ZLCVzwRp8BHKj9jD7CO415wC+1DMWUOCTBl4podatljCp
-        2jvMtQZW5SvnErTaf5ik/7HaSUnaZ0nTWR7ZpEBKqnS6bSbdo3IBrXcfDlAIP4BiJ+wQUfhBAAAAAElF
-        TkSuQmCC
+        iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        vAAADrwBlbxySQAAAMdJREFUOE/dlEsKwkAQRGfIJXStO+8i6gX8oB7AA6gQxR94Zl91MjDb9MzKgqLp
+        NDyqk8yEv1DEWzyzJlpfpB2YN7UFNu0e+XUA9sIX3NI/8NgmDrFmfFIFw+GDFyE0rpUFS8mu9Eq2tIlD
+        GyB3ap5spcFQaZX+nRksJXPBGnwEcqP2MPsI7jXnAL7UMxZQ4JMGXimh1q2WMKnaO8y1BlblK+cStNp/
+        mKT/sdpJSdpnSdNZHtmkQEqqdLptJt2jcgGtdx8OUAg/gGIn7BBR+EEAAAAASUVORK5CYII=
 </value>
   </data>
   <data name="buttonDeleteAction.Location" type="System.Drawing.Point, System.Drawing">
@@ -287,7 +286,7 @@
     <value>223, 18</value>
   </data>
   <data name="listBoxActios.Size" type="System.Drawing.Size, System.Drawing">
-    <value>153, 148</value>
+    <value>153, 172</value>
   </data>
   <data name="listBoxActios.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -312,22 +311,22 @@
   </data>
   <data name="buttonHelper.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        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
+        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
 </value>
   </data>
   <data name="buttonHelper.Location" type="System.Drawing.Point, System.Drawing">
@@ -427,7 +426,7 @@
     <value>3</value>
   </data>
   <data name="tableLayoutPanel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 178</value>
+    <value>6, 211</value>
   </data>
   <data name="tableLayoutPanel1.RowCount" type="System.Int32, mscorlib">
     <value>1</value>
@@ -454,10 +453,10 @@
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="buttonHelper" Row="0" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="textBoxActionName" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="buttonAdd" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxActionValue" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50,Percent,50,Absolute,80,Absolute,32" /&gt;&lt;Rows Styles="Absolute,32" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 222</value>
+    <value>6, 193</value>
   </data>
   <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>382, 220</value>
+    <value>382, 249</value>
   </data>
   <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -475,7 +474,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>7</value>
   </data>
   <data name="cbxUpgrade.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
@@ -627,120 +626,6 @@
   <data name="&gt;&gt;cbxWrite.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="txtReadTimespan.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="txtReadTimespan.Location" type="System.Drawing.Point, System.Drawing">
-    <value>143, 161</value>
-  </data>
-  <data name="txtReadTimespan.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>1, 1, 1, 1</value>
-  </data>
-  <data name="txtReadTimespan.Size" type="System.Drawing.Size, System.Drawing">
-    <value>241, 21</value>
-  </data>
-  <data name="txtReadTimespan.TabIndex" type="System.Int32, mscorlib">
-    <value>67</value>
-  </data>
-  <data name="&gt;&gt;txtReadTimespan.Name" xml:space="preserve">
-    <value>txtReadTimespan</value>
-  </data>
-  <data name="&gt;&gt;txtReadTimespan.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;txtReadTimespan.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;txtReadTimespan.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 164</value>
-  </data>
-  <data name="label4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 0</value>
-  </data>
-  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>137, 12</value>
-  </data>
-  <data name="label4.TabIndex" type="System.Int32, mscorlib">
-    <value>66</value>
-  </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>Interval Time of Read:</value>
-  </data>
-  <data name="&gt;&gt;label4.Name" xml:space="preserve">
-    <value>label4</value>
-  </data>
-  <data name="&gt;&gt;label4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="txtDefaultValue.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="txtDefaultValue.Location" type="System.Drawing.Point, System.Drawing">
-    <value>122, 134</value>
-  </data>
-  <data name="txtDefaultValue.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>1, 1, 1, 1</value>
-  </data>
-  <data name="txtDefaultValue.Size" type="System.Drawing.Size, System.Drawing">
-    <value>263, 21</value>
-  </data>
-  <data name="txtDefaultValue.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="&gt;&gt;txtDefaultValue.Name" xml:space="preserve">
-    <value>txtDefaultValue</value>
-  </data>
-  <data name="&gt;&gt;txtDefaultValue.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;txtDefaultValue.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;txtDefaultValue.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="label7.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>28, 137</value>
-  </data>
-  <data name="label7.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 0</value>
-  </data>
-  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 12</value>
-  </data>
-  <data name="label7.TabIndex" type="System.Int32, mscorlib">
-    <value>65</value>
-  </data>
-  <data name="label7.Text" xml:space="preserve">
-    <value>Default Value:</value>
-  </data>
-  <data name="&gt;&gt;label7.Name" xml:space="preserve">
-    <value>label7</value>
-  </data>
-  <data name="&gt;&gt;label7.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
   <data name="cmbPriority.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
@@ -766,7 +651,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cmbPriority.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>6</value>
   </data>
   <data name="lblPriority.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -796,7 +681,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblPriority.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>5</value>
   </data>
   <data name="txtID.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -823,7 +708,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;txtID.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>11</value>
   </data>
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -850,7 +735,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>3</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -877,7 +762,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>8</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -904,7 +789,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>10</value>
   </data>
   <data name="txtName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -931,7 +816,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;txtName.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>4</value>
   </data>
   <data name="txtWriteAddress.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -958,7 +843,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;txtWriteAddress.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>1</value>
   </data>
   <data name="label5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -988,13 +873,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>9</value>
   </data>
   <data name="tableLayoutPanel2.ColumnCount" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
   <data name="tableLayoutPanel2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 186</value>
+    <value>12, 143</value>
   </data>
   <data name="tableLayoutPanel2.RowCount" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1015,7 +900,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;tableLayoutPanel2.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>12</value>
   </data>
   <data name="tableLayoutPanel2.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="cbxRead" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="cbxWrite" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="cbxUpgrade" Row="0" RowSpan="1" Column="4" ColumnSpan="1" /&gt;&lt;Control Name="cbxCommunication" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="cbxTransmit" Row="0" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,20,Percent,20,Percent,20,Percent,20,Percent,20" /&gt;&lt;Rows Styles="Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>

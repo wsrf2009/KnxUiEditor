@@ -117,270 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Save_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Save_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Page_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\page_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="value_display" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\controls\value_display.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="scene_button" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\controls\scene_button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="sip2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\controls\sip2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="SortAsc_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sortasc_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Paste_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Paste_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Close_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Close_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Check_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\check_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Copy_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Copy_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Edit_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ui\Edit_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ColorPalette_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\colorpalette_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Grid_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\grid_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Room_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\room_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="slider" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\controls\slider.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Delete_Control_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Delete_Control_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="slider_switch" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\controls\slider_switch.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Publish_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Publish_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="add_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ui\add_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Cut_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Cut_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="webcam_viewer" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\controls\webcam_viewer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Collapse_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\collapse_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Collapse_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\collapse_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="connection_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\connection_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ImportKNX_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\importknx_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Slider_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\controls\Slider_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="media_button" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\controls\media_button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Export_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\export_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Button_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\controls\Button_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rgb" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\controls\rgb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Controls_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\controls_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="add_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ui\add_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IconSwitchButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\controls\iconswitchbutton.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="SortDesc_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sortdesc_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Save_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\save_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="imageButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\controls\imageButton.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="button" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\controls\button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Copy_16x161" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Copy_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Expand_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\expand_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MoveDown_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\movedown_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Grid_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\grid_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Page_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\page_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="connection_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\connection_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="CloseProj_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CloseProj_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Area_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\area_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="delete_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ui\delete_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="CloseProj_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CloseProj_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Label_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\controls\Label_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Expand_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\expand_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="snapper_switch" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\controls\snapper_switch.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="App_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\app_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="App_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\app_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="New_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\new_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Area_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\area_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="search_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\search_16.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Info_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\info_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Help_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\help_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ImportKNX_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ImportKNX_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Info_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\info_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Help_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\help_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MoveDown_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\movedown_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="search_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\search_32.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Edit_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ui\Edit_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Refresh_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Refresh_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Delete_Control_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Delete_Control_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="SortDesc_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sortdesc_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ColorPalette_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\colorpalette_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="label" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\controls\label.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Open_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\open_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="blinds" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\controls\blinds.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Close_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Close_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Slider_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\controls\Slider_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MoveUp_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\moveup_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MoveUp_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\moveup_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="snapper" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\controls\snapper.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="delete_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ui\delete_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="SortAsc_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sortasc_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Controls_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\controls_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="timer_task_list" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\controls\timer_task_list.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="DatapointType" xml:space="preserve">
     <value>数据点类型</value>
-  </data>
-  <data name="icon_helper" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icon_helper.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="add" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="remove" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\remove.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="switch_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\controls\switch_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\controls\icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DigitalAdjustment_500x500" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\controls\DigitalAdjustment_500x500.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="RadioGroup_220x220" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\controls\RadioGroup_220x220.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="timer_512x512" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\controls\timer_512x512.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="PropAlpha" xml:space="preserve">
     <value>不透明度</value>
@@ -413,10 +151,10 @@
     <value>显示值</value>
   </data>
   <data name="PropEtsReadAddressId" xml:space="preserve">
-    <value>ETS读地址</value>
+    <value>读地址</value>
   </data>
   <data name="PropEtsWriteAddressIds" xml:space="preserve">
-    <value>ETS写地址表</value>
+    <value>写地址表</value>
   </data>
   <data name="PropFlatStyle" xml:space="preserve">
     <value>平面样式</value>
@@ -499,8 +237,8 @@
   <data name="SwitchStateOn" xml:space="preserve">
     <value>开</value>
   </data>
-  <data name="TextApplication" xml:space="preserve">
-    <value>应用程序</value>
+  <data name="TextProject" xml:space="preserve">
+    <value>工程</value>
   </data>
   <data name="TextArea" xml:space="preserve">
     <value>区域</value>
@@ -569,7 +307,7 @@
     <value>类型不兼容，不能粘贴到当前的节点 !</value>
   </data>
   <data name="Message14" xml:space="preserve">
-    <value>你是否要删除当前节点 ?</value>
+    <value>你是否要永久删除 {0} ?</value>
   </data>
   <data name="Message15" xml:space="preserve">
     <value>删除节点提醒</value>
@@ -602,16 +340,16 @@
     <value>粘贴</value>
   </data>
   <data name="AppDescription" xml:space="preserve">
-    <value>KNX UI Editor 是一款用户界面定制工具，本工具定义界面的元素和位置，通过解析引擎动态的生成控制界面</value>
+    <value>SVE 是一款根据ETS工程配置，用户定制控制界面的工具。本工具导入并解析ETS4、ETS5工程，用户根据现场情况生成控制界面，根据组地址生成控件，以可视化的方式让用户实时看到界面编辑的效果</value>
   </data>
   <data name="AppName" xml:space="preserve">
-    <value>KNX界面编辑器</value>
+    <value>SVE2</value>
   </data>
   <data name="Company" xml:space="preserve">
     <value>珠海世讯</value>
   </data>
   <data name="Copyright" xml:space="preserve">
-    <value>珠海世讯 2012-2016</value>
+    <value>珠海世讯 2012-2017</value>
   </data>
   <data name="Message16" xml:space="preserve">
     <value>版本： {0}</value>
@@ -704,7 +442,7 @@
     <value>绝对调节，输入范围：0~255\n计算公式 v = 255 * t（调节度，也即百分值）。例如要调节到25%，v=255*0.25=63.75，去掉小数得v=63</value>
   </data>
   <data name="Message28" xml:space="preserve">
-    <value>场景选择，输入范围：0~63</value>
+    <value>场景号，输入范围：1~64</value>
   </data>
   <data name="Message29" xml:space="preserve">
     <value>只能输入0或1！</value>
@@ -956,7 +694,7 @@
     <value>控件左上角的坐标X(单位：像素)</value>
   </data>
   <data name="DescriptionForPropRadius" xml:space="preserve">
-    <value>控件四个角的圆角半径，为0时无圆角</value>
+    <value>控件四个角的圆角半径，取值范围（&gt;=0），为0时无圆角</value>
   </data>
   <data name="DescriptionForPropTop" xml:space="preserve">
     <value>控件左上角的坐标Y(单位：像素)</value>
@@ -1068,5 +806,318 @@
   </data>
   <data name="DescriptionForPropTip" xml:space="preserve">
     <value>在“是否有提示”选为Yes后，此项才有效。此项中的文本会在给出的弹窗中显示</value>
+  </data>
+  <data name="Message48" xml:space="preserve">
+    <value>工程中已存在同名图片 {0}，是否需要覆盖？</value>
+  </data>
+  <data name="Message49" xml:space="preserve">
+    <value>场景号输入错误！取值范围1~64</value>
+  </data>
+  <data name="Message50" xml:space="preserve">
+    <value>字体字号输入错误！应为大于0的整数值</value>
+  </data>
+  <data name="Message51" xml:space="preserve">
+    <value>宽度不能小于 {0}</value>
+  </data>
+  <data name="Message52" xml:space="preserve">
+    <value>高度不能小于 {0}</value>
+  </data>
+  <data name="Message53" xml:space="preserve">
+    <value>控件不透明度取值范围必须为 0.0~1.0</value>
+  </data>
+  <data name="Message54" xml:space="preserve">
+    <value>控件圆角半径必须为大于或等于0的整数</value>
+  </data>
+  <data name="ConvertToJSON" xml:space="preserve">
+    <value>转为JSON对象</value>
+  </data>
+  <data name="CreateControl" xml:space="preserve">
+    <value>生成控件对象</value>
+  </data>
+  <data name="InitializeEnviroment" xml:space="preserve">
+    <value>初始化...</value>
+  </data>
+  <data name="OpeningProject" xml:space="preserve">
+    <value>正在打开 {0}</value>
+  </data>
+  <data name="TextAddNewAddress" xml:space="preserve">
+    <value>添加新地址</value>
+  </data>
+  <data name="TextModifyAddress" xml:space="preserve">
+    <value>修改组地址</value>
+  </data>
+  <data name="PropOrientation" xml:space="preserve">
+    <value>方向</value>
+  </data>
+  <data name="CategorySlider" xml:space="preserve">
+    <value>滑块</value>
+  </data>
+  <data name="PropSliderWidth" xml:space="preserve">
+    <value>滑块宽度</value>
+  </data>
+  <data name="DescriptionForPropRotate" xml:space="preserve">
+    <value>控件顺时针旋转</value>
+  </data>
+  <data name="PropRotate" xml:space="preserve">
+    <value>旋转</value>
+  </data>
+  <data name="Property" xml:space="preserve">
+    <value>属性</value>
+  </data>
+  <data name="Display" xml:space="preserve">
+    <value>显示</value>
+  </data>
+  <data name="PageManager" xml:space="preserve">
+    <value>页面管理器</value>
+  </data>
+  <data name="ProjectManager" xml:space="preserve">
+    <value>工程管理器</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="StoreIn" xml:space="preserve">
+    <value>存储于</value>
+  </data>
+  <data name="CategoryId" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="PropId" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="ChangeName" xml:space="preserve">
+    <value>重命名</value>
+  </data>
+  <data name="Message55" xml:space="preserve">
+    <value>已存在同名文件，是否要继续？</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>关于</value>
+  </data>
+  <data name="DescriptionForPropTitle" xml:space="preserve">
+    <value>控件的名称</value>
+  </data>
+  <data name="PropTitle" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="Message56" xml:space="preserve">
+    <value>输入值无效，不能为空</value>
+  </data>
+  <data name="DescriptionForPropSymbol" xml:space="preserve">
+    <value>工程图标</value>
+  </data>
+  <data name="PropSymbol" xml:space="preserve">
+    <value>图标</value>
+  </data>
+  <data name="PropAppBackgroundImage" xml:space="preserve">
+    <value>背景图片</value>
+  </data>
+  <data name="PropPageBackgroundImage" xml:space="preserve">
+    <value>页面的背景图片</value>
+  </data>
+  <data name="DescriptionForPropAppBackgroundImage" xml:space="preserve">
+    <value>App主界面的背景图片</value>
+  </data>
+  <data name="CategoryVersion" xml:space="preserve">
+    <value>版本</value>
+  </data>
+  <data name="DescriptionForPropEditorVersion" xml:space="preserve">
+    <value>生成工程文件的编辑器版本</value>
+  </data>
+  <data name="PropEditorVersion" xml:space="preserve">
+    <value>编辑器版本</value>
+  </data>
+  <data name="LastModifiedTime" xml:space="preserve">
+    <value>修改日期</value>
+  </data>
+  <data name="PropVersion" xml:space="preserve">
+    <value>工程版本</value>
+  </data>
+  <data name="PropEtsReadAddressIds" xml:space="preserve">
+    <value>读地址表</value>
+  </data>
+  <data name="Message57" xml:space="preserve">
+    <value>滑块宽度不能小于 {0}</value>
+  </data>
+  <data name="TextImageButton" xml:space="preserve">
+    <value>图像按钮</value>
+  </data>
+  <data name="TextCollection" xml:space="preserve">
+    <value>收藏夹</value>
+  </data>
+  <data name="TextRefreshPage" xml:space="preserve">
+    <value>刷新页面</value>
+  </data>
+  <data name="TextAddControl" xml:space="preserve">
+    <value>添加控件</value>
+  </data>
+  <data name="TextAddToCollections" xml:space="preserve">
+    <value>添加到收藏夹</value>
+  </data>
+  <data name="MyCollection" xml:space="preserve">
+    <value>我的收藏</value>
+  </data>
+  <data name="TextIsExporting" xml:space="preserve">
+    <value>正在导出 {0}</value>
+  </data>
+  <data name="SavingGroupAddressFile" xml:space="preserve">
+    <value>保存组地址文件</value>
+  </data>
+  <data name="SavingProject" xml:space="preserve">
+    <value>正在保存工程 {0}</value>
+  </data>
+  <data name="SavingUIMetaFile" xml:space="preserve">
+    <value>保存UI界面元文件</value>
+  </data>
+  <data name="SavingVersionFile" xml:space="preserve">
+    <value>保存工程版本文件</value>
+  </data>
+  <data name="TextIsZiping" xml:space="preserve">
+    <value>正在压缩...</value>
+  </data>
+  <data name="MyTemplate" xml:space="preserve">
+    <value>我的模板</value>
+  </data>
+  <data name="TextAddToTemplate" xml:space="preserve">
+    <value>添加到模板</value>
+  </data>
+  <data name="TextTemplate" xml:space="preserve">
+    <value>模板</value>
+  </data>
+  <data name="Detail" xml:space="preserve">
+    <value>详细信息</value>
+  </data>
+  <data name="GroupBy" xml:space="preserve">
+    <value>分组依据</value>
+  </data>
+  <data name="LargeIcon" xml:space="preserve">
+    <value>大图标</value>
+  </data>
+  <data name="List" xml:space="preserve">
+    <value>列表</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>刷新</value>
+  </data>
+  <data name="SmallIcon" xml:space="preserve">
+    <value>小图标</value>
+  </data>
+  <data name="Ungroup" xml:space="preserve">
+    <value>未分类</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>类型</value>
+  </data>
+  <data name="Collections" xml:space="preserve">
+    <value>收藏夹</value>
+  </data>
+  <data name="Combination" xml:space="preserve">
+    <value>组合</value>
+  </data>
+  <data name="DescriptionForPropLeftTextFont" xml:space="preserve">
+    <value>设置左标签文字的大小、样式以及颜色</value>
+  </data>
+  <data name="PropLeftTextFont" xml:space="preserve">
+    <value>左标签字体</value>
+  </data>
+  <data name="PropSTFontBold" xml:space="preserve">
+    <value>粗体</value>
+  </data>
+  <data name="PropSTFontColor" xml:space="preserve">
+    <value>颜色</value>
+  </data>
+  <data name="PropSTFontItalic" xml:space="preserve">
+    <value>斜体</value>
+  </data>
+  <data name="PropSTFontSize" xml:space="preserve">
+    <value>大小</value>
+  </data>
+  <data name="PropSTFontStrikeout" xml:space="preserve">
+    <value>删除线</value>
+  </data>
+  <data name="PropSTFontUnderline" xml:space="preserve">
+    <value>下划线</value>
+  </data>
+  <data name="DescriptionForPropRightTextFont" xml:space="preserve">
+    <value>设置右标签文字的大小、样式以及颜色</value>
+  </data>
+  <data name="PropRightTextFont" xml:space="preserve">
+    <value>右标签字体</value>
+  </data>
+  <data name="DescriptionForPropTitleFont" xml:space="preserve">
+    <value>设置标题字体的大小、样式以及颜色</value>
+  </data>
+  <data name="PropTitleFont" xml:space="preserve">
+    <value>标题字体</value>
+  </data>
+  <data name="PropDecimalDigit" xml:space="preserve">
+    <value>小数位数</value>
+  </data>
+  <data name="PropMaxValue" xml:space="preserve">
+    <value>最大值</value>
+  </data>
+  <data name="PropMinValue" xml:space="preserve">
+    <value>最小值</value>
+  </data>
+  <data name="PropRegStep" xml:space="preserve">
+    <value>调节步长</value>
+  </data>
+  <data name="Message58" xml:space="preserve">
+    <value>字号不能小于 {0}</value>
+  </data>
+  <data name="CategoryBackground" xml:space="preserve">
+    <value>背景</value>
+  </data>
+  <data name="CategoryGroupAddress" xml:space="preserve">
+    <value>组地址</value>
+  </data>
+  <data name="CategoryTitle" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="CategoryValue" xml:space="preserve">
+    <value>数值</value>
+  </data>
+  <data name="PropValueFont" xml:space="preserve">
+    <value>数值字体</value>
+  </data>
+  <data name="PropFont" xml:space="preserve">
+    <value>字体</value>
+  </data>
+  <data name="PropEtsAddressIds" xml:space="preserve">
+    <value>组地址表</value>
+  </data>
+  <data name="TextDimmer" xml:space="preserve">
+    <value>调光控制器</value>
+  </data>
+  <data name="TextShutter" xml:space="preserve">
+    <value>窗帘控制器</value>
+  </data>
+  <data name="PropPadding" xml:space="preserve">
+    <value>内边距</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>下载:</value>
+  </data>
+  <data name="FoundNewVersion" xml:space="preserve">
+    <value>发现新版本：</value>
+  </data>
+  <data name="UpgradeTips" xml:space="preserve">
+    <value>新版本已下载，是否现在更新？
+(更新程序将关闭当前应用，请确保您已保存当前工程！！！)</value>
+  </data>
+  <data name="UpdatedTips" xml:space="preserve">
+    <value>当前为最新版本，无需更新！</value>
+  </data>
+  <data name="TextWebCamer" xml:space="preserve">
+    <value>网络摄像头</value>
+  </data>
+  <data name="TextAirCondition" xml:space="preserve">
+    <value>空调</value>
+  </data>
+  <data name="TextMediaButton" xml:space="preserve">
+    <value>背景音乐</value>
   </data>
 </root>

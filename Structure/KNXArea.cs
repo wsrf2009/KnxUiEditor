@@ -11,6 +11,13 @@ namespace Structure
     public class KNXArea : KNXView
     {
         /// <summary>
+        /// 图标
+        /// </summary>
+        public string Symbol { get; set; }
+
+        public string PinCode { get; set; }
+
+        /// <summary>
         /// 包含的房间
         /// </summary>
         public List<KNXRoom> Rooms { get; set; }

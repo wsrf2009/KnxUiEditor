@@ -1,0 +1,413 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8041336D-A839-4876-B2BD-6FD0964588EB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>KNX</RootNamespace>
+    <AssemblyName>KNX</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DatapointAction\DatapointActionNode.cs" />
+    <Compile Include="DatapointAction\DatapointAction.cs" />
+    <Compile Include="DatapointType\DatapointType.cs" />
+    <Compile Include="DatapointType\Type24TimesChannelActivation\ChannelActivation24\ChannelActivation24Node.cs" />
+    <Compile Include="DatapointType\Type24TimesChannelActivation\Type24TimesChannelActivationNode.cs" />
+    <Compile Include="DatapointType\Type2NibbleSet\DoubleNibble\DoubleNibbleNode.cs" />
+    <Compile Include="DatapointType\Type2NibbleSet\Type2NibbleSetNode.cs" />
+    <Compile Include="DatapointType\Type3ByteColourRGB\ColourRGB\ColourRGBNode.cs" />
+    <Compile Include="DatapointType\Type3ByteColourRGB\Type3ByteColourRGBNode.cs" />
+    <Compile Include="DatapointType\Type3x2ByteFloatValue\TempRoomSetpSetF163\TempRoomSetpSetF163Node.cs" />
+    <Compile Include="DatapointType\Type3x2ByteFloatValue\TempRoomSetpSetShiftF163\TempRoomSetpSetShiftF163Node.cs" />
+    <Compile Include="DatapointType\Type3x2ByteFloatValue\Type3x2ByteFloatValueNode.cs" />
+    <Compile Include="DatapointType\Type411ByteCombinedInformation\MeteringValue\MeteringValueNode.cs" />
+    <Compile Include="DatapointType\Type411ByteCombinedInformation\Type411ByteCombinedInformationNode.cs" />
+    <Compile Include="DatapointType\TypeB16ConfigurationDiagnostics\DALIControlGearDiagnostic\DALIControlGearDiagnosticNode.cs" />
+    <Compile Include="DatapointType\TypeB16ConfigurationDiagnostics\TypeB16ConfigurationDiagnosticsNode.cs" />
+    <Compile Include="DatapointType\TypeB16\ChannelActivation16\ChannelActivation16Node.cs" />
+    <Compile Include="DatapointType\TypeB16\Media\MediaNode.cs" />
+    <Compile Include="DatapointType\TypeB16\StatusDHWC\StatusDHWCNode.cs" />
+    <Compile Include="DatapointType\TypeB16\StatusRHCC\StatusRHCCNode.cs" />
+    <Compile Include="DatapointType\TypeB16\TypeB16Node.cs" />
+    <Compile Include="DatapointType\TypeB24\BuildingModeNext\BuildingModeNextNode.cs" />
+    <Compile Include="DatapointType\TypeB24\DHWModeNext\DHWModeNextNode.cs" />
+    <Compile Include="DatapointType\TypeB24\HVACModeNext\HVACModeNextNode.cs" />
+    <Compile Include="DatapointType\TypeB24\OccModeNext\OccModeNextNode.cs" />
+    <Compile Include="DatapointType\TypeB24\TypeB24Node.cs" />
+    <Compile Include="DatapointType\TypeB32\CombinedInfoOnOff\CombinedInfoOnOffNode.cs" />
+    <Compile Include="DatapointType\TypeB32\TypeB32Node.cs" />
+    <Compile Include="DatapointType\TypeB8ConfigurationDiagnostics\DALIDiagnostics\DALIDiagnosticsNode.cs" />
+    <Compile Include="DatapointType\TypeB8ConfigurationDiagnostics\TypeB8ConfigurationDiagnosticsNode.cs" />
+    <Compile Include="DatapointType\TypeB8\ChannelActivation8\ChannelActivation8Node.cs" />
+    <Compile Include="DatapointType\TypeB8\DeviceControl\DeviceControlNode.cs" />
+    <Compile Include="DatapointType\TypeB8\ForceSignCool\ForceSignCoolNode.cs" />
+    <Compile Include="DatapointType\TypeB8\ForceSign\ForceSignNode.cs" />
+    <Compile Include="DatapointType\TypeB8\FuelTypeSet\FuelTypeSetNode.cs" />
+    <Compile Include="DatapointType\TypeB8\LightActuatorErrorInfo\LightActuatorErrorInfoNode.cs" />
+    <Compile Include="DatapointType\TypeB8\RFFilterInfo\RFFilterInfoNode.cs" />
+    <Compile Include="DatapointType\TypeB8\RFModeInfo\RFModeInfoNode.cs" />
+    <Compile Include="DatapointType\TypeB8\StatusAHU\StatusAHUNode.cs" />
+    <Compile Include="DatapointType\TypeB8\StatusGen\StatusGenNode.cs" />
+    <Compile Include="DatapointType\TypeB8\StatusRCC\StatusRCCNode.cs" />
+    <Compile Include="DatapointType\TypeB8\StatusRHC\StatusRHCNode.cs" />
+    <Compile Include="DatapointType\TypeB8\StatusSDHWC\StatusSDHWCNode.cs" />
+    <Compile Include="DatapointType\TypeB8\TypeB8Node.cs" />
+    <Compile Include="DatapointType\TypeDatapointTypeVersion\TypeDatapointTypeVersionNode.cs" />
+    <Compile Include="DatapointType\TypeDatapointTypeVersion\Version\VersionNode.cs" />
+    <Compile Include="DatapointType\TypeDate\Date\DateNode.cs" />
+    <Compile Include="DatapointType\TypeDate\TypeDateNode.cs" />
+    <Compile Include="DatapointType\TypeDPTAccessData\AccessData\AccessDataNode.cs" />
+    <Compile Include="DatapointType\TypeDPTAccessData\TypeDPTAccessDataNode.cs" />
+    <Compile Include="DatapointType\TypeDPTAlarmInfo\AlarmInfo\AlarmInfoNode.cs" />
+    <Compile Include="DatapointType\TypeDPTAlarmInfo\TypeDPTAlarmInfoNode.cs" />
+    <Compile Include="DatapointType\TypeDPTDateTime\DateTime\DateTimeNode.cs" />
+    <Compile Include="DatapointType\TypeDPTDateTime\TypeDPTDateTimeNode.cs" />
+    <Compile Include="DatapointType\TypeDPTSceneControl\SceneControl\SceneControlNode.cs" />
+    <Compile Include="DatapointType\TypeDPTSceneControl\TypeDPTSceneControlNode.cs" />
+    <Compile Include="DatapointType\TypeDPTSceneInfo\SceneInfo\SceneInfoNode.cs" />
+    <Compile Include="DatapointType\TypeDPTSceneInfo\TypeDPTSceneInfoNode.cs" />
+    <Compile Include="DatapointType\TypeElectricalEnergy\ActiveEnergyV64\ActiveEnergyV64Node.cs" />
+    <Compile Include="DatapointType\TypeElectricalEnergy\ApparantEnergyV64\ApparantEnergyV64Node.cs" />
+    <Compile Include="DatapointType\TypeElectricalEnergy\ReactiveEnergyV64\ReactiveEnergyV64Node.cs" />
+    <Compile Include="DatapointType\TypeElectricalEnergy\TypeElectricalEnergyNode.cs" />
+    <Compile Include="DatapointType\TypeLanguageCodeISO6391\LanguageCodeAlpha2ASCII\LanguageCodeAlpha2ASCIINode.cs" />
+    <Compile Include="DatapointType\TypeLanguageCodeISO6391\TypeLanguageCodeISO6391Node.cs" />
+    <Compile Include="DatapointType\TypeMBusAddress\MBusAddress\MBusAddressNode.cs" />
+    <Compile Include="DatapointType\TypeMBusAddress\TypeMBusAddressNode.cs" />
+    <Compile Include="DatapointType\Types2OctetFloatValue\KelvinPerPercent\KelvinPerPercentNode.cs" />
+    <Compile Include="DatapointType\Types2OctetFloatValue\PowerDensity\PowerDensityNode.cs" />
+    <Compile Include="DatapointType\Types2OctetFloatValue\Power\PowerNode.cs" />
+    <Compile Include="DatapointType\Types2OctetFloatValue\RainAmount\RainAmountNode.cs" />
+    <Compile Include="DatapointType\Types2OctetFloatValue\Types2OctetFloatValueNode.cs" />
+    <Compile Include="DatapointType\Types2OctetFloatValue\ValueAirFlow\ValueAirFlowNode.cs" />
+    <Compile Include="DatapointType\Types2OctetFloatValue\ValueAirQuality\ValueAirQualityNode.cs" />
+    <Compile Include="DatapointType\Types2OctetFloatValue\ValueCurr\ValueCurrNode.cs" />
+    <Compile Include="DatapointType\Types2OctetFloatValue\ValueHumidity\ValueHumidityNode.cs" />
+    <Compile Include="DatapointType\Types2OctetFloatValue\ValueLux\ValueLuxNode.cs" />
+    <Compile Include="DatapointType\Types2OctetFloatValue\ValuePres\ValuePresNode.cs" />
+    <Compile Include="DatapointType\Types2OctetFloatValue\ValueTempa\ValueTempaNode.cs" />
+    <Compile Include="DatapointType\Types2OctetFloatValue\ValueTempd\ValueTempdNode.cs" />
+    <Compile Include="DatapointType\Types2OctetFloatValue\ValueTempF\ValueTempFNode.cs" />
+    <Compile Include="DatapointType\Types2OctetFloatValue\ValueTemp\ValueTempNode.cs" />
+    <Compile Include="DatapointType\Types2OctetFloatValue\ValueTime1\ValueTime1Node.cs" />
+    <Compile Include="DatapointType\Types2OctetFloatValue\ValueTime2\ValueTime2Node.cs" />
+    <Compile Include="DatapointType\Types2OctetFloatValue\ValueVolt\ValueVoltNode.cs" />
+    <Compile Include="DatapointType\Types2OctetFloatValue\ValueVolumeFlow\ValueVolumeFlowNode.cs" />
+    <Compile Include="DatapointType\Types2OctetFloatValue\ValueWspkmh\ValueWspkmhNode.cs" />
+    <Compile Include="DatapointType\Types2OctetFloatValue\ValueWsp\ValueWspNode.cs" />
+    <Compile Include="DatapointType\Types2OctetSignedValue\DeltaTime100Msec\DeltaTime100MsecNode.cs" />
+    <Compile Include="DatapointType\Types2OctetSignedValue\DeltaTime10Msec\DeltaTime10MsecNode.cs" />
+    <Compile Include="DatapointType\Types2OctetSignedValue\DeltaTimeHrs\DeltaTimeHrsNode.cs" />
+    <Compile Include="DatapointType\Types2OctetSignedValue\DeltaTimeMin\DeltaTimeMinNode.cs" />
+    <Compile Include="DatapointType\Types2OctetSignedValue\DeltaTimeMsec\DeltaTimeMsecNode.cs" />
+    <Compile Include="DatapointType\Types2OctetSignedValue\DeltaTimeSec\DeltaTimeSecNode.cs" />
+    <Compile Include="DatapointType\Types2OctetSignedValue\PercentV16\PercentV16Node.cs" />
+    <Compile Include="DatapointType\Types2OctetSignedValue\RotationAngle\RotationAngleNode.cs" />
+    <Compile Include="DatapointType\Types2OctetSignedValue\Types2OctetSignedValueNode.cs" />
+    <Compile Include="DatapointType\Types2OctetSignedValue\Value2Count\Value2CountNode.cs" />
+    <Compile Include="DatapointType\Types2OctetUnsignedValue\Brightness\BrightnessNode.cs" />
+    <Compile Include="DatapointType\Types2OctetUnsignedValue\Lengthmm\LengthmmNode.cs" />
+    <Compile Include="DatapointType\Types2OctetUnsignedValue\PropDataType\PropDataTypeNode.cs" />
+    <Compile Include="DatapointType\Types2OctetUnsignedValue\TimePeriod100Msec\TimePeriod100MsecNode.cs" />
+    <Compile Include="DatapointType\Types2OctetUnsignedValue\TimePeriod10Msec\TimePeriod10MsecNode.cs" />
+    <Compile Include="DatapointType\Types2OctetUnsignedValue\TimePeriodHrs\TimePeriodHrsNode.cs" />
+    <Compile Include="DatapointType\Types2OctetUnsignedValue\TimePeriodMin\TimePeriodMinNode.cs" />
+    <Compile Include="DatapointType\Types2OctetUnsignedValue\TimePeriodMsec\TimePeriodMsecNode.cs" />
+    <Compile Include="DatapointType\Types2OctetUnsignedValue\TimePeriodSec\TimePeriodSecNode.cs" />
+    <Compile Include="DatapointType\Types2OctetUnsignedValue\Types2OctetUnsignedValueNode.cs" />
+    <Compile Include="DatapointType\Types2OctetUnsignedValue\UElCurrentmA\UElCurrentmANode.cs" />
+    <Compile Include="DatapointType\Types2OctetUnsignedValue\Value2Ucount\Value2UcountNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\Types4OctetFloatValueNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueAbsoluteTemperature\ValueAbsoluteTemperatureNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueAccelerationAngular\ValueAccelerationAngularNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueAcceleration\ValueAccelerationNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueActivationEnergy\ValueActivationEnergyNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueActivity\ValueActivityNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueAmplitude\ValueAmplitudeNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueAngleDeg\ValueAngleDegNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueAngleRad\ValueAngleRadNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueAngularFrequency\ValueAngularFrequencyNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueAngularMomentum\ValueAngularMomentumNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueAngularVelocity\ValueAngularVelocityNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueArea\ValueAreaNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueCapacitance\ValueCapacitanceNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueChargeDensitySurface\ValueChargeDensitySurfaceNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueChargeDensityVolume\ValueChargeDensityVolumeNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueCommonTemperature\ValueCommonTemperatureNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueCompressibility\ValueCompressibilityNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueConductance\ValueConductanceNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueDensity\ValueDensityNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueElectricalConductivity\ValueElectricalConductivityNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueElectricCharge\ValueElectricChargeNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueElectricCurrentDensity\ValueElectricCurrentDensityNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueElectricCurrent\ValueElectricCurrentNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueElectricDipoleMoment\ValueElectricDipoleMomentNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueElectricDisplacement\ValueElectricDisplacementNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueElectricFieldStrength\ValueElectricFieldStrengthNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueElectricFluxDensity\ValueElectricFluxDensityNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueElectricFlux\ValueElectricFluxNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueElectricPolarization\ValueElectricPolarizationNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueElectricPotentialDifference\ValueElectricPotentialDifferenceNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueElectricPotential\ValueElectricPotentialNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueElectromagneticMoment\ValueElectromagneticMomentNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueElectromotiveForce\ValueElectromotiveForceNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueEnergy\ValueEnergyNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueForce\ValueForceNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueFrequency\ValueFrequencyNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueHeatCapacity\ValueHeatCapacityNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueHeatFlowRate\ValueHeatFlowRateNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueHeatQuantity\ValueHeatQuantityNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueImpedance\ValueImpedanceNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueLength\ValueLengthNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueLightQuantity\ValueLightQuantityNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueLuminance\ValueLuminanceNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueLuminousFlux\ValueLuminousFluxNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueLuminousIntensity\ValueLuminousIntensityNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueMagneticFieldStrength\ValueMagneticFieldStrengthNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueMagneticFluxDensity\ValueMagneticFluxDensityNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueMagneticFlux\ValueMagneticFluxNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueMagneticMoment\ValueMagneticMomentNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueMagneticPolarization\ValueMagneticPolarizationNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueMagnetization\ValueMagnetizationNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueMagnetomotiveForce\ValueMagnetomotiveForceNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueMassFlux\ValueMassFluxNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueMass\ValueMassNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueMol\ValueMolNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueMomentum\ValueMomentumNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValuePhaseAngleDeg\ValuePhaseAngleDegNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValuePhaseAngleRad\ValuePhaseAngleRadNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValuePowerFactor\ValuePowerFactorNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValuePower\ValuePowerNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValuePressure\ValuePressureNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueReactance\ValueReactanceNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueResistance\ValueResistanceNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueResistivity\ValueResistivityNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueSelfInductance\ValueSelfInductanceNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueSolidAngle\ValueSolidAngleNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueSoundIntensity\ValueSoundIntensityNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueSpeed\ValueSpeedNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueStress\ValueStressNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueSurfaceTension\ValueSurfaceTensionNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueTemperatureDifference\ValueTemperatureDifferenceNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueThermalCapacity\ValueThermalCapacityNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueThermalConductivity\ValueThermalConductivityNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueThermoelectricPower\ValueThermoelectricPowerNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueTime\ValueTimeNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueTorque\ValueTorqueNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueVolumeFlux\ValueVolumeFluxNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueVolume\ValueVolumeNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueWeight\ValueWeightNode.cs" />
+    <Compile Include="DatapointType\Types4OctetFloatValue\ValueWork\ValueWorkNode.cs" />
+    <Compile Include="DatapointType\Types4OctetSignedValue\ActiveEnergykWh\ActiveEnergykWhNode.cs" />
+    <Compile Include="DatapointType\Types4OctetSignedValue\ActiveEnergy\ActiveEnergyNode.cs" />
+    <Compile Include="DatapointType\Types4OctetSignedValue\ApparantEnergykVAh\ApparantEnergykVAhNode.cs" />
+    <Compile Include="DatapointType\Types4OctetSignedValue\ApparantEnergy\ApparantEnergyNode.cs" />
+    <Compile Include="DatapointType\Types4OctetSignedValue\FlowRatem3h\FlowRatem3hNode.cs" />
+    <Compile Include="DatapointType\Types4OctetSignedValue\LongDeltaTimeSec\LongDeltaTimeSecNode.cs" />
+    <Compile Include="DatapointType\Types4OctetSignedValue\ReactiveEnergykVARh\ReactiveEnergykVARhNode.cs" />
+    <Compile Include="DatapointType\Types4OctetSignedValue\ReactiveEnergy\ReactiveEnergyNode.cs" />
+    <Compile Include="DatapointType\Types4OctetSignedValue\Types4OctetSignedValueNode.cs" />
+    <Compile Include="DatapointType\Types4OctetSignedValue\Value4Count\Value4CountNode.cs" />
+    <Compile Include="DatapointType\Types4OctetUnsignedValue\Types4OctetUnsignedValueNode.cs" />
+    <Compile Include="DatapointType\Types4OctetUnsignedValue\Value4Ucount\Value4UcountNode.cs" />
+    <Compile Include="DatapointType\Types8BitUnsignedValue\Angle\AngleNode.cs" />
+    <Compile Include="DatapointType\Types8BitUnsignedValue\DecimalFactor\DecimalFactorNode.cs" />
+    <Compile Include="DatapointType\Types8BitUnsignedValue\PercentU8\PercentU8Node.cs" />
+    <Compile Include="DatapointType\Types8BitUnsignedValue\Scaling\ScalingNode.cs" />
+    <Compile Include="DatapointType\Types8BitUnsignedValue\Tariff\TariffNode.cs" />
+    <Compile Include="DatapointType\Types8BitUnsignedValue\Types8BitUnsignedValueNode.cs" />
+    <Compile Include="DatapointType\Types8BitUnsignedValue\Value1Ucount\Value1UcountNode.cs" />
+    <Compile Include="DatapointType\TypesB1U3\ControlBlinds\ControlBlindsNode.cs" />
+    <Compile Include="DatapointType\TypesB1U3\ControlDimming\ControlDimmingNode.cs" />
+    <Compile Include="DatapointType\TypesB1U3\TypesB1U3Node.cs" />
+    <Compile Include="DatapointType\TypesB1\Ack\AckNode.cs" />
+    <Compile Include="DatapointType\TypesB1\Alarm\AlarmNode.cs" />
+    <Compile Include="DatapointType\TypesB1\BinaryValue\BinaryValueNode.cs" />
+    <Compile Include="DatapointType\TypesB1\Bool\BoolNode.cs" />
+    <Compile Include="DatapointType\TypesB1\DimSendStyle\DimSendStyleNode.cs" />
+    <Compile Include="DatapointType\TypesB1\Enable\EnableNode.cs" />
+    <Compile Include="DatapointType\TypesB1\HeatCool\HeatCoolNode.cs" />
+    <Compile Include="DatapointType\TypesB1\InputSource\InputSourceNode.cs" />
+    <Compile Include="DatapointType\TypesB1\Invert\InvertNode.cs" />
+    <Compile Include="DatapointType\TypesB1\LogicalFunction\LogicalFunctionNode.cs" />
+    <Compile Include="DatapointType\TypesB1\Occupancy\OccupancyNode.cs" />
+    <Compile Include="DatapointType\TypesB1\OpenClose\OpenCloseNode.cs" />
+    <Compile Include="DatapointType\TypesB1\Ramp\RampNode.cs" />
+    <Compile Include="DatapointType\TypesB1\Reset\ResetNode.cs" />
+    <Compile Include="DatapointType\TypesB1\SceneAB\SceneABNode.cs" />
+    <Compile Include="DatapointType\TypesB1\ShutterBlindsMode\ShutterBlindsModeNode.cs" />
+    <Compile Include="DatapointType\TypesB1\Start\StartNode.cs" />
+    <Compile Include="DatapointType\TypesB1\State\StateNode.cs" />
+    <Compile Include="DatapointType\TypesB1\Step\StepNode.cs" />
+    <Compile Include="DatapointType\TypesB1\Switch\SwitchNode.cs" />
+    <Compile Include="DatapointType\TypesB1\Trigger\TriggerNode.cs" />
+    <Compile Include="DatapointType\TypesB1\TypesB1Node.cs" />
+    <Compile Include="DatapointType\TypesB1\UpDown\UpDownNode.cs" />
+    <Compile Include="DatapointType\TypesB1\WindowDoor\WindowDoorNode.cs" />
+    <Compile Include="DatapointType\TypesB2\AlarmControl\AlarmControlNode.cs" />
+    <Compile Include="DatapointType\TypesB2\BinaryValueControl\BinaryValueControlNode.cs" />
+    <Compile Include="DatapointType\TypesB2\BoolControl\BoolControlNode.cs" />
+    <Compile Include="DatapointType\TypesB2\Direction1Control\Direction1ControlNode.cs" />
+    <Compile Include="DatapointType\TypesB2\Direction2Control\Direction2ControlNode.cs" />
+    <Compile Include="DatapointType\TypesB2\EnableControl\EnableControlNode.cs" />
+    <Compile Include="DatapointType\TypesB2\InvertControl\InvertControlNode.cs" />
+    <Compile Include="DatapointType\TypesB2\RampControl\RampControlNode.cs" />
+    <Compile Include="DatapointType\TypesB2\StartControl\StartControlNode.cs" />
+    <Compile Include="DatapointType\TypesB2\StateControl\StateControlNode.cs" />
+    <Compile Include="DatapointType\TypesB2\StepControl\StepControlNode.cs" />
+    <Compile Include="DatapointType\TypesB2\SwitchControl\SwitchControlNode.cs" />
+    <Compile Include="DatapointType\TypesB2\TypesB2Node.cs" />
+    <Compile Include="DatapointType\TypeSceneNumber\SceneNumber\SceneNumberNode.cs" />
+    <Compile Include="DatapointType\TypeSceneNumber\TypeSceneNumberNode.cs" />
+    <Compile Include="DatapointType\TypesCharacterSet\Char88591\Char88591Node.cs" />
+    <Compile Include="DatapointType\TypesCharacterSet\CharASCII\CharASCIINode.cs" />
+    <Compile Include="DatapointType\TypesCharacterSet\TypesCharacterSetNode.cs" />
+    <Compile Include="DatapointType\TypesN2\AlarmReaction\AlarmReactionNode.cs" />
+    <Compile Include="DatapointType\TypesN2\HVACPBAction\HVACPBActionNode.cs" />
+    <Compile Include="DatapointType\TypesN2\OnOffAction\OnOffActionNode.cs" />
+    <Compile Include="DatapointType\TypesN2\TypesN2Node.cs" />
+    <Compile Include="DatapointType\TypesN2\UpDownAction\UpDownActionNode.cs" />
+    <Compile Include="DatapointType\TypesN8\ActuatorConnectType\ActuatorConnectTypeNode.cs" />
+    <Compile Include="DatapointType\TypesN8\ADAType\ADATypeNode.cs" />
+    <Compile Include="DatapointType\TypesN8\AddInfoTypes\AddInfoTypesNode.cs" />
+    <Compile Include="DatapointType\TypesN8\AlarmClassType\AlarmClassTypeNode.cs" />
+    <Compile Include="DatapointType\TypesN8\ApplicationArea\ApplicationAreaNode.cs" />
+    <Compile Include="DatapointType\TypesN8\BackupMode\BackupModeNode.cs" />
+    <Compile Include="DatapointType\TypesN8\BeaufortWindForceScale\BeaufortWindForceScaleNode.cs" />
+    <Compile Include="DatapointType\TypesN8\BehaviourBusPowerUpDown\BehaviourBusPowerUpDownNode.cs" />
+    <Compile Include="DatapointType\TypesN8\BehaviourLockUnlock\BehaviourLockUnlockNode.cs" />
+    <Compile Include="DatapointType\TypesN8\BlindsControlMode\BlindsControlModeNode.cs" />
+    <Compile Include="DatapointType\TypesN8\BlinkingMode\BlinkingModeNode.cs" />
+    <Compile Include="DatapointType\TypesN8\BuildingMode\BuildingModeNode.cs" />
+    <Compile Include="DatapointType\TypesN8\BurnerType\BurnerTypeNode.cs" />
+    <Compile Include="DatapointType\TypesN8\ChangeoverMode\ChangeoverModeNode.cs" />
+    <Compile Include="DatapointType\TypesN8\CommMode\CommModeNode.cs" />
+    <Compile Include="DatapointType\TypesN8\DALIFadeTime\DALIFadeTimeNode.cs" />
+    <Compile Include="DatapointType\TypesN8\DamperMode\DamperModeNode.cs" />
+    <Compile Include="DatapointType\TypesN8\DHWMode\DHWModeNode.cs" />
+    <Compile Include="DatapointType\TypesN8\DimmPBModel\DimmPBModelNode.cs" />
+    <Compile Include="DatapointType\TypesN8\ErrorClassHVAC\ErrorClassHVACNode.cs" />
+    <Compile Include="DatapointType\TypesN8\ErrorClassSystem\ErrorClassSystemNode.cs" />
+    <Compile Include="DatapointType\TypesN8\FanMode\FanModeNode.cs" />
+    <Compile Include="DatapointType\TypesN8\FuelType\FuelTypeNode.cs" />
+    <Compile Include="DatapointType\TypesN8\HeaterMode\HeaterModeNode.cs" />
+    <Compile Include="DatapointType\TypesN8\HVACContrMode\HVACContrModeNode.cs" />
+    <Compile Include="DatapointType\TypesN8\HVACEmergMode\HVACEmergModeNode.cs" />
+    <Compile Include="DatapointType\TypesN8\HVACMode\HVACModeNode.cs" />
+    <Compile Include="DatapointType\TypesN8\LightApplicationMode\LightApplicationModeNode.cs" />
+    <Compile Include="DatapointType\TypesN8\LightControlMode\LightControlModeNode.cs" />
+    <Compile Include="DatapointType\TypesN8\LoadPriority\LoadPriorityNode.cs" />
+    <Compile Include="DatapointType\TypesN8\LoadTypeDetected\LoadTypeDetectedNode.cs" />
+    <Compile Include="DatapointType\TypesN8\LoadTypeSet\LoadTypeSetNode.cs" />
+    <Compile Include="DatapointType\TypesN8\MasterSlaveMode\MasterSlaveModeNode.cs" />
+    <Compile Include="DatapointType\TypesN8\MeteringDeviceType\MeteringDeviceTypeNode.cs" />
+    <Compile Include="DatapointType\TypesN8\OccMode\OccModeNode.cs" />
+    <Compile Include="DatapointType\TypesN8\PBAction\PBActionNode.cs" />
+    <Compile Include="DatapointType\TypesN8\Priority\PriorityNode.cs" />
+    <Compile Include="DatapointType\TypesN8\PSUMode\PSUModeNode.cs" />
+    <Compile Include="DatapointType\TypesN8\RFFilterSelect\RFFilterSelectNode.cs" />
+    <Compile Include="DatapointType\TypesN8\RFModeSelect\RFModeSelectNode.cs" />
+    <Compile Include="DatapointType\TypesN8\SABBehaviourLockUnlock\SABBehaviourLockUnlockNode.cs" />
+    <Compile Include="DatapointType\TypesN8\SABExceptBehaviour\SABExceptBehaviourNode.cs" />
+    <Compile Include="DatapointType\TypesN8\SCLOMode\SCLOModeNode.cs" />
+    <Compile Include="DatapointType\TypesN8\SensorSelect\SensorSelectNode.cs" />
+    <Compile Include="DatapointType\TypesN8\SSSBMode\SSSBModeNode.cs" />
+    <Compile Include="DatapointType\TypesN8\StartSynchronization\StartSynchronizationNode.cs" />
+    <Compile Include="DatapointType\TypesN8\StatusRoomSetp\StatusRoomSetpNode.cs" />
+    <Compile Include="DatapointType\TypesN8\SwitchOnMode\SwitchOnModeNode.cs" />
+    <Compile Include="DatapointType\TypesN8\SwitchPBModel\SwitchPBModelNode.cs" />
+    <Compile Include="DatapointType\TypesN8\TimeDelay\TimeDelayNode.cs" />
+    <Compile Include="DatapointType\TypesN8\TypesN8Node.cs" />
+    <Compile Include="DatapointType\TypesN8\ValveMode\ValveModeNode.cs" />
+    <Compile Include="DatapointType\TypesString\String88591\String88591Node.cs" />
+    <Compile Include="DatapointType\TypesString\StringASCII\StringASCIINode.cs" />
+    <Compile Include="DatapointType\TypesString\TypesStringNode.cs" />
+    <Compile Include="DatapointType\TypesV8\PercentV8\PercentV8Node.cs" />
+    <Compile Include="DatapointType\TypesV8\StatusMode1\StatusMode3Node.cs" />
+    <Compile Include="DatapointType\TypesV8\TypesV8Node.cs" />
+    <Compile Include="DatapointType\TypesV8\Value1Count\Value1CountNode.cs" />
+    <Compile Include="DatapointType\TypeTime\TimeOfDay\TimeOfDayNode.cs" />
+    <Compile Include="DatapointType\TypeTime\TypeTimeNode.cs" />
+    <Compile Include="KNX.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.zh-CN.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="KNXResMang.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.zh-CN.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.zh-CN.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,10 +1,9 @@
-﻿
+﻿using KNX;
+using KNX.DatapointAction;
 using System;
 using System.Collections.Generic;
-using UIEditor.KNX.DatapointAction;
 
-
-namespace Structure.ETS
+namespace GroupAddress
 {
     /// <summary>
     /// ETS项目中导入的数据。
@@ -31,7 +30,7 @@ namespace Structure.ETS
             this.IsTransmit = false;
             this.IsUpgrade = false;
             //WireNumber = "";
-            this.ReadTimeSpan = 0;
+            //this.ReadTimeSpan = 0;
             //this.Tip = "";
             this.Actions = null;
         }
@@ -70,13 +69,6 @@ namespace Structure.ETS
         /// ETS数据点名称.1.*、1.001、1.002
         /// </summary>
         public string DPTName { get; set; }
-
-        ///// <summary>
-        ///// 数据点标签. switch、boolean、enable
-        ///// </summary>
-        //public string DPTText { get; set; }
-
-
 
         /// <summary>
         /// 
@@ -118,10 +110,10 @@ namespace Structure.ETS
         ///// </summary>
         //public string WireNumber { get; set; }
 
-        /// <summary>
-        /// 读取时间间隔
-        /// </summary>
-        public int ReadTimeSpan { get; set; }
+        ///// <summary>
+        ///// 读取时间间隔
+        ///// </summary>
+        //public int ReadTimeSpan { get; set; }
 
         ///// <summary>
         ///// 给最终用户控制该组地址时提供一些提示
@@ -131,6 +123,6 @@ namespace Structure.ETS
         /// <summary>
         /// ETS中该设备可执行的动作
         /// </summary>
-        public List<KNXDatapointAction> Actions { get; set; }
+        public List<DatapointAction> Actions { get; set; }
     }
 }

@@ -22,15 +22,6 @@ namespace UIEditor.Component
             if (File.Exists(metaDataFile))
             {
                 string json = File.ReadAllText(metaDataFile, Encoding.UTF8);
-
-                // 替换旧文件
-                //int index = json.IndexOf("control_id", StringComparison.Ordinal);
-                //while (index > 0)
-                //{
-                //    json = json.Substring(0, index) + Convert.ToString(initId + index) + json.Substring(index + 10);
-                //    index = json.IndexOf("control_id", StringComparison.Ordinal);
-                //}
-
                 var settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto };
                 var knxApp = JsonConvert.DeserializeObject<KNXApp>(json, settings);
                 return knxApp;
@@ -39,13 +30,37 @@ namespace UIEditor.Component
             return null;
         }
 
-
         public static void Save(KNXApp knxApp)
         {
-            //
             var settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto };
             var jsonData = JsonConvert.SerializeObject(knxApp, Formatting.None, settings);
             File.WriteAllText(Path.Combine(MyCache.ProjectFolder, MyConst.KnxUiMetaDataFile), jsonData, Encoding.UTF8);
+        }
+
+        /// <summary>
+        /// 将KNXView对象保存为文件
+        /// </summary>
+        /// <param name="knx"></param>
+        /// <param name="path"></param>
+        public static void SaveAsFile(TemplateMeta tpla, string path)
+        {
+            var settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto };
+            var json = JsonConvert.SerializeObject(tpla, Formatting.None, settings);
+            File.WriteAllText(path, json, Encoding.UTF8);
+        }
+
+        public static TemplateMeta Import(string path)
+        {
+            if (File.Exists(path))
+            {
+                string json = File.ReadAllText(path, Encoding.UTF8);
+                var settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto };
+                var knx = JsonConvert.DeserializeObject<TemplateMeta>(json, settings);
+
+                return knx;
+            }
+
+            return null;
         }
     }
 }

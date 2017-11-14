@@ -2,8 +2,9 @@
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using Structure;
 using System.Collections.Generic;
+using Structure;
+using System.ComponentModel;
 
 namespace UIEditor.Entity
 {
@@ -15,31 +16,31 @@ namespace UIEditor.Entity
     {
 
         #region 构造函数
-        public ContainerNode()
+        public ContainerNode():base()
         { }
 
         public override object Clone()
         {
-            return base.Clone();
+            return base.Clone() as ContainerNode;
         }
 
-        public ContainerNode(KNXContainer knx)
-            : base(knx)
-        { }
+        public override object Copy()
+        {
+            return base.Copy() as ContainerNode;
+        }
 
-        protected ContainerNode(SerializationInfo info, StreamingContext context)
-            : base(info, context)
+        public ContainerNode(KNXContainer knx, BackgroundWorker worker)
+            : base(knx, worker)
         { }
-
         #endregion
 
         /// <summary>
         /// ContainerNode 转 KNXContainer
         /// </summary>
         /// <param name="knx"></param>
-        internal void ToKnx(KNXContainer knx)
+        internal void ToKnx(KNXContainer knx, BackgroundWorker worker)
         {
-            base.ToKnx(knx);
+            base.ToKnx(knx, worker);
 
             knx.Controls = new List<KNXControlBase>();
         }

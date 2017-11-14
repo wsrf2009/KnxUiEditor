@@ -1,4 +1,4 @@
-﻿namespace UIEditor.Controls
+﻿namespace UIEditor
 {
     partial class FrmGroupAddressPick
     {
@@ -28,17 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmGroupAddressPick));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmGroupAddressPick));
             this.palBottom = new System.Windows.Forms.Panel();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnFilter = new System.Windows.Forms.Button();
-            this.btnClear = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOk = new System.Windows.Forms.Button();
             this.dgvData = new System.Windows.Forms.DataGridView();
             this.palTop = new System.Windows.Forms.Panel();
+            this.cbbFilterType = new System.Windows.Forms.ComboBox();
             this.palBottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             this.palTop.SuspendLayout();
@@ -46,9 +46,9 @@
             // 
             // palBottom
             // 
+            this.palBottom.Controls.Add(this.cbbFilterType);
             this.palBottom.Controls.Add(this.txtSearch);
             this.palBottom.Controls.Add(this.btnFilter);
-            this.palBottom.Controls.Add(this.btnClear);
             this.palBottom.Controls.Add(this.btnCancel);
             this.palBottom.Controls.Add(this.btnOk);
             resources.ApplyResources(this.palBottom, "palBottom");
@@ -67,13 +67,6 @@
             this.btnFilter.Name = "btnFilter";
             this.btnFilter.UseVisualStyleBackColor = true;
             this.btnFilter.Click += new System.EventHandler(this.btnFilter_Click);
-            // 
-            // btnClear
-            // 
-            resources.ApplyResources(this.btnClear, "btnClear");
-            this.btnClear.Name = "btnClear";
-            this.btnClear.UseVisualStyleBackColor = true;
-            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // btnCancel
             // 
@@ -127,6 +120,13 @@
             resources.ApplyResources(this.palTop, "palTop");
             this.palTop.Name = "palTop";
             // 
+            // cbbFilterType
+            // 
+            this.cbbFilterType.FormattingEnabled = true;
+            resources.ApplyResources(this.cbbFilterType, "cbbFilterType");
+            this.cbbFilterType.Name = "cbbFilterType";
+            this.cbbFilterType.SelectedIndexChanged += new System.EventHandler(this.cbbFilterType_SelectedIndexChanged);
+            // 
             // FrmGroupAddressPick
             // 
             this.AcceptButton = this.btnOk;
@@ -155,7 +155,7 @@
         private System.Windows.Forms.Panel palTop;
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Button btnFilter;
-        private System.Windows.Forms.Button btnClear;
+        private System.Windows.Forms.ComboBox cbbFilterType;
 
     }
 }
