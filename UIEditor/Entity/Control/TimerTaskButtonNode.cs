@@ -28,10 +28,7 @@ namespace UIEditor.Entity.Control
     {
         #region 常量
         private const int PADDING = 2;
-<<<<<<< HEAD
-=======
         private const string NAME_SYMBOL = "Symbol.png";
->>>>>>> SationKNXUIEditor-Modify
         #endregion
 
         #region 变量
@@ -85,12 +82,6 @@ namespace UIEditor.Entity.Control
             this.WriteAddressIds = new Dictionary<string, KNXSelectedAddress>();
         }
 
-<<<<<<< HEAD
-            string FileImageIcon = Path.Combine(MyCache.ProjImagePath, this.Icon);
-            if (!File.Exists(FileImageIcon))
-            {
-                File.Copy(Path.Combine(MyCache.ProjectResCtrlDir, this.Icon), FileImageIcon);
-=======
         public TimerButtonNode(KNXTimerButton knx, BackgroundWorker worker)
             : base(knx, worker)
         {
@@ -132,7 +123,6 @@ namespace UIEditor.Entity.Control
             else
             {
                 this.Symbol = ProjResManager.CopyImageRename(Path.Combine(DirSrcImg, knx.Symbol));
->>>>>>> SationKNXUIEditor-Modify
             }
         }
         #endregion

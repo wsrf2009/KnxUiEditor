@@ -2349,11 +2349,6 @@ namespace UIEditor
         {
             if ((null != e.mPageNode) && (null != e.mNodes))
             {
-<<<<<<< HEAD
-                VersionStorage.Save(); // 保存项目文件的版本信息。
-                this.ucdo.SaveNode(); // 保存界面到JSON文件
-                GroupAddressStorage.Save(); // 保存组地址到JSON文件
-=======
                 SetSelectedControlProjection(e.mPageNode, e.mNodes);
             }
         }
@@ -2365,7 +2360,6 @@ namespace UIEditor
         {
             this.Text = UIResMang.GetString("AppName") + " - " + projectFile;
         }
->>>>>>> SationKNXUIEditor-Modify
 
         private void SetWindowStateNoProject()
         {
@@ -2497,26 +2491,13 @@ namespace UIEditor
                 {
                     if (cNode.Id == pageNode.Id)
                     {
-<<<<<<< HEAD
-                        ProjectFile = myDialog.FileName;
-                        ZipProject(this.ProjectFile);
-                        result = true;
-=======
                         return true;
->>>>>>> SationKNXUIEditor-Modify
                     }
                 }
                 else if ((MyConst.View.KnxAppType == cNode.Name)
                     || (MyConst.View.KnxAreaType == cNode.Name)
                     || (MyConst.View.KnxRoomType == cNode.Name))
                 {
-<<<<<<< HEAD
-                    ZipProject(this.ProjectFile);
-                    result = true;
-                }
-            }
-            catch (Exception ex)
-=======
                     if (ErgodicPageNode(cNode, pageNode))
                     {
                         return true;
@@ -2530,7 +2511,6 @@ namespace UIEditor
         private void ClearCommandQueue()
         {
             if (null != this.cqdo)
->>>>>>> SationKNXUIEditor-Modify
             {
                 this.cqdo.Clear();
             }
@@ -2639,25 +2619,12 @@ namespace UIEditor
             }
         }
 
-<<<<<<< HEAD
-        private void ZipProject(string desFileName)
-=======
         private void RefreshCurrentTabPage()
->>>>>>> SationKNXUIEditor-Modify
         {
             STTabPage tabPage = GetCurrentTabPage();
             PageNode curPageNode = GetPageNode(tabPage);
 
-<<<<<<< HEAD
-            //保存项目文件为 knxuie 类型
-            ZipHelper.ZipDir(MyCache.ProjectFolder, desFileName, MyConst.MyKey);
-
-            //保存状态
-            Saved = true;
-            ShowProjectFile(ProjectFile);
-=======
             RefreshSTTabPage(curPageNode);
->>>>>>> SationKNXUIEditor-Modify
         }
 
         private void SetTabPageTitle(PageNode pNode, string title)
@@ -3065,14 +3032,6 @@ namespace UIEditor
                 version = str[0] + "." + str[1] + "." + str[2];
             }
 
-<<<<<<< HEAD
-        private void SetSelectedNode(ViewNode node)
-        {
-            this.curSelectedNode = node;
-            this.ucdo.SetSelectedNode(node);
-            this.ucProperty.DisplayNode(node);
-        }
-=======
             CheckUpdate up = new CheckUpdate();
             var info = up.Check(Application.ProductName, guid, version);
 
@@ -3083,7 +3042,6 @@ namespace UIEditor
                 {
                     tsslUpdate.Visible = true;
                     tsslUpdate.Text = UIResMang.GetString("Download") + info.Name;
->>>>>>> SationKNXUIEditor-Modify
 
                     tspbUpdate.Visible = true;
                     tspbUpdate.PerformStep();
@@ -3150,106 +3108,7 @@ namespace UIEditor
                 Console.WriteLine(ex.Message);
             }
         }
-<<<<<<< HEAD
-
-        #region 下拉菜单点击事件
-        private void tsmiNew_Click(object sender, EventArgs e)
-        {
-            NewKnxUiProject();
-        }
-
-        private void tsmiOpen_Click(object sender, EventArgs e)
-        {
-            OpenKnxUiPrject();
-        }
-
-        private void tsmiClose_Click(object sender, EventArgs e)
-        {
-            SetToolStripButtonStatus(false);
-            SetToolStripButtonKNXAddrStatus(false);
-            SetToolStripButtonSaveStatus(false);
-            ResetParameter();
-            this.ucdo.RemoveAllAppNode();
-            CloseAllTabPages();
-            this.ucProperty.NotDisplay();
-            tsslblProjectName.Text = "";
-        }
-
-        private void tsmiSave_Click(object sender, EventArgs e)
-        {
-            SaveKnxUiProject(ProjectFile);
-        }
-
-        private void tsmiSaveAs_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-
-            saveFileDialog.Filter = KnxFilter;
-            saveFileDialog.FilterIndex = 0;
-            saveFileDialog.RestoreDirectory = true;
-
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                if (!string.IsNullOrEmpty(saveFileDialog.FileName))
-                {
-                    Cursor = Cursors.WaitCursor;
-
-                    try
-                    {
-                        VersionStorage.Save(); // 保存项目文件的版本信息。
-                        this.ucdo.SaveNode(); // 保存界面到JSON文件
-                        GroupAddressStorage.Save(); // 保存组地址到JSON文件
-
-                        ZipProject(saveFileDialog.FileName);
-
-                        ProjectSaved();
-                    }
-                    catch (Exception ex)
-                    {
-                        string errorMsg = ResourceMng.GetString("Message5") + " " + "exception message: " + ex.Message;
-                        MessageBox.Show(errorMsg, ResourceMng.GetString("Message6"), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Log.Error(errorMsg + LogHelper.Format(ex));
-                    }
-
-                    finally
-                    {
-                        Cursor = Cursors.Default;
-                    }
-                }
-            }
-        }
-
-        private void tsmiExit_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void tsmi_en_US_Click(object sender, EventArgs e)
-        {
-            AppConfigHelper.UpdateAppConfig(MyConst.XmlTagAppLanguange, "en-US");
-
-            Application.Restart();
-        }
-
-        private void tsmi_zh_CN_Click(object sender, EventArgs e)
-        {
-            AppConfigHelper.UpdateAppConfig(MyConst.XmlTagAppLanguange, "zh-CN");
-
-            Application.Restart();
-        }
-
-        private void tsmiOpenHelp_Click(object sender, EventArgs e)
-        {
-            new FrmHelp().ShowDialog(this);
-        }
-
-        private void tsmiAbout_Click(object sender, EventArgs e)
-        {
-            new FrmAboutBox().ShowDialog(this);
-        }
-=======
         #endregion
->>>>>>> SationKNXUIEditor-Modify
         #endregion
     }
 }

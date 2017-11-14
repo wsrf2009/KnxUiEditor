@@ -33,17 +33,12 @@ namespace UIEditor
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-<<<<<<< HEAD
-            this.ucdo = new UIEditor.UserUIControl.UCDocumentOutline();
-            this.ucProperty = new UIEditor.UserUIControl.UCProperty();
-=======
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.ucpm = new UIEditor.UserUIControl.UCProjectManager();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.ucpo = new UIEditor.UserUIControl.UCPageOutline();
             this.ucp = new UIEditor.UserUIControl.UCProperty();
->>>>>>> SationKNXUIEditor-Modify
             this.mnsMain = new System.Windows.Forms.MenuStrip();
             this.tsmiFile = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiNew = new System.Windows.Forms.ToolStripMenuItem();
@@ -163,14 +158,11 @@ namespace UIEditor
             this.tscbViewScale = new System.Windows.Forms.ToolStripComboBox();
             this.tsbAdaptiveScreen = new System.Windows.Forms.ToolStripButton();
             this.tlpMain = new System.Windows.Forms.TableLayoutPanel();
-<<<<<<< HEAD
-=======
             this.BGWOpenProject = new System.ComponentModel.BackgroundWorker();
             this.BGWSaveProject = new System.ComponentModel.BackgroundWorker();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tsslUpdate = new System.Windows.Forms.ToolStripStatusLabel();
             this.tspbUpdate = new System.Windows.Forms.ToolStripProgressBar();
->>>>>>> SationKNXUIEditor-Modify
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -279,19 +271,6 @@ namespace UIEditor
             resources.ApplyResources(this.ucp, "ucp");
             this.ucp.Name = "ucp";
             // 
-            // ucdo
-            // 
-            this.ucdo.cqdo = null;
-            resources.ApplyResources(this.ucdo, "ucdo");
-            this.ucdo.Name = "ucdo";
-            this.ucdo.Title = "";
-            // 
-            // ucProperty
-            // 
-            this.ucProperty.cqp = null;
-            resources.ApplyResources(this.ucProperty, "ucProperty");
-            this.ucProperty.Name = "ucProperty";
-            // 
             // mnsMain
             // 
             this.mnsMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
@@ -340,10 +319,7 @@ namespace UIEditor
             // tsmiClose
             // 
             resources.ApplyResources(this.tsmiClose, "tsmiClose");
-<<<<<<< HEAD
-=======
             this.tsmiClose.Name = "tsmiClose";
->>>>>>> SationKNXUIEditor-Modify
             this.tsmiClose.Click += new System.EventHandler(this.tsmiClose_Click);
             // 
             // toolStripSeparator
@@ -360,10 +336,7 @@ namespace UIEditor
             // tsmiSaveAs
             // 
             resources.ApplyResources(this.tsmiSaveAs, "tsmiSaveAs");
-<<<<<<< HEAD
-=======
             this.tsmiSaveAs.Name = "tsmiSaveAs";
->>>>>>> SationKNXUIEditor-Modify
             this.tsmiSaveAs.Click += new System.EventHandler(this.tsmiSaveAs_Click);
             // 
             // toolStripSeparator1
@@ -372,12 +345,6 @@ namespace UIEditor
             resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             // 
             // tsmiExit
-<<<<<<< HEAD
-            // 
-            this.tsmiExit.Name = "tsmiExit";
-            resources.ApplyResources(this.tsmiExit, "tsmiExit");
-            this.tsmiExit.Click += new System.EventHandler(this.tsmiExit_Click);
-=======
             // 
             resources.ApplyResources(this.tsmiExit, "tsmiExit");
             this.tsmiExit.Name = "tsmiExit";
@@ -715,7 +682,6 @@ namespace UIEditor
             this.tsmiRuler.Name = "tsmiRuler";
             resources.ApplyResources(this.tsmiRuler, "tsmiRuler");
             this.tsmiRuler.Click += new System.EventHandler(this.tsmiRuler_Click);
->>>>>>> SationKNXUIEditor-Modify
             // 
             // tsmiLanguange
             // 
@@ -770,21 +736,6 @@ namespace UIEditor
             this.tsmiAbout.Name = "tsmiAbout";
             resources.ApplyResources(this.tsmiAbout, "tsmiAbout");
             this.tsmiAbout.Click += new System.EventHandler(this.tsmiAbout_Click);
-<<<<<<< HEAD
-            // 
-            // statusStripMain
-            // 
-            this.statusStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsslblProjectName});
-            resources.ApplyResources(this.statusStripMain, "statusStripMain");
-            this.statusStripMain.Name = "statusStripMain";
-            // 
-            // tsslblProjectName
-            // 
-            this.tsslblProjectName.Name = "tsslblProjectName";
-            resources.ApplyResources(this.tsslblProjectName, "tsslblProjectName");
-=======
->>>>>>> SationKNXUIEditor-Modify
             // 
             // flpMainTools
             // 
@@ -1269,8 +1220,6 @@ namespace UIEditor
             this.tlpMain.Controls.Add(this.splitContainer1, 0, 2);
             this.tlpMain.Name = "tlpMain";
             // 
-<<<<<<< HEAD
-=======
             // BGWOpenProject
             // 
             this.BGWOpenProject.WorkerReportsProgress = true;
@@ -1306,7 +1255,6 @@ namespace UIEditor
             this.tspbUpdate.Step = 1;
             this.tspbUpdate.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             // 
->>>>>>> SationKNXUIEditor-Modify
             // FrmMain
             // 
             resources.ApplyResources(this, "$this");
@@ -1373,10 +1321,6 @@ namespace UIEditor
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem tsmiAbout;
         private System.Windows.Forms.ToolStripMenuItem tsmiClose;
-<<<<<<< HEAD
-        private System.Windows.Forms.ToolStripStatusLabel tsslblProjectName;
-=======
->>>>>>> SationKNXUIEditor-Modify
         //private System.Windows.Forms.ToolStripButton tsrBtnAddImageButton;
         //private System.Windows.Forms.ToolStripButton tsrBtnAddMediaButton;
         //private System.Windows.Forms.ToolStripButton tsrBtnAddColorLight;

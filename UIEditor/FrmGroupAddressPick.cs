@@ -132,26 +132,6 @@ namespace UIEditor
 
             foreach (var it in this.MgAddressList)
             {
-<<<<<<< HEAD
-                //if (((AddressType.Read == this.PickType) && (it.IsCommunication && it.IsRead)) ||
-                //    ((AddressType.Write == this.PickType) && (it.IsCommunication && it.IsWrite)))
-                //{
-                    if (this.NeedActions && ((null == it.Actions) || (it.Actions.Count <= 0)))
-                    {
-                        continue;
-                    }
-
-                    var temp = new PcGroupAddress(it);
-
-                    if (SelectedAddress != null && SelectedAddress.ContainsKey(temp.Id))
-                    {
-                        temp.Selected = true;
-                        temp.DefaultValue = SelectedAddress[temp.Id].DefaultValue;
-                    }
-
-                    data.Add(temp);
-                //}
-=======
                 if (this.NeedActions && ((null == it.Actions) || (it.Actions.Actions.Count <= 0)))
                 {
                     continue;
@@ -165,7 +145,6 @@ namespace UIEditor
                 {
                     data.Add(it);
                 }
->>>>>>> SationKNXUIEditor-Modify
             }
 
             RefreashTable(data, sl);
@@ -289,25 +268,6 @@ namespace UIEditor
                 col.DisplayIndex = i++;
                 col.ReadOnly = true;
 
-<<<<<<< HEAD
-                //col = grid.Columns["IsCommunication"];
-                //col.Width = 50;
-                //col.HeaderText = ResourceMng.GetString("Communication");
-                //col.DisplayIndex = i++;
-                //col.ReadOnly = true;
-
-                //col = grid.Columns["IsRead"];
-                //col.Width = 50;
-                //col.HeaderText = ResourceMng.GetString("Read");
-                //col.DisplayIndex = i++;
-                //col.ReadOnly = true;
-
-                //col = grid.Columns["IsWrite"];
-                //col.Width = 50;
-                //col.HeaderText = ResourceMng.GetString("Write");
-                //col.DisplayIndex = i++;
-                col.ReadOnly = true;
-=======
                 col = grid.Columns["IsCommunication"];
                 col.Visible = false;
                 col.DisplayIndex = i++;
@@ -319,7 +279,6 @@ namespace UIEditor
                 col = grid.Columns["IsWrite"];
                 col.Visible = false;
                 col.DisplayIndex = i++;
->>>>>>> SationKNXUIEditor-Modify
 
                 col = grid.Columns["IsTransmit"];
                 col.Visible = false;

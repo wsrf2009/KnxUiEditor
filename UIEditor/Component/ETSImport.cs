@@ -26,7 +26,6 @@ namespace UIEditor.Component
         private static string strGroupAddressRefId = "GroupAddressRefId";
         private static string strSend = "Send";
         private static string strRefId = "RefId";
-        private static string strDescription = "Description";
 
         private static string strComObject = "ComObject";
         private static string strComObjectRef = "ComObjectRef";
@@ -156,9 +155,6 @@ namespace UIEditor.Component
 
                         if (comObjectInstanceRef.Contains(address.Id))
                         {
-<<<<<<< HEAD
-                            var comObjectInstanceRefId = comObjectInstanceRef[address.Id].First<string>();
-=======
                             XElement comObjectInstance = comObjectInstanceRef[address.Id].First<XElement>();
                             if((null == addr.DPTName) || (addr.DPTName.Trim().Length <= 0) || (addr.DPTName.Contains("*"))) 
                             {
@@ -169,7 +165,6 @@ namespace UIEditor.Component
                                 }
                             }
                             var comObjectInstanceRefId = comObjectInstance.Attribute(strRefId).Value;
->>>>>>> SationKNXUIEditor-Modify
 
                             var index1 = comObjectInstanceRefId.IndexOf('_');
                             var index2 = comObjectInstanceRefId.IndexOf('_', index1 + 1);

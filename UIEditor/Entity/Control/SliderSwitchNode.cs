@@ -160,9 +160,6 @@ namespace UIEditor.Entity.Control
 
             if (ImportedHelper.IsLessThan2_0_3())
             {
-<<<<<<< HEAD
-                File.Copy(Path.Combine(MyCache.ProjectResImgDir, this.LeftImage), FileLeftImage);
-=======
                 if (!string.IsNullOrEmpty(knx.LeftImage))
                 {
                     this.LeftImage = ProjResManager.CopyImageSole(Path.Combine(this.ImagePath, knx.LeftImage));
@@ -175,7 +172,6 @@ namespace UIEditor.Entity.Control
                 {
                     this.SliderImage = ProjResManager.CopyImageSole(Path.Combine(this.ImagePath, knx.SliderImage));
                 }
->>>>>>> SationKNXUIEditor-Modify
             }
             else if(ImportedHelper.IsLessThan2_5_6())
             {
@@ -185,13 +181,9 @@ namespace UIEditor.Entity.Control
             }
             else
             {
-<<<<<<< HEAD
-                File.Copy(Path.Combine(MyCache.ProjectResImgDir, this.RightImage), FileRightImage);
-=======
                 this.LeftImage = knx.LeftImage;
                 this.RightImage = knx.RightImage;
                 this.SliderImage = knx.SliderImage;
->>>>>>> SationKNXUIEditor-Modify
             }
 
             this.IsRelativeControl = (EBool)Enum.ToObject(typeof(EBool), knx.IsRelativeControl);
@@ -206,9 +198,6 @@ namespace UIEditor.Entity.Control
 
             if (ImportedHelper.IsLessThan2_5_6())
             {
-<<<<<<< HEAD
-                File.Copy(Path.Combine(MyCache.ProjectResImgDir, this.SliderImage), FileSliderImage);
-=======
                 string knxImage = GetImageName(knx.Id); // KNX图片资源名称
                 string knxImagePath = Path.Combine(DirSrcImg, knxImage); // KNX图片资源路径
 
@@ -221,7 +210,6 @@ namespace UIEditor.Entity.Control
                 this.LeftImage = ProjResManager.CopyImageRename(Path.Combine(DirSrcImg, knx.LeftImage));
                 this.RightImage = ProjResManager.CopyImageRename(Path.Combine(DirSrcImg, knx.RightImage));
                 this.SliderImage = ProjResManager.CopyImageRename(Path.Combine(DirSrcImg, knx.SliderImage));
->>>>>>> SationKNXUIEditor-Modify
             }
         }
         #endregion

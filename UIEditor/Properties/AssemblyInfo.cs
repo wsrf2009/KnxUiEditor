@@ -32,11 +32,6 @@ using System.Resources;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-<<<<<<< HEAD
-[assembly: AssemblyVersion("1.00.0003")]
-[assembly: AssemblyFileVersion("1.00.0003")]
-=======
 [assembly: AssemblyVersion("2.7.4.*")]
 //[assembly: AssemblyFileVersion("2.0.2")]
->>>>>>> SationKNXUIEditor-Modify
 

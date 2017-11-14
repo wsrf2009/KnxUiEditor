@@ -41,13 +41,6 @@ namespace UIEditor
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-<<<<<<< HEAD
-            //Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
-            //Thread.CurrentThread.CurrentUICulture = /*Thread.CurrentThread.CurrentCulture*/new CultureInfo("en-US");
-            try
-            {
-            Application.Run(new FrmMain());
-=======
 
             try
             {
@@ -67,7 +60,6 @@ namespace UIEditor
                 {
                     DLLHelp.HandleRunningInstance(process);
                 }
->>>>>>> SationKNXUIEditor-Modify
             }
             catch (Exception e)
             {

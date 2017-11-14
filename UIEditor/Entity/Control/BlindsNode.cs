@@ -157,12 +157,8 @@ namespace UIEditor.Entity.Control
 
             if (ImportedHelper.IsLessThan2_5_2())
             {
-<<<<<<< HEAD
-                File.Copy(Path.Combine(MyCache.ProjectResImgDir, this.LeftImage), FileImageLeft);
-=======
                 this.LeftTextFont = new STFont(knx.LeftTextFontColor, knx.LeftTextFontSize);
                 this.RightTextFont = new STFont(knx.RightTextFontColor, knx.RightTextFontSize);
->>>>>>> SationKNXUIEditor-Modify
             }
             else
             {
@@ -194,12 +190,8 @@ namespace UIEditor.Entity.Control
             }
             else
             {
-<<<<<<< HEAD
-                File.Copy(Path.Combine(MyCache.ProjectResImgDir, this.RightImage), FileImageRight);
-=======
                 this.LeftImage = ProjResManager.CopyImageRename(Path.Combine(DirSrcImg, knx.LeftImage));
                 this.RightImage = ProjResManager.CopyImageRename(Path.Combine(DirSrcImg, knx.RightImage));
->>>>>>> SationKNXUIEditor-Modify
             }
         }
         #endregion

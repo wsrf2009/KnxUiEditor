@@ -810,8 +810,6 @@
   <data name="Message48" xml:space="preserve">
     <value>工程中已存在同名图片 {0}，是否需要覆盖？</value>
   </data>
-<<<<<<< HEAD
-=======
   <data name="Message49" xml:space="preserve">
     <value>场景号输入错误！取值范围1~64</value>
   </data>
@@ -1122,5 +1120,4 @@
   <data name="TextMediaButton" xml:space="preserve">
     <value>背景音乐</value>
   </data>
->>>>>>> SationKNXUIEditor-Modify
 </root>

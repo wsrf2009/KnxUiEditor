@@ -24,11 +24,8 @@ namespace UIEditor.Entity.Control
     {
         #region 常量
         private const int PADDING = 2;
-<<<<<<< HEAD
-=======
         private const string NAME_IMAGEON = "ImageOn.png";
         private const string NAME_IMAGEOFF = "ImageOff.png";
->>>>>>> SationKNXUIEditor-Modify
         #endregion
 
         #region 变量
@@ -149,12 +146,8 @@ namespace UIEditor.Entity.Control
             }
             else
             {
-<<<<<<< HEAD
-                File.Copy(Path.Combine(MyCache.ProjectResImgDir, this.ImageOn), FileImageOn);
-=======
                 this.ImageOn = knx.ImageOn;
                 this.ImageOff = knx.ImageOff;
->>>>>>> SationKNXUIEditor-Modify
             }
 
             this.ColorOn = ColorHelper.HexStrToColor(knx.ColorOn);
@@ -176,12 +169,8 @@ namespace UIEditor.Entity.Control
             }
             else
             {
-<<<<<<< HEAD
-                File.Copy(Path.Combine(MyCache.ProjectResImgDir, this.ImageOff), FileImageOff);
-=======
                 this.ImageOn = ProjResManager.CopyImageRename(Path.Combine(DirSrcImg, knx.ImageOn));
                 this.ImageOff = ProjResManager.CopyImageRename(Path.Combine(DirSrcImg, knx.ImageOff));
->>>>>>> SationKNXUIEditor-Modify
             }
         }
         #endregion
@@ -531,138 +520,6 @@ namespace UIEditor.Entity.Control
                 return new PropertyDescriptorCollection(list.ToArray());
             }
         }
-<<<<<<< HEAD
-
-        public override void DrawAt(Point basePoint, Graphics g)
-        {
-            base.DrawAt(basePoint, g);
-
-            Rectangle rect = new Rectangle(Point.Empty, this.RectInPage.Size);
-            Bitmap bm = new Bitmap(this.RectInPage.Width, this.RectInPage.Height);
-            Graphics gp = Graphics.FromImage(bm);
-
-            Color backColor = Color.White;
-            if (null != this.ColorOn)
-            {
-                backColor = Color.FromArgb((int)(this.Alpha * 255), this.ColorOn);//ColorTranslator.FromHtml(this.node.ColorOn));
-            }
-            else if (null != this.ColorOff)
-            {
-                backColor = Color.FromArgb((int)(this.Alpha * 255), this.ColorOff);//ColorTranslator.FromHtml(this.node.ColorOff));
-            }
-            else
-            {
-                backColor = Color.FromArgb((int)(this.Alpha * 255), this.BackgroundColor/*ColorTranslator.FromHtml(this.node.BackgroundColor)*/);
-            }
-
-            if ((null == this.BackgroundImage) || (string.Empty == this.BackgroundImage))
-            {
-                if (EFlatStyle.Stereo == this.FlatStyle)
-                {
-                    /* 绘制立体效果，三色渐变 */
-                    LinearGradientBrush brush = new LinearGradientBrush(rect, Color.Transparent, Color.Transparent, LinearGradientMode.Vertical);
-                    Color[] colors = new Color[3];
-                    colors[0] = ColorHelper.changeBrightnessOfColor(backColor, 100);
-                    colors[1] = backColor;
-                    colors[2] = ColorHelper.changeBrightnessOfColor(backColor, -50);
-                    ColorBlend blend = new ColorBlend();
-                    blend.Positions = new float[] { 0.0f, 0.3f, 1.0f };
-                    blend.Colors = colors;
-                    brush.InterpolationColors = blend;
-                    FillRoundRectangle(gp, brush, rect, this.Radius, 1.0f);
-                    brush.Dispose();
-                }
-                else if (EFlatStyle.Flat == this.FlatStyle)
-                {
-                    SolidBrush brush = new SolidBrush(backColor);
-                    FillRoundRectangle(gp, brush, rect, this.Radius, 1.0f);
-                    brush.Dispose();
-                }
-            }
-
-            /* 图标 */
-            int x = PADDING;
-            int y = PADDING;  // 到父视图顶部的距离
-            int width = 0;
-            int height = 0;
-            Image img = null;
-            if (!string.IsNullOrEmpty(this.ImageOn))
-            {
-                img = Image.FromFile(Path.Combine(MyCache.ProjImagePath, this.ImageOn));
-            }
-            else if (!string.IsNullOrEmpty(this.ImageOff))
-            {
-                img = Image.FromFile(Path.Combine(MyCache.ProjImagePath, this.ImageOff));
-            }
-            if (null != img)
-            {
-                height = rect.Height - 2 * y;
-                width = height;
-                gp.DrawImage(ImageHelper.Resize(img, new Size(width, height), false), rect.X + x, rect.Y + y);
-            }
-
-            /* 文本 */
-            if (null != this.Text)
-            {
-                if (null != img)
-                {
-                    x += width + PADDING;
-                    width = rect.Width - x - PADDING;
-                    height = rect.Height - 2 * y;
-                }
-                else
-                {
-                    width = rect.Width - 2 * x;
-                    height = rect.Height - 2 * y;
-                }
-
-                Rectangle stateRect = new Rectangle(x, y, width, height);
-                StringFormat sf = new StringFormat();
-                sf.Alignment = StringAlignment.Center;
-                sf.LineAlignment = StringAlignment.Center;
-                Color fontColor = this.FontColor;
-                gp.DrawString(this.Text, new Font("宋体", this.FontSize), new SolidBrush(fontColor), stateRect, sf);
-            }
-
-            if (EBool.Yes == this.DisplayBorder)
-            {
-                Color borderColor = this.BorderColor;
-                DrawRoundRectangle(gp, new Pen(borderColor, 1), rect, this.Radius, 1.0f);
-            }
-
-            g.DrawImage(bm,
-                this.VisibleRectInPage,
-                new Rectangle(new Point(this.VisibleRectInPage.X - this.RectInPage.X, this.VisibleRectInPage.Y - this.RectInPage.Y), this.VisibleRectInPage.Size),
-                GraphicsUnit.Pixel);
-
-            this.FrameIsVisible = false;
-            if (ControlState.Move == this.State)
-            {
-                Pen pen = new Pen(Color.Navy, 2.0f);
-                DrawRoundRectangle(g, pen, this.RectInPage, this.Radius, 1.0f);
-            }
-            else if (this.IsSelected)
-            {
-                this.SetFrame();
-                Pen pen = new Pen(Color.LightGray, 1.0f);
-                pen.DashStyle = DashStyle.Dot;//设置为虚线,用虚线画四边，模拟微软效果
-                g.DrawLine(pen, this.LinePoints[0], this.LinePoints[1]);
-                g.DrawLine(pen, this.LinePoints[2], this.LinePoints[3]);
-                g.DrawLine(pen, this.LinePoints[4], this.LinePoints[5]);
-                g.DrawLine(pen, this.LinePoints[6], this.LinePoints[7]);
-                g.DrawLine(pen, this.LinePoints[8], this.LinePoints[9]);
-                g.DrawLine(pen, this.LinePoints[10], this.LinePoints[11]);
-                g.DrawLine(pen, this.LinePoints[12], this.LinePoints[13]);
-                g.DrawLine(pen, this.LinePoints[14], this.LinePoints[15]);
-
-                g.FillRectangles(Brushes.White, this.SmallRects); //填充8个小矩形的内部
-                g.DrawRectangles(Pens.Black, this.SmallRects);  //绘制8个小矩形的黑色边线
-
-                this.FrameIsVisible = true;
-            }
-        }
-=======
         #endregion
->>>>>>> SationKNXUIEditor-Modify
     }
 }

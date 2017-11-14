@@ -24,11 +24,8 @@ namespace UIEditor.Entity.Control
     {
         #region 常量
         private const int PADDING = 2;
-<<<<<<< HEAD
-=======
         private const string NAME_IMAGEON = "ImageOn.png";
         private const string NAME_IMAGEOFF = "ImageOff.png";
->>>>>>> SationKNXUIEditor-Modify
         #endregion
 
         #region 变量
@@ -161,9 +158,6 @@ namespace UIEditor.Entity.Control
             }
             else if(ImportedHelper.IsLessThan2_5_6())
             {
-<<<<<<< HEAD
-                File.Copy(Path.Combine(MyCache.ProjectResImgDir, this.ImageOn), FileImageOn);
-=======
                 this.ImageOn = ProjResManager.CopyImageSole(Path.Combine(this.ImagePath, NAME_IMAGEON));
                 this.ImageOff = ProjResManager.CopyImageSole(Path.Combine(this.ImagePath, NAME_IMAGEOFF));
             }
@@ -171,7 +165,6 @@ namespace UIEditor.Entity.Control
             {
                 this.ImageOn = knx.ImageOn;
                 this.ImageOff = knx.ImageOff;
->>>>>>> SationKNXUIEditor-Modify
             }
 
             this.ColorOn = ColorHelper.HexStrToColor(knx.ColorOn);
@@ -195,12 +188,8 @@ namespace UIEditor.Entity.Control
             }
             else
             {
-<<<<<<< HEAD
-                File.Copy(Path.Combine(MyCache.ProjectResImgDir, this.ImageOff), FileImageOff);
-=======
                 this.ImageOn = ProjResManager.CopyImageRename(Path.Combine(DirSrcImg, knx.ImageOn));
                 this.ImageOff = ProjResManager.CopyImageRename(Path.Combine(DirSrcImg, knx.ImageOff));
->>>>>>> SationKNXUIEditor-Modify
             }
         }
         #endregion

@@ -135,9 +135,6 @@ namespace UIEditor.Entity.Control
 
             if (ImportedHelper.IsLessThan2_0_3())
             {
-<<<<<<< HEAD
-                File.Copy(Path.Combine(MyCache.ProjectResImgDir, this.LeftImage), FileLeftImage);
-=======
                 if (!string.IsNullOrEmpty(knx.LeftImage))
                 {
                     this.LeftImage = ProjResManager.CopyImageSole(Path.Combine(this.ImagePath, knx.LeftImage));
@@ -156,7 +153,6 @@ namespace UIEditor.Entity.Control
             {
                 this.LeftImage = knx.LeftImage;
                 this.RightImage = knx.RightImage;
->>>>>>> SationKNXUIEditor-Modify
             }
             this.DecimalDigit = (EDecimalDigit)Enum.ToObject(typeof(EDecimalDigit), knx.DecimalDigit);
             this.MaxValue = knx.MaxValue;
@@ -164,15 +160,11 @@ namespace UIEditor.Entity.Control
 
             if (ImportedHelper.IsLessThan2_1_8() && knx.Unit > (int)EMeasurementUnit.Centigrade)
             {
-<<<<<<< HEAD
-                File.Copy(Path.Combine(MyCache.ProjectResImgDir, this.RightImage), FileRightImage);
-=======
                 this.Unit = (EMeasurementUnit)Enum.ToObject(typeof(EMeasurementUnit), knx.Unit - 1);
             }
             else
             {
                 this.Unit = (EMeasurementUnit)Enum.ToObject(typeof(EMeasurementUnit), knx.Unit);
->>>>>>> SationKNXUIEditor-Modify
             }
 
             if (ImportedHelper.IsLessThan2_5_3())
