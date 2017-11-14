@@ -4,8 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
-using Structure.ETS;
-using UIEditor.GroupAddress;
+using GroupAddress;
+using UIEditor.Component;
+using System;
 
 namespace UIEditor
 {
@@ -15,20 +16,29 @@ namespace UIEditor
         /// 从 Json 文件中装载 KNXGroupAddress
         /// </summary>
         /// <returns></returns>
-        public static BindingList<EdGroupAddress> Load()
+        public static List<EdGroupAddress> Load()
         {
-            string addressFile = Path.Combine(MyCache.ProjectFolder, MyConst.GroupAddressFile);
-
-            if (File.Exists(addressFile))
+            try
             {
-                string json = File.ReadAllText(addressFile, Encoding.UTF8);
-                var settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto };
-                var groupAddressList = JsonConvert.DeserializeObject<List<KNXGroupAddress>>(json, settings);
+                string addressFile = Path.Combine(MyCache.ProjectFolder, MyConst.GroupAddressFile);
 
-                return new BindingList<EdGroupAddress>(groupAddressList.Select(it => new EdGroupAddress(it)).ToList());
+                if (File.Exists(addressFile))
+                {
+                    string json = File.ReadAllText(addressFile, Encoding.UTF8);
+                    var settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto };
+                    var groupAddressList = JsonConvert.DeserializeObject<List<KNXGroupAddress>>(json, settings);
+
+                    return groupAddressList.Select(it => new EdGroupAddress(it)).ToList();
+                }
+
+                return new List<EdGroupAddress>();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
 
-            return new BindingList<EdGroupAddress>();
+            return null;
         }
 
         /// <summary>

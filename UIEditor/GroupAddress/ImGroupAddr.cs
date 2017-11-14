@@ -1,10 +1,7 @@
-﻿using Structure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using KNX;
+using Structure;
 
-namespace UIEditor.GroupAddress
+namespace GroupAddress
 {
     public class ImGroupAddr
     {

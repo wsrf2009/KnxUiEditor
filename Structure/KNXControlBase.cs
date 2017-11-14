@@ -27,7 +27,8 @@ namespace Structure
         public int Clickable { get; set; }
 
         /// <summary>
-        /// 用户自定义的控件图标图标
+        /// 用户自定义的控件图标图标。
+        /// 弃用于 2.1.1
         /// </summary>
         public string Icon { get; set; }
     }

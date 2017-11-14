@@ -48,10 +48,6 @@ namespace UIEditor
             this.cbxCommunication = new System.Windows.Forms.CheckBox();
             this.cbxRead = new System.Windows.Forms.CheckBox();
             this.cbxWrite = new System.Windows.Forms.CheckBox();
-            this.txtReadTimespan = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtDefaultValue = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.cmbPriority = new System.Windows.Forms.ComboBox();
             this.lblPriority = new System.Windows.Forms.Label();
             this.txtID = new System.Windows.Forms.TextBox();
@@ -73,7 +69,6 @@ namespace UIEditor
             // btnCancel
             // 
             resources.ApplyResources(this.btnCancel, "btnCancel");
-            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -81,7 +76,6 @@ namespace UIEditor
             // btnOK
             // 
             resources.ApplyResources(this.btnOK, "btnOK");
-            this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOK.Name = "btnOK";
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
@@ -196,26 +190,6 @@ namespace UIEditor
             this.cbxWrite.Name = "cbxWrite";
             this.cbxWrite.UseVisualStyleBackColor = true;
             // 
-            // txtReadTimespan
-            // 
-            resources.ApplyResources(this.txtReadTimespan, "txtReadTimespan");
-            this.txtReadTimespan.Name = "txtReadTimespan";
-            // 
-            // label4
-            // 
-            resources.ApplyResources(this.label4, "label4");
-            this.label4.Name = "label4";
-            // 
-            // txtDefaultValue
-            // 
-            resources.ApplyResources(this.txtDefaultValue, "txtDefaultValue");
-            this.txtDefaultValue.Name = "txtDefaultValue";
-            // 
-            // label7
-            // 
-            resources.ApplyResources(this.label7, "label7");
-            this.label7.Name = "label7";
-            // 
             // cmbPriority
             // 
             resources.ApplyResources(this.cmbPriority, "cmbPriority");
@@ -287,12 +261,8 @@ namespace UIEditor
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
             this.Controls.Add(this.btnDPTName);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.txtReadTimespan);
             this.Controls.Add(this.txtWriteAddress);
             this.Controls.Add(this.flpCommands);
-            this.Controls.Add(this.txtDefaultValue);
-            this.Controls.Add(this.label7);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.lblPriority);
@@ -337,10 +307,6 @@ namespace UIEditor
         private System.Windows.Forms.CheckBox cbxCommunication;
         private System.Windows.Forms.CheckBox cbxRead;
         private System.Windows.Forms.CheckBox cbxWrite;
-        private System.Windows.Forms.TextBox txtReadTimespan;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtDefaultValue;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox cmbPriority;
         private System.Windows.Forms.Label lblPriority;
         private System.Windows.Forms.TextBox txtID;

@@ -6,8 +6,6 @@ using System.Text;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using Structure;
-using Structure.ETS;
-using UIEditor.GroupAddress;
 
 namespace UIEditor.Component
 {
@@ -33,14 +31,48 @@ namespace UIEditor.Component
         /// </summary>
         public static void Save()
         {
-            MyCache.ProjectVersion.Version += 1;
-            MyCache.ProjectVersion.EditorVersion = Application.ProductVersion;
-            MyCache.ProjectVersion.LastModified = DateTime.Now.ToString();
+            //MyCache.ProjectVersion.Version += 1;
+            //MyCache.ProjectVersion.EditorVersion = Application.ProductVersion;
+            //MyCache.ProjectVersion.LastModified = DateTime.Now.ToString();
+
+            KNXVersion version = new KNXVersion();
+            version.Version += 1;
+            version.EditorVersion = Application.ProductVersion;
+            version.LastModified = DateTime.Now.ToString();
+
+            MyCache.VersionOfImportedFile = version;
 
             //
             var settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto };
-            var jsonData = JsonConvert.SerializeObject(MyCache.ProjectVersion, Formatting.Indented, settings);
+            var jsonData = JsonConvert.SerializeObject(version/*MyCache.ProjectVersion*/, Formatting.Indented, settings);
             File.WriteAllText(Path.Combine(MyCache.ProjectFolder, MyConst.VersionFile), jsonData, Encoding.UTF8);
+        }
+
+        public static void SaveTemplateVersionFile(string path)
+        {
+            //MyCache.ProjectVersion.EditorVersion = Application.ProductVersion;
+            //MyCache.ProjectVersion.LastModified = DateTime.Now.ToString();
+            KNXVersion version = new KNXVersion();
+            version.Version += 1;
+            version.EditorVersion = Application.ProductVersion;
+            version.LastModified = DateTime.Now.ToString();
+
+            var settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto };
+            var jsonData = JsonConvert.SerializeObject(version/*MyCache.ProjectVersion*/, Formatting.Indented, settings);
+            File.WriteAllText(path, jsonData, Encoding.UTF8);
+        }
+
+        public static KNXVersion LoadTemplateVersionFile(string path)
+        {
+            if (File.Exists(path))
+            {
+                string json = File.ReadAllText(path, Encoding.UTF8);
+                var settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto };
+                var version = JsonConvert.DeserializeObject<KNXVersion>(json, settings);
+                return version;
+            }
+
+            return new KNXVersion();
         }
     }
 }

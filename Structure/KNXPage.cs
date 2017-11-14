@@ -9,9 +9,9 @@ namespace Structure
     /// </summary>
     public class KNXPage : KNXContainer
     {
-        /// <summary>
-        /// 界面上摆放的表格，控件容器
-        /// </summary>
-        //public List<KNXGroupBox> GroupBoxs { get; set; }
+        ///// <summary>
+        ///// 控件的背景图片
+        ///// </summary>
+        //public string BackgroundImage { get; set; }
     }
 }

@@ -1,5 +1,5 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+
 namespace Structure.Control
 {
     /// <summary>
@@ -17,6 +17,9 @@ namespace Structure.Control
         /// </summary>
         public Dictionary<string, KNXSelectedAddress> WriteAddressIds { get; set; }
 
+        /// <summary>
+        /// 已被弃用。2.1.1
+        /// </summary>
         public string ImageOn { get; set; }
 
         /// <summary>
@@ -24,6 +27,9 @@ namespace Structure.Control
         /// </summary>
         public string ColorOn { get; set; }
 
+        /// <summary>
+        /// 已被弃用。2.1.1
+        /// </summary>
         public string ImageOff { get; set; }
 
         /// <summary>
@@ -34,11 +40,5 @@ namespace Structure.Control
         public int IsGroup { get; set; }
 
         public int DefaultValue { get; set; }
-
-        ////按钮描述
-        //public string Description { get; set; }
-
-        ////是否有长按事件
-        //public bool HasLongClickCommand { get; set; }
     }
 }

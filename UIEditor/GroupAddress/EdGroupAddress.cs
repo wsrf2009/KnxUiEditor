@@ -1,14 +1,13 @@
-﻿
-using System;
+﻿using System;
 using Structure;
-using Structure.ETS;
 using System.Collections.Generic;
 using UIEditor.Component;
-using UIEditor.KNX.DatapointType;
-using UIEditor.KNX.DatapointAction;
+using KNX;
+using KNX.DatapointAction;
+using KNX.DatapointType;
+using UIEditor.GroupAddress;
 
-
-namespace UIEditor.GroupAddress
+namespace GroupAddress
 {
     /// <summary>
     /// ETS项目中导入的数据。
@@ -54,11 +53,6 @@ namespace UIEditor.GroupAddress
         public string DPTName { get; set; }
 
         /// <summary>
-        /// 数据点标签. switch、boolean、enable
-        /// </summary>
-        //public string DPTText { get; set; }
-
-        /// <summary>
         /// 
         /// </summary>
         public bool IsCommunication { get; set; }
@@ -94,20 +88,10 @@ namespace UIEditor.GroupAddress
         public string DefaultValue { get; set; }
 
         /// <summary>
-        /// 读取时间间隔，单位毫秒
-        /// </summary>
-        public int ReadTimeSpan { get; set; }
-
-        ///// <summary>
-        ///// 给最终用户控制该组地址时提供一些提示
-        ///// </summary>
-        //public string Tip { get; set; }
-
-        /// <summary>
         /// ETS中该设备可执行的动作
         /// </summary>
-        public List<DatapointActionNode> Actions { get; set; }
-        //public string actions { get; set; }
+        //public List<DatapointActionNode> Actions { get; set; }
+        public GroupAddressActions Actions { get; set; }
         #endregion
 
         public EdGroupAddress()
@@ -115,13 +99,12 @@ namespace UIEditor.GroupAddress
             _index++;
 
             this.Id = Guid.NewGuid().ToString();
-            this.Name = ResourceMng.GetString("NewGroupAddress") + _index;
-            this.KnxAddress = "1/1/1";
+            this.Name = UIResMang.GetString("NewGroupAddress") + _index;
+            this.KnxAddress = "1/1/"+_index;
             this.Type = KNXDataType.Bit1;
             this.KnxMainNumber = DatapointType.DPT_1;
             this.KnxSubNumber = DatapointType.DPST_1;
             this.DPTName = MyCache.NodeTypes[0].Nodes[0].Text;
-            //this.DPTText = "";
             this.DefaultValue = "0";
             this.Priority = KNXPriority.Low;
             this.IsCommunication = true;
@@ -129,8 +112,27 @@ namespace UIEditor.GroupAddress
             this.IsRead = true;
             this.IsTransmit = true;
             this.IsUpgrade = true;
-            //this.Tip = null;
-            this.Actions = new List<DatapointActionNode>(); ;
+            //this.Actions = new List<DatapointActionNode>();
+            this.Actions = new GroupAddressActions();
+        }
+
+        public EdGroupAddress(EdGroupAddress address)
+        {
+            this.Id = address.Id;
+            this.Name = address.Name;
+            this.KnxAddress = address.KnxAddress;
+            this.Type = address.Type;
+            this.KnxMainNumber = address.KnxMainNumber;
+            this.KnxSubNumber = address.KnxSubNumber;
+            this.DPTName = address.DPTName;
+            this.DefaultValue = address.DefaultValue;
+            this.Priority = (KNXPriority)address.Priority;
+            this.IsCommunication = address.IsCommunication;
+            this.IsRead = address.IsRead;
+            this.IsWrite = address.IsWrite;
+            this.IsTransmit = address.IsTransmit;
+            this.IsUpgrade = address.IsUpgrade;
+            this.Actions = address.Actions;
         }
 
         public EdGroupAddress(KNXGroupAddress address)
@@ -139,30 +141,25 @@ namespace UIEditor.GroupAddress
             this.Name = address.Name;
             this.KnxAddress = KNXAddressHelper.AddressToString(address.KnxAddress);
             this.Type = (KNXDataType)address.Type;
-            //this.KnxDPTName = address.KnxDPTName;
-            //this.KnxSize = address.KnxSize;
             this.KnxMainNumber = address.KnxMainNumber;
             this.KnxSubNumber = address.KnxSubNumber;
             this.DPTName = address.DPTName;
-            //this.DPTText = address.DPTText;
             this.DefaultValue = address.DefaultValue;
             this.Priority = (KNXPriority)address.Priority;
-            //this.WireNumber = address.WireNumber;
             this.IsCommunication = address.IsCommunication;
             this.IsRead = address.IsRead;
             this.IsWrite = address.IsWrite;
             this.IsTransmit = address.IsTransmit;
             this.IsUpgrade = address.IsUpgrade;
-            this.ReadTimeSpan = address.ReadTimeSpan;
-            //this.Tip = address.Tip;
-            this.Actions = new List<DatapointActionNode>();
-            if (null != address.Actions)
-            {
-                foreach (KNXDatapointAction action in address.Actions)
-                {
-                    this.Actions.Add(new DatapointActionNode(action));
-                }
-            }
+            this.Actions = new GroupAddressActions(address.Actions);
+            //this.Actions = new List<DatapointActionNode>();
+            //if (null != address.Actions)
+            //{
+            //    foreach (DatapointAction action in address.Actions)
+            //    {
+            //        this.Actions.Add(new DatapointActionNode(action));
+            //    }
+            //}
         }
 
         public KNXGroupAddress ToKnx()
@@ -188,16 +185,17 @@ namespace UIEditor.GroupAddress
             address.IsWrite = this.IsWrite;
             address.IsTransmit = this.IsTransmit;
             address.IsUpgrade = this.IsUpgrade;
-            address.ReadTimeSpan = this.ReadTimeSpan;
+            //address.ReadTimeSpan = this.ReadTimeSpan;
             //address.Tip = this.Tip;
-            address.Actions = new List<KNXDatapointAction>();
-            if (null != address.Actions)
-            {
-                foreach (DatapointActionNode node in this.Actions)
-                {
-                    address.Actions.Add(node.ToKnx());
-                }
-            }
+            address.Actions = this.Actions.ToKnx();
+            //address.Actions = new List<DatapointAction>();
+            //if (null != address.Actions)
+            //{
+            //    foreach (DatapointActionNode node in this.Actions)
+            //    {
+            //        address.Actions.Add(node.ToKnx());
+            //    }
+            //}
 
             return address;
         }

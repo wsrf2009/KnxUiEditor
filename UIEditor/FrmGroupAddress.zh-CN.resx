@@ -123,9 +123,6 @@
   <data name="btnOK.Text" xml:space="preserve">
     <value>确定</value>
   </data>
-  <data name="groupBox1.Text" xml:space="preserve">
-    <value>行为</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="buttonAddAction.Location" type="System.Drawing.Point, System.Drawing">
     <value>169, 22</value>
@@ -135,12 +132,11 @@
   </data>
   <data name="buttonDeleteAction.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADrwAAA68AZW8ckkAAADHSURBVDhP3ZRLCsJAEERnyCV0rTvvIuoF/KAewAOoEMUf
-        eGZfdTIw2/TMyoKi6TQ8qpPMhL9QxFs8syZaX6QdmDe1BTbtHvl1APbCF9zSP/DYJg6xZnxSBcPhgxch
-        NK6VBUvJrvRKtrSJQxsgd2qebKXBUGmV/p0ZLCVzwRp8BHKj9jD7CO415wC+1DMWUOCTBl4podatljCp
-        2jvMtQZW5SvnErTaf5ik/7HaSUnaZ0nTWR7ZpEBKqnS6bSbdo3IBrXcfDlAIP4BiJ+wQUfhBAAAAAElF
-        TkSuQmCC
+        iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        vAAADrwBlbxySQAAAMdJREFUOE/dlEsKwkAQRGfIJXStO+8i6gX8oB7AA6gQxR94Zl91MjDb9MzKgqLp
+        NDyqk8yEv1DEWzyzJlpfpB2YN7UFNu0e+XUA9sIX3NI/8NgmDrFmfFIFw+GDFyE0rpUFS8mu9Eq2tIlD
+        GyB3ap5spcFQaZX+nRksJXPBGnwEcqP2MPsI7jXnAL7UMxZQ4JMGXimh1q2WMKnaO8y1BlblK+cStNp/
+        mKT/sdpJSdpnSdNZHtmkQEqqdLptJt2jcgGtdx8OUAg/gGIn7BBR+EEAAAAASUVORK5CYII=
 </value>
   </data>
   <data name="buttonDeleteAction.Location" type="System.Drawing.Point, System.Drawing">
@@ -151,26 +147,29 @@
   </data>
   <data name="buttonHelper.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        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
+        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
 </value>
   </data>
   <data name="buttonAdd.Text" xml:space="preserve">
     <value>添加</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>行为</value>
   </data>
   <data name="cbxUpgrade.Size" type="System.Drawing.Size, System.Drawing">
     <value>48, 16</value>
@@ -201,36 +200,6 @@
   </data>
   <data name="cbxWrite.Text" xml:space="preserve">
     <value>写</value>
-  </data>
-  <data name="txtReadTimespan.Location" type="System.Drawing.Point, System.Drawing">
-    <value>96, 161</value>
-  </data>
-  <data name="txtReadTimespan.Size" type="System.Drawing.Size, System.Drawing">
-    <value>286, 21</value>
-  </data>
-  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 164</value>
-  </data>
-  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>77, 12</value>
-  </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>读间隔时间：</value>
-  </data>
-  <data name="txtDefaultValue.Location" type="System.Drawing.Point, System.Drawing">
-    <value>96, 134</value>
-  </data>
-  <data name="txtDefaultValue.Size" type="System.Drawing.Size, System.Drawing">
-    <value>286, 21</value>
-  </data>
-  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>39, 137</value>
-  </data>
-  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>53, 12</value>
-  </data>
-  <data name="label7.Text" xml:space="preserve">
-    <value>默认值：</value>
   </data>
   <data name="cmbPriority.Location" type="System.Drawing.Point, System.Drawing">
     <value>96, 109</value>
@@ -303,10 +272,6 @@
   </data>
   <data name="btnDPTName.Size" type="System.Drawing.Size, System.Drawing">
     <value>286, 23</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>组地址编辑器</value>

@@ -1,4 +1,4 @@
-﻿using Structure;
+﻿using KNX;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -94,33 +94,99 @@ namespace UIEditor.Component
                     type = KNXDataType.Bit8;
                     break;
                 case "2 Bytes":
+                case "2 Byte":
                     type = KNXDataType.Bit16;
                     break;
                 case "3 Bytes":
+                case "3 Byte":
                     type = KNXDataType.Bit24;
                     break;
                 case "4 Bytes":
+                case "4 Byte":
                     type = KNXDataType.Bit32;
                     break;
                 case "6 Bytes":
+                case "6 Byte":
                     type = KNXDataType.Bit48;
                     break;
                 case "8 Bytes":
+                case "8 Byte":
                     type = KNXDataType.Bit64;
                     break;
                 case "10 Bytes":
+                case "10 Byte":
                     type = KNXDataType.Bit80;
                     break;
                 case "14 Bytes":
+                case "14 Byte":
                     type = KNXDataType.Bit112;
                     break;
                 default:
                     type = KNXDataType.None;
-                    MessageBox.Show(ResourceMng.GetString("Message41"), ResourceMng.GetString("Message6"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //MessageBox.Show(UIResMang.GetString("Message41"), UIResMang.GetString("Message6"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Console.WriteLine(objectSize + " ===> " + UIResMang.GetString("Message41"));
                     break;
             }
 
             return type;
+        }
+
+        public static string GetSize(KNXDataType type)
+        {
+            string size = "";
+            switch (type)
+            {
+                case KNXDataType.Bit1:
+                    size = "1 Bit";
+                    break;
+                case KNXDataType.Bit2:
+                    size = "2 Bit";
+                    break;
+                case KNXDataType.Bit3:
+                    size = "3 Bit";
+                    break;
+                case KNXDataType.Bit4:
+                    size = "4 Bit";
+                    break;
+                case KNXDataType.Bit5:
+                    size = "5 Bit";
+                    break;
+                case KNXDataType.Bit6:
+                    size = "6 Bit";
+                    break;
+                case KNXDataType.Bit7:
+                    size = "7 Bit";
+                    break;
+                case KNXDataType.Bit8:
+                    size = "1 Byte";
+                    break;
+                case KNXDataType.Bit16:
+                    size = "2 Bytes";
+                    break;
+                case KNXDataType.Bit24:
+                    size = "3 Bytes";
+                    break;
+                case KNXDataType.Bit32:
+                    size = "4 Bytes";
+                    break;
+                case KNXDataType.Bit48:
+                    size = "6 Bytes";
+                    break;
+                case KNXDataType.Bit64:
+                    size = "8 Bytes";
+                    break;
+                case KNXDataType.Bit80:
+                    size = "10 Bytes";
+                    break;
+                case KNXDataType.Bit112:
+                    size = "14 Bytes";
+                    break;
+                default:
+                    MessageBox.Show(UIResMang.GetString("Message41"), UIResMang.GetString("Message6"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+            }
+
+            return size;
         }
 
         public static KNXDataType GetDPTType(string sizeInBit)
@@ -163,7 +229,7 @@ namespace UIEditor.Component
                     type = KNXDataType.Bit112;
                     break;
                 default:
-                    MessageBox.Show(ResourceMng.GetString("Message41"), ResourceMng.GetString("Message6"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(UIResMang.GetString("Message41"), UIResMang.GetString("Message6"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
             }
 

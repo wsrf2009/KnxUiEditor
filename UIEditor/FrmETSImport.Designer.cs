@@ -29,10 +29,13 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmETSImport));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonImportETSAddressXML = new System.Windows.Forms.Button();
+            this.btnFilter = new System.Windows.Forms.Button();
+            this.tbFilterText = new System.Windows.Forms.TextBox();
+            this.cbbFilterType = new System.Windows.Forms.ComboBox();
+            this.buttonImportOPC = new System.Windows.Forms.Button();
             this.buttonImportETSProject = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonFinish = new System.Windows.Forms.Button();
@@ -42,8 +45,9 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.label = new System.Windows.Forms.Label();
             this.pictureBox = new System.Windows.Forms.PictureBox();
-            this.backWorkerImport = new System.ComponentModel.BackgroundWorker();
+            this.backWorkerImportEtsProject = new System.ComponentModel.BackgroundWorker();
             this.backWorkerSave = new System.ComponentModel.BackgroundWorker();
+            this.backgroundWorkerImportOPC = new System.ComponentModel.BackgroundWorker();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -62,7 +66,10 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.buttonImportETSAddressXML);
+            this.panel1.Controls.Add(this.btnFilter);
+            this.panel1.Controls.Add(this.tbFilterText);
+            this.panel1.Controls.Add(this.cbbFilterType);
+            this.panel1.Controls.Add(this.buttonImportOPC);
             this.panel1.Controls.Add(this.buttonImportETSProject);
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonFinish);
@@ -70,12 +77,32 @@
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
-            // buttonImportETSAddressXML
+            // btnFilter
             // 
-            resources.ApplyResources(this.buttonImportETSAddressXML, "buttonImportETSAddressXML");
-            this.buttonImportETSAddressXML.Name = "buttonImportETSAddressXML";
-            this.buttonImportETSAddressXML.UseVisualStyleBackColor = true;
-            this.buttonImportETSAddressXML.Click += new System.EventHandler(this.buttonImportETSAddressXML_Click);
+            resources.ApplyResources(this.btnFilter, "btnFilter");
+            this.btnFilter.Name = "btnFilter";
+            this.btnFilter.UseVisualStyleBackColor = true;
+            this.btnFilter.Click += new System.EventHandler(this.btnFilter_Click);
+            // 
+            // tbFilterText
+            // 
+            resources.ApplyResources(this.tbFilterText, "tbFilterText");
+            this.tbFilterText.Name = "tbFilterText";
+            this.tbFilterText.TextChanged += new System.EventHandler(this.tbFilterText_TextChanged);
+            // 
+            // cbbFilterType
+            // 
+            this.cbbFilterType.FormattingEnabled = true;
+            resources.ApplyResources(this.cbbFilterType, "cbbFilterType");
+            this.cbbFilterType.Name = "cbbFilterType";
+            this.cbbFilterType.SelectedIndexChanged += new System.EventHandler(this.cbbFilterType_SelectedIndexChanged);
+            // 
+            // buttonImportOPC
+            // 
+            resources.ApplyResources(this.buttonImportOPC, "buttonImportOPC");
+            this.buttonImportOPC.Name = "buttonImportOPC";
+            this.buttonImportOPC.UseVisualStyleBackColor = true;
+            this.buttonImportOPC.Click += new System.EventHandler(this.buttonImportOPC_Click);
             // 
             // buttonImportETSProject
             // 
@@ -115,8 +142,8 @@
             // 
             this.dataGridView.AllowUserToAddRows = false;
             this.dataGridView.AllowUserToResizeRows = false;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.dataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.dataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
@@ -131,6 +158,7 @@
             this.dataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellContentClick);
             this.dataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellEndEdit);
             this.dataGridView.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dataGridView_CellPainting);
+            this.dataGridView.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView_ColumnHeaderMouseClick);
             this.dataGridView.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dataGridView_ColumnWidthChanged);
             this.dataGridView.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView_RowPostPaint);
             this.dataGridView.Scroll += new System.Windows.Forms.ScrollEventHandler(this.dataGridView_Scroll);
@@ -154,12 +182,12 @@
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.TabStop = false;
             // 
-            // backWorkerImport
+            // backWorkerImportEtsProject
             // 
-            this.backWorkerImport.WorkerReportsProgress = true;
-            this.backWorkerImport.WorkerSupportsCancellation = true;
-            this.backWorkerImport.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backWorkerImport_DoWork);
-            this.backWorkerImport.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backWorkerImport_RunWorkerCompleted);
+            this.backWorkerImportEtsProject.WorkerReportsProgress = true;
+            this.backWorkerImportEtsProject.WorkerSupportsCancellation = true;
+            this.backWorkerImportEtsProject.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backWorkerImport_DoWork);
+            this.backWorkerImportEtsProject.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backWorkerImport_RunWorkerCompleted);
             // 
             // backWorkerSave
             // 
@@ -167,6 +195,13 @@
             this.backWorkerSave.WorkerSupportsCancellation = true;
             this.backWorkerSave.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backWorkerSave_DoWork);
             this.backWorkerSave.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backWorkerSave_RunWorkerCompleted);
+            // 
+            // backgroundWorkerImportOPC
+            // 
+            this.backgroundWorkerImportOPC.WorkerReportsProgress = true;
+            this.backgroundWorkerImportOPC.WorkerSupportsCancellation = true;
+            this.backgroundWorkerImportOPC.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerImportOPC_DoWork);
+            this.backgroundWorkerImportOPC.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerImportOPC_RunWorkerCompleted);
             // 
             // FrmETSImport
             // 
@@ -177,6 +212,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmETSImport_FormClosing);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.panel3.ResumeLayout(false);
@@ -195,12 +231,16 @@
         private System.Windows.Forms.Button buttonBack;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.DataGridView dataGridView;
-        private System.ComponentModel.BackgroundWorker backWorkerImport;
-        private System.Windows.Forms.Button buttonImportETSAddressXML;
+        private System.ComponentModel.BackgroundWorker backWorkerImportEtsProject;
+        private System.Windows.Forms.Button buttonImportOPC;
         private System.Windows.Forms.Button buttonImportETSProject;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label;
         private System.Windows.Forms.PictureBox pictureBox;
         private System.ComponentModel.BackgroundWorker backWorkerSave;
+        private System.ComponentModel.BackgroundWorker backgroundWorkerImportOPC;
+        private System.Windows.Forms.TextBox tbFilterText;
+        private System.Windows.Forms.ComboBox cbbFilterType;
+        private System.Windows.Forms.Button btnFilter;
     }
 }

@@ -12,10 +12,14 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
-    <SccProjectName>Svn</SccProjectName>
-    <SccLocalPath>Svn</SccLocalPath>
-    <SccAuxPath>Svn</SccAuxPath>
-    <SccProvider>SubversionScc</SccProvider>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -25,6 +29,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -33,11 +38,13 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,12 +52,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Control\KNXAirCondition.cs" />
     <Compile Include="Control\KNXDigitalAdjustment.cs" />
+    <Compile Include="Control\KNXHVAC.cs" />
+    <Compile Include="Control\KNXImageButton.cs" />
+    <Compile Include="Control\KNXDimmer.cs" />
+    <Compile Include="Control\KNXMediaButton.cs" />
+    <Compile Include="Control\KNXShutter.cs" />
     <Compile Include="Control\KNXTimerButton.cs" />
+    <Compile Include="Control\KNXWebCamer.cs" />
     <Compile Include="KNXApp.cs" />
     <Compile Include="Control\KNXBlinds.cs" />
     <Compile Include="KNXContainer.cs" />
-    <Compile Include="KNXDatapointAction.cs" />
+    <Compile Include="KNXFont.cs" />
+    <Compile Include="KNXObject.cs" />
     <Compile Include="KNXSelectedAddress.cs" />
     <Compile Include="KNXView.cs" />
     <Compile Include="Control\KNXLabel.cs" />
@@ -65,8 +80,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="KNXRoom.cs" />
     <Compile Include="Control\KNXSwitch.cs" />
+    <Compile Include="KNXPadding.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Utils\Utils.csproj">
+      <Project>{99047ccd-8cd3-4389-bb8c-9e6627371f67}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

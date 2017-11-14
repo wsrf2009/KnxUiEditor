@@ -1,28 +1,33 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using SourceGrid;
-using SourceGrid.Cells.Editors;
-using SourceGrid.Cells.Views;
-using Structure;
-using UIEditor.Component;
-using Button = SourceGrid.Cells.Button;
-using System.Windows.Forms;
 using System.ComponentModel;
+using UIEditor.Component;
 using System.Drawing.Design;
+using Structure;
+using UIEditor.PropertyGridEditor;
+using System.Drawing;
 
 namespace UIEditor.Entity
 {
-    [TypeConverter(typeof(RoomNode.PropertyConverter))]
-    [Serializable]
+    [TypeConverter(typeof(RoomNode.PropertyConverter)), Serializable]
     public class RoomNode : ViewNode
     {
-        private static int index = 0;
+        #region 常量
+        private const string NAME_SYMBOL = "Symbol.png";
+        #endregion
 
-        [EditorAttribute(typeof(PropertyGridImageEditor), typeof(UITypeEditor))]
+        #region 变量
+        private static int index = 0;
+        #endregion
+
+        #region 属性
+        //[EditorAttribute(typeof(PropertyGridImageEditor), typeof(UITypeEditor)),
+        //TypeConverterAttribute(typeof(STImageConverter))]
+        //public Image Symbol { get; set; }
+        [EditorAttribute(typeof(PropertyGridStringImageEditor), typeof(UITypeEditor))]
         public string Symbol { get; set; }
 
         public string PinCode { get; set; }
@@ -30,23 +35,82 @@ namespace UIEditor.Entity
         /// <summary>
         /// 是否将该房间作为默认显示页面
         /// </summary>
+        [BrowsableAttribute(false)]
         public EBool IsDefaultRoom { get; set; }
+        #endregion
 
         #region 构造函数
-
         public RoomNode()
         {
             index++;
 
-            Text = ResourceMng.GetString("TextRoom") + "_" + index;
+            this.Name = ImageKey = SelectedImageKey = MyConst.View.KnxRoomType;
 
-            Symbol = MyConst.DefaultIcon;
-            PinCode = "";
+            this.Text = UIResMang.GetString("TextRoom");
+            this.Title = UIResMang.GetString("TextRoom") + index;
+            SetText(this.Title);
+
+            this.Symbol = ProjResManager.CopyImage(Path.Combine(MyCache.ProjectResImgDir, "room.png"));
+
+            //this.Symbol = ImageHelper.GetDiskImage(Path.Combine(MyCache.ProjectResImgDir, "Room.png"));
+            this.PinCode = "";
             this.IsDefaultRoom = EBool.No;
-
-            Name = ImageKey = SelectedImageKey = MyConst.View.KnxRoomType;
         }
 
+        public RoomNode(KNXRoom knx, BackgroundWorker worker)
+            : base(knx, worker)
+        {
+            Name = ImageKey = SelectedImageKey = MyConst.View.KnxRoomType;
+            SetText(this.Title);
+
+            if (ImportedHelper.IsLessThan2_0_3())
+            {
+                if (!string.IsNullOrEmpty(knx.Symbol))
+                {
+                    this.Symbol = ProjResManager.CopyImageSole(Path.Combine(this.ImagePath, knx.Symbol));
+                    //this.Symbol = ImageHelper.GetDiskImage(Path.Combine(this.ImagePath, knx.Symbol));
+                }
+            }
+            else if (ImportedHelper.IsLessThan2_5_6())
+            {
+                this.Symbol = ProjResManager.CopyImageSole(Path.Combine(this.ImagePath, NAME_SYMBOL));
+                //this.Symbol = ImageHelper.GetDiskImage(Path.Combine(this.ImagePath, NAME_SYMBOL));
+            }
+            else
+            {
+                this.Symbol = knx.Symbol;
+            }
+
+            PinCode = knx.PinCode;
+            this.IsDefaultRoom = (EBool)Enum.ToObject(typeof(EBool), knx.DefaultRoom);
+        }
+
+        public RoomNode(KNXRoom knx, BackgroundWorker worker, string DirSrcImg)
+            : this(knx, worker)
+        {
+            this.Id = GenId(); // 创建新的Id
+
+            //string knxImage = GetImageName(knx.Id); // KNX图片资源名称
+            //string knxImagePath = Path.Combine(DirSrcImg, knxImage); // KNX图片资源路径
+            //FileHelper.CopyFolderContent(knxImagePath, this.ImagePath, true); // 拷贝KNX图片资源
+
+            //this.Symbol = ImageHelper.GetDiskImage(Path.Combine(this.ImagePath, NAME_SYMBOL));
+
+            if (ImportedHelper.IsLessThan2_5_6())
+            {
+                string knxImage = GetImageName(knx.Id); // KNX图片资源名称
+                string knxImagePath = Path.Combine(DirSrcImg, knxImage); // KNX图片资源路径
+
+                this.Symbol = ProjResManager.CopyImageRename(Path.Combine(knxImagePath, NAME_SYMBOL));
+            }
+            else
+            {
+                this.Symbol = ProjResManager.CopyImageRename(Path.Combine(DirSrcImg, knx.Symbol));
+            }
+        }
+        #endregion
+
+        #region 克隆、复制
         public override object Clone()
         {
             RoomNode node = base.Clone() as RoomNode;
@@ -57,35 +121,70 @@ namespace UIEditor.Entity
             return node;
         }
 
-        public RoomNode(KNXRoom knx)
-            : base(knx)
+        public override object Copy()
         {
-            Symbol = knx.Symbol;
-            PinCode = knx.PinCode;
-            this.IsDefaultRoom = (EBool)Enum.ToObject(typeof(EBool), knx.DefaultRoom);
-
-            Name = ImageKey = SelectedImageKey = MyConst.View.KnxRoomType;
+            RoomNode node = base.Copy() as RoomNode;
+            node.SetText(node.Title);
+            return node;
         }
-
-        protected RoomNode(SerializationInfo info, StreamingContext context) : base(info, context) { }
-
         #endregion
 
-        public KNXRoom ToKNX()
+        #region 覆写方法
+        public override void SetText(string title)
+        {
+            base.SetText(UIResMang.GetString("TextRoom"));
+        }
+
+        public override string GetText(string text)
+        {
+            return base.GetText(UIResMang.GetString("TextRoom"));
+        }
+        #endregion
+
+        #region 导出
+        public KNXRoom ToKnx(BackgroundWorker worker)
         {
             var knx = new KNXRoom();
 
-            base.ToKnx(knx);
+            base.ToKnx(knx, worker);
 
             knx.Symbol = this.Symbol;
+            //ImageHelper.SaveImageAsPNG(this.Symbol, Path.Combine(this.ImagePath, NAME_SYMBOL));
             knx.PinCode = this.PinCode;
             knx.DefaultRoom = (int)this.IsDefaultRoom;
 
             knx.Pages = new List<KNXPage>();
 
+            //foreach (string file in Directory.GetFiles(this.ImagePath))
+            //{
+            //    string fileName = file.Substring(file.LastIndexOf("\\") + 1);
+            //    if (fileName == NAME_SYMBOL)
+            //    {
+            //        continue;
+            //    }
+            //    else
+            //    {
+            //        File.Delete(file);
+            //    }
+            //}
+
+            MyCache.ValidResImgNames.Add(knx.Symbol);
+
             return knx;
         }
 
+        public KNXRoom ExportTo(BackgroundWorker worker, string dir)
+        {
+            KNXRoom knx = this.ToKnx(worker);
+
+            knx.Symbol = FileHelper.CopyFileSole(Path.Combine(MyCache.ProjImgPath, this.Symbol), dir);
+            //FileHelper.CopyFolder(this.ImagePath, dir, true);
+
+            return knx;
+        }
+        #endregion
+
+        #region 属性框显示
         private class PropertyConverter : ExpandableObjectConverter
         {
             public override PropertyDescriptorCollection GetProperties(ITypeDescriptorContext context, object value, Attribute[] attributes)
@@ -94,32 +193,39 @@ namespace UIEditor.Entity
 
                 List<PropertyDescriptor> list = new List<PropertyDescriptor>();
 
-                STControlPropertyDescriptor propText = new STControlPropertyDescriptor(collection["Text"]);
-                propText.SetCategory(ResourceMng.GetString("CategoryAppearance"));
-                propText.SetDisplayName(ResourceMng.GetString("PropText"));
-                propText.SetDescription(ResourceMng.GetString("DescriptionForPropText"));
-                list.Add(propText);
+                //STControlPropertyDescriptor propId = new STControlPropertyDescriptor(collection["Id"]);
+                //propId.SetCategory(UIResMang.GetString("CategoryId"));
+                //propId.SetDisplayName(UIResMang.GetString("PropId"));
+                //propId.SetIsReadOnly(true);
+                //list.Add(propId);
+
+                STControlPropertyDescriptor propTitle = new STControlPropertyDescriptor(collection["Title"]);
+                propTitle.SetCategory(UIResMang.GetString("CategoryTitle"));
+                propTitle.SetDisplayName(UIResMang.GetString("PropTitle"));
+                //propTitle.SetDescription(UIResMang.GetString("DescriptionForPropTitle"));
+                list.Add(propTitle);
+
+                STControlPropertyDescriptor PropTitleFont = new STControlPropertyDescriptor(collection["TitleFont"]);
+                PropTitleFont.SetCategory(UIResMang.GetString("CategoryTitle"));
+                PropTitleFont.SetDisplayName(UIResMang.GetString("PropFont"));
+                //PropTitleFont.SetDescription(UIResMang.GetString("DescriptionForPropTitleFont"));
+                list.Add(PropTitleFont);
 
                 STControlPropertyDescriptor PropIcon = new STControlPropertyDescriptor(collection["Symbol"]);
-                PropIcon.SetCategory(ResourceMng.GetString(""));
-                PropIcon.SetDisplayName(ResourceMng.GetString("PropIcon"));
-                PropIcon.SetDescription(ResourceMng.GetString(""));
+                PropIcon.SetCategory(UIResMang.GetString(""));
+                PropIcon.SetDisplayName(UIResMang.GetString("PropIcon"));
+                PropIcon.SetDescription(UIResMang.GetString(""));
                 list.Add(PropIcon);
 
                 STControlPropertyDescriptor PropPassword = new STControlPropertyDescriptor(collection["PinCode"]);
-                PropPassword.SetCategory(ResourceMng.GetString(""));
-                PropPassword.SetDisplayName(ResourceMng.GetString("PropPassword"));
-                PropPassword.SetDescription(ResourceMng.GetString(""));
+                PropPassword.SetCategory(UIResMang.GetString(""));
+                PropPassword.SetDisplayName(UIResMang.GetString("PropPassword"));
+                PropPassword.SetDescription(UIResMang.GetString(""));
                 list.Add(PropPassword);
-
-                STControlPropertyDescriptor PropIsDefaultRoom = new STControlPropertyDescriptor(collection["IsDefaultRoom"]);
-                PropIsDefaultRoom.SetCategory(ResourceMng.GetString(""));
-                PropIsDefaultRoom.SetDisplayName(ResourceMng.GetString("PropIsDefaultRoom"));
-                PropIsDefaultRoom.SetDescription(ResourceMng.GetString(""));
-                list.Add(PropIsDefaultRoom);
 
                 return new PropertyDescriptorCollection(list.ToArray());
             }
         }
+        #endregion
     }
 }

@@ -1,10 +1,11 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+
 namespace Structure.Control
 {
-
     /// <summary>
     /// 窗帘开关
+    /// 弃用于2.7.1
+    /// 有 @KNXShutter 代替
     /// </summary>
     public class KNXBlinds : KNXControlBase
     {
@@ -17,39 +18,49 @@ namespace Structure.Control
         /// 写地址列表
         /// </summary>
         public Dictionary<string, KNXSelectedAddress> WriteAddressIds { get; set; }
+
+        /// <summary>
+        /// 已被弃用。2.1.1
+        /// </summary>
         public string LeftImage { get; set; }
+
         public string LeftText { get; set; }
+
+        /// <summary>
+        /// 已被弃用。2.5.2
+        /// </summary>
         public int LeftTextFontSize { get; set; }
+
+        /// <summary>
+        /// 已被弃用。2.5.2
+        /// </summary>
         public string LeftTextFontColor { get; set; }
+
+        /// <summary>
+        /// 新增于2.5.2
+        /// </summary>
+        public KNXFont LeftTextFont { get; set; }
+
+        /// <summary>
+        /// 已被弃用。2.1.1
+        /// </summary>
         public string RightImage { get; set; }
+
         public string RightText { get; set; }
+
+        /// <summary>
+        /// 已被弃用。2.5.2
+        /// </summary>
         public int RightTextFontSize { get; set; }
+
+        /// <summary>
+        /// 已被弃用。2.5.2
+        /// </summary>
         public string RightTextFontColor { get; set; }
 
-        ///// <summary>
-        ///// true：只有一个标签，标签将显示在百叶窗控制中心
-        ///// false：在左右各显示的标签，
-        ///// </summary>
-        //public bool HasSingleLabel { get; set; }
-
-        ///// <summary>
-        ///// 左标签
-        ///// </summary>
-        //public string LeftText { get; set; }
-
-        ///// <summary>
-        ///// 右标签
-        ///// </summary>
-        //public string RightText { get; set; }
-
-        ///// <summary>
-        ///// 是否有长按事件
-        ///// </summary>
-        //public bool HasLongClickCommand { get; set; }
-
-        ///// <summary>
-        ///// 滑块两侧要显示的符号
-        ///// </summary>
-        //public string ControlSymbol { get; set; }
+        /// <summary>
+        /// 新增于2.5.2
+        /// </summary>
+        public KNXFont RightTextFont { get; set; }
     }
 }

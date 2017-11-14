@@ -5,15 +5,15 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using Structure;
-using UIEditor.GroupAddress;
-using Structure.ETS;
 using UIEditor.Component;
 using System.Threading;
 using System.ComponentModel;
-using UIEditor.KNX.DatapointType;
+using GroupAddress;
+using KNX.DatapointType;
+using Utils;
 
-namespace UIEditor
+
+namespace UIEditor.Component
 {
     public static class ETSImport
     {
@@ -32,7 +32,6 @@ namespace UIEditor
         private static string strComObjectRef = "ComObjectRef";
 
         private static string attrObjectSize = "ObjectSize";
-        //private static string attrComObject = "ComObject";
         private static string attrRefId = "RefId";
         private static string attrText = "Text";
         private static string attrPriority = "Priority";
@@ -41,15 +40,6 @@ namespace UIEditor
         private static string attrCommunicationFlag = "CommunicationFlag";
         private static string attrTransmitFlag = "TransmitFlag";
         private static string attrUpdateFlag = "UpdateFlag";
-
-        //private static string strDatapointSubtype = "DatapointSubtype";
-        //private static string attrNumber = "Number";
-        //private static string attrSizeInBit = "SizeInBit";
-
-        //
-        private const string ETS5 = "ETS5";
-        private const string ETS4 = "ETS4";
-        private const string ETS3 = "ETS3";
 
         #region 解析ETS
 
@@ -89,7 +79,6 @@ namespace UIEditor
             return knxGroupAddress;
         }
 
-
         /// <summary>
         /// 解析ETS文件
         /// </summary>
@@ -103,13 +92,13 @@ namespace UIEditor
             // 如果文件存在
             if (File.Exists(etsProjectFile) == true)
             {
-                worker.ReportProgress(0, ResourceMng.GetString("TextIsUnziping"));
+                worker.ReportProgress(0, UIResMang.GetString("TextIsUnziping"));
 
                 // 在当前位置解压文件
                 string directoryName = Path.GetDirectoryName(etsProjectFile);
                 ZipHelper.UnZipDir(etsProjectFile, directoryName);
 
-                worker.ReportProgress(0, ResourceMng.GetString("TextIsCaluculating"));
+                worker.ReportProgress(0, UIResMang.GetString("TextIsCaluculating"));
 
                 // 查找 0.xml 文件
                 const string addressFileName = "0.xml";
@@ -139,8 +128,13 @@ namespace UIEditor
                                                 select new
                                                 {
                                                     GroupAddressRefId = item.Attribute(strGroupAddressRefId).Value,
-                                                    ComObjectInstanceRefId = xElement.Parent.Attribute(strRefId).Value,
-                                                }).ToLookup(p => p.GroupAddressRefId, p => p.ComObjectInstanceRefId);
+                                                    ComObjectInstance = xElement.Parent,
+                                                    //ComObjectInstanceRefId = xElement.Parent.Attribute(strRefId).Value,
+                                                }).ToLookup(
+                                                    p => p.GroupAddressRefId, 
+                                                    p => p.ComObjectInstance
+                                                    //p => p.ComObjectInstanceRefId
+                                                    );
 
                     Dictionary<string, XDocument> xDocs = new Dictionary<string, XDocument>();
 
@@ -155,13 +149,27 @@ namespace UIEditor
                         addr.Name = address.Name;
                         addr.KnxAddress =  KNXAddressHelper.AddressToString(Convert.ToUInt16(address.KnxAddress));
                         addr.DPTName = address.DPTName;
-                        float f = i++ / len;
+                        parseDatapointType(addr);
 
-                        worker.ReportProgress((int)(f * 100), ResourceMng.GetString("TextIsImportingGroupAddress") + " " + address.Name + " " + addr.KnxAddress);
+                        float f = i++ / len;
+                        worker.ReportProgress((int)(f * 100), UIResMang.GetString("TextIsImportingGroupAddress") + " " + address.Name + " " + addr.KnxAddress);
 
                         if (comObjectInstanceRef.Contains(address.Id))
                         {
+<<<<<<< HEAD
                             var comObjectInstanceRefId = comObjectInstanceRef[address.Id].First<string>();
+=======
+                            XElement comObjectInstance = comObjectInstanceRef[address.Id].First<XElement>();
+                            if((null == addr.DPTName) || (addr.DPTName.Trim().Length <= 0) || (addr.DPTName.Contains("*"))) 
+                            {
+                                if (null != comObjectInstance.Attribute(attrDatapointType))
+                                {
+                                    addr.DPTName = comObjectInstance.Attribute(attrDatapointType).Value;
+                                    parseDatapointType(addr);
+                                }
+                            }
+                            var comObjectInstanceRefId = comObjectInstance.Attribute(strRefId).Value;
+>>>>>>> SationKNXUIEditor-Modify
 
                             var index1 = comObjectInstanceRefId.IndexOf('_');
                             var index2 = comObjectInstanceRefId.IndexOf('_', index1 + 1);
@@ -195,21 +203,37 @@ namespace UIEditor
                                 parseComObject(addr, comObjectRef);
                             }
 
-                            parseDatapointType(addr);
+                            //parseDatapointType(addr);
+                            var formName = typeof(FrmGroupAddressMgt).Name;
+                            if (Application.OpenForms[formName] != null)
+                            {
+                                var frm = Application.OpenForms[formName] as FrmGroupAddressMgt;
+                                if (frm != null)
+                                {
+                                    if (frm.AddressIsExsit(addr.KnxAddress))
+                                    {
+                                        addr.IsSelected = false;
+                                    }
+                                }
+                            }
+                            //if (ProjResManager.AddressIsExsit(addr.KnxAddress))
+                            //{
+                            //    addr.IsSelected = false;
+                            //}
+                            listAddress.Add(addr);
                         }
                         else
                         {
-                            parseDatapointType(addr);
-                            addr.IsSelected = false;
+                            //parseDatapointType(addr);
+                            //addr.IsSelected = false;
                         }
 
-                        bool isExsit = MyCache.AddressIsExsit(addr.KnxAddress);
-                        if (isExsit)
-                        {
-                            addr.IsSelected = false;
-                        }
+                        //if (MyCache.AddressIsExsit(addr.KnxAddress))
+                        //{
+                        //    addr.IsSelected = false;
+                        //}
 
-                        listAddress.Add(addr);
+                        //listAddress.Add(addr);
                     }
                 }
             }
@@ -241,14 +265,26 @@ namespace UIEditor
                 address.Priority = KNXAddressHelper.GetKNXPriority(priority.Value);
             }
 
+            if (null != datapointType && null != datapointType.Value)
+            {
+                if((null == address.DPTName) || (address.DPTName.Trim().Length <= 0) || (address.DPTName.Contains("*"))) 
+                {
+                    address.DPTName = datapointType.Value;
+                    parseDatapointType(address);
+                }
+            }
+
             if (objectSize != null)
             {
-                // 数据类型
-                address.DPTName = DatapointType.GetDPTMainName(KNXAddressHelper.GetKnxDataType(objectSize.Value));
-                if (address.DPTName.Length > 0)
+                if((null == address.DPTName) || (address.DPTName.Trim().Length <= 0) || (address.DPTName.Contains("*"))) 
                 {
-                    address.IsSelected = true;
-                    address.DPTNameIsDetermined = false;
+                    // 数据类型
+                    address.DPTName = DPTHelper.GetDPTMainName(KNXAddressHelper.GetKnxDataType(objectSize.Value));
+                    if (address.DPTName.Length > 0)
+                    {
+                        address.IsSelected = true;
+                        address.DPTNameIsDetermined = false;
+                    }
                 }
             }
 
@@ -311,11 +347,6 @@ namespace UIEditor
                     address.IsUpgrade = true;
                 }
             }
-
-            if (null != datapointType && null != datapointType.Value)
-            {
-                address.DPTName = datapointType.Value;
-            }
         }
 
         /// <summary>
@@ -367,17 +398,81 @@ namespace UIEditor
                         knxSubNum = MyCache.DicSubNumber[subNum];
                     }
 
-                    address.DPTName = DatapointType.GetDPTName(knxMainNum, knxSubNum);
+                    address.DPTName = DPTHelper.GetDPTName(knxMainNum, knxSubNum);
                     if (address.DPTName.Length > 0)
                     {
                         address.IsSelected = true;
                         address.DPTNameIsDetermined = true;
                     }
-                    
                 }
             }
         }
 
+        public static List<ImGroupAddr> ParseOpcFile(string opcFile, BackgroundWorker worker)
+        {
+            List<ImGroupAddr> listAddr = new List<ImGroupAddr>();
+
+            string[] lines = File.ReadAllLines(opcFile, System.Text.Encoding.Default);
+            foreach (string line in lines)
+            {
+                string[] elements = line.Split('\t');
+                if (elements.Length >= 4)
+                {
+                    ImGroupAddr addr = new ImGroupAddr();
+                    addr.Id = Guid.NewGuid().ToString();
+                    addr.IsCommunication = true;
+                    addr.IsRead = true;
+                    addr.IsTransmit = true;
+                    addr.IsUpgrade = true;
+                    addr.IsWrite = true;
+
+                    string[] group = elements[0].Split('.');
+                    if (group.Length >= 3)
+                    {
+                        addr.KnxAddress = group[2];
+                    }
+
+                    addr.Name = elements[1];
+
+                    worker.ReportProgress(0, addr.Name);
+                    
+                    int start = elements[2].IndexOf('(');
+                    int end = elements[2].IndexOf(')');
+                    if ((start > 0) && (end > start)) {
+                        string type = elements[2].Substring(start+1, end-(start+1));
+                        addr.DPTName = DPTHelper.GetDPTMainName(KNXAddressHelper.GetKnxDataType(type));
+                        if (addr.DPTName.Length > 0)
+                        {
+                            //addr.IsSelected = true;
+                            addr.DPTNameIsDetermined = false;
+                        }
+                    }
+
+                    var formName = typeof(FrmGroupAddressMgt).Name;
+                    if (Application.OpenForms[formName] != null)
+                    {
+                        var frm = Application.OpenForms[formName] as FrmGroupAddressMgt;
+                        if (frm != null)
+                        {
+                            if (frm.AddressIsExsit(addr.KnxAddress))
+                            {
+                                addr.IsSelected = false;
+                            }
+                            else
+                            {
+                                addr.IsSelected = true;
+                            }
+                        }
+                    }
+
+                    addr.Priority = KNXAddressHelper.GetKNXPriority(elements[3]);
+
+                    listAddr.Add(addr);
+                }
+            }
+
+            return listAddr;
+        }
         #endregion
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-
 namespace Structure
 {
     /// <summary>
@@ -16,6 +15,7 @@ namespace Structure
 
         /// <summary>
         /// 企业 Logo
+        /// 已被弃用。2.1.1
         /// </summary>
         public string Logo { get; set; }
 
@@ -23,6 +23,11 @@ namespace Structure
         /// 应用程序图标
         /// </summary>
         public string Symbol { get; set; }
+
+        ///// <summary>
+        ///// 控件的背景图片
+        ///// </summary>
+        //public string BackgroundImage { get; set; }
 
         /// <summary>
         /// 空间划分
