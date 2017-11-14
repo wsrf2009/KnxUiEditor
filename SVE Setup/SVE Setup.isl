@@ -347,6 +347,7 @@
 		<row><td>ISX_DEFAULTCOMPONENT2</td><td>{285518EF-70A5-463B-86BB-12894CD036FE}</td><td>IMAGES</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT3</td><td>{E2746EBB-5F7F-4EF2-81CE-CBCF42F0CAA9}</td><td>ZH_CN</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT4</td><td>{E8435B35-9D77-4C97-974A-685FCAB4893E}</td><td>CONTROLS</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>IS_ININSTALL_SHORTCUT</td><td>{22AF7F88-9C9C-4837-B4C8-63884DE613D2}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>Ionic.Zip.dll</td><td>{0611FAA2-E699-439A-B52D-BFCCA9FC8234}</td><td>INSTALLDIR</td><td>2</td><td/><td>ionic.zip.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>KNX.dll</td><td>{DBCCA38D-2E47-43A6-9673-D2430CAF487F}</td><td>INSTALLDIR</td><td>2</td><td/><td>knx.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>KNX.resources.dll</td><td>{B9B5109B-16F5-4BE7-9603-CFD1D6CBD145}</td><td>ZH_CN</td><td>2</td><td/><td>knx.resources.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
@@ -1071,6 +1072,7 @@
 	<table name="CreateFolder">
 		<col key="yes" def="s72">Directory_</col>
 		<col key="yes" def="s72">Component_</col>
+		<row><td>INSTALLDIR</td><td>IS_ININSTALL_SHORTCUT</td></row>
 		<row><td>INSTALLDIR</td><td>NewComponent1</td></row>
 		<row><td>INSTALLDIR</td><td>NewComponent2</td></row>
 		<row><td>INSTALLDIR</td><td>NewComponent3</td></row>
@@ -1902,6 +1904,7 @@
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT2</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT3</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT4</td></row>
+		<row><td>AlwaysInstall</td><td>IS_ININSTALL_SHORTCUT</td></row>
 		<row><td>AlwaysInstall</td><td>Ionic.Zip.dll</td></row>
 		<row><td>AlwaysInstall</td><td>KNX.dll</td></row>
 		<row><td>AlwaysInstall</td><td>KNX.resources.dll</td></row>
@@ -2156,6 +2159,7 @@
 		<row><td>ISX_DEFAULTCOMPONENT2</td><td/><td/><td>_26A4FC31_87FB_4E2D_BC6D_F0B0F7023B3D_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT3</td><td/><td/><td>_062B8E40_CE42_46A0_AEAD_65F1CF5B2184_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT4</td><td/><td/><td>_01E9387D_A005_41EA_A647_2380D8936995_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>IS_ININSTALL_SHORTCUT</td><td/><td/><td>_EF27B069_C898_4A0C_9995_FEF1E1EC74FF_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>Ionic.Zip.dll</td><td/><td/><td>_490E5D0B_68BC_4D6E_B6A5_5A8041561449_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>KNX.dll</td><td/><td/><td>_4C3E2CD7_999A_49B7_9FA1_F344757F48ED_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>KNX.resources.dll</td><td/><td/><td>_FFB6013D_CD34_4207_8A50_A4B05E7F3A54_FILTER</td><td/><td/><td/><td/></row>
@@ -3920,7 +3924,7 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>-635056944</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>-635056944</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>-635056944</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>http://www.Sation.com</td><td>0</td><td/><td>1562736942</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>http://www.sation.com.cn</td><td>0</td><td/><td>1973773360</td></row>
 		<row><td>ID_STRING10</td><td>1033</td><td>Sation Visual Editor 2.0</td><td>0</td><td/><td>-635056944</td></row>
 		<row><td>ID_STRING11</td><td>1033</td><td>SVE2.exe</td><td>0</td><td/><td>-635056944</td></row>
 		<row><td>ID_STRING12</td><td>1033</td><td>SVE2.exe</td><td>0</td><td/><td>-635056944</td></row>
@@ -4067,7 +4071,7 @@
 		<row><td>SVE2.exe_03551D7D4CDE427C8113D4227580AB02.exe</td><td/><td>&lt;VSSolutionFolder&gt;\UIEditor\bin\Release\BuildingDesignSuite_128.ico</td><td>0</td></row>
 		<row><td>SVE2.exe_65CBE6EDDC984E73B0D12A491B9F0745.exe</td><td/><td>&lt;VSSolutionFolder&gt;\UIEditor\bin\Release\BuildingDesignSuite_128.ico</td><td>0</td></row>
 		<row><td>SVE2.exe_A3F0DEA22CC94A598F577C788CA49342.exe</td><td/><td>&lt;VSSolutionFolder&gt;\UIEditor\bin\Release\BuildingDesignSuite_128.ico</td><td>0</td></row>
-		<row><td>UNINST_Uninstall_S_9C469F182D014ED0B22B90AC33644A70.exe</td><td/><td>C:\Program Files (x86)\InstallShield\2013LE\Redist\Language Independent\OS Independent\uninstall.ico</td><td>0</td></row>
+		<row><td>UNINST_Uninstall_S_57575F63DB5F436986617250D029EA66.exe</td><td/><td>C:\Program Files (x86)\InstallShield\2015LE\Redist\Language Independent\OS Independent\uninstall.ico</td><td>0</td></row>
 	</table>
 
 	<table name="IniFile">
@@ -4579,9 +4583,9 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
 		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]SVE2.exe</td><td/></row>
-		<row><td>ProductCode</td><td>{6699BDE5-D063-4882-B010-06C9FD720598}</td><td/></row>
+		<row><td>ProductCode</td><td>{5FAF2A37-0A1D-4FEC-8628-F38DD972A6FB}</td><td/></row>
 		<row><td>ProductName</td><td>SVE2</td><td/></row>
-		<row><td>ProductVersion</td><td>2.7.4</td><td/></row>
+		<row><td>ProductVersion</td><td>2.7.5</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
@@ -4663,7 +4667,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="i2">InstallMode</col>
 		<row><td>FileKey1</td><td>SVE2.exe</td><td/><td>sve2</td><td>2</td></row>
 		<row><td>SVE2.exe</td><td>SVE2.exe</td><td/><td>sve2</td><td>2</td></row>
-		<row><td>UNINST_Uninstall_SVE2</td><td>NewComponent6</td><td/><td>sve2</td><td>2</td></row>
+		<row><td>UNINST_Uninstall_SVE2</td><td>IS_ININSTALL_SHORTCUT</td><td/><td>sve2</td><td>2</td></row>
 	</table>
 
 	<table name="RemoveIniFile">
@@ -4751,7 +4755,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="I4">ISAttributes</col>
 		<row><td>SVE2.exe</td><td>sve2</td><td>##IDS_SHORTCUT_DISPLAY_NAME19##</td><td>SVE2.exe</td><td>AlwaysInstall</td><td/><td/><td/><td>SVE2.exe_A3F0DEA22CC94A598F577C788CA49342.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
 		<row><td>SVE2.exe1</td><td>DesktopFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME19##</td><td>SVE2.exe</td><td>AlwaysInstall</td><td/><td/><td/><td>SVE2.exe1_555D421DC3864F2B8215D6F828AD0FB7.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>UNINST_Uninstall_SVE2</td><td>sve2</td><td>UNINST|Uninstall SVE2</td><td>NewComponent6</td><td>[SystemFolder]msiexec.exe</td><td>/x {F0D591B8-A4C6-4CDD-A361-69BE6078D3DF}</td><td/><td/><td>UNINST_Uninstall_S_9C469F182D014ED0B22B90AC33644A70.exe</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>UNINST_Uninstall_SVE2</td><td>sve2</td><td>UNINST|Uninstall SVE2</td><td>IS_ININSTALL_SHORTCUT</td><td>[SystemFolder]msiexec.exe</td><td>/x {53085754-DFF8-45FD-8690-E9A69C1EBBB7}</td><td/><td/><td>UNINST_Uninstall_S_57575F63DB5F436986617250D029EA66.exe</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">
